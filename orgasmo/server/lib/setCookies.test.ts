@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import nookies from 'nookies';
 
 import setCookies from './setCookies';
@@ -53,7 +51,9 @@ describe('setCookies', () => {
         ], ctx: null });
 
         expect(nookies.set).toHaveBeenCalledTimes(2);
+        // @ts-ignore
         expect(nookies.set.mock.calls[0]).toEqual([null, 'test-name', 'test-value', {}]);
+        // @ts-ignore
         expect(nookies.set.mock.calls[1]).toEqual([null, 'test-name-2', 'test-value-2', {}]);
 
     })
