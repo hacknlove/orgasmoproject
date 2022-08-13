@@ -18,7 +18,6 @@ export default async function getRows({ rows: rowsProp, params, ctx, driver, lim
         setCookies({ ctx, cookies: rowConfig.cookies });
 
         const row = await processRow({ rowConfig, params, driver })
-        console.debug(row)
         if (row?.props?.getMore) {
             row.props.getMore = serialize({
                 getMore: row.props.getMore,
