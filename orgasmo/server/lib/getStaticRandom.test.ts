@@ -28,7 +28,20 @@ describe("getStaticRandom", () => {
         expect(nookies.get).not.toHaveBeenCalled();
         expect(nookies.set).not.toHaveBeenCalled();
     })
+    it('returns 0 is user.staticRandom is 0', () => {
+        const ctx = {
+            req: {
+                user: {
+                    staticRandom: 0
+                }
+            }
+        }
+        const random = getStaticRandom(ctx);
 
+        expect(random).toBe(0);
+        expect(nookies.get).not.toHaveBeenCalled();
+        expect(nookies.set).not.toHaveBeenCalled();
+    })
     it('returns staticRandom from the cookie if exists', () => {
         // @ts-ignore
         nookies.get.mockReturnValue({ o_sr: "0.42" });
