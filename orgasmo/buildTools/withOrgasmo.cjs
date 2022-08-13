@@ -8,7 +8,6 @@ module.exports = ({
     driver = true,
     components = true
 } = {}) => cb => async (phase, ...other) => {
-    debugger
     const isDevelopmentServer = phase === PHASE_DEVELOPMENT_SERVER
     await Promise.all([
         {

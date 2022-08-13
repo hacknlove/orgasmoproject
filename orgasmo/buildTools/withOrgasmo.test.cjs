@@ -37,7 +37,6 @@ describe('withOrgasmo', () => {
         })
     })
     it('in development phase,  isDevelopmentServer is true', async () => {
-        debugger
         await (withOrgasmo({
             scss: 'scss param',
             driver:  'driver param',
