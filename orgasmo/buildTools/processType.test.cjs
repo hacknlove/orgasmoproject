@@ -12,7 +12,7 @@ jest.mock('./components/config.cjs', () => config);
 const processType = require('./processType.cjs');
 const { importAll, watchAll } = require('./importAll.cjs')
 
-console.log = jest.fn();
+jest.spyOn(console, 'log').mockImplementation(() => {});
 
 describe('processType', () => {
     it('exits if not enabled', () => {

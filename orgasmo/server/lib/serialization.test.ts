@@ -37,6 +37,6 @@ it('throws if the signature is wrong', () => {
 
     const badSignature = data.substring(0, 35) + other.substring(35);
 
-    console.error = () => {};
+    jest.spyOn(console, 'error').mockImplementation(() => {});
     expect(parse(badSignature)).toEqual({ error: 'Signature is invalid' });
 })

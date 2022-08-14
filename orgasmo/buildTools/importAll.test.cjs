@@ -1,4 +1,4 @@
-console.log = () => {}
+jest.spyOn(console, 'log').mockImplementation(() => {});
 jest.mock('glob',  () => jest.fn((param, callback) => callback(null, ['paths', 'from', 'glob'])))
 
 const watcher = {
