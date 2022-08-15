@@ -19,7 +19,7 @@ describe('getServerSidePropsFactory', () => {
             user: {
                 getUser: jest.fn().mockResolvedValue(null),
             },
-            pages: {
+            page: {
                 getPage: jest.fn().mockResolvedValue(null),
             },
         }
@@ -34,7 +34,7 @@ describe('getServerSidePropsFactory', () => {
         expect(result).toEqual({
             notFound: true,
         });
-        expect(driver.pages.getPage).toHaveBeenCalledWith(ctx);
+        expect(driver.page.getPage).toHaveBeenCalledWith(ctx);
         expect(driver.user.getUser).toHaveBeenCalledWith(ctx);
         // @ts-ignore
         expect(ctx.res.page).toBe(null);
@@ -47,7 +47,7 @@ describe('getServerSidePropsFactory', () => {
             user: {
                 getUser: jest.fn().mockResolvedValue(null),
             },
-            pages: {
+            page: {
                 getPage: jest.fn().mockResolvedValue({
                     redirect: '/',
                 }),
@@ -73,7 +73,7 @@ describe('getServerSidePropsFactory', () => {
                     staticRandom: 0
                 }),
             },
-            pages: {
+            page: {
                 getPage: jest.fn().mockResolvedValue([
                     {
                         redirect: 'this',
@@ -106,7 +106,7 @@ describe('getServerSidePropsFactory', () => {
             user: {
                 getUser: jest.fn().mockResolvedValue(null),
             },
-            pages: {
+            page: {
                 getPage: jest.fn().mockResolvedValue({
                     cookies: 'cookies-test',
                 }),
@@ -127,7 +127,7 @@ describe('getServerSidePropsFactory', () => {
             user: {
                 getUser: jest.fn().mockResolvedValue({ id: 'user-id-test' }),
             },
-            pages: {
+            page: {
                 getPage: jest.fn().mockResolvedValue({
                     id: 'page-id-test',
                     getParams: 'foo.getPageParams',

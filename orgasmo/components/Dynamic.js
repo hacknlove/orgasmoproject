@@ -2,8 +2,8 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import useScroll from './useScroll'
 import useRows from './useRows'
 
-export default memo(function Dynamic ({ src, rows: rowsProp, Components }) {
-  const { rows, getRow, noMore } = useRows({ src, rows: rowsProp })
+export default memo(function Dynamic ({ getMore, rows: rowsProp, Components }) {
+  const { rows, getRow, noMore } = useRows({ getMore, rows: rowsProp })
 
   useEffect(() => {
     getRow()
@@ -59,4 +59,4 @@ export default memo(function Dynamic ({ src, rows: rowsProp, Components }) {
       <div style={{ height: underTheBottomRows.reduce((r, i) => r + i, 0) }}/>
     </>
   )
-}, (prev, next) => prev.src === next.src)
+}, (prev, next) => prev.getMore === next.getMore)

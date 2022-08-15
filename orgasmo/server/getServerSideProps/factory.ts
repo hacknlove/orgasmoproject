@@ -9,7 +9,7 @@ export default function getServerSidePropsFactory ({ driver }) {
   return withCleanJson(async (ctx) => {
     const user = ctx.req.user = await driver.user.getUser(ctx);
 
-    let page = ctx.res.page = await driver.pages.getPage(ctx);
+    let page = ctx.res.page = await driver.page.getPage(ctx);
 
     if (!page) {
       return {

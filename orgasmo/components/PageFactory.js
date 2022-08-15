@@ -7,11 +7,11 @@ export default function PageFactory ({ Components }) {
       pre,
       rows,
       post,
-      src,
+      getMore,
   }) => (
       <>
         <Static rows={pre} Components={Components} />
-        <Dynamic rows={rows} src={src} Components={Components} />
+        <Dynamic rows={rows} getMore={getMore} Components={Components} />
         <Static rows={post} Components={Components} />
       </>    
   )

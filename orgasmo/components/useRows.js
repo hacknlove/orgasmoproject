@@ -12,7 +12,7 @@ async function cachedFetch(url) {
   return response
 } 
 
-export default function useRows({ src, rows: rowsProp = [] }) {
+export default function useRows({ getMore, rows: rowsProp = [] }) {
   const [rows, setRows] = useState(rowsProp)
 
   const [noMore, setNoMore] = useState(false)
@@ -21,11 +21,12 @@ export default function useRows({ src, rows: rowsProp = [] }) {
   const getRow = useCallback(async () => {
     if (noMore) return
     
+    let resolve
     const myWait = wait.current
     wait.current = new Promise(res => resolve = res)
     await myWait
 
-    let resolve
+
 
     const rows = await new Promise(resolve => {
       setRows(current => {
@@ -34,7 +35,7 @@ export default function useRows({ src, rows: rowsProp = [] }) {
       })
     })
     
-    const row = await cachedFetch(`/api/_?c=${src}&n=${rows.length}`)
+    const row = await cachedFetch(`/api/_?c=${getMore}&n=${rows.length}`)
 
     if (!row) {
       setNoMore(true)
@@ -46,7 +47,7 @@ export default function useRows({ src, rows: rowsProp = [] }) {
     setRows(current => [...current, row])
 
     resolve()
-  }, [noMore, setRows, setNoMore, src, wait])
+  }, [noMore, setRows, setNoMore, getMore, wait])
 
   return { rows, getRow, noMore }
 }

@@ -15,21 +15,21 @@ describe("getRow", () => {
         jest.resetAllMocks()
     })
 
-    it('calls driverpages.getRow to get the row', async () => {
-        const driver = { pages: { getRow: jest.fn() } };
+    it('calls driver.page.getRow to get the row', async () => {
+        const driver = { page: { getRow: jest.fn() } };
         const command = { pageId: 'getRow-test' };
 
         
         await getRow({ ...ctx, req: { query: { n: 4 } }, command, driver });
 
-        expect(driver.pages.getRow).toHaveBeenCalledTimes(1);
-        expect(driver.pages.getRow).toHaveBeenCalledWith({ pageId: 'getRow-test', params: undefined, number: 4 });
+        expect(driver.page.getRow).toHaveBeenCalledTimes(1);
+        expect(driver.page.getRow).toHaveBeenCalledWith({ pageId: 'getRow-test', params: undefined, number: 4 });
         expect(ctx.res.json).toHaveBeenCalledTimes(1);
         expect(ctx.res.json).toHaveBeenCalledWith(null);
     })
 
     it('chooses one if the row is an array', async () => {
-        const driver = { pages: { getRow: jest.fn(() => [{ type: 'test-1' }, { type: 'test-2' }]) } };
+        const driver = { page: { getRow: jest.fn(() => [{ type: 'test-1' }, { type: 'test-2' }]) } };
         const command = {};
 
         
