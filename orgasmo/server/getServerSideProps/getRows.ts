@@ -22,7 +22,7 @@ export default async function getRows({ rows: rowsProp, params, ctx, driver, lim
             row.props.getMore = serialize({
                 getMore: row.props.getMore,
                 expire: Date.now() + 3600000,
-                userId: ctx.user?.id,
+                userId: ctx.req.user?.id,
             })
         }
         

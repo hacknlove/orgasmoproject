@@ -82,7 +82,7 @@ describe("getRows", () => {
         (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ( rowConfig ));
         (serialize as jest.Mock).mockImplementation(getMore => getMore);
 
-        await getRows({ rows, params: {}, ctx: { user: { id: 'test-user-id' }}, driver: {} });
+        await getRows({ rows, params: {}, ctx: { req: { user: { id: 'test-user-id' } }}, driver: {} });
         expect(rows[0].props.getMore).toEqual({
             getMore: {},
             expire:  expect.any(Number),
@@ -97,7 +97,7 @@ describe("getRows", () => {
         (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ( rowConfig ));
         (serialize as jest.Mock).mockImplementation(getMore => getMore);
 
-        await getRows({ rows, params: {}, ctx: {}, driver: {} });
+        await getRows({ rows, params: {}, ctx: { req: {} }, driver: {} });
         expect(rows[0].props.getMore).toEqual({
             getMore: {},
             expire:  expect.any(Number),
