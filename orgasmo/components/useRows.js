@@ -35,7 +35,7 @@ export default function useRows({ getMore, rows: rowsProp = [] }) {
       })
     })
     
-    const row = await cachedFetch(`/api/_?c=${getMore}&n=${rows.length}`)
+    const row = getMore && await cachedFetch(`/api/_?c=${getMore}&n=${rows.length}`)
 
     if (!row) {
       setNoMore(true)
