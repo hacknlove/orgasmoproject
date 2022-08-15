@@ -116,6 +116,7 @@ describe("apiFactory", () => {
     it('without driver.security does not crashes', async () => {
         const api = apiFactory({ driver });
 
+        // @ts-ignore
         delete driver.security;
 
         await api({

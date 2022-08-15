@@ -1,6 +1,6 @@
 
 import processRow from "../lib/processRow";
-import choseOne from "../lib/chooseOne";
+import chooseOne from "../lib/chooseOne";
 import { serialize } from "../lib/serialization";
 import setCookies from "../lib/setCookies";
 
@@ -13,7 +13,7 @@ export default async function getRows({ rows: rowsProp, params, ctx, driver, lim
 
     for (let rowConfig of rowsProp) {
         if (Array.isArray(rowConfig)) {
-            rowConfig = choseOne({ array: rowConfig, staticRandom: ctx.staticRandom });
+            rowConfig = chooseOne({ array: rowConfig, staticRandom: ctx.staticRandom });
         }
         setCookies({ ctx, cookies: rowConfig.cookies });
 
@@ -26,6 +26,7 @@ export default async function getRows({ rows: rowsProp, params, ctx, driver, lim
             })
         }
         
+        // @ts-ignore
         rows.push(row);
         if (!--limit) {
             break;

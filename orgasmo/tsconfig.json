@@ -1,5 +1,40 @@
 {
   "compilerOptions": {
-    "esModuleInterop": false
-  }
+    "target": "es2020",
+    "module": "commonjs",
+    "allowJs": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "strict": true,
+    "lib": [
+      "es2020"
+    ],
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "paths": {
+      "~/*": [
+        "./*"
+      ]
+    },
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "**/*",
+  ],
+  "exclude": ["node_modules", "buildTools", "dist", "**/*.test.ts"]
 }

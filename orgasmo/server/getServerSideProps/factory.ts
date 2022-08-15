@@ -1,4 +1,4 @@
-import choseOne from '../lib/chooseOne';
+import chooseOne from '../lib/chooseOne';
 import { withCleanJson } from '../lib/cleanJson';
 import getRows from "./getRows";
 import { serialize } from '../lib/serialization';
@@ -20,7 +20,7 @@ export default function getServerSidePropsFactory ({ driver }) {
     const staticRandom = ctx.staticRandom = getStaticRandom(ctx);
 
     if (Array.isArray(page)) {
-      page = choseOne({ array: page, staticRandom });
+      page = chooseOne({ array: page, staticRandom });
     }
 
     if (page.redirect) {

@@ -1,5 +1,4 @@
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
-const withTM = require('next-transpile-modules')(['orgasmo']);
 
 const processType = require('./processType.cjs')
 
@@ -28,7 +27,7 @@ module.exports = ({
     ].map(processType))
 
     if (cb instanceof Function) {
-        return withTM(await cb(phase, ...other))
+        return cb(phase, ...other)
     }
-    return withTM(cb)
+    return cb
 }

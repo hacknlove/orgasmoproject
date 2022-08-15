@@ -1,5 +1,3 @@
-const withTM = jest.fn(() => 'withTM');
-jest.mock('next-transpile-modules', () => jest.fn(() => withTM))
 jest.mock('./processType.cjs', () => jest.fn(() => jest.fn(() => 'processType')))
 
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
@@ -77,15 +75,5 @@ describe('withOrgasmo', () => {
             isEnabled: true,
             isDevelopmentServer: false,
         })
-    })
-    it('calls withTM with the result of calling cb (if cb is a function)', async () => {
-        await (withOrgasmo()(() => 'nextConfigReturn'))()
-
-        expect(withTM.mock.calls[0][0]).toEqual('nextConfigReturn')
-    })
-
-    it('calls withTM with cb itself if it\'s not a function', async () => {
-        await (withOrgasmo()('nextConfigItself'))()
-        expect(withTM.mock.calls[0][0]).toEqual('nextConfigItself')
     })
 })
