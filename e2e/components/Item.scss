@@ -1,0 +1,29 @@
+.Item {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background: black;
+    border: 5px solid rgba(40, 106, 106);
+    box-shadow:
+        0px 6px 10px rgba(40, 106, 106, 0.2),
+        0px -6px 10px rgba(40, 106, 106, 0.2),
+        6px 0px 10px rgba(40, 106, 106, 0.2),
+        -6px 0px 10px rgba(40, 106, 106, 0.2);
+    color: white;
+    overflow: hidden;
+
+    &>div>span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 500px;
+        mix-blend-mode: difference;
+        animation-name: rotate;
+        animation-duration: 10s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+}

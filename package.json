@@ -10,6 +10,7 @@
   "license": "ISC",
   "workspaces": [
     "orgasmo",
-    "example"
+    "example",
+    "e2e"
   ]
 }
