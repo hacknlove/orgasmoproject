@@ -76,4 +76,12 @@ describe('withOrgasmo', () => {
             isDevelopmentServer: false,
         })
     })
+    it('calls cb and returns its response (if cb is a function)', async () => {
+        const cb = () => 'cb response'
+        expect(await (withOrgasmo()(cb))()).toBe('cb response')
+    })
+
+    it('calls withTM with cb itself if it\'s not a function', async () => {
+        expect(await (withOrgasmo()('nextConfigItself'))()).toBe('nextConfigItself')
+    })
 })
