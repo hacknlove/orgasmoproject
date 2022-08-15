@@ -1,6 +1,4 @@
-import React from 'react';
 import { useEffect, useRef, useState } from "react";
-import ChevronSvg from "components/icons/chevron.svg";
 import useItems from "./useItems";
 
 function getTranslateX(ref) {
@@ -16,6 +14,8 @@ export default function Slider({
     items: itemsProp,
     getMore: getMoreProps,
     cardWidth,
+    ButtonNext,
+    ButtonPrev,
     ...other
 }) {
     const {
@@ -231,7 +231,7 @@ export default function Slider({
     return (
         <div className="Slider">
       {
-        showPrev && <div className="SliderButton prev" onClick={prev} role="button" aria-label="prev"><ChevronSvg /></div>
+        showPrev && <ButtonPrev className="SliderButton prev" onClick={prev} role="button" aria-label="prev" />
       }
       <div ref={ref} className="SliderRow" role="list">
         {
@@ -251,7 +251,7 @@ export default function Slider({
         }
       </div>
       {
-        showNext && <div className="SliderButton next" role="button" aria-label="next" onClick={next}><ChevronSvg /></div>
+        showNext && <ButtonNext className="SliderButton next" role="button" aria-label="next" onClick={next} />
       }
         </div>
     )

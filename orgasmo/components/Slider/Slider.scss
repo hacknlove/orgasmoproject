@@ -14,24 +14,15 @@
 .SliderButton {
   display: none;
   position: absolute;
-  top: 0;
-  justify-content: center;
-  align-items: center;
-  height: 180px;
-  width: 75px;
   z-index: 999;
-  font-size: 20px;
-  background: #0004;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  &:hover {
-    background: #0009;
-  }
   &.prev {
     left: 0;
   }
   
   &.next {
-    transform: rotate(180deg);
     right: 0;
   }
 }
