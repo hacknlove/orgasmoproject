@@ -40,4 +40,16 @@ describe("getRow", () => {
         await getRow({ ...ctx, req: { user: { staticRandom: 0.9 }, query: { n: 4 } }, command, driver });
         expect(ctx.res.json).toHaveBeenCalledWith({ type: 'test-2', props: {} });
     })
+
+    it('serializes props.getMore if defined', async () => {
+        const driver = { page: { getRow: jest.fn(() => ({ type: 'test-1', props: { getMore: { handler: 'test' } } })) } };
+        const command = {};
+
+
+        await getRow({ ...ctx, req: { user: { staticRandom: 0.9 }, query: { n: 4 } }, command, driver });
+
+        expect(ctx.res.json.mock.calls[0][0]).toEqual({ type: 'test-1', props: {
+            getMore: expect.any(String)
+        } });
+    })
 })
