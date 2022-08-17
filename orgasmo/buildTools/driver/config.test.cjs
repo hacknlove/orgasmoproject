@@ -14,6 +14,7 @@ test('driver regexp gets the full path and the file name from components startin
         filename: 'bar',
         from: './drivers/mocked/foo/bar.export.js',
         route: 'foo',
+        type: 'export'
     })
     expect(regexp.exec(files[1])).toBeNull()
     expect(regexp.exec(files[2])).toBeNull()
@@ -38,14 +39,16 @@ test('driver globPath finds files from the driver folder ending with export', (d
     })
 })
 
-test('driver fileFromImports returns a js source from imports', () => {
-    const imports = [
-        { filename: 'foo', from: './drivers/mocked/something/foo.export.tsx', name: 'foo', importName: 'foo', route: 'something' },
-        { filename: 'bar', from: './drivers/mocked/something/bar.export.tsx', name: 'bar', importName: 'bar', route: 'something' },
-    ]
-    const expected = `/* This file is created automatically at build time, there is no need to commit it */
+describe('driver fileFromImport', () => {
+    test('it returns a js source from imports', () => {
+        const imports = [
+            { filename: 'foo', from: './drivers/mocked/something/foo.export.tsx', name: 'foo', importName: 'foo', route: 'something', type: 'export' },
+            { filename: 'bar', from: './drivers/mocked/something/bar.export.tsx', name: 'bar', importName: 'bar', route: 'something', type: 'export' },
+        ]
+        const expected = `/* This file is created automatically at build time, there is no need to commit it */
 // @ts-nocheck
 
+import events from 'orgasmo/events'
 import foo from './drivers/mocked/something/foo.export.tsx';
 import bar from './drivers/mocked/something/bar.export.tsx';
 
@@ -59,11 +62,55 @@ all.something = {}
 all.something.foo = foo
 all.something.bar = bar
 
+
 export default all
 `
-    const actual = fileFromImports(imports)
-    expect(actual).toEqual(expected)
+        const actual = fileFromImports(imports)
+        expect(actual).toEqual(expected)
+    })
+
+    it('uses the package name if provided', () => {
+        const imports = [
+            { filename: 'foo', from: './drivers/mocked/something/foo.export.tsx', name: 'foo', importName: 'foo', route: 'something', type: 'export' },
+            { filename: 'bar', from: './drivers/mocked/something/bar.export.tsx', name: 'bar', importName: 'bar', route: 'something', type: 'export' },
+            {
+                filename: 'onSomething', from: './drivers/mocked/something/onSomething.export.tsx', name: 'onSomething', importName: 'route1ーonSomething', route: 'route1', type: 'event'
+            },
+            {
+                filename: 'onSomething', from: './drivers/mocked/something/onSomething.export.tsx', name: 'onSomething', importName: 'route2ーonSomething', route: 'route2', type: 'event'
+            },
+        ]
+        const expected = `/* This file is created automatically at build time, there is no need to commit it */
+// @ts-nocheck
+
+import events from 'orgasmo/events'
+import external from foo-package
+
+import foo from './drivers/mocked/something/foo.export.tsx';
+import bar from './drivers/mocked/something/bar.export.tsx';
+
+
+const all = {
+  ...external,
+  ['something.foo']: foo,
+  ['something.bar']: bar,
+}
+
+all.something = {}
+all.something.foo = foo
+all.something.bar = bar
+
+events.on('onSomething', route1ーonSomething)
+events.on('onSomething', route2ーonSomething)
+
+export default all
+`
+        const actual = fileFromImports(imports, 'foo-package')
+        expect(actual).toEqual(expected)
+    })
+
 })
+
 
 describe('driver map', () => {
     it('adds the importName and the name fields', () => {

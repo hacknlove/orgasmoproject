@@ -26,11 +26,13 @@ describe('withOrgasmo', () => {
         expect(processType.mock.calls[1][0]).toEqual({
             type: 'driver',
             isEnabled: 'driver param',
+            package: 'driver param',
             isDevelopmentServer: false,
         })
         expect(processType.mock.calls[2][0]).toEqual({
             type: 'components',
             isEnabled: 'components param',
+            package: 'components param',
             isDevelopmentServer: false,
         })
     })
@@ -49,12 +51,14 @@ describe('withOrgasmo', () => {
         expect(processType.mock.calls[1][0]).toEqual({
             type: 'driver',
             isEnabled: 'driver param',
+            package: 'driver param',
             isDevelopmentServer: true,
         })
         expect(processType.mock.calls[2][0]).toEqual({
             type: 'components',
             isEnabled: 'components param',
             isDevelopmentServer: true,
+            package: 'components param',
         })
     })
     it('all types default to true', async () => {
@@ -69,11 +73,13 @@ describe('withOrgasmo', () => {
             type: 'driver',
             isEnabled: true,
             isDevelopmentServer: false,
+            package: false
         })
         expect(processType.mock.calls[2][0]).toEqual({
             type: 'components',
             isEnabled: true,
             isDevelopmentServer: false,
+            package: false
         })
     })
     it('calls cb and returns its response (if cb is a function)', async () => {

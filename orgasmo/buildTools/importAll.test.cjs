@@ -40,7 +40,7 @@ describe('importAll', () => {
 
         expect(glob.mock.calls[0][0]).toBe('some/glob/path')
         expect(parseFiles).toHaveBeenCalledWith(['paths', 'from', 'glob'], /some-regexp/, someMapFunction)
-        expect(fileFromImports).toHaveBeenCalledWith([{ fileName: 'filename', from: 'from' }])
+        expect(fileFromImports).toHaveBeenCalledWith([{ fileName: 'filename', from: 'from' }], undefined)
         expect(writeFile).toHaveBeenCalledWith('some/filename', 'fileFromImports')
     })
 })

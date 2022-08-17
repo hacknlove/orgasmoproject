@@ -35,10 +35,10 @@ export default function getServerSidePropsFactory ({ driver }) {
     
     return {
       props: {
-          pre: getRows({
+          top: getRows({
             ctx,
             params,
-            rows: page.pre,
+            rows: page.top,
             driver,
           }),
           rows: getRows({
@@ -48,11 +48,11 @@ export default function getServerSidePropsFactory ({ driver }) {
             driver,
             limit: page.rowsLimit
           }),
-          post: getRows({
+          bottom: getRows({
             ctx,
             params,
             driver,
-            rows: page.post
+            rows: page.bottom
           }),
           getMore: page.rowsLimit && serialize({
               getRow: {

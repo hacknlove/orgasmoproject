@@ -5,10 +5,20 @@ import getMore from "./getMore";
 
 import apiFactory from "./factory";
 
+import events from "../events";
+
+
 jest.mock('./getRow');
 jest.mock('./getMore');
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
+
+jest.mock('../events', () => ({
+    __esModule: true,
+    default: {
+        emit: jest.fn(),
+    }
+}));
 
 const driver = {
     user: {
@@ -46,7 +56,7 @@ describe("apiFactory", () => {
         expect(res.json).toHaveBeenCalledWith({
             error: 'bad signed',
         });
-        expect(driver.security.badSigned).toHaveBeenCalledWith({ req, command: {
+        expect(events.emit).toHaveBeenCalledWith('badSigned', { req, command: {
             error: 'Signature is invalid',
         }});
     })
@@ -61,7 +71,7 @@ describe("apiFactory", () => {
         expect(res.json).toHaveBeenCalledWith({
             error: 'expired signature',
         });
-        expect(driver.security.expiredSignature).toHaveBeenCalledWith({ req, command: {
+        expect(events.emit).toHaveBeenCalledWith('expiredSignature', { req, command: {
             expire: 0,
         }});
     })
@@ -76,7 +86,7 @@ describe("apiFactory", () => {
         expect(res.json).toHaveBeenCalledWith({
             error: 'wrong user',
         });
-        expect(driver.security.wrongUser).toHaveBeenCalledWith({ req, command: {
+        expect(events.emit).toHaveBeenCalledWith('wrongUser', { req, command: {
             userId: 'wrong user',
         }});
     })
@@ -91,7 +101,7 @@ describe("apiFactory", () => {
         expect(res.json).toHaveBeenCalledWith({
             error: 'unknown command',
         });
-        expect(driver.security.unknownCommand).toHaveBeenCalledWith({ req, command: { userId: 'test-user-id', unknown: 'command'}});
+        expect(events.emit).toHaveBeenCalledWith('unknownCommand', { req, command: { userId: 'test-user-id', unknown: 'command'}});
     })
     it('calls getMore if the command is getMore', async () => {
         const api = apiFactory({ driver });
@@ -112,32 +122,5 @@ describe("apiFactory", () => {
         };
         await api(req, res);
         expect(getRow).toHaveBeenCalledWith({ req, res, command: { handler: 'getRow'}, driver });
-    })
-    it('without driver.security does not crashes', async () => {
-        const api = apiFactory({ driver });
-
-        // @ts-ignore
-        delete driver.security;
-
-        await api({
-            query: {
-                c: 'bad signed',
-            }
-        }, res)
-        await api({
-            query: {
-                c: serialize({ expire: 0}),
-            },
-        }, res)
-        await api({
-            query: {
-                c: serialize({ userId: 'wrong user'}),
-            },
-        }, res)
-        await api({
-            query: {
-                c: serialize({ userId: 'test-user-id', unknown: 'command'}),
-            },
-        }, res)
     })
 });

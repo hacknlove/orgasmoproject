@@ -17,12 +17,14 @@ module.exports = ({
         {
             type: 'driver',
             isEnabled: driver,
-            isDevelopmentServer
+            isDevelopmentServer,
+            package: typeof driver === 'string' && driver
         },
         {
             type: 'components',
             isEnabled: components,
-            isDevelopmentServer
+            isDevelopmentServer,
+            package: typeof components === 'string' && components
         },
     ].map(processType))
 

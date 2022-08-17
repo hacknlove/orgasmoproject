@@ -16,14 +16,15 @@
     "seedrandom": "^3.0.5"
   },
   "exports": {
-    "./withOrgasmo": "./buildTools/withOrgasmo.cjs",
-    "./Slider": "./dist/components/Slider/Slider.js",
-    "./Slider.scss": "./components/Slider/Slider.scss",
     "./api": "./dist/server/api/factory.js",
-    "./PageFactory": "./dist/components/PageFactory.js",
-    "./getServerSidePropsFactory": "./dist/server/getServerSideProps/factory.js",
     "./cleanJson": "./dist/server/lib/cleanJson.js",
-    "./serialization": "./dist/server/lib/serialization.js"
+    "./getServerSidePropsFactory": "./dist/server/getServerSideProps/factory.js",
+    "./events": "./dist/server/events.js",
+    "./PageFactory": "./dist/components/PageFactory.js",
+    "./serialization": "./dist/server/lib/serialization.js",
+    "./Slider.scss": "./components/Slider/Slider.scss",
+    "./Slider": "./dist/components/Slider/Slider.js",
+    "./withOrgasmo": "./buildTools/withOrgasmo.cjs"
   },
   "devDependencies": {
     "@testing-library/react": "^13.3.0",

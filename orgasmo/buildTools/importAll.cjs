@@ -5,6 +5,7 @@ const { writeFile } = require('fs').promises
 const parseFiles = require('./parseFiles.cjs')
 
 async function importAll ({
+  package,
   globPath,
   regexp,
   map,
@@ -15,7 +16,7 @@ async function importAll ({
 
   const imports = parseFiles(files, regexp, map)
 
-  const string = fileFromImports(imports)
+  const string = fileFromImports(imports, package)
 
   await writeFile(filename, string).catch(console.error);
   console.log(filename, 'updated')
