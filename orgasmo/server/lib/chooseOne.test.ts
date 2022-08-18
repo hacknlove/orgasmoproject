@@ -8,6 +8,9 @@ jest.mock("seedrandom", () => ({
 }));
 
 describe('choseOne', () => {
+    it('returns null if the array is empty', () => {
+        expect(choseOne({ array: [], staticRandom: 0 })).toBeNull();
+    })
     it('generates a random number seeded with staticRandom and randomSeed if the first element of the array has randomSeed', () => {
         const array = [{ randomSeed: 'test', ratio: 1 }, { ratio: 1 }, { ratio: 1 }];
         const staticRandom = 0.9;

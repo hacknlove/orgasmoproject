@@ -1,15 +1,22 @@
-import { serialize } from "../lib/serialization";
-
 import getRow from "./getRow";
 import getMore from "./getMore";
+import apiCall from "./apiCall";
 
 import apiFactory from "./factory";
 
-import events from "../events";
 
-
-jest.mock('./getRow');
-jest.mock('./getMore');
+jest.mock('./getRow', () => ({
+    __esModule: true,
+    default: jest.fn(),
+}));
+jest.mock('./getMore', () => ({
+    __esModule: true,
+    default: jest.fn(),
+}));
+jest.mock('./apiCall', () => ({
+    __esModule: true,
+    default: jest.fn(),
+}));
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 
@@ -20,107 +27,45 @@ jest.mock('../events', () => ({
     }
 }));
 
-const driver = {
-    user: {
-        getUser: jest.fn(() => Promise.resolve({ id: 'test-user-id' })),
-    },
-    security: {
-        badSigned: jest.fn(),
-        expiredSignature: jest.fn(),
-        wrongUser: jest.fn(),
-        unknownCommand: jest.fn(),
-    },
-}
+const driver = {}
 
-const res = {
-    json: jest.fn(),
-}
+const res = {}
 
-
-describe("apiFactory", () => {
+describe('apiFactory', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     }),
-    it('returns a function', () => {
-        expect(typeof apiFactory({ driver: {} })).toBe('function');
-    })
-    it('return an error if the signature is not valid and calls the driver', async () => {
-        const api = apiFactory({ driver });
-
+    it('calls getRow if the first part of orgasmo is _ogr', async () => {
         const req = {
             query: {
-                c: 'this is not a valid serialized command',
-            }
+                orgasmo: ['_ogr'],
+            },
         }
-        await api(req, res);
-        expect(res.json).toHaveBeenCalledWith({
-            error: 'bad signed',
-        });
-        expect(events.emit).toHaveBeenCalledWith('badSigned', { req, command: {
-            error: 'Signature is invalid',
-        }});
+        await apiFactory({ driver })(req, res);
+        expect(getRow).toHaveBeenCalledWith({ driver, req, res });
+        expect(getMore).not.toHaveBeenCalled();
+        expect(apiCall).not.toHaveBeenCalled();
     })
-    it('return an error if the signature is expired', async () => {
-        const api = apiFactory({ driver });
+    it('calls getMore if the first part of orgasmo is _ogm', async () => {
         const req = {
             query: {
-                c: serialize({ expire: 0}),
+                orgasmo: ['_ogm'],
             },
-        };
-        await api(req, res);
-        expect(res.json).toHaveBeenCalledWith({
-            error: 'expired signature',
-        });
-        expect(events.emit).toHaveBeenCalledWith('expiredSignature', { req, command: {
-            expire: 0,
-        }});
+        }
+        await apiFactory({ driver })(req, res);
+        expect(getMore).toHaveBeenCalledWith({ driver, req, res });
+        expect(getRow).not.toHaveBeenCalled();
+        expect(apiCall).not.toHaveBeenCalled();
     })
-    it('return an error if the user is not the same', async () => {
-        const api = apiFactory({ driver });
+    it('calls apiCall if the first part of orgasmo is not _ogr or _ogm', async () => {
         const req = {
             query: {
-                c: serialize({ userId: 'wrong user'}),
+                orgasmo: ['test'],
             },
-        };
-        await api(req, res);
-        expect(res.json).toHaveBeenCalledWith({
-            error: 'wrong user',
-        });
-        expect(events.emit).toHaveBeenCalledWith('wrongUser', { req, command: {
-            userId: 'wrong user',
-        }});
+        }
+        await apiFactory({ driver })(req, res);
+        expect(getMore).not.toHaveBeenCalled();
+        expect(getRow).not.toHaveBeenCalled();
+        expect(apiCall).toHaveBeenCalledWith({ driver, req, res });
     })
-    it('returns an error if the command is unknown', async () => {
-        const api = apiFactory({ driver });
-        const req = {
-            query: {
-                c: serialize({ userId: 'test-user-id', unknown: 'command'}),
-            },
-        };
-        await api(req, res);
-        expect(res.json).toHaveBeenCalledWith({
-            error: 'unknown command',
-        });
-        expect(events.emit).toHaveBeenCalledWith('unknownCommand', { req, command: { userId: 'test-user-id', unknown: 'command'}});
-    })
-    it('calls getMore if the command is getMore', async () => {
-        const api = apiFactory({ driver });
-        const req = {
-            query: {
-                c: serialize({ userId: 'test-user-id', getMore: { handler: 'getMore' }}),
-            },
-        };
-        await api(req, res);
-        expect(getMore).toHaveBeenCalledWith({ req, res, command: { handler: 'getMore'}, driver });
-    })
-    it('calls getRow if the command is getRow', async () => {
-        const api = apiFactory({ driver });
-        const req = {
-            query: {
-                c: serialize({ userId: 'test-user-id', getRow: { handler: 'getRow' }}),
-            },
-        };
-        await api(req, res);
-        expect(getRow).toHaveBeenCalledWith({ req, res, command: { handler: 'getRow'}, driver });
-    })
-});
+})

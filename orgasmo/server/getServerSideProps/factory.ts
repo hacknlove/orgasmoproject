@@ -55,10 +55,8 @@ export default function getServerSidePropsFactory ({ driver }) {
             rows: page.bottom
           }),
           getMore: page.rowsLimit && serialize({
-              getRow: {
-                pageId: page.id,
-                params
-              },
+              pageId: page.id,
+              params,
               userId: user.id,
               expire: Date.now() + 86400000, // 1 day in ms = 24 * 60 * 60 * 1000 = 86400000
           }),

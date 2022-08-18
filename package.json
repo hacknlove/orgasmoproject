@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run build -w orgasmo && npm run test -w orgasmo && npm run test -w e2e",
-    "build": "npm run build -w orgasmo"
+    "build": "npm run build -w orgasmo",
+    "dev": "nodemon --exec \"npm run build && npm run dev -w e2e\""
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,8 @@
     "orgasmo",
     "example",
     "e2e"
-  ]
+  ],
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }

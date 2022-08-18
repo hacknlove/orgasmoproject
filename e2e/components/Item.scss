@@ -12,13 +12,13 @@
         -6px 0px 10px rgba(40, 106, 106, 0.2);
     color: white;
     overflow: hidden;
-
+    
     &>div>span {
+        font-size: 500px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 500px;
         mix-blend-mode: difference;
         animation-name: rotate;
         animation-duration: 10s;
@@ -26,4 +26,19 @@
         animation-timing-function: linear;
     }
 
+}
+
+.fullWidth {
+    overflow: hidden;
+    border: 5px solid rgba(40, 106, 106);
+
+    .Item {
+        --viewWidth: 100vw;
+        width: 100vw;
+        height: 100vw;
+        scale: 2.5;
+        &>div>span {
+            font-size: 100vw;
+        }
+    }
 }

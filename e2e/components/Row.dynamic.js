@@ -1,4 +1,4 @@
-import Item from "./Item";
+import Item from "./Item.dynamic";
 import Slider from "orgasmo/Slider"
 import { OouiArrowNextLtr } from './Icons'
 import { OouiArrowPreviousLtr } from './Icons'

@@ -84,7 +84,6 @@ describe("getRows", () => {
 
         await getRows({ rows, params: {}, ctx: { req: { user: { id: 'test-user-id' } }}, driver: {} });
         expect(rows[0].props.getMore).toEqual({
-            getMore: {},
             expire:  expect.any(Number),
             userId: 'test-user-id',
         });
@@ -99,7 +98,6 @@ describe("getRows", () => {
 
         await getRows({ rows, params: {}, ctx: { req: {} }, driver: {} });
         expect(rows[0].props.getMore).toEqual({
-            getMore: {},
             expire:  expect.any(Number),
             userId: undefined,
         });

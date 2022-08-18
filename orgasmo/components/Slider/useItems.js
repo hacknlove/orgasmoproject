@@ -10,7 +10,7 @@ export default function useItems({ items: itemsProp, getMore: getMoreProps }) {
         if (!getMore) return
         setLoading(true)
 
-        return fetch(`/api/_?c=${getMore}&from=${items.length}&count=${n}`)
+        return fetch(`/api/_ogm?c=${getMore}&from=${items.length}&count=${n}`)
             .then(res => res.json())
             .then(res => {
                 setItems(items.concat(res.items))

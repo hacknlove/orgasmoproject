@@ -1,6 +1,6 @@
 const driver = process.env.ORGASMO_DRIVER || 'mocked'
 
-const regexp = new RegExp(`^(?<from>\\./drivers/(${driver}|common)/(?<route>.*)/(?<filename>[^/]+)\\.(?<type>export|event)\\.m?[tj]s)$`)
+const regexp = new RegExp(`^(?<from>\\./drivers/(${driver}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event)\\.m?[tj]s)$`)
 const globPath = `./drivers/{${driver},common}/**/*.{export,event}.{js,ts}`
 const filename = './driver.js'
 
