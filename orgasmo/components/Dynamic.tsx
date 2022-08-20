@@ -1,16 +1,16 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import useScroll from './useScroll'
 import useRows from './useRows'
 
-export default memo(function Dynamic ({ getMore, rows: rowsProp, Components }) {
-  const { rows, getRow, noMore } = useRows({ getMore, rows: rowsProp })
+export default memo(function Dynamic ({ getMore, rows: rowsProp, Components }: Record<string, any>) {
+  const { rows, getRow, noMore } = useRows({ getMore, rows: rowsProp }) as { rows: Record<string, any>[], getRow: Function, noMore: boolean }
 
   useEffect(() => {
     getRow()
   }, [])
 
-  const [overTheTopRows, setOverTheTopRows] = useState([])
-  const [underTheBottomRows, setUnderTheBottomRows] = useState([])
+  const [overTheTopRows, setOverTheTopRows] = useState([] as number[])
+  const [underTheBottomRows, setUnderTheBottomRows] = useState([] as number[])
 
   const onHideBotton = useCallback((element) => {
       setUnderTheBottomRows(current => [...current, element.getClientRects()[0].height])

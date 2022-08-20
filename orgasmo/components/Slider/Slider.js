@@ -196,7 +196,7 @@ export default function Slider({
         await getMoreItems(cardsInView);
       }
   
-       await new Promise(resolve => setTimeout(resolve,  500))
+       await new Promise(resolve => setTimeout(resolve,  1000))
    
       if (targetTranslateX !== max || hasMore) {
         setShowNext(true);
@@ -225,7 +225,7 @@ export default function Slider({
           setShowPrev(true);
         }
         updateMaxMin();
-      }, 100)
+      }, 1000)
     }
 
     return (

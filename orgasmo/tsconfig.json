@@ -10,13 +10,15 @@
     ],
     "types": [
       "node",
-      "jest"
+      "jest",
+      "@testing-library/jest-dom"
     ],
     "sourceMap": true,
     "outDir": "./dist/",
     "strict": true,
     "lib": [
-      "es2020"
+      "es2020",
+      "DOM"
     ],
     "baseUrl": ".",
     "noImplicitAny": false,
@@ -36,5 +38,5 @@
   "include": [
     "**/*",
   ],
-  "exclude": ["node_modules", "buildTools", "dist", "**/*.test.ts"]
+  "exclude": ["node_modules", "buildTools", "dist", "**/*.test.ts", "**/*.test.tsx"]
 }

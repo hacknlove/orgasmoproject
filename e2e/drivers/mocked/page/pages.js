@@ -44,7 +44,10 @@ export default {
         id: 'basiclayout',
         top: [
             {
-                type: 'Header'
+                type: 'Header',
+                props: {
+                    text: 'Basic Layout test'
+                }
             }
         ],
         rows: [
@@ -63,5 +66,25 @@ export default {
                 type: 'Footer'
             }
         ]
+    },
+    horizontalscroll: {
+        id: 'horizontalscroll',
+        top: [
+            {
+                type: 'Header',
+                props: {
+                    text: 'Horizontal Scroll test'
+                }
+            }
+        ],
+        rows: [
+            {
+                type: 'Row',
+                props: {
+                    title: 'Horizontal Scroll'
+                },
+                getProps: 'secuential.rows',
+            }
+        ],
     }
 }

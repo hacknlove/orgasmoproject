@@ -27,6 +27,9 @@ export default function Item ({ string, number, className }) {
                     }
                 </div>
             </div>
+            <div style={{ textAlign: 'center' }}>
+            {letters}
+            </div>
         </div>
     )
 }

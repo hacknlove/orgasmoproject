@@ -19,7 +19,9 @@ export default function getStaticRandom (ctx) {
         httpOnly: true,
     })
 
-    ctx.req.user = random
+    if (ctx.req.user) {
+        ctx.req.user.staticRandom = random
+    }
     
     return random
 }

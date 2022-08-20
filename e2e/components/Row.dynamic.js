@@ -11,7 +11,7 @@ export default function Row ({ items, getMore, title }) {
                 Component={Item}
                 items={items}
                 getMore={getMore}
-                cardWidth={210}
+                cardWidth={220}
                 ButtonNext={OouiArrowNextLtr}
                 ButtonPrev={OouiArrowPreviousLtr}
             />

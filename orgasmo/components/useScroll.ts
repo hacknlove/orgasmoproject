@@ -7,8 +7,8 @@ export default function useScroll ({
   onShowTop,
   threshold
 }) {
-  const ref = useRef(null)
-  const scroll = useRef(null)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const scroll = useRef(null  as null | number)
 
   useEffect(() => {
     if (!ref.current) return
@@ -18,7 +18,7 @@ export default function useScroll ({
 
       const currentScroll = window.scrollY
 
-      const scrollDiff = currentScroll - scroll.current
+      const scrollDiff = currentScroll - (scroll.current as number)
       scroll.current = currentScroll
 
       if (isNaN(scrollDiff)) {
