@@ -4,6 +4,7 @@ export default function Item ({ string, number, className }) {
     return (
         <div className={className} style={{
             overflow: 'hidden',
+            width: 'fit-content',
         }}>
             <div className="Item">
                 <div>
@@ -28,7 +29,7 @@ export default function Item ({ string, number, className }) {
                 </div>
             </div>
             <div style={{ textAlign: 'center' }}>
-            {letters}
+            [{letters}]
             </div>
         </div>
     )

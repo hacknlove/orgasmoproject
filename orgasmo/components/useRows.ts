@@ -3,7 +3,6 @@ import { useCallback, useRef, useState } from "react"
 const fetchMap = new Map()
 
 async function cachedFetch(url) {
-  console.debug(url)
   if (fetchMap.has(url)) {
     return fetchMap.get(url)
   }
@@ -42,8 +41,6 @@ export default function useRows({ getMore, rows: rowsProp = [] }: { getMore: Str
     })
     
     const row = getMore && await cachedFetch(`/api/_ogr?c=${getMore}&n=${rows.length}`)
-
-    console.log(row)
 
     if (!row) {
       setNoMore(true)

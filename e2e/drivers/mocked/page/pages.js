@@ -1,6 +1,6 @@
 export default {
     '/': {
-        id: 'home',
+        id: '/',
         top: [
             {
                 type: 'Header'
@@ -31,8 +31,9 @@ export default {
                 getProps: 'random.rows',
                 seed: 'third'
             },
-
+            
         ],
+        getRow: 'home.getRow',
         rowsLimit: 2,
         bottom: [
             {
@@ -59,7 +60,7 @@ export default {
                     className: 'fullWidth'
                 },
             },
-
+            
         ],
         bottom: [
             {
@@ -86,5 +87,49 @@ export default {
                 getProps: 'secuential.rows',
             }
         ],
-    }
+    },
+    verticalscroll: {
+        id: 'verticalscroll',
+        top: [
+            {
+                type: 'Header',
+                props: {
+                    text: 'Vertical Scroll test'
+                }
+            }
+        ],
+        rows: [
+            {
+                type: 'Item',
+                props: {
+                    string: 'world hello',
+                    number: 0,
+                },
+            },
+            {
+                type: 'Item',
+                props: {
+                    string: 'mars hello',
+                    number: 1,
+                },
+            },
+            {
+                type: 'Item',
+                props: {
+                    string: 'jupiter hello',
+                    number: 2,
+                },
+            },
+            {
+                type: 'Item',
+                props: {
+                    string: 'saturno hello',
+                    number: 3,
+                },
+            },
+
+        ],
+        rowsLimit: 4,
+        getRow: 'verticalscroll.getRow',
+    },
 }

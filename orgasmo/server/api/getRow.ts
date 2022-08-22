@@ -11,7 +11,13 @@ export default async function getRow({ req, res, driver }) {
         return
     }
 
-    let rowConfig = await driver.page.getRow({ ...command, number: parseInt(req.query.n) })
+    const page = await driver.page.getPageFromId({ ...command })
+
+    if (!page || !page.getRow || !driver[page.getRow]) {
+        return res.json(null)
+    }
+
+    let rowConfig = await driver[page.getRow]({ ...command, number: parseInt(req.query.n) })
 
     if (Array.isArray(rowConfig)) {
         rowConfig = chooseOne({ array: rowConfig, staticRandom: getStaticRandom({ req, res }) });

@@ -5,6 +5,6 @@ test('Has all the elements', async ({ page }) => {
 
     await page.waitForSelector('text=Basic Layout test')
     expect(page).toHaveTitle('Basic Layout test')
-    expect(await page.locator('text=hello').count()).toEqual(1)
+    expect(await page.locator('text=[hello ]').count()).toEqual(1)
     await page.waitForSelector('text=Footer')
 })
