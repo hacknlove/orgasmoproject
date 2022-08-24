@@ -77,29 +77,23 @@ describe("getRows", () => {
     it('serializes the getMore property', async () => {
         const rows = [
             { props: { getMore: {}, test: true } },
-        ];
+        ] as Record<string, any>;
 
         (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ( rowConfig ));
         (serialize as jest.Mock).mockImplementation(getMore => getMore);
 
         await getRows({ rows, params: {}, ctx: { req: { user: { id: 'test-user-id' } }}, driver: {} });
-        expect(rows[0].props.getMore).toEqual({
-            expire:  expect.any(Number),
-            userId: 'test-user-id',
-        });
+        expect(rows[0].props.src).toEqual(expect.any(String));
     })
     it('edge case, user not there', async () => {
-        const rows = [
+        const rows  = [
             { props: { getMore: {}, test: true } },
-        ];
+        ] as Record<string, any>;
 
         (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ( rowConfig ));
         (serialize as jest.Mock).mockImplementation(getMore => getMore);
 
-        await getRows({ rows, params: {}, ctx: { req: {} }, driver: {} });
-        expect(rows[0].props.getMore).toEqual({
-            expire:  expect.any(Number),
-            userId: undefined,
-        });
+        await getRows({ rows, params: {}, ctx: { req: { user: {} } }, driver: {} });
+        expect(rows[0].props.src).toEqual(expect.any(String));
     })
 })

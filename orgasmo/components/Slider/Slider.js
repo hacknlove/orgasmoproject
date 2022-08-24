@@ -12,7 +12,7 @@ export default function Slider({
     introWidth = 0,
     Component,
     items: itemsProp,
-    getMore: getMoreProps,
+    src: srcProps,
     cardWidth,
     ButtonNext,
     ButtonPrev,
@@ -24,7 +24,7 @@ export default function Slider({
         getMoreItems
     } = useItems({
         items: itemsProp,
-        getMore: getMoreProps,
+        src: srcProps,
     });
 
     const ref = useRef();

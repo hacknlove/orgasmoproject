@@ -19,11 +19,12 @@ export default async function getRows({ rows: rowsProp, params, ctx, driver, lim
 
         const row = await processRow({ rowConfig, params, driver })
         if (row?.props?.getMore) {
-            row.props.getMore = serialize({
+            row.props.src = `/api/_ogm?c=${serialize({
                 ...row.props.getMore,
                 expire: Date.now() + 3600000,
-                userId: ctx.req.user?.id,
-            })
+                userId: ctx.req.user.id,
+            })}`
+            delete row.props.getMore
         }
         
         // @ts-ignore

@@ -67,6 +67,6 @@ describe('getMore', () => {
             req,
         });
 
-        expect(res.json).toHaveBeenCalledWith({ getMore: expect.any(String) });
+        expect(res.json).toHaveBeenCalledWith({ src: expect.any(String) });
     })
 });

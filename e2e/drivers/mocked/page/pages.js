@@ -1,9 +1,14 @@
+import getRow from "../verticalscroll/getRow.export"
+
 export default {
     '/': {
         id: '/',
         top: [
             {
-                type: 'Header'
+                type: 'Header',
+                props: {
+                    text: 'Home'
+                }
             }
         ],
         rows: [
@@ -99,35 +104,10 @@ export default {
             }
         ],
         rows: [
-            {
-                type: 'Item',
-                props: {
-                    string: 'world hello',
-                    number: 0,
-                },
-            },
-            {
-                type: 'Item',
-                props: {
-                    string: 'mars hello',
-                    number: 1,
-                },
-            },
-            {
-                type: 'Item',
-                props: {
-                    string: 'jupiter hello',
-                    number: 2,
-                },
-            },
-            {
-                type: 'Item',
-                props: {
-                    string: 'saturno hello',
-                    number: 3,
-                },
-            },
-
+            getRow({ number: 0 }),
+            getRow({ number: 1 }),
+            getRow({ number: 2 }),
+            getRow({ number: 3 }),
         ],
         rowsLimit: 4,
         getRow: 'verticalscroll.getRow',

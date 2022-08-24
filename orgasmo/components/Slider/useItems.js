@@ -1,29 +1,32 @@
 import { useState } from "react"
 
-export default function useItems({ items: itemsProp, getMore: getMoreProps }) {
+export default function useItems({ items: itemsProp, src: srcProps }) {
     const [items, setItems] = useState(itemsProp)
-    const [getMore, setGetMore] = useState(getMoreProps)
+    const [src, setSrc] = useState(srcProps)
     const [loading, setLoading] = useState(false)
 
 
     async function getMoreItems (n) {
-        if (!getMore) return
+        if (!src) return
         setLoading(true)
 
-        return fetch(`/api/_ogm?c=${getMore}&from=${items.length}&count=${n}`)
+        const url = new URL(src, window.location)
+        url.searchParams.append('from', items.length)
+        url.searchParams.append('count', n)
+
+        return fetch(url)
             .then(res => res.json())
             .then(res => {
                 setItems(items.concat(res.items))
-                setGetMore(res.getMore)
+                setSrc(res.src)
                 setLoading(false)
             })
-        
     }
 
     return {
         items,
         loading,
-        hasMore: Boolean(getMore),
+        hasMore: Boolean(src),
         getMoreItems
     }
 }

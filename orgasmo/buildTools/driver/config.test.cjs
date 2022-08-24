@@ -44,11 +44,14 @@ describe('driver fileFromImport', () => {
         const imports = [
             { filename: 'foo', from: './drivers/mocked/something/foo.export.tsx', name: 'foo', importName: 'foo', route: 'something', type: 'export' },
             { filename: 'bar', from: './drivers/mocked/something/bar.export.tsx', name: 'bar', importName: 'bar', route: 'something', type: 'export' },
+            { filename: 'baz', from: './drivers/mocked/something/bar.event.tsx', name: 'baz', importName: 'baz', route: 'something', type: 'event' },
+            { filename: 'cos', from: './drivers/mocked/something/cos.import.tsx', name: 'cos', importName: 'cos', route: 'something', type: 'import' },
         ]
         const expected = `/* This file is created automatically at build time, there is no need to commit it */
 // @ts-nocheck
 
-import events from 'orgasmo/events'
+import events from 'orgasmo/events';
+import cos from './drivers/mocked/something/cos.import.tsx';
 import foo from './drivers/mocked/something/foo.export.tsx';
 import bar from './drivers/mocked/something/bar.export.tsx';
 
@@ -58,12 +61,13 @@ const all = {
   ['something.bar']: bar,
 }
 
-all.something = {}
-all.something.foo = foo
-all.something.bar = bar
+all.something = {};
+all.something.foo = foo;
+all.something.bar = bar;
 
+events.on('baz', baz);
 
-export default all
+export default all;
 `
         const actual = fileFromImports(imports)
         expect(actual).toEqual(expected)
@@ -83,8 +87,8 @@ export default all
         const expected = `/* This file is created automatically at build time, there is no need to commit it */
 // @ts-nocheck
 
-import events from 'orgasmo/events'
-import external from foo-package
+import events from 'orgasmo/events';
+import external from 'foo-package';
 
 import foo from './drivers/mocked/something/foo.export.tsx';
 import bar from './drivers/mocked/something/bar.export.tsx';
@@ -96,14 +100,14 @@ const all = {
   ['something.bar']: bar,
 }
 
-all.something = {}
-all.something.foo = foo
-all.something.bar = bar
+all.something = {};
+all.something.foo = foo;
+all.something.bar = bar;
 
-events.on('onSomething', route1ーonSomething)
-events.on('onSomething', route2ーonSomething)
+events.on('onSomething', route1ーonSomething);
+events.on('onSomething', route2ーonSomething);
 
-export default all
+export default all;
 `
         const actual = fileFromImports(imports, 'foo-package')
         expect(actual).toEqual(expected)

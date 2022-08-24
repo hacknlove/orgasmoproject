@@ -1,11 +1,11 @@
-import Dynamic from './Dynamic';
-import Static from './Static';
+import Dynamic from './Dynamic/Dynamic';
+import Static from './Static/Static';
 
 export default function PageFactory ({ Components }) {
-  const Page =({ top, rows, bottom, getMore }) => (
+  const Page =({ top, rows, bottom, src }) => (
       <>
         <Static rows={top} Components={Components} />
-        <Dynamic rows={rows} getMore={getMore} Components={Components} />
+        <Dynamic rows={rows} src={src} Components={Components} />
         <Static rows={bottom} Components={Components} />
       </>    
   )

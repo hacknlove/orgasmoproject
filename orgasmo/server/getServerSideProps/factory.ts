@@ -54,12 +54,12 @@ export default function getServerSidePropsFactory ({ driver }) {
             driver,
             rows: page.bottom
           }),
-          getMore: page.rowsLimit && serialize({
+          src: page.rowsLimit && `/api/_ogr?c=${serialize({
               pageId: page.id,
               params,
               userId: user.id,
               expire: Date.now() + 86400000, // 1 day in ms = 24 * 60 * 60 * 1000 = 86400000
-          }),
+          })}`,
       }
     }
   })

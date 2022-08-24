@@ -30,12 +30,20 @@ export default async function getRow({ req, res, driver }) {
     const row = await cleanAwaitJson(await processRow({ rowConfig, params: command.params, driver }))
 
     if (row.props.getMore) {
-        row.props.getMore = serialize({
+        row.props.src = `/api/_ogm?c=${serialize({
             ...row.props.getMore,
             expire: Date.now() + 3600000,
             userId: req.user.id,
-        })
+        })}`
+        delete row.props.getMore
     }
 
-    return res.json(row)
+    return res.json({
+        row,
+        src: `/api/_ogr?c=${serialize({
+            ...command,
+            expire: Date.now() + 3600000,
+            userId: req.user.id,
+        })}`
+    })
 }

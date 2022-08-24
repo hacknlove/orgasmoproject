@@ -17,11 +17,12 @@ export default async function getMore({ req, res, driver }) {
         })
     )
     if (response.getMore) {
-        response.getMore = serialize({
+        response.src = `/api/_ogm?c=${serialize({
             ...response.getMore,
             expire: Date.now() + 3600000,
             userId: req.user.id,
-        })
+        })}`
+        delete response.getMore
     }
     res.json(response)
 }

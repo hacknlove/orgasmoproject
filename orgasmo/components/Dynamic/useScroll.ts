@@ -5,29 +5,35 @@ export default function useScroll ({
   onHideTop,
   onShowBotton,
   onShowTop,
-  threshold
+  threshold,
+  wait
 }) {
   const ref = useRef<HTMLDivElement | null>(null)
   const scroll = useRef(null  as null | number)
+  const height = useRef(null as null | number)
 
   useEffect(() => {
     if (!ref.current) return
 
     function handler () {
-      if (!ref.current) return
+      if (!ref.current || wait.working) return
 
       const currentScroll = window.scrollY
+      const currentHeight = window.innerHeight
 
-      const scrollDiff = currentScroll - (scroll.current as number)
+
+      const scrollDiff = currentScroll - (scroll.current as number) || 
+      currentHeight - (height.current as number)
+      
       scroll.current = currentScroll
+      height.current = currentHeight
 
       if (isNaN(scrollDiff)) {
         return
       }
 
-      const windowHeight = window.innerHeight
       const containerRect = ref.current.getBoundingClientRect()
-      if (containerRect.y > windowHeight) {
+      if (containerRect.y > currentHeight) {
         return
       }
       if (containerRect.y + containerRect.height < 0) {
@@ -42,29 +48,36 @@ export default function useScroll ({
       const firstElementClientRect = firstElement.getBoundingClientRect()
       const lastElementClientRect = lastElement.getBoundingClientRect()
 
+
       if (scrollDiff > 0) {
         if (onHideTop && firstElementClientRect.y + firstElementClientRect.height + threshold < 0) {
+          wait.working = true
           window.requestAnimationFrame(() => onHideTop(firstElement))
         }
-        if (onShowBotton && lastElementClientRect.y - threshold < windowHeight) {
+        if (onShowBotton && lastElementClientRect.y - threshold < currentHeight) {
+          wait.working = true
           window.requestAnimationFrame(onShowBotton)
         }
       }
 
       if (scrollDiff < 0) {
-        if (onShowTop && firstElementClientRect.y + threshold > 0 && firstElementClientRect.y - threshold < windowHeight) {
+        if (onShowTop && firstElementClientRect.y + threshold > 0 && firstElementClientRect.y - threshold < currentHeight) {
+          wait.working = true
           window.requestAnimationFrame(onShowTop)
         }
-        if (onHideBotton && lastElementClientRect.y - lastElementClientRect.height - threshold > windowHeight && firstElementClientRect.y + firstElementClientRect.height + threshold < windowHeight) {
+        if (onHideBotton && lastElementClientRect.y - lastElementClientRect.height - threshold > currentHeight && firstElementClientRect.y + firstElementClientRect.height + threshold < currentHeight) {
+          wait.working = true
           window.requestAnimationFrame(() => onHideBotton(lastElement))
         }
       }
 
     }
     window.addEventListener("scroll", handler, { passive: true })
-    
+    window.addEventListener("resize", handler, { passive: true })
+
     return () => {
       window.removeEventListener("scroll", handler)
+      window.removeEventListener("resize", handler)
     }
   }, [onHideBotton, onHideTop, onShowBotton, onShowTop, ref])
   return ref
