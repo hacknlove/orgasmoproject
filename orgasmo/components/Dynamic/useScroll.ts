@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 
 export default function useScroll ({
-  onHideBotton,
+  onHideBottom,
   onHideTop,
   onShowBotton,
   onShowTop,
@@ -65,9 +65,9 @@ export default function useScroll ({
           wait.working = true
           window.requestAnimationFrame(onShowTop)
         }
-        if (onHideBotton && lastElementClientRect.y - lastElementClientRect.height - threshold > currentHeight && firstElementClientRect.y + firstElementClientRect.height + threshold < currentHeight) {
+        if (onHideBottom && lastElementClientRect.y - lastElementClientRect.height - threshold > currentHeight && firstElementClientRect.y + firstElementClientRect.height + threshold < currentHeight) {
           wait.working = true
-          window.requestAnimationFrame(() => onHideBotton(lastElement))
+          window.requestAnimationFrame(() => onHideBottom(lastElement))
         }
       }
 
@@ -79,6 +79,6 @@ export default function useScroll ({
       window.removeEventListener("scroll", handler)
       window.removeEventListener("resize", handler)
     }
-  }, [onHideBotton, onHideTop, onShowBotton, onShowTop, ref])
+  }, [onHideBottom, onHideTop, onShowBotton, onShowTop, ref])
   return ref
 }

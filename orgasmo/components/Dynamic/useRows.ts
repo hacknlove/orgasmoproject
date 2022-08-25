@@ -17,9 +17,7 @@ async function cachedFetch(url) {
   return response
 }
 
-const threshold = 50
-
-export default function useRows({ src: srcProps, rows: rowsProp = [] }) {
+export default function useRows({ src: srcProps, rows: rowsProp = [], threshold = 50 }) {
   const [rows, setRows] = useState<any[]>(rowsProp)
   const [src, setSrc] = useState(srcProps);
   const [noMore, setNoMore] = useState(false)
@@ -27,7 +25,7 @@ export default function useRows({ src: srcProps, rows: rowsProp = [] }) {
   const [underTheBottomRows, setUnderTheBottomRows] = useState([] as number[])
   const wait = useRef(Promise.resolve(undefined))
 
-  const onHideBotton = useCallback((element) => {
+  const onHideBottom = useCallback((element) => {
     setUnderTheBottomRows(current => [...current, element.getClientRects()[0].height])
     ;(wait as any).working = false
   }, [setUnderTheBottomRows])
@@ -38,23 +36,26 @@ export default function useRows({ src: srcProps, rows: rowsProp = [] }) {
   }, [setOverTheTopRows])
 
   const onShowTop = useCallback(() => {
+    console.log('onShowTop')
     setOverTheTopRows(current => {
       ;(wait as any).working = false
       if (current.length <= 1) return []
-      return current.splice(0, current.length - 1)
+      return current.slice(0, current.length - 1)
     })
   }, [setOverTheTopRows])
 
   const unHideBottom = useCallback(() => {
+    console.log('unHideBottom')
     setUnderTheBottomRows(current => {
       ;(wait as any).working = false
       if (current.length <= 1) return []
-      return current.splice(0, current.length - 1)
+      return current.slice(0, current.length - 1)
     })
   }, [setUnderTheBottomRows])
 
 
   const getRow = useCallback(async () => {
+    console.log('getRow')
     if (noMore || !src) {
       ;(wait as any).working = false
       return
@@ -96,7 +97,7 @@ export default function useRows({ src: srcProps, rows: rowsProp = [] }) {
   const ref = useScroll({
     threshold,
     wait,
-    onHideBotton,
+    onHideBottom,
     onHideTop,
     onShowBotton: underTheBottomRows.length
       ? unHideBottom
