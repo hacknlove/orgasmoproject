@@ -1,4 +1,4 @@
-export default function cleanJson (obj) {
+export default function cleanJson (obj: any): any {
   if (obj === null || obj === undefined) {
     return null
   }
@@ -19,7 +19,7 @@ export default function cleanJson (obj) {
   return obj
 }
 
-export async function cleanAwaitJson (obj) {
+export async function cleanAwaitJson (obj: any): Promise<any> {
   if (obj === null || obj === undefined) {
     return null
   }

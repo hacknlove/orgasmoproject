@@ -1,13 +1,14 @@
+import { DynamicProps } from '~/types'
 import useRows from './useRows'
 
-export default function Dynamic ({ src, rows: rowsProp, Components }: Record<string, any>) {
+export default function Dynamic ({ src, rows: rowsProp, Components }: DynamicProps) {
   const {
     rows,
     ref,
     overTheTop,
     keyOffset,
     underTheBottom
-  } = useRows({ src, rows: rowsProp })
+  } = useRows({ src, rows: rowsProp ?? [] })
 
   return (
     <>

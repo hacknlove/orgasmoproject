@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, RefObject } from "react";
+import { SliderProps } from "../../types";
 import useItems from "./useItems";
 
 function getTranslateX(ref) {
@@ -17,7 +18,7 @@ export default function Slider({
     ButtonNext,
     ButtonPrev,
     ...other
-}) {
+}: SliderProps): JSX.Element {
     const {
         items,
         hasMore,
@@ -27,7 +28,7 @@ export default function Slider({
         src: srcProps,
     });
 
-    const ref = useRef();
+    const ref = useRef<HTMLDivElement>();
     const [cardsInView, setCardsInView] = useState(4);
     const [minI, setMinI] = useState(0);
     const [maxI, setMaxI] = useState(9);
@@ -63,7 +64,7 @@ export default function Slider({
       }
       ref.current.style.transition = 'none';
   
-      let initialX = 0;
+      let initialX : number|null = 0;
       let initialTranslateX = 0 
       let preventClick = false;
           
@@ -87,7 +88,9 @@ export default function Slider({
             return
           }
           const translateX = Math.min(0, getTranslateX(ref) + speed);
-          ref.current.style.transform = `translateX(${translateX}px)`;
+          if (ref.current) {
+            ref.current.style.transform = `translateX(${translateX}px)`;
+          }
           updateMaxMin()
           setTimeout(() => inertia(speed * 0.9), 10);
         }
@@ -135,8 +138,9 @@ export default function Slider({
         }
   
         const translateX = Math.min(0, initialTranslateX + delta);
-  
-        ref.current.style.transform = `translateX(${translateX}px)`;
+        if (ref.current) {
+          ref.current.style.transform = `translateX(${translateX}px)`;
+        }
         event.isSwiping = true;
       }
   
@@ -154,6 +158,9 @@ export default function Slider({
       ref.current.addEventListener('touchmove', onMouseMove);
   
       return () => {
+        if (!ref.current) {
+          return
+        }
         ref.current.removeEventListener('touchstart', onMouseDown);
         ref.current.removeEventListener('touchend', onMouseUp);
         ref.current.removeEventListener('touchcancel', onMouseUp);
@@ -178,6 +185,9 @@ export default function Slider({
     }
   
     async function next () {
+      if (!ref.current) {
+        return
+      }
       const currentTranslateX = getTranslateX(ref) + introWidth;
   
       const max = -cardWidth * (items.length - cardsInView) + (ref.current.clientWidth % cardWidth) - introWidth * 2;
@@ -205,6 +215,9 @@ export default function Slider({
     }
   
     function prev () {
+      if (!ref.current) {
+        return;
+      }
       const currentTranslateX = getTranslateX(ref);
   
       const targetTranslateX = Math.min(
@@ -233,6 +246,7 @@ export default function Slider({
       {
         showPrev && <ButtonPrev className="SliderButton prev" onClick={prev} role="button" aria-label="prev" />
       }
+      {/* @ts-ignore */}
       <div ref={ref} className="SliderRow" role="list">
         {
           intro && <div role="listitem" style={{ display: 'inline-block', verticalAlign: 'top' }} >{intro}</div>

@@ -105,6 +105,7 @@ module.exports = {
     'ts-jest': {
       // ...
       diagnostics: {
+        exclude: ['**/*.(spec|test).ts?(x)'],
         ignoreCodes: [151001]
       }
     }

@@ -17,7 +17,7 @@ async function cachedFetch(url) {
   return response
 }
 
-export default function useRows({ src: srcProps, rows: rowsProp = [], threshold = 50 }) {
+export default function useRows({ src: srcProps, rows: rowsProp, threshold = 50 }) {
   const [rows, setRows] = useState<any[]>(rowsProp)
   const [src, setSrc] = useState(srcProps);
   const [noMore, setNoMore] = useState(false)
@@ -36,7 +36,6 @@ export default function useRows({ src: srcProps, rows: rowsProp = [], threshold 
   }, [setOverTheTopRows])
 
   const onShowTop = useCallback(() => {
-    console.log('onShowTop')
     setOverTheTopRows(current => {
       ;(wait as any).working = false
       if (current.length <= 1) return []
@@ -45,7 +44,6 @@ export default function useRows({ src: srcProps, rows: rowsProp = [], threshold 
   }, [setOverTheTopRows])
 
   const unHideBottom = useCallback(() => {
-    console.log('unHideBottom')
     setUnderTheBottomRows(current => {
       ;(wait as any).working = false
       if (current.length <= 1) return []
@@ -55,7 +53,6 @@ export default function useRows({ src: srcProps, rows: rowsProp = [], threshold 
 
 
   const getRow = useCallback(async () => {
-    console.log('getRow')
     if (noMore || !src) {
       ;(wait as any).working = false
       return
@@ -127,7 +124,7 @@ export default function useRows({ src: srcProps, rows: rowsProp = [], threshold 
   }, [rows, underTheBottomRows, overTheTopRows])
 
   return {
-    rows: rows.slice(overTheTopRows.length, rows.length - underTheBottomRows.length),
+    rows: rows.slice(overTheTopRows.length, rows.length - underTheBottomRows.length) as any[],
     getRow,
     ref,
     overTheTop: overTheTopRows.reduce((r, i) => r + i, 0),

@@ -1,3 +1,6 @@
+import type { FactoryParameters } from '../../types';
+import type { GetServerSideProps } from 'next';
+
 import chooseOne from '../lib/chooseOne';
 import { withCleanJson } from '../lib/cleanJson';
 import getRows from "./getRows";
@@ -5,7 +8,7 @@ import { serialize } from '../lib/serialization';
 import getStaticRandom from '../lib/getStaticRandom';
 import setCookies from '../lib/setCookies';
 
-export default function getServerSidePropsFactory ({ driver }) {
+export default function getServerSidePropsFactory ({ driver }: FactoryParameters): GetServerSideProps {
   return withCleanJson(async (ctx) => {
     const user = ctx.req.user = await driver.user.getUser(ctx);
 
