@@ -7,7 +7,7 @@ export default {
             {
                 type: 'Header',
                 props: {
-                    text: 'Home'
+                    text: 'Home recargar'
                 }
             }
         ],
