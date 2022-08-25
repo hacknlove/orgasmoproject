@@ -22,14 +22,5 @@ jobs:
       run: npm ci
     - name: Run tests
       run: npm test
-    - uses: actions/upload-artifact@v2
-      with:
-        name: playwright-report
-        path: e2e/playwright-report/
-        retention-days: 30
-    - uses: actions/upload-artifact@v2
-      with:
-        name: coverage
-        path: orgasmo/coverage
-        retention-days: 30
+
       

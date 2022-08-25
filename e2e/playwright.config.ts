@@ -49,6 +49,21 @@ if (process.env.CI) {
   config.workers = 1;
   // @ts-ignore
   config.webServer.timeout = 5 * 60 * 1000;
+
+  config.projects?.push(
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+      },
+    }
+  )
 }
 
 if (process.env.PWDEBUG) {
