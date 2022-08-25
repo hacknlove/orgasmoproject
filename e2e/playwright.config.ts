@@ -56,12 +56,14 @@ if (process.env.CI) {
       use: {
         ...devices['Desktop Firefox'],
       },
+      testIgnore: /vertical/ // in firefox this needs to be tested manually because too much sloopines with the mouse whell and the scroll event
     },
     {
       name: 'webkit',
       use: {
         ...devices['Desktop Safari'],
       },
+      testIgnore: /vertical/ // in firefox this needs to be tested manually because too much sloopines with the mouse whell and the scroll event
     }
   )
 }

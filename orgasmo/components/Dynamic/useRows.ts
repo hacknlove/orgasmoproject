@@ -108,7 +108,7 @@ export default function useRows({ src: srcProps, rows: rowsProp = [], threshold 
   })
 
   useEffect(() => {
-    const idleCallback = window.requestIdleCallback(() => {
+    const idleCallback = (window.requestIdleCallback ?? window.setTimeout)(() => {
       if (overTheTopRows.length || underTheBottomRows.length || noMore || !ref.current) {
         return
       }
@@ -123,7 +123,7 @@ export default function useRows({ src: srcProps, rows: rowsProp = [], threshold 
         getRow()
       }
     })
-    return () => cancelIdleCallback(idleCallback)
+    return () => (window.cancelIdleCallback ?? window.clearTimeout)(idleCallback)
   }, [rows, underTheBottomRows, overTheTopRows])
 
   return {
