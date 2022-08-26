@@ -13,7 +13,7 @@ export default async function parseCommand ({ req, res, driver }) {
         return
     }
 
-    const { userId, expire } = command;
+    const { roles, expire } = command;
 
     if (expire < Date.now()) {
         events.emit('expiredSignature', { req, command })
@@ -25,12 +25,25 @@ export default async function parseCommand ({ req, res, driver }) {
 
     const user = req.user || (req.user = await driver.user.getUser({ req, res }))
 
-    if (user.id !== userId) {
+    if (user.roles === roles) {
+        return command
+    }
+
+    if (user.roles.length !== roles.length) {
         events.emit('wrongUser', { req, command })
 
         return res.json({
             error: 'wrong user',
         })
+    }
+    for (let i = 0; i<roles.length; i++) {
+        if (user.roles[i] !== roles[i]) {
+            events.emit('wrongUser', { req, command })
+
+            return res.json({
+                error: 'wrong user',
+            })        
+        }
     }
 
     return command

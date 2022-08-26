@@ -8,13 +8,17 @@ import { serialize } from '../lib/serialization';
 import getStaticRandom from '../lib/getStaticRandom';
 import setCookies from '../lib/setCookies';
 
+import { currentTimeChunk } from '../lib/timechunks';
+import { cachedPage } from './cache';
+
 export default function getServerSidePropsFactory ({ driver }: FactoryParameters): GetServerSideProps {
   return withCleanJson(async (ctx) => {
+    ctx.driver = driver
     const user = ctx.req.user = await driver.user.getUser(ctx);
 
-    let page = ctx.res.page = await driver.page.getPage(ctx);
+    const pageConfig = await cachedPage({ driver, ctx });
 
-    if (!page) {
+    if (!pageConfig) {
       return {
         notFound: true
       }
@@ -22,9 +26,7 @@ export default function getServerSidePropsFactory ({ driver }: FactoryParameters
 
     const staticRandom = ctx.staticRandom = getStaticRandom(ctx);
 
-    if (Array.isArray(page)) {
-      page = chooseOne({ array: page, staticRandom });
-    }
+    const page = pageConfig.page ?? chooseOne({ array: pageConfig.pages, staticRandom });
 
     if (page.redirect) {
       return {
@@ -60,8 +62,8 @@ export default function getServerSidePropsFactory ({ driver }: FactoryParameters
           src: page.rowsLimit && `/api/_ogr?c=${serialize({
               pageId: page.id,
               params,
-              userId: user.id,
-              expire: Date.now() + 86400000, // 1 day in ms = 24 * 60 * 60 * 1000 = 86400000
+              roles: user.roles,
+              expire: currentTimeChunk().end,
           })}`,
       }
     }

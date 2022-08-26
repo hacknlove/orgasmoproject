@@ -4,6 +4,7 @@ import { cleanAwaitJson } from "../lib/cleanJson";
 import getStaticRandom from "../lib/getStaticRandom";
 import { serialize } from "../lib/serialization";
 import parseCommand from "./parseCommand";
+import { currentTimeChunk } from "../lib/timechunks";
 
 export default async function getRow({ req, res, driver }) {
     const command = await parseCommand({ req, res, driver })
@@ -32,8 +33,8 @@ export default async function getRow({ req, res, driver }) {
     if (row.props.getMore) {
         row.props.src = `/api/_ogm?c=${serialize({
             ...row.props.getMore,
-            expire: Date.now() + 3600000,
-            userId: req.user.id,
+            expire: currentTimeChunk().end,
+            roles: req.user.roles,
         })}`
         delete row.props.getMore
     }
@@ -42,8 +43,8 @@ export default async function getRow({ req, res, driver }) {
         row,
         src: `/api/_ogr?c=${serialize({
             ...command,
-            expire: Date.now() + 3600000,
-            userId: req.user.id,
+            expire: currentTimeChunk().end,
+            roles: req.user.roles,
         })}`
     })
 }

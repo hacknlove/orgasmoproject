@@ -45,10 +45,14 @@ export async function cleanAwaitJson (obj: any): Promise<any> {
 
 export function withCleanJson (callback) {
   return async function getServerSideProps (ctx) {
+    ctx.waitFor = []
     const response = await callback(ctx)
     if (response.props && ! ctx.jsonCleaned) {
       response.props = await cleanAwaitJson(response.props)
       ctx.jsonCleaned = true
+    }
+    if (ctx.waitFor.length) {
+      await Promise.all(ctx.waitFor)
     }
     return response
   }

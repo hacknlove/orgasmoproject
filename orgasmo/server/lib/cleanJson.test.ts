@@ -172,4 +172,18 @@ describe("withCleanJson", () => {
             }
         });
     })
+    it('does the extra stuff', async () => {
+        expect.assertions(1)
+
+        const extraStuff = new Promise(resolve => setTimeout(() => {
+            resolve(null)
+            expect(true).toBe(true)
+        }, 10))
+
+        const getServerSideProps = withCleanJson((ctx) => {
+            ctx.waitFor.push(extraStuff)
+            return {}
+        });
+        await getServerSideProps({})
+    })
 })

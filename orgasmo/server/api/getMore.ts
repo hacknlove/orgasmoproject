@@ -1,5 +1,6 @@
 import { cleanAwaitJson } from "../lib/cleanJson";
 import { serialize } from "../lib/serialization";
+import { currentTimeChunk } from "../lib/timechunks";
 import parseCommand from "./parseCommand";
 
 export default async function getMore({ req, res, driver }) {
@@ -19,8 +20,8 @@ export default async function getMore({ req, res, driver }) {
     if (response.getMore) {
         response.src = `/api/_ogm?c=${serialize({
             ...response.getMore,
-            expire: Date.now() + 3600000,
-            userId: req.user.id,
+            expire: currentTimeChunk().end,
+            roles: req.user.roles,
         })}`
         delete response.getMore
     }

@@ -25,6 +25,7 @@ describe('getServerSidePropsFactory', () => {
         }
 
         const ctx = {
+            params: {},
             req: {},
             res: {},
         }
@@ -37,8 +38,6 @@ describe('getServerSidePropsFactory', () => {
         expect(driver.page.getPage).toHaveBeenCalledWith(ctx);
         expect(driver.user.getUser).toHaveBeenCalledWith(ctx);
         // @ts-ignore
-        expect(ctx.res.page).toBe(null);
-        // @ts-ignore
         expect(ctx.req.user).toBe(null);
     })
 
@@ -49,7 +48,9 @@ describe('getServerSidePropsFactory', () => {
             },
             page: {
                 getPage: jest.fn().mockResolvedValue({
-                    redirect: '/',
+                    page: {
+                        redirect: '/',
+                    }
                 }),
             },
         }
@@ -74,14 +75,16 @@ describe('getServerSidePropsFactory', () => {
                 }),
             },
             page: {
-                getPage: jest.fn().mockResolvedValue([
-                    {
-                        redirect: 'this',
-                    },
-                    {
-                        redirect: 'that',
-                    }
-                ]),
+                getPage: jest.fn().mockResolvedValue({
+                    pages: [
+                        {
+                            redirect: 'this',
+                        },
+                        {
+                            redirect: 'that',
+                        }
+                    ]
+                }),
             },
         }
 
@@ -108,7 +111,9 @@ describe('getServerSidePropsFactory', () => {
             },
             page: {
                 getPage: jest.fn().mockResolvedValue({
-                    cookies: 'cookies-test',
+                    page: {
+                        cookies: 'cookies-test',
+                    }
                 }),
             },
         }
@@ -129,9 +134,11 @@ describe('getServerSidePropsFactory', () => {
             },
             page: {
                 getPage: jest.fn().mockResolvedValue({
-                    id: 'page-id-test',
-                    getParams: 'foo.getPageParams',
-                    rowsLimit: 10,
+                    page: {
+                        id: 'page-id-test',
+                        getParams: 'foo.getPageParams',
+                        rowsLimit: 10,
+                    }
                 }),
             },
             'foo.getPageParams': jest.fn().mockResolvedValue({
@@ -142,6 +149,7 @@ describe('getServerSidePropsFactory', () => {
         const ctx = {
             req: {},
             res: {},
+            params: {}
         }
 
         await (getServerSidePropsFactory({ driver })(ctx));

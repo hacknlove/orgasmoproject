@@ -13,7 +13,7 @@ jest.mock('../events', () => ({
 
 const driver = {
     user: {
-        getUser: jest.fn(() => Promise.resolve({ id: 'test-user-id' })),
+        getUser: jest.fn(() => Promise.resolve({ roles: ['test-role'] })),
     }
 }
 
@@ -59,7 +59,7 @@ describe('parseCommand', () => {
     it('return an error if the user is not the same', async () => {
         const req = {
             query: {
-                c: serialize({ userId: 'wrong user'}),
+                c: serialize({ roles: 'wrong user'}),
             },
         };
         await parseCommand({ req, res, driver });
@@ -67,20 +67,20 @@ describe('parseCommand', () => {
             error: 'wrong user',
         });
         expect(events.emit).toHaveBeenCalledWith('wrongUser', { req, command: {
-            userId: 'wrong user',
+            roles: 'wrong user',
         }});
     });
     it('returns the parsed command, if everything went ok', async () => {
         const req = {
             query: {
-                c: serialize({ userId: 'test-user-id', foo: 'bar',}),
+                c: serialize({ roles: ['test-role'], foo: 'bar',}),
             },
         };
         const response = await parseCommand({ req, res, driver });
         expect(res.json).not.toHaveBeenCalled();
         expect(events.emit).not.toHaveBeenCalled();
         expect(response).toEqual({
-            userId: 'test-user-id',
+            roles: ['test-role'],
             foo: 'bar',
         });
     });

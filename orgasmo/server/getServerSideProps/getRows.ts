@@ -3,6 +3,7 @@ import processRow from "../lib/processRow";
 import chooseOne from "../lib/chooseOne";
 import { serialize } from "../lib/serialization";
 import setCookies from "../lib/setCookies";
+import { currentTimeChunk } from "../lib/timechunks";
 
 export default async function getRows({ rows: rowsProp, params, ctx, driver, limit = Infinity }) {
     const rows = [];
@@ -21,8 +22,8 @@ export default async function getRows({ rows: rowsProp, params, ctx, driver, lim
         if (row?.props?.getMore) {
             row.props.src = `/api/_ogm?c=${serialize({
                 ...row.props.getMore,
-                expire: Date.now() + 3600000,
-                userId: ctx.req.user.id,
+                expire: currentTimeChunk().end,
+                roles: ctx.req.user.roles,
             })}`
             delete row.props.getMore
         }
