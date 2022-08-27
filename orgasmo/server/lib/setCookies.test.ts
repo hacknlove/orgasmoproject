@@ -13,29 +13,20 @@ jest.mock('nookies', () => {
 });
 
 describe('setCookies', () => {
+    const ctx = { setCookies: [] }
     beforeEach(() => {
         jest.resetAllMocks()
     })
-   it('does nothing is cookies is falsy', () => {
-        setCookies({ cookies: null, ctx: null });
+   it('does nothing is no cookies there', () => {
+        setCookies({ ctx });
         expect(nookies.set).not.toHaveBeenCalled();
     })
 
     it('does nothing is cookies is an empty array', () => {
-        setCookies({ cookies: [], ctx: null });
+        setCookies({ cookies: [], ctx });
         expect(nookies.set).not.toHaveBeenCalled();
     })
 
-    it('calls nookies.set once if cookies is not an array', () => {
-        setCookies({ cookies: {
-            name: 'test-name',
-            value: 'test-value',
-            options: {},
-        }, ctx: null });
-
-        expect(nookies.set).toHaveBeenCalledTimes(1);
-        expect(nookies.set).toHaveBeenCalledWith(null, 'test-name', 'test-value', {});
-    })
     it('calls nookies.set once per each cookie in the cookies array', () => {
         setCookies({ cookies: [
             {
@@ -48,13 +39,13 @@ describe('setCookies', () => {
                 value: 'test-value-2',
                 options: {},
             },
-        ], ctx: null });
+        ], ctx });
 
         expect(nookies.set).toHaveBeenCalledTimes(2);
         // @ts-ignore
-        expect(nookies.set.mock.calls[0]).toEqual([null, 'test-name', 'test-value', {}]);
+        expect(nookies.set.mock.calls[0]).toEqual([ctx, 'test-name', 'test-value', {}]);
         // @ts-ignore
-        expect(nookies.set.mock.calls[1]).toEqual([null, 'test-name-2', 'test-value-2', {}]);
+        expect(nookies.set.mock.calls[1]).toEqual([ctx, 'test-name-2', 'test-value-2', {}]);
 
     })
 })
