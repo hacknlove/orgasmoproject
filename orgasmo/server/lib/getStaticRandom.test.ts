@@ -46,7 +46,7 @@ describe("getStaticRandom", () => {
         // @ts-ignore
         nookies.get.mockReturnValue({ o_sr: "0.42" });
 
-        const ctx = {req: {}}
+        const ctx = {req: { user: {} }}
         const random = getStaticRandom(ctx);
 
         expect(random).toBe(0.42);
@@ -57,7 +57,7 @@ describe("getStaticRandom", () => {
         // @ts-ignore
         nookies.get.mockReturnValue({});
 
-        const ctx = {req: {}}
+        const ctx = {req: { user: {} }}
         const random = getStaticRandom(ctx);
 
         expect(random).toBeGreaterThan(0);

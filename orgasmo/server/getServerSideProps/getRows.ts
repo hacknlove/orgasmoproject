@@ -2,28 +2,33 @@
 import processRow from "../lib/processRow";
 import chooseOne from "../lib/chooseOne";
 import { serialize } from "../lib/serialization";
-import setCookies from "../lib/setCookies";
-import { currentTimeChunk } from "../lib/timechunks";
+import { maxTimeChunk } from "../lib/timechunks";
 
-export default async function getRows({ rows: rowsProp, params, ctx, driver, limit = Infinity }) {
-    const rows = [];
-
+export default async function getRows({ rows: rowsProp, params, ctx, driver, limit = Infinity, timeChunk }) {
     if (!rowsProp) {
         return [];
     }
 
+    const rows = [];
+
     for (let rowConfig of rowsProp) {
         if (Array.isArray(rowConfig)) {
-            rowConfig = chooseOne({ array: rowConfig, staticRandom: ctx.staticRandom });
+            rowConfig = chooseOne({ array: rowConfig, ctx });
         }
-        setCookies({ ctx, cookies: rowConfig.cookies });
+        if (Array.isArray(rowConfig.cookies)) {
+            ctx.setCookies.push(...rowConfig.cookies)
+        } else if (rowConfig.cookies) {
+            ctx.setCookies.push(rowConfig.cookies)
+        }
+
+        const rowTimeChunk = maxTimeChunk({ timeChunkConf: rowConfig.timeChunk, timeChunk })
 
         const row = await processRow({ rowConfig, params, driver })
         if (row?.props?.getMore) {
             row.props.src = `/api/_ogm?c=${serialize({
                 ...row.props.getMore,
-                expire: currentTimeChunk().end,
                 roles: ctx.req.user.roles,
+                expire: rowTimeChunk.expire,
             })}`
             delete row.props.getMore
         }

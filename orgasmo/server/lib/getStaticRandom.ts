@@ -1,7 +1,7 @@
 import nookies from 'nookies'
 
 export default function getStaticRandom (ctx) {
-    if (ctx.req.user?.staticRandom !== undefined) {
+    if (ctx.req.user.staticRandom !== undefined) {
         return ctx.req.user.staticRandom
     }
 

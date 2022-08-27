@@ -21,7 +21,7 @@ export default async function getRow({ req, res, driver }) {
     let rowConfig = await driver[page.getRow]({ ...command, number: parseInt(req.query.n) })
 
     if (Array.isArray(rowConfig)) {
-        rowConfig = chooseOne({ array: rowConfig, staticRandom: getStaticRandom({ req, res }) });
+        rowConfig = chooseOne({ array: rowConfig, ctx: { req, res } });
     }
 
     if (!rowConfig) {
@@ -33,7 +33,7 @@ export default async function getRow({ req, res, driver }) {
     if (row.props.getMore) {
         row.props.src = `/api/_ogm?c=${serialize({
             ...row.props.getMore,
-            expire: currentTimeChunk().end,
+            expire: currentTimeChunk().expire,
             roles: req.user.roles,
         })}`
         delete row.props.getMore
@@ -43,7 +43,7 @@ export default async function getRow({ req, res, driver }) {
         row,
         src: `/api/_ogr?c=${serialize({
             ...command,
-            expire: currentTimeChunk().end,
+            expire: currentTimeChunk().expire,
             roles: req.user.roles,
         })}`
     })

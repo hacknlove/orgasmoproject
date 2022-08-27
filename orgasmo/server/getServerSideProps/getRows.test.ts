@@ -1,7 +1,6 @@
 import getRows from "./getRows";
 import chooseOne from "../lib/chooseOne";
 import processRow from "../lib/processRow";
-import setCookies from "../lib/setCookies";
 import { serialize } from "../lib/serialization";
 
 jest.mock('../lib/chooseOne');
@@ -55,13 +54,27 @@ describe("getRows", () => {
         ]);
     })
     it('calls setCookies for each row', async () => {
-        const rows = Array.from({ length: 5 }, (_, i) => `row${i}`);
+        const rows = Array.from({ length: 5 }, (_, i) => ({
+            cookies: {}
+        }));
+
+        rows[0].cookies = [{}];
 
         (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ({ props: { row: true, test: rowConfig  } }));
 
-        await getRows({ rows, params: {}, ctx: {}, driver: {} });
+        const setCookies = []
 
-        expect(setCookies).toHaveBeenCalledTimes(5);
+        await getRows({
+            rows,
+            params: {},
+            ctx: {
+                setCookies
+            },
+            driver: {},
+            timeChunk: {}
+        });
+
+        expect(setCookies.length).toBe(5);
     })
     it('choosesOne if a row is and array', async () => {
         const rows = [
@@ -71,7 +84,15 @@ describe("getRows", () => {
 
         (chooseOne as jest.Mock).mockImplementation(({ array }) => array[0]);
 
-        await getRows({ rows, params: {}, ctx: {}, driver: {} });
+        await getRows({
+            rows,
+            params: {},
+            ctx: {
+                setCookies: []
+            },
+            driver: {},
+            timeChunk: {}
+        });
         expect(chooseOne).toHaveBeenCalledTimes(2);
     })
     it('serializes the getMore property', async () => {
@@ -82,7 +103,16 @@ describe("getRows", () => {
         (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ( rowConfig ));
         (serialize as jest.Mock).mockImplementation(getMore => getMore);
 
-        await getRows({ rows, params: {}, ctx: { req: { user: { id: 'test-user-id' } }}, driver: {} });
+        await getRows({
+            rows,
+            params: {},
+            ctx: {
+                req: { user: { id: 'test-user-id' } },
+                setCookies: []
+            },
+            driver: {},
+            timeChunk: {}
+        });
         expect(rows[0].props.src).toEqual(expect.any(String));
     })
     it('edge case, user not there', async () => {
@@ -93,7 +123,18 @@ describe("getRows", () => {
         (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ( rowConfig ));
         (serialize as jest.Mock).mockImplementation(getMore => getMore);
 
-        await getRows({ rows, params: {}, ctx: { req: { user: {} } }, driver: {} });
+        await getRows(
+            {
+                rows,
+                params: {},
+                ctx: {
+                    req: { user: {} },
+                    setCookies: []
+                },
+                driver: {},
+                timeChunk: {}
+            }
+        );
         expect(rows[0].props.src).toEqual(expect.any(String));
     })
 })

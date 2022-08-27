@@ -20,7 +20,7 @@ export default async function getMore({ req, res, driver }) {
     if (response.getMore) {
         response.src = `/api/_ogm?c=${serialize({
             ...response.getMore,
-            expire: currentTimeChunk().end,
+            expire: currentTimeChunk().expire,
             roles: req.user.roles,
         })}`
         delete response.getMore

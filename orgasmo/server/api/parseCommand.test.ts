@@ -70,6 +70,20 @@ describe('parseCommand', () => {
             roles: 'wrong user',
         }});
     });
+    it('return an error if the user is not the same', async () => {
+        const req = {
+            query: {
+                c: serialize({ roles: ['test-rol']}),
+            },
+        };
+        await parseCommand({ req, res, driver });
+        expect(res.json).toHaveBeenCalledWith({
+            error: 'wrong user',
+        });
+        expect(events.emit).toHaveBeenCalledWith('wrongUser', { req, command: {
+            roles: ['test-rol'],
+        }});
+    });
     it('returns the parsed command, if everything went ok', async () => {
         const req = {
             query: {
@@ -84,4 +98,19 @@ describe('parseCommand', () => {
             foo: 'bar',
         });
     });
+    it('returns the parse command, if roles === user.roles', async () => {
+        const req = {
+            query: {
+                c: serialize({ roles: 'test-role', foo: 'bar',}),
+            },
+        };
+        driver.user.getUser.mockResolvedValue({ roles: 'test-role' })
+        const response = await parseCommand({ req, res, driver });
+        expect(res.json).not.toHaveBeenCalled();
+        expect(events.emit).not.toHaveBeenCalled();
+        expect(response).toEqual({
+            roles: 'test-role',
+            foo: 'bar',
+        });
+    })
 })

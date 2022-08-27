@@ -1,12 +1,17 @@
 import seedrandom from 'seedrandom'
+import getStaticRandom from '../lib/getStaticRandom';
 
-export default function choseOne({ array, staticRandom }) {
+export default function choseOne({ array, ctx }) {
     if(array.length === 0) {
         return null
     }
+
+    let staticRandom = ctx.staticRandom = getStaticRandom(ctx);
+
+    ctx.noCacheFull = true;
+
     if (array[0].randomSeed) {
-        const random = new seedrandom(staticRandom + array[0].randomSeed)
-        staticRandom = random()
+        staticRandom = (new seedrandom(staticRandom + array[0].randomSeed))()
     }
 
     if (array[0].ratio !== undefined) {
