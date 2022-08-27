@@ -1,5 +1,4 @@
-const defaultCacheExpiration = process.env.CACHE_EXPIRATION ? parseInt(process.env.CACHE_EXPIRATION) : 1000 * 60 * 60 
-const defaultCacheRenew = process.env.CACHE_RENEW ? parseInt(process.env.CACHE_RENEW) : defaultCacheExpiration / 2
+import { CACHE_EXPIRATION, CACHE_RENEW } from "./config"
 
 export interface currentChunkParameters {
     cacheExpiration?: number,
@@ -7,18 +6,39 @@ export interface currentChunkParameters {
 }
 
 export interface currentChunkReturn {
-    start: number,
-    renew: number,
-    end: number
+    revalidate: number,
+    expire: number
 }
 
 export function currentTimeChunk(parameters: currentChunkParameters): currentChunkReturn;
 export function currentTimeChunk(): currentChunkReturn;
-export function currentTimeChunk({ cacheExpiration = defaultCacheExpiration, cacheRenew = defaultCacheRenew } = {}): currentChunkReturn {
+export function currentTimeChunk({ cacheExpiration = CACHE_EXPIRATION, cacheRenew = CACHE_RENEW } = {}): currentChunkReturn {
     const now = Date.now()
     const start = now - now % cacheRenew
-    const renew = start + cacheRenew
-    const end = start + cacheExpiration
+    const revalidate = start + cacheRenew
+    const expire = start + cacheExpiration
 
-    return { start, renew, end }
+    return { revalidate, expire }
+}
+
+interface maxTimeChunkParameters {
+    timeChunkConf?: currentChunkParameters,
+    timeChunk: currentChunkReturn
+}
+
+
+export function maxTimeChunk({ timeChunkConf, timeChunk }: maxTimeChunkParameters): currentChunkReturn {
+    if (!timeChunkConf) {
+        return timeChunk
+    }
+
+    const cacheRenew = timeChunkConf.cacheRenew ?? CACHE_RENEW
+    const cacheExpiration = timeChunkConf.cacheExpiration ?? CACHE_EXPIRATION
+
+    const now = Date.now()
+    const start = now - now % (cacheRenew)
+    const revalidate = Math.max(timeChunk.revalidate, start + cacheRenew)
+    const expire = Math.max(timeChunk.expire, start + cacheExpiration)
+
+    return { revalidate, expire }
 }

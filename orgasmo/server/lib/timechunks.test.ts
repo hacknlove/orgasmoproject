@@ -1,4 +1,4 @@
-import { currentTimeChunk } from "./timechunks";
+import { currentTimeChunk, maxTimeChunk } from "./timechunks";
 
 describe('currentTimeChunk', () => {
     it('returns the same start, renew and end for times in the same chunk', () => {
@@ -25,8 +25,26 @@ describe('currentTimeChunk', () => {
 
         expect(chunks1).not.toEqual(chunks2)
     })
-    it('read environment', () => {
-        process.env.CACHE_EXPIRATION = '1000'
-        currentTimeChunk()
+})
+
+describe('maxTimeChunk', () => {
+    it('returns the max revalidate and expire', () => {
+        jest.spyOn(Date, 'now').mockImplementation(() => 12345678)
+
+        const chunks1 = currentTimeChunk({ cacheExpiration: 1000, cacheRenew: 500 })
+
+
+        const chunks2 = currentTimeChunk({ cacheExpiration: 100, cacheRenew: 1000 })
+
+        const chunks3 = maxTimeChunk({ timeChunkConf: { cacheExpiration: 100, cacheRenew: 1000 }, timeChunk: chunks1 })
+
+        expect(chunks3.revalidate).toBeGreaterThanOrEqual(chunks1.revalidate)
+        expect(chunks3.revalidate).toBeGreaterThanOrEqual(chunks2.revalidate)
+        expect(chunks3.expire).toBeGreaterThanOrEqual(chunks1.expire)
+        expect(chunks3.expire).toBeGreaterThanOrEqual(chunks2.expire)
+
+    })
+    it ('returns timeChunk if no conf passed', () => {
+        expect(maxTimeChunk({ timeChunk: { revalidate: 1, expire: 1 } })).toEqual({ revalidate: 1, expire: 1 })
     })
 })
