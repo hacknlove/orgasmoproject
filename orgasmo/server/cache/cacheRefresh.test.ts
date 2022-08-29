@@ -38,7 +38,7 @@ describe('cacheRefresh', () => {
         
         await cacheRefresh({ ctx, item, key })
 
-        expect(ctx.cache.get(key)).toEqual(newItem)
+        expect(ctx.cache.get(key)).toEqual(newItem);
     })
 
     it('expires if no new item is returned', async () => {
@@ -64,6 +64,9 @@ describe('cacheRefresh', () => {
             ms: 1000
         }
 
+        ctx.driver.somemethod.mockResolvedValue(newItem)
+
+
         await cacheRefresh({ ctx, item, key })
         expect(nextRevalidation.has(key))
     })
@@ -74,7 +77,20 @@ describe('cacheRefresh', () => {
             ms: 2000
         }
 
+        ctx.driver.somemethod.mockResolvedValue(newItem)
+
+
         await cacheRefresh({ ctx, item, key })
-        expect(autoRefreshInterval.has(key))
+        expect(autoRefreshInterval.has(key)).toBe(true)
+    })
+
+    it('clears the autoRefreshInterval if the newItem has no autoRefresh', async () => {
+        newItem.autoRefresh = null
+
+        ctx.driver.somemethod.mockResolvedValue(newItem)
+
+
+        await cacheRefresh({ ctx, item, key })
+        expect(autoRefreshInterval.has(key)).toBe(false)
     })
 })
