@@ -1,28 +1,25 @@
-import CacheControl from "../lib/cacheControl"
-import setCookies from "../lib/setCookies"
 import getCachedPage from "./getCachedPage"
-import { getNewFullPage } from "./getNewFullPage"
+import getNewFullPage from "./getNewFullPage"
 import getCachedPageVariant from './getCachedPageVariant'
 import events from "../events"
+import sendFullPage from "./sendFullPage"
 
 export default async function getPage(ctx) {
     const {
         key,
-        cached
+        pageConfig
     } = await getCachedPage(ctx)
 
-    if (!cached) {
+    if (!pageConfig) {
         return getNewFullPage(ctx)
     }
     
-    if (cached.response) {
-        setCookies({ ctx, cookies: cached.cookies })
-        CacheControl({ ctx, item: cached })
-        return cached.response
+    if (pageConfig.response) {
+        return sendFullPage({ ctx, pageConfig })
     }
 
-    if (cached.pages) {
-        return getCachedPageVariant({ cache, cached, ctx, driver, key })
+    if (pageConfig.pages) {
+        return getCachedPageVariant({ pageConfig, ctx, key })
     }
 
     events.emit('error', {

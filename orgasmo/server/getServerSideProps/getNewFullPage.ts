@@ -1,7 +1,7 @@
 import { cencode } from 'cencode';
 import expandPage from './expandPage';
 
-export async function getNewFullPage({ driver, cache, ctx }) {
+export default async function getNewFullPage({ driver, cache, ctx }) {
     const pageConfig = await driver.page.getPage()
 
     
