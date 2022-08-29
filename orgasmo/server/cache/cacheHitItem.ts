@@ -2,8 +2,8 @@ import { nextRevalidation } from "./maps";
 import cacheExtendExpirationTimeout from "./cacheExtendExpirationTimeout";
 import cacheRevalidate from "./cacheRevalidate";
 
-export default function cacheHitItem({ driver, cache, key, item }) {
-    cacheExtendExpirationTimeout({ cache, key, item })
+export default function cacheHitItem({ ctx, key, item }) {
+    cacheExtendExpirationTimeout({ ctx, key, item })
 
     if (!item.revalidate) {
         return
@@ -12,6 +12,6 @@ export default function cacheHitItem({ driver, cache, key, item }) {
     const needsRevalidation = nextRevalidation.get(key) < Date.now()
 
     if (needsRevalidation) {
-        cacheRevalidate({ driver, cache, key, item })
+        cacheRevalidate({ ctx, key, item })
     }
 }

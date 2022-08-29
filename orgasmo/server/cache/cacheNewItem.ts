@@ -2,15 +2,15 @@ import cacheNewAutoRefreshInterval from "./cacheNewAutoRefreshInterval"
 import cacheNewExpirationTimeout from "./cacheNewExpirationTimeout"
 import { nextRevalidation } from "./maps"
 
-export default function cacheNewItem({ driver, cache, key, item }) {
+export default function cacheNewItem({ ctx, key, item }) {
     if (item.autoRefresh) {
-        cacheNewAutoRefreshInterval({ driver, cache, key, item })
+        cacheNewAutoRefreshInterval({ ctx, key, item })
     }
 
-    cacheNewExpirationTimeout({ cache, key, item })
+    cacheNewExpirationTimeout({ ctx, key, item })
 
     if (item.revalidate) {
         nextRevalidation.set(key, new Date())
     }
-    return cache.set(key, item)
+    return ctx.cache.set(key, item)
 }

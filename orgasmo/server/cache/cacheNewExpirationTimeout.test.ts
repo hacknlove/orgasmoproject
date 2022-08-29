@@ -2,17 +2,15 @@ import cacheNewExpirationTimeout from './cacheNewExpirationTimeout'
 import { expireTimeout } from './maps'
 
 describe('cacheNewExpirationTimeout', () => {
-    const cache = new Map()
+    const ctx = { cache: new Map() }
     
     it('sets a expiration', async () => {
         const key = expect.getState().currentTestName
         cacheNewExpirationTimeout({
-            cache,
+            ctx,
             key,
             item: {
-                timeChunk: {
-                    expire: 10
-                }
+                timeChunk: { expire: 10 }
             }
         })
 

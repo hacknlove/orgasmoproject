@@ -13,44 +13,45 @@ jest.mock('./cacheHitItem', () => ({
 
 
 describe('cacheGet', () => {
+    let ctx 
     let driver
     let key
     
     beforeEach(() => {
-        driver = {}
+        ctx = {
+            driver: {},
+            cache: new Map
+        }
         key = expect.getState().currentTestName
     })
 
     it('returns null if no item is found on the cache', async () => {
-        const cache = new Map()
-        expect(await cacheGet({ cache, driver, key })).toBeNull()
+        expect(await cacheGet({ ctx, key })).toBeNull()
     })
 
     it('expires item, if expired', async () => {
-        const cache = new Map()
-        cache.set(key, {
+        ctx.cache.set(key, {
             timeChunk: {
                 expire: 0
             }
         })
 
-        expect(await cacheGet({ cache, driver, key })).toBeNull()
+        expect(await cacheGet({ ctx, key })).toBeNull()
 
-        expect(cacheExpireItem).toHaveBeenCalledWith({ cache, key })
+        expect(cacheExpireItem).toHaveBeenCalledWith({ ctx, key })
     })
 
     it('hits the item if found and not expired', async () => {
-        const cache = new Map()
         const item = {
             timeChunk: {
                 expire: Date.now() + 1000
             }
         }
 
-        cache.set(key, item)
+        ctx.cache.set(key, item)
 
-        expect(await cacheGet({ cache, driver, key })).toBe(item)
-        expect(cacheHitItem).toHaveBeenCalledWith({ cache, driver, key, item })
+        expect(await cacheGet({ ctx, key })).toBe(item)
+        expect(cacheHitItem).toHaveBeenCalledWith({ ctx, key, item })
 
     })
 })

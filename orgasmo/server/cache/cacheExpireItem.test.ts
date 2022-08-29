@@ -13,11 +13,13 @@ describe('expireItem', () => {
         }, 10))
         nextRevalidation.set(key, 123)
 
-        const cache = new Map([[ key, 'some item' ]])
+        const ctx = {
+            cache: new Map([[ key, 'some item' ]])
+        }
 
-        cacheExpireItem({ cache, key })
+        cacheExpireItem({ ctx, key })
 
-        expect(cache.has(key)).toBe(false)
+        expect(ctx.cache.has(key)).toBe(false)
         await new Promise(resolve => setTimeout(resolve, 20))
         expect(true).toBe(true)
     })

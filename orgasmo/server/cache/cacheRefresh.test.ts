@@ -1,121 +1,80 @@
+// @ts-nocheck
 import cacheRefresh from './cacheRefresh'
 import { autoRefreshInterval, nextRevalidation } from './maps'
 
 describe('cacheRefresh', () => {
-    it('fetch a new item', async () => {
-        const key = expect.getState().currentTestName
-        const item = {
+    let key
+    let item
+    let newItem
+    let ctx
+    beforeEach(() => {
+        key = expect.getState().currentTestName
+        item = {
             foo: 'foo',
             autoRefresh: {
-                method: 'some.method',
+                method: 'somemethod',
                 ms: 1000
             }
         }
-        const cache = new Map([[ key, item ]])
-        const newItem = {
-            bar: 'bar'
+        newItem ={ bar: 'bar',
+        autoRefresh: {
+            method: 'somemethod',
+            ms: 1000
+        } }
+        ctx = {
+            driver: {
+                'somemethod': jest.fn()
+            },
+            cache: new Map([[ key, item ]])
         }
-        const driver = {
-            'some.method': jest.fn(() => newItem)
+    })
+    it('fetch a new item', async () => {
+        item.autoRefresh = {
+            method: 'somemethod',
+            ms: 1000
         }
 
-        await cacheRefresh({ driver, item, cache, key: key})
+        ctx.driver.somemethod.mockResolvedValue(newItem)
+        
+        await cacheRefresh({ ctx, item, key })
 
-        expect(cache.get(key)).toEqual(newItem)
+        expect(ctx.cache.get(key)).toEqual(newItem)
     })
 
     it('expires if no new item is returned', async () => {
-        const key = expect.getState().currentTestName
-        const item = {
-            foo: 'foo',
-            autoRefresh: {
-                method: 'some.method',
-                ms: 1000
-            }
-        }
-        const cache = new Map([[ key, item ]])
-        const driver = {
-            'some.method': jest.fn(() => null)
-        }
+        ctx.driver.somemethod.mockResolvedValue(null)
+
         autoRefreshInterval.set(key, 0)
-        await cacheRefresh({ driver, item, cache, key: key})
-        expect(cache.has(key)).toBeFalsy()
+        await cacheRefresh({ ctx, item, key: key})
+        expect(ctx.cache.has(key)).toBeFalsy()
         expect(autoRefreshInterval.has(key)).toBeFalsy()
     })
 
     it('expires if drivers throws', async () => {
-        const key = expect.getState().currentTestName
-        const item = {
-            foo: 'foo',
-            autoRefresh: {
-                method: 'some.method',
-                ms: 1000
-            }
-        }
-        const cache = new Map([[ key, item ]])
-        const driver = {
-            'some.method': jest.fn(() => { throw new Error() })
-        }
+        ctx.driver.somemethod.mockRejectedValue('Error')
+
         autoRefreshInterval.set(key, 0)
-        await cacheRefresh({ driver, item, cache, key: key})
-        expect(cache.has(key)).toBeFalsy()
+        await cacheRefresh({ ctx, item, key })
+        expect(ctx.cache.has(key)).toBeFalsy()
         expect(autoRefreshInterval.has(key)).toBeFalsy()
     })
 
     it('updates the revalidation time, if the item revalidates', async () => {
-        const key = expect.getState().currentTestName
-
-        const item = {
-            foo: 'foo',
-            autoRefresh: {
-                method: 'some.method',
-                ms: 1000
-            },
-        }
-        const newItem = {
-            foo: 'foo',
-            autoRefresh: {
-                method: 'some.method',
-                ms: 1000
-            },
-            revalidate: {
-                ms: 1000
-            }
+        newItem.revalidate = {
+            ms: 1000
         }
 
-        const cache = new Map([[ key, item ]])
-        const driver = {
-            'some.method': jest.fn(() => newItem)
-        }
-
-        await cacheRefresh({ driver, item, cache, key: key})
+        await cacheRefresh({ ctx, item, key })
         expect(nextRevalidation.has(key))
     })
 
     it('changes the autoRefreshInterval if the newItem wants it different ', async () => {
-        const key = expect.getState().currentTestName
-
-        const item = {
-            foo: 'foo',
-            autoRefresh: {
-                method: 'some.method',
-                ms: 1000
-            },
-        }
-        const newItem = {
-            foo: 'foo',
-            autoRefresh: {
-                method: 'some.method',
-                ms: 2000
-            },
+        newItem.autoRefresh = {
+            method: 'somemethod',
+            ms: 2000
         }
 
-        const cache = new Map([[ key, item ]])
-        const driver = {
-            'some.method': jest.fn(() => newItem)
-        }
-
-        await cacheRefresh({ driver, item, cache, key: key})
+        await cacheRefresh({ ctx, item, key })
         expect(autoRefreshInterval.has(key))
     })
 })

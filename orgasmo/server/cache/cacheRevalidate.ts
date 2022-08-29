@@ -3,10 +3,10 @@ import cacheNewAutoRefreshInterval from './cacheNewAutoRefreshInterval'
 import events from "../events"
 import { currentTimeChunk } from "../lib/timechunks"
 import cacheExtendExpirationTimeout from "./cacheExtendExpirationTimeout"
-export default async function cacheRevalidate({ driver, cache, key, item }) {
+export default async function cacheRevalidate({ ctx, key, item }) {
     let newItem
     try {
-        newItem = await driver[item.revalidate](key)
+        newItem = await ctx.driver[item.revalidate](key)
     } catch (error) {
         events.emit('error', {
             method: item.revalidate,
@@ -18,7 +18,7 @@ export default async function cacheRevalidate({ driver, cache, key, item }) {
         return
     }
 
-    cacheExtendExpirationTimeout({ cache, key, item: newItem })
+    cacheExtendExpirationTimeout({ ctx, key, item: newItem })
 
     
     if (newItem.revalidate) {
@@ -33,8 +33,8 @@ export default async function cacheRevalidate({ driver, cache, key, item }) {
 
     if (newItem.autoRefresh) {
         clearInterval(autoRefreshInterval.get(key))
-        cacheNewAutoRefreshInterval({ cache, key, driver, item: newItem })
+        cacheNewAutoRefreshInterval({ ctx, key, item: newItem })
     }
 
-    cache.set(key, newItem)
+    ctx.cache.set(key, newItem)
 }

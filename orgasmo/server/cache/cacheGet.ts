@@ -1,18 +1,18 @@
 import cacheExpireItem from "./cacheExpireItem"
 import cacheHitItem from './cacheHitItem'
 
-export default async function cacheGet({ cache, driver, key }) {
-    const item = await cache.get(key)
+export default async function cacheGet({ ctx, key }) {
+    const item = await ctx.cache.get(key)
 
     if (!item) {
         return null
     }
 
     if (item.timeChunk.expire < Date.now()) {
-        cacheExpireItem({ cache, key })
+        cacheExpireItem({ ctx, key })
         return null
     }
 
-    cacheHitItem({ cache, driver, key, item })
+    cacheHitItem({ ctx, key, item })
     return item
 }

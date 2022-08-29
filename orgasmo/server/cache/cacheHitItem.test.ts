@@ -15,23 +15,24 @@ jest.mock('./cacheRevalidate', () => ({
 describe('cacheHitItem', () => {
     let key
     let item
-    let driver
-    let cache
+    let ctx
     beforeEach(() => {
         key = expect.getState().currentTestName
-        cache = new Map()
+        ctx = {
+            cache: new Map(),
+            driver: {}
+        }
         item = { key }
-        driver = {}
     })
     it('extends expiration', () => {
-        cacheHitItem({ cache, key, item, driver })
+        cacheHitItem({ ctx, key, item })
 
         expect(cacheExtendExpirationTimeout).toHaveBeenCalledWith({
-            cache, key, item
+            ctx, key, item
         })
     })
     it('does not revalidate if item has no revalidate', () => {
-        cacheHitItem({ cache, key, item, driver })
+        cacheHitItem({ ctx, key, item })
         expect(cacheRevalidate).not.toHaveBeenCalled()
     })
 
@@ -45,7 +46,7 @@ describe('cacheHitItem', () => {
         }
         nextRevalidation.set(key, Date.now() + 500)
 
-        cacheHitItem({ key, item, driver, cache })
+        cacheHitItem({ ctx, key, item })
         expect(cacheRevalidate).not.toHaveBeenCalled()
     })
     it('revalidates after time', () => {
@@ -58,7 +59,7 @@ describe('cacheHitItem', () => {
         }
         nextRevalidation.set(key, Date.now() - 500)
 
-        cacheHitItem({ key, item, driver, cache })
+        cacheHitItem({ ctx, key, item })
         expect(cacheRevalidate).toHaveBeenCalled()
     })
 })

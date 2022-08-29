@@ -16,40 +16,41 @@ jest.mock('./cacheExtendExpirationTimeout', () => ({
 
 describe('cacheRevalidate', () => {
     let key
+    let ctx
     let item
-    let cache
-    let driver
     let newItem
     beforeEach(() => {
         key = expect.getState().currentTestName
         item = { revalidate: 'foo' }
         newItem = {}
-        driver = {
-            foo: () => newItem
+        ctx = {
+            driver: {
+                foo: () => newItem
+            },
+            cache: new Map([
+                [key, item]
+            ])
         }
-        cache = new Map([
-            [key, item]
-        ])
     })
     it('does nothing if the method fails', async () => {
-        driver.foo = () => Promise.reject('error')
-        await cacheRevalidate({ key, driver, cache, item })
+        ctx.driver.foo = () => Promise.reject('error')
+        await cacheRevalidate({ ctx, key, item })
 
         expect(events.emit).toHaveBeenCalled()
 
-        expect(cache.has(key)).toBe(true)
+        expect(ctx.cache.has(key)).toBe(true)
     })
     it('does nothing if the method returns falsy', async () => {
-        driver.foo = () => null
+        ctx.driver.foo = () => null
 
-        await cacheRevalidate({ key, driver, cache, item })
+        await cacheRevalidate({ ctx, key, item })
 
-        expect(cache.has(key)).toBe(true)
+        expect(ctx.cache.has(key)).toBe(true)
     })
     it('caches the item', async () => {
-        await cacheRevalidate({ key, driver, cache, item })
+        await cacheRevalidate({ ctx, key, item })
 
-        expect(cache.get(key)).toEqual(newItem)
+        expect(ctx.cache.get(key)).toEqual(newItem)
     })
     it('updates the revalidate and expire times', async () => {
         newItem.timeChunk = {
@@ -57,9 +58,9 @@ describe('cacheRevalidate', () => {
             expire: 1000
         }
         newItem.revalidate = 'fuu'
-        await cacheRevalidate({ key, driver, cache, item })
+        await cacheRevalidate({ ctx, key, item })
         expect(cacheExtendExpirationTimeout).toHaveBeenCalled()
-        expect(cache.get(key)).toEqual(newItem)
+        expect(ctx.cache.get(key)).toEqual(newItem)
     })
     it('sets the autoRefresh', async () => {
         newItem.autoRefresh = {
@@ -67,10 +68,8 @@ describe('cacheRevalidate', () => {
             ms: 1234
         }
 
-        await cacheRevalidate({ key, driver, cache, item })
+        await cacheRevalidate({ ctx, key, item })
 
         expect(autoRefreshInterval.has(key)).toBe(true)
     })
-
-
 })
