@@ -8,8 +8,6 @@ export default function choseOne({ array, ctx }) {
 
     let staticRandom = ctx.staticRandom = getStaticRandom(ctx);
 
-    ctx.noCacheFull = true;
-
     if (array[0].randomSeed) {
         staticRandom = (new seedrandom(staticRandom + array[0].randomSeed))()
     }

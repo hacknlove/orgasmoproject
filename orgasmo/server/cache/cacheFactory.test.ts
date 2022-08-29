@@ -1,3 +1,4 @@
+// @ts-nocheck
 import cacheFactory from './cacheFactory'
 import events from '../events'
 
@@ -10,34 +11,50 @@ jest.mock('../events', () => ({
 
 describe('cacheFactory', () => {
     it ('return the cache from the driver', async () => {
-        const driver = {
-            cache: {
-                factory: () => 'Cache from the driver'
+        const ctx = {
+            driver : {
+                cache: {
+                    factory: () => 'Cache from the driver'
+                }
             }
         }
-        expect(await cacheFactory(driver)).toBe('Cache from the driver')
+        await cacheFactory(ctx)
+        
+        expect(ctx.cache).toBe('Cache from the driver')
     })
     it ('return the default cache, if the driver has no cache', async () => {
-        const driver = {
-            cache: {
-                factory: () => null
+        const ctx = {
+            driver: {
+                cache: {
+                    factory: () => null
+                }
             }
         }
-        expect(await cacheFactory(driver)).toBeInstanceOf(Map)
+        await cacheFactory(ctx)
+
+        expect(ctx.cache).toBeInstanceOf(Map)
     })
     it ('return the default cache, if the driver has no cache factory', async () => {
-        const driver = {
+        const ctx = {
+            driver: {
+            }
         }
-        expect(await cacheFactory(driver)).toBeInstanceOf(Map)
+        await cacheFactory(ctx)
+
+        expect(ctx.cache).toBeInstanceOf(Map)
     })
     it ('triggers error event if factory errors, and fallbacks to defauls', async () => {
-        const driver = {
-            cache: {
-                factory: () => Promise.reject('The error')
+        const ctx = {
+            driver: {
+                cache: {
+                    factory: () => Promise.reject('The error')
+                }
             }
         }
 
-        expect(await cacheFactory(driver)).toBeInstanceOf(Map)
-        expect(events.emit).toHaveBeenLastCalledWith('error', { method: 'cache.factory', error: 'The error'})
+        await cacheFactory(ctx)
+
+        expect(ctx.cache).toBeInstanceOf(Map)
+        expect(events.emit).toBeCalled()
     })
 })

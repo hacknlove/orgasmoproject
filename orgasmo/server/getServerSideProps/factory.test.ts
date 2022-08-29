@@ -10,11 +10,13 @@ jest.mock('./getPage', () => ({
 describe('getServerSidePropsFactory', () => {
     it('calls getPage', async () => {
         const driver = {}
-        const ctx = {}
+        const ctx = {
+            req: {}
+        }
 
         const result = await (getServerSidePropsFactory({ driver })(ctx));
 
         expect(result).toBe('result');
-        expect(getPage).toHaveBeenCalledWith({ ctx, driver });
+        expect(getPage).toHaveBeenCalledWith(ctx);
     })
 });

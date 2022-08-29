@@ -6,8 +6,7 @@ import { serialize } from '../lib/serialization';
 import getRows from './getRows';
 import rewrite from './rewrite';
 
-
-export default async function expandPage ({ cache, ctx, driver, pageConfig, key }) {
+export default async function expandPage ({ ctx, driver, pageConfig, key, params = undefined }) {
   
   const page = pageConfig.page ?? chooseOne({ array: pageConfig.pages, ctx });
     
@@ -18,16 +17,12 @@ export default async function expandPage ({ cache, ctx, driver, pageConfig, key 
     }
 
     if (page.rewrite) {
-      return rewrite({ ctx, rewrite, driver, key })
+      return rewrite({ ctx, rewrite: page.rewrite, driver, key })
     }
 
-    ctx.noCache = Array.isArray(pageConfig.pages)
-    || page.top?.find(row => Array.isArray(row)) 
-    || page.footer?.find(row => Array.isArray(row)) 
-    || page.rows?.find(row => Array.isArray(row))
+    
 
-
-    const params = decencode(key)
+    params = params || decencode(key)
 
     const timeChunk = currentTimeChunk(page.timeChunk)
 

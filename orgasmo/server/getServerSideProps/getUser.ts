@@ -1,13 +1,26 @@
-export default async function getUser({ driver, ctx }) {
+import events from "../events"
+
+export default async function getUser(ctx) {
     if (ctx.req.user) {
-        return ctx.req.user
+        return
     }
 
-    if (driver.user?.getUser) {
-        return driver.user.getUser(ctx)
+    if (ctx.driver.user?.getUser) {
+        ctx.req.user =  await ctx.driver.user.getUser(ctx).catch(error => {
+            events.emit('error', {
+                type: 'driver',
+                method: 'user.getUser',
+                params: [ctx],
+                error
+            })
+
+            return {
+                roles: []
+            }
+        })
     }
 
-    return {
-        roles: undefined
+    ctx.req.user = {
+        roles: []
     }
 }
