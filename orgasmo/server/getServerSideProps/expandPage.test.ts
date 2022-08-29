@@ -32,7 +32,8 @@ describe('expandPage', () => {
             rewrite: 'Somewhere'
         }
 
-        expect(await expandPage({ ctx, driver, pageConfig, key })).toBe('rewrite response')
-        expect(rewrite).toBeCalledWith({ ctx, rewrite: 'Somewhere', driver, key })
+        expect(await expandPage({ ctx, pageConfig, key })).toBe('rewrite response')
+        expect(rewrite).toBeCalledWith({ ctx, rewrite: 'Somewhere', key })
+        
     })
 })

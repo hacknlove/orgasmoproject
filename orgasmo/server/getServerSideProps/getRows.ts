@@ -4,7 +4,7 @@ import chooseOne from "../lib/chooseOne";
 import { serialize } from "../lib/serialization";
 import { maxTimeChunk } from "../lib/timechunks";
 
-export default async function getRows({ rows: rowsProp, params, ctx, driver, limit = Infinity, timeChunk }) {
+export default async function getRows({ rows: rowsProp, params, ctx, limit = Infinity, timeChunk }) {
     if (!rowsProp) {
         return [];
     }
@@ -23,7 +23,7 @@ export default async function getRows({ rows: rowsProp, params, ctx, driver, lim
 
         const rowTimeChunk = maxTimeChunk({ timeChunkConf: rowConfig.timeChunk, timeChunk })
 
-        const row = await processRow({ rowConfig, params, driver })
+        const row = await processRow({ rowConfig, params, ctx })
         if (row?.props?.getMore) {
             row.props.src = `/api/_ogm?c=${serialize({
                 ...row.props.getMore,

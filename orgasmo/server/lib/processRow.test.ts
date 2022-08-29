@@ -10,7 +10,7 @@ describe("processRow", () => {
             someOtherShit: "test"
         };
 
-        const row = await processRow({ rowConfig, params: {}, driver: {} });
+        const row = await processRow({ rowConfig, params: {}, ctx: { driver: {} } });
 
         expect(row).toEqual({
             type: "SomeType",
@@ -36,7 +36,7 @@ describe("processRow", () => {
                 }
             })
         };
-        const row = await processRow({ rowConfig, params: {}, driver });
+        const row = await processRow({ rowConfig, params: {}, ctx: { driver } });
 
         expect(row).toEqual({
             type: "SomeType",
@@ -54,7 +54,7 @@ describe("processRow", () => {
             type: "SomeType",
         };
 
-        const row = await processRow({ rowConfig, params: {}, driver: {} });
+        const row = await processRow({ rowConfig, params: {}, ctx: { driver: {} } });
 
         expect(row).toEqual({
             type: "SomeType",

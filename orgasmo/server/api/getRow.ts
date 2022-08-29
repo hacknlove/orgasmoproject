@@ -6,7 +6,8 @@ import { serialize } from "../lib/serialization";
 import parseCommand from "./parseCommand";
 import { currentTimeChunk } from "../lib/timechunks";
 
-export default async function getRow({ req, res, driver }) {
+export default async function getRow(ctx) {
+    const { req, res, driver } = ctx
     const command = await parseCommand({ req, res, driver })
     if (!command) {
         return
@@ -28,7 +29,7 @@ export default async function getRow({ req, res, driver }) {
         return res.json(null)
     }
 
-    const row = await cleanAwaitJson(await processRow({ rowConfig, params: command.params, driver }))
+    const row = await cleanAwaitJson(await processRow({ rowConfig, params: command.params, ctx }))
 
     if (row.props.getMore) {
         row.props.src = `/api/_ogm?c=${serialize({

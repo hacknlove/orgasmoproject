@@ -2,7 +2,7 @@ import { MAX_REWRITES } from '../lib/config';
 import events from '../events';
 import getPage from './getPage';
 
-export default function rewrite({ ctx, rewrite, driver, key }) {
+export default function rewrite({ ctx, rewrite, key }) {
     if (!ctx.original) {
         ctx.original = {
           roles: ctx.req.roles,
@@ -37,5 +37,5 @@ export default function rewrite({ ctx, rewrite, driver, key }) {
         events.emit('REWRITE_TO_ITSELF', { original: ctx.original, ctx, rewrite: rewrite })
       }
 
-      return getPage({ ctx, driver })
+      return getPage(ctx)
 }

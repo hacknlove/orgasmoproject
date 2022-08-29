@@ -6,7 +6,15 @@ import { serialize } from '../lib/serialization';
 import getRows from './getRows';
 import rewrite from './rewrite';
 
-export default async function expandPage ({ ctx, driver, pageConfig, key, params = undefined }) {
+interface expandPageParameters {
+  ctx: any,
+  pageConfig: any,
+  key: string,
+  params?: any
+}
+
+export default async function expandPage ({ ctx, pageConfig, key, params }: expandPageParameters): Promise<any>
+export default async function expandPage ({ ctx, pageConfig, key, params = undefined }) {
   
   const page = pageConfig.page ?? chooseOne({ array: pageConfig.pages, ctx });
     
@@ -17,7 +25,7 @@ export default async function expandPage ({ ctx, driver, pageConfig, key, params
     }
 
     if (page.rewrite) {
-      return rewrite({ ctx, rewrite: page.rewrite, driver, key })
+      return rewrite({ ctx, rewrite: page.rewrite, key })
     }
 
     
@@ -32,21 +40,18 @@ export default async function expandPage ({ ctx, driver, pageConfig, key, params
               ctx,
               params,
               rows: page.top,
-              driver,
               timeChunk,
             }),
             rows: getRows({
               ctx,
               params,
               rows: page.rows,
-              driver,
               limit: page.rowsLimit,
               timeChunk,
             }),
             bottom: getRows({
               ctx,
               params,
-              driver,
               rows: page.bottom,
               timeChunk,
             }),

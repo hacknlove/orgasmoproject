@@ -7,7 +7,7 @@ export default async function getCachedPageVariant({ pageConfig, ctx, key }) {
     const pageId = chooseOne({ array: pageConfig.pages, ctx });
     const newKey = cencode({ ...decencode(key), pageId })
     
-    const cachedVariant = await cacheGet({ driver: ctx.driver, cache: ctx.cache, key: newKey })
+    const cachedVariant = await cacheGet({ ctx, key: newKey })
 
     if (!cachedVariant) {
         return getNewFullPage(ctx)

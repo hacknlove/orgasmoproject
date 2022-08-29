@@ -13,7 +13,7 @@ jest.mock('../lib/serialization', () => ({
 
 describe("getRows", () => {
     it('retursn empty array if rows is falsy', async () => {
-        const rows = await getRows({ rows: undefined, params: {}, ctx: {}, driver: {} });
+        const rows = await getRows({ rows: undefined, params: {}, ctx: { driver: {} } });
         expect(rows).toEqual([]);
     })
     it('calls processRow for each row and return the array of responses', async () => {
@@ -22,7 +22,7 @@ describe("getRows", () => {
         // @ts-ignore
         processRow.mockImplementation(async ({ rowConfig }) => ({ props: { row: true, test: rowConfig  } }));
 
-        const response = await getRows({ rows, params: {}, ctx: {}, driver: {} });
+        const response = await getRows({ rows, params: {}, ctx: { driver: {} } });
 
         expect(processRow).toHaveBeenCalledTimes(5);
 
@@ -41,7 +41,7 @@ describe("getRows", () => {
         // @ts-ignore
         processRow.mockImplementation(async ({ rowConfig }) => ({ props: { row: true, test: rowConfig  } }));
 
-        const response = await getRows({ rows, params: {}, ctx: {}, driver: {}, limit: 3 });
+        const response = await getRows({ rows, params: {}, ctx: { driver: {} }, limit: 3 });
 
         expect(processRow).toHaveBeenCalledTimes(3);
 
@@ -66,9 +66,9 @@ describe("getRows", () => {
             rows,
             params: {},
             ctx: {
-                setCookies
+                setCookies,
+                driver: {},
             },
-            driver: {},
             timeChunk: {}
         });
 
@@ -86,9 +86,9 @@ describe("getRows", () => {
             rows,
             params: {},
             ctx: {
+                driver: {},
                 setCookies: []
             },
-            driver: {},
             timeChunk: {}
         });
         expect(chooseOne).toHaveBeenCalledTimes(2);
@@ -105,10 +105,10 @@ describe("getRows", () => {
             rows,
             params: {},
             ctx: {
+                driver: {},
                 req: { user: { id: 'test-user-id' } },
                 setCookies: []
             },
-            driver: {},
             timeChunk: {}
         });
         expect(rows[0].props.src).toEqual(expect.any(String));
@@ -126,10 +126,10 @@ describe("getRows", () => {
                 rows,
                 params: {},
                 ctx: {
+                    driver: {},
                     req: { user: {} },
                     setCookies: []
                 },
-                driver: {},
                 timeChunk: {}
             }
         );
