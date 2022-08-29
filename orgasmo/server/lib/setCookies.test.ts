@@ -1,3 +1,4 @@
+// @ts-nocheck
 import nookies from 'nookies';
 
 import setCookies from './setCookies';
@@ -14,9 +15,6 @@ jest.mock('nookies', () => {
 
 describe('setCookies', () => {
     const ctx = { setCookies: [] }
-    beforeEach(() => {
-        jest.resetAllMocks()
-    })
    it('does nothing is no cookies there', () => {
         setCookies({ ctx });
         expect(nookies.set).not.toHaveBeenCalled();

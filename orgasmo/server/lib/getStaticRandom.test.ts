@@ -11,9 +11,6 @@ jest.mock("nookies", () => {
 });
 
 describe("getStaticRandom", () => {
-    beforeEach(() => {
-        jest.resetAllMocks();
-    }),
     it('returns the user staticRandom if exists', () => {
         const ctx = {
             req: {

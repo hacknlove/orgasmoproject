@@ -32,9 +32,6 @@ const driver = {}
 const res = {}
 
 describe('apiFactory', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    }),
     it('calls getRow if the first part of orgasmo is _ogr', async () => {
         const req = {
             query: {

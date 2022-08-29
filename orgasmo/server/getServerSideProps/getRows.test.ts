@@ -1,3 +1,4 @@
+// @ts-nocheck
 import getRows from "./getRows";
 import chooseOne from "../lib/chooseOne";
 import processRow from "../lib/processRow";
@@ -11,9 +12,6 @@ jest.mock('../lib/serialization', () => ({
 }));
 
 describe("getRows", () => {
-    beforeEach(() => {
-        jest.resetAllMocks()
-    })
     it('retursn empty array if rows is falsy', async () => {
         const rows = await getRows({ rows: undefined, params: {}, ctx: {}, driver: {} });
         expect(rows).toEqual([]);

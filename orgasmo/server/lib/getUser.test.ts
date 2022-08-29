@@ -45,12 +45,21 @@ describe('getUser', () => {
         expect(ctx.req.user.roles).toEqual([])
     })
 
+    it('sets the default user is the driver returns falsy. No error is emited', async () => {
+        ctx.driver.user.getUser.mockResolvedValue(null)
+
+        await getUser(ctx)
+
+        expect(events.emit).not.toBeCalled()
+        expect(ctx.req.user.roles).toEqual([])
+    })
+
     it('adds the default roles if the returned user has no roles', async () => {
         ctx.driver.user.getUser.mockResolvedValue({ other: 'what' })
 
         await getUser(ctx)
 
-        expect(events.emit).toBeCalled()
+        expect(events.emit).not.toBeCalled()
         expect(ctx.req.user).toEqual({ roles: [], other: 'what' })
     })
 
@@ -59,7 +68,6 @@ describe('getUser', () => {
 
         await getUser(ctx)
 
-        expect(events.emit).toBeCalled()
         expect(ctx.req.user).toEqual({ roles: ['some'], other: 'what' })
     })
 })

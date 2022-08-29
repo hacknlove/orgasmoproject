@@ -19,10 +19,6 @@ const req = {
 }
 
 describe('getMore', () => {
-    beforeEach(() => {
-        jest.resetAllMocks();
-    });
-
     it('does nothing if there is no command', async () => {
         await getMore({ req, res, driver: {} });
         expect(res.json).not.toHaveBeenCalled();

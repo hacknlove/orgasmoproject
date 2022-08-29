@@ -10,51 +10,49 @@ jest.mock('../events', () => ({
 }))
 
 describe('cacheFactory', () => {
-    it ('return the cache from the driver', async () => {
-        const ctx = {
-            driver : {
+    let ctx
+    beforeEach(() => {
+        ctx = {
+            driver: {
                 cache: {
-                    factory: () => 'Cache from the driver'
+                    factory: jest.fn()
                 }
             }
         }
+    })
+    it ('gets the cache from the driver and set it to the context', async () => {
+        ctx.driver.cache.factory = () => 'Cache from the driver'
         await cacheFactory(ctx)
         
         expect(ctx.cache).toBe('Cache from the driver')
     })
-    it ('return the default cache, if the driver has no cache', async () => {
-        const ctx = {
-            driver: {
-                cache: {
-                    factory: () => null
-                }
-            }
-        }
+    it ('sets the default cache to the context, if the driver returns no cache', async () => {
+        ctx.driver.cache.factory = () => null
         await cacheFactory(ctx)
 
         expect(ctx.cache).toBeInstanceOf(Map)
     })
-    it ('return the default cache, if the driver has no cache factory', async () => {
-        const ctx = {
-            driver: {
-            }
-        }
+    it ('sets the default cache to the context, if the driver has no cache factory', async () => {
+        ctx.driver = {}
         await cacheFactory(ctx)
 
         expect(ctx.cache).toBeInstanceOf(Map)
     })
-    it ('triggers error event if factory errors, and fallbacks to defauls', async () => {
-        const ctx = {
-            driver: {
-                cache: {
-                    factory: () => Promise.reject('The error')
-                }
-            }
-        }
+    it('triggers error event if factory errors, and fallbacks to defauls', async () => {
+        ctx.driver.cache.factory = () => Promise.reject('The error')
 
         await cacheFactory(ctx)
 
         expect(ctx.cache).toBeInstanceOf(Map)
         expect(events.emit).toBeCalled()
+    })
+    it('does nothing if the context has already cache', async () => {
+        ctx.cache = 'some cache'
+
+        await cacheFactory(ctx)
+        expect(ctx.cache).toBe('some cache')
+        expect(ctx.driver.cache.factory).not.toBeCalled()
+
+
     })
 })

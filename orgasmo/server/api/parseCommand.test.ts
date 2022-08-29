@@ -28,9 +28,6 @@ const res = {
 }
 
 describe('parseCommand', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
     it('return an error if the signature is not valid and calls the driver', async () => {
 
 

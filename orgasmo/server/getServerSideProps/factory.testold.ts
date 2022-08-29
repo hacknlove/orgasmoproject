@@ -11,9 +11,6 @@ jest.mock('../lib/serialization', () => ({
 }));
 
 describe('getServerSidePropsFactory', () => {
-    beforeEach(() => {
-        jest.resetAllMocks();
-    }),
     it('returns notFoud if page is not found', async () => {
         const driver = {
             user: {

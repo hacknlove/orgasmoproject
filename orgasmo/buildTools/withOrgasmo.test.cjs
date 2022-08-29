@@ -8,7 +8,6 @@ const withOrgasmo = require('./withOrgasmo.cjs')
 describe('withOrgasmo', () => {
     beforeEach(() => {
         jest.resetModules()
-        jest.clearAllMocks()
     }),
 
     it('calls processType for all the types with the right parameters', async () => {

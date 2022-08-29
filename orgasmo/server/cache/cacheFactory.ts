@@ -6,6 +6,10 @@ export default async function cacheFactory (ctx) {
     if (ctx.cache) {
         return;
     }
+    if (!ctx.driver.cache?.factory) {
+        ctx.cache = Cache
+        return
+    }
     try {
         ctx.cache = await ctx.driver.cache?.factory?.() ?? Cache
         return

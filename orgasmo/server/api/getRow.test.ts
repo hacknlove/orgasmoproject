@@ -11,10 +11,6 @@ const res = {
 };
 
 describe("getRow", () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    })
-
     it('does nothing if there is no command', async () => {
         await getRow({ req: {}, res, driver: {} });
         (parseCommand as jest.Mock).mockReturnValue({});

@@ -46,9 +46,6 @@ describe('importAll', () => {
 })
 
 describe('watchAll', () => {
-    beforeAll(() => {
-        jest.clearAllMocks()
-    }),
     it('watches the glob path and updates the file when a file is added or removed', async () => {
         const config = {
             globPath: 'some/glob/path',
