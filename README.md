@@ -1,4 +1,4 @@
-# Orgasmo ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+# Orgasmo ![coverage](https://img.shields.io/badge/coverage-97.13%25-brightgreen)
 
 ![Logo](./orgasmo.svg)
 ## The best user experience
@@ -21,6 +21,10 @@ Orgasmo is a set of components and tools for developers that enhances Nextjs to 
 ## WIP
 
 This is still a work in progress.
+
+## WARNING.
+
+At this very moment it's broken. The smart caching is causing major changes which are not finished yet.
 
 ### TODO
 
