@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint . --fix",
+    "pretty": "prettier --write ."
   },
   "dependencies": {
     "@types/cookie": "^0.5.1",
