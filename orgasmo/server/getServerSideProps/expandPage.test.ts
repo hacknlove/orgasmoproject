@@ -14,7 +14,7 @@ describe("expandPage", () => {
   let key;
   beforeEach(() => {
     ctx = {
-      driver = {},
+      driver: {},
     };
     pageConfig = {};
     key = "";

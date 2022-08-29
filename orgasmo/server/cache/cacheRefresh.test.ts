@@ -2,7 +2,14 @@
 // @ts-nocheck
 import cacheRefresh from "./cacheRefresh";
 import { autoRefreshInterval, nextRevalidation } from "./maps";
+import events from "../events";
 
+jest.mock("../events", () => ({
+  __esModule: true,
+  default: {
+    emit: jest.fn(),
+  },
+}));
 describe("cacheRefresh", () => {
   let key;
   let item;
