@@ -28,8 +28,6 @@ export default async function expandPage ({ ctx, pageConfig, key, params = undef
       return rewrite({ ctx, rewrite: page.rewrite, key })
     }
 
-    
-
     params = params || decencode(key)
 
     const timeChunk = currentTimeChunk(page.timeChunk)
