@@ -15,7 +15,10 @@ jest.mock("nookies", () => {
 });
 
 describe("setCookies", () => {
-  const ctx = { setCookies: [] };
+  let ctx;
+  beforeEach(() => {
+    ctx = { setCookies: [] };
+  });
   it("does nothing is no cookies there", () => {
     setCookies({ ctx });
     expect(nookies.set).not.toHaveBeenCalled();
@@ -42,6 +45,38 @@ describe("setCookies", () => {
       ],
       ctx,
     });
+
+    expect(nookies.set).toHaveBeenCalledTimes(2);
+    // @ts-ignore
+    expect(nookies.set.mock.calls[0]).toEqual([
+      ctx,
+      "test-name",
+      "test-value",
+      {},
+    ]);
+    // @ts-ignore
+    expect(nookies.set.mock.calls[1]).toEqual([
+      ctx,
+      "test-name-2",
+      "test-value-2",
+      {},
+    ]);
+  });
+
+  it("calls nookies.set once per each cookie in the ctx.setCookies", () => {
+    ctx.setCookies = [
+      {
+        name: "test-name",
+        value: "test-value",
+        options: {},
+      },
+      {
+        name: "test-name-2",
+        value: "test-value-2",
+        options: {},
+      },
+    ];
+    setCookies({ ctx });
 
     expect(nookies.set).toHaveBeenCalledTimes(2);
     // @ts-ignore
