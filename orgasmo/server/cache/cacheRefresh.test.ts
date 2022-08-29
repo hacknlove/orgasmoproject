@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import cacheRefresh from "./cacheRefresh";
 import { autoRefreshInterval, nextRevalidation } from "./maps";

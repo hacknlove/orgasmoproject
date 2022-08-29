@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import getPage from "./getPage";
 import sendFullPage from "./sendFullPage";
 import getCachedPage from "./getCachedPage";
 import getNewFullPage from "./getNewFullPage";
-import getCachedPageVariant from "./getCachedPageVariant";
-import events from "../events";
 
 jest.mock("./getCachedPage", () => ({
   __esModule: true,

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, RefObject } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SliderProps } from "../../types";
 import useItems from "./useItems";
 
@@ -56,7 +56,7 @@ export default function Slider({
 
   useEffect(() => {
     if (!ref.current?.children?.[0]) {
-      return () => {};
+      return () => undefined;
     }
 
     if (window.ontouchstart === undefined) {
@@ -256,7 +256,10 @@ export default function Slider({
           aria-label="prev"
         />
       )}
-      {/* @ts-ignore */}
+      {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        /* @ts-ignore */
+      }
       <div ref={ref} className="SliderRow" role="list">
         {intro && (
           <div

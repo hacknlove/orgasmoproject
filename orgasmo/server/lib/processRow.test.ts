@@ -33,7 +33,7 @@ describe("processRow", () => {
       getProps: "getFooBar",
     };
     const driver = {
-      getFooBar: jest.fn(async ({ rowConfig, params }) => {
+      getFooBar: jest.fn(async () => {
         return {
           bar: "bar",
           className: "classname-test-2",

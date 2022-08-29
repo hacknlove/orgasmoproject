@@ -13,7 +13,6 @@ jest.mock("./cacheHitItem", () => ({
 
 describe("cacheGet", () => {
   let ctx;
-  let driver;
   let key;
 
   beforeEach(() => {

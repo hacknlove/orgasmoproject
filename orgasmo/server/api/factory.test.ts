@@ -17,7 +17,7 @@ jest.mock("./apiCall", () => ({
   default: jest.fn(),
 }));
 
-jest.spyOn(console, "error").mockImplementation(() => {});
+jest.spyOn(console, "error").mockImplementation(() => undefined);
 
 jest.mock("../events", () => ({
   __esModule: true,

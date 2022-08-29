@@ -2,7 +2,7 @@ import events from "../events";
 import { serialize } from "../lib/serialization";
 import parseCommand from "./parseCommand";
 
-jest.spyOn(console, "error").mockImplementation(() => {});
+jest.spyOn(console, "error").mockImplementation(() => undefined);
 
 jest.mock("../events", () => ({
   __esModule: true,

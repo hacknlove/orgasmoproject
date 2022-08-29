@@ -9,14 +9,16 @@ jest.mock("./cacheNewExpirationTimeout", () => ({
 
 describe("cacheExtendExpirationTimeout", () => {
   let key;
-  let cache;
-  let item = {};
+  const item = {};
+  let ctx;
   beforeEach(() => {
     key = expect.getState().currentTestName;
-    cache = new Map();
+    ctx = {
+      cache: new Map(),
+    };
   });
   it("does nothing if there is no expiration to extend", () => {
-    cacheExtendExpirationTimeout({ key, cache, item });
+    cacheExtendExpirationTimeout({ key, ctx, item });
     expect(cacheNewExpirationTimeout).not.toHaveBeenCalled();
   });
 
@@ -27,7 +29,7 @@ describe("cacheExtendExpirationTimeout", () => {
 
     expireTimeout.set(key, currentTimeout);
 
-    cacheExtendExpirationTimeout({ key, cache, item });
+    cacheExtendExpirationTimeout({ key, ctx, item });
     expect(cacheNewExpirationTimeout).toHaveBeenCalled();
 
     await new Promise((resolve) => setTimeout(resolve, 20));

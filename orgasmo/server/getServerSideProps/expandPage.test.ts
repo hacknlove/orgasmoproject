@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-
 import expandPage from "./expandPage";
 import rewrite from "./rewrite";
 
@@ -10,16 +10,14 @@ jest.mock("./rewrite", () => ({
 
 describe("expandPage", () => {
   let ctx;
-  let driver;
   let pageConfig;
   let key;
-  let params;
   beforeEach(() => {
-    ctx = {};
-    driver = {};
+    ctx = {
+      driver = {},
+    };
     pageConfig = {};
     key = "";
-    params = {};
   });
   it("redirects if page.redirect", async () => {
     pageConfig.page = {

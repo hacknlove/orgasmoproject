@@ -92,7 +92,7 @@ describe("getRow", () => {
   it("returns nothing if no configRow returned", async () => {
     const driver = {
       page: { getPageFromId: () => ({ getRow: "somePage.getRow" }) },
-      "somePage.getRow": jest.fn(() => {}),
+      "somePage.getRow": jest.fn(() => undefined),
     };
 
     await getRow({

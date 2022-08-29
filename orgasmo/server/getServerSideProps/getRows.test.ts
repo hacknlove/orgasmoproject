@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+
 import getRows from "./getRows";
 import chooseOne from "../lib/chooseOne";
 import processRow from "../lib/processRow";
@@ -23,7 +25,6 @@ describe("getRows", () => {
   it("calls processRow for each row and return the array of responses", async () => {
     const rows = Array.from({ length: 5 }, (_, i) => `row${i}`);
 
-    // @ts-ignore
     processRow.mockImplementation(async ({ rowConfig }) => ({
       props: { row: true, test: rowConfig },
     }));
@@ -44,7 +45,6 @@ describe("getRows", () => {
   it("stops when reaching the limit", async () => {
     const rows = Array.from({ length: 5 }, (_, i) => `row${i}`);
 
-    // @ts-ignore
     processRow.mockImplementation(async ({ rowConfig }) => ({
       props: { row: true, test: rowConfig },
     }));
@@ -65,7 +65,7 @@ describe("getRows", () => {
     ]);
   });
   it("calls setCookies for each row", async () => {
-    const rows = Array.from({ length: 5 }, (_, i) => ({
+    const rows = Array.from({ length: 5 }, () => ({
       cookies: {},
     }));
 

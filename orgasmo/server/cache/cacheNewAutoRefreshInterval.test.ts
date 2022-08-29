@@ -13,11 +13,13 @@ describe("newAutoRefreshInterval", () => {
   it("sets an interval", async () => {
     const key = expect.getState().currentTestName;
     cacheNewAutoRefreshInterval({
-      cache,
-      key,
-      driver: {
-        "someAutorefresh.method": () => {},
+      ctx: {
+        cache,
+        driver: {
+          "someAutorefresh.method": () => undefined,
+        },
       },
+      key,
       item: {
         autoRefresh: {
           method: "someAutorefresh.method",

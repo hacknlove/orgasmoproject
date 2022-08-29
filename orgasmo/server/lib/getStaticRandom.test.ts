@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 import getStaticRandom from "./getStaticRandom";
 import nookies from "nookies";
 
@@ -40,7 +43,6 @@ describe("getStaticRandom", () => {
     expect(nookies.set).not.toHaveBeenCalled();
   });
   it("returns staticRandom from the cookie if exists", () => {
-    // @ts-ignore
     nookies.get.mockReturnValue({ o_sr: "0.42" });
 
     const ctx = { req: { user: {} } };
@@ -51,7 +53,6 @@ describe("getStaticRandom", () => {
     expect(nookies.set).not.toHaveBeenCalled();
   });
   it("returns a random number if no cookie exists, and stores it as a cookie", () => {
-    // @ts-ignore
     nookies.get.mockReturnValue({});
 
     const ctx = { req: { user: {} } };

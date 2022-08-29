@@ -14,7 +14,7 @@ export default async function getRows({
     return [];
   }
 
-  const rows = [];
+  const rows: any[] = [];
 
   for (let rowConfig of rowsProp) {
     if (Array.isArray(rowConfig)) {
@@ -41,7 +41,6 @@ export default async function getRows({
       delete row.props.getMore;
     }
 
-    // @ts-ignore
     rows.push(row);
     if (!--limit) {
       break;
