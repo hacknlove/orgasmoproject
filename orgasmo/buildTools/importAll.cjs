@@ -1,43 +1,42 @@
-const glob = require('util').promisify(require('glob'))
-const chokidar = require('chokidar')
-const { writeFile } = require('fs').promises
+const glob = require("util").promisify(require("glob"));
+const chokidar = require("chokidar");
+const { writeFile } = require("fs").promises;
 
-const parseFiles = require('./parseFiles.cjs')
+const parseFiles = require("./parseFiles.cjs");
 
-async function importAll ({
+async function importAll({
   package,
   globPath,
   regexp,
   map,
   fileFromImports,
-  filename
+  filename,
 }) {
-  const files = await glob(globPath)
+  const files = await glob(globPath);
 
-  const imports = parseFiles(files, regexp, map)
+  const imports = parseFiles(files, regexp, map);
 
-  const string = fileFromImports(imports, package)
+  const string = fileFromImports(imports, package);
 
   await writeFile(filename, string).catch(console.error);
-  console.log(filename, 'updated')
+  console.log(filename, "updated");
 }
 
-function watchAll (config) {
-  console.log('Watching', config.globPath, 'to generate', config.filename)
-  let updating
-  async function waitandupdate () {
-    await updating
-    updating = importAll(config)
+function watchAll(config) {
+  console.log("Watching", config.globPath, "to generate", config.filename);
+  let updating;
+  async function waitandupdate() {
+    await updating;
+    updating = importAll(config);
   }
 
   const watcher = chokidar.watch(config.globPath, {
     ignoreInitial: true,
     awaitWriteFinish: true,
   });
-  watcher.on('add', waitandupdate);
-  watcher.on('unlink', waitandupdate);
+  watcher.on("add", waitandupdate);
+  watcher.on("unlink", waitandupdate);
 }
 
-
-exports.importAll = importAll
-exports.watchAll = watchAll
+exports.importAll = importAll;
+exports.watchAll = watchAll;

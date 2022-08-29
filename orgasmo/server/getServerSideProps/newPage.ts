@@ -1,27 +1,23 @@
-import events from "../events"
-import cacheNewItem from "../cache/cacheNewItem"
+import events from "../events";
+import cacheNewItem from "../cache/cacheNewItem";
 
-export default async function newPage({ driver, ctx, pageKey, cache }) {
-    const newPage = await driver.page.getPage(ctx).catch((error) => {
-        events.emit('error', { error, ctx })
-    })
+export default async function newPage({ ctx, pageKey, cache }) {
+  const newPage = await ctx.driver.page.getPage(ctx).catch((error) => {
+    events.emit("error", { error, ctx });
+  });
 
-    if (newPage) {
-        return {
-            notFound: true
-        }
-    }
+  if (newPage) {
+    return {
+      notFound: true,
+    };
+  }
 
-    if (newPage.response) {
-        cacheNewItem({
-            driver,
-            cache,
-            key: pageKey,
-            item: newPage,
-        })
-        return newPage.response
-    }
-
-
-
+  if (newPage.response) {
+    cacheNewItem({
+      ctx,
+      key: pageKey,
+      item: newPage,
+    });
+    return newPage.response;
+  }
 }

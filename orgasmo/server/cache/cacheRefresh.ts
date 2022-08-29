@@ -1,29 +1,32 @@
-import cacheExpireItem from "./cacheExpireItem"
-import newAutoRefreshInterval from "./cacheNewAutoRefreshInterval"
-import { autoRefreshInterval, nextRevalidation } from "./maps"
+import cacheExpireItem from "./cacheExpireItem";
+import newAutoRefreshInterval from "./cacheNewAutoRefreshInterval";
+import { autoRefreshInterval, nextRevalidation } from "./maps";
 
-export default async function cacheRefresh ({ ctx, item, key }) {
-    let newItem
-    try {
-        newItem = await ctx.driver[item.autoRefresh.method](key)
-    } catch {}
-    if (!newItem) {
-        cacheExpireItem({ ctx, key })
-        return
-    }
-    if (newItem.revalidate) {
-        nextRevalidation.set(key, Date.now())
-    } else if (!item.revalidate) {
-        nextRevalidation.delete(key)
-    }
+export default async function cacheRefresh({ ctx, item, key }) {
+  let newItem;
+  try {
+    newItem = await ctx.driver[item.autoRefresh.method](key);
+  } catch {}
+  if (!newItem) {
+    cacheExpireItem({ ctx, key });
+    return;
+  }
+  if (newItem.revalidate) {
+    nextRevalidation.set(key, Date.now());
+  } else if (!item.revalidate) {
+    nextRevalidation.delete(key);
+  }
 
-    if (!newItem.autoRefresh) {
-        clearInterval(autoRefreshInterval.get(key))
-        autoRefreshInterval.delete(key)
-    } else if (newItem.autoRefresh.method !== item.autoRefresh.method || newItem.autoRefresh.ms !== item.autoRefresh.ms) {
-        clearInterval(autoRefreshInterval.get(key))
-        newAutoRefreshInterval({ ctx, key, item: newItem })
-    }
+  if (!newItem.autoRefresh) {
+    clearInterval(autoRefreshInterval.get(key));
+    autoRefreshInterval.delete(key);
+  } else if (
+    newItem.autoRefresh.method !== item.autoRefresh.method ||
+    newItem.autoRefresh.ms !== item.autoRefresh.ms
+  ) {
+    clearInterval(autoRefreshInterval.get(key));
+    newAutoRefreshInterval({ ctx, key, item: newItem });
+  }
 
-    ctx.cache.set(key, newItem)
+  ctx.cache.set(key, newItem);
 }

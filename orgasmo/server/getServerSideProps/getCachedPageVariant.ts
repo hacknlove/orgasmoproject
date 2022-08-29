@@ -1,15 +1,15 @@
-import chooseOne from '../lib/chooseOne';
-import { cencode, decencode } from 'cencode'
-import cacheGet from '../cache/cacheGet';
-import getNewFullPage from './getNewFullPage';
+import chooseOne from "../lib/chooseOne";
+import { cencode, decencode } from "cencode";
+import cacheGet from "../cache/cacheGet";
+import getNewFullPage from "./getNewFullPage";
 
 export default async function getCachedPageVariant({ pageConfig, ctx, key }) {
-    const pageId = chooseOne({ array: pageConfig.pages, ctx });
-    const newKey = cencode({ ...decencode(key), pageId })
-    
-    const cachedVariant = await cacheGet({ ctx, key: newKey })
+  const pageId = chooseOne({ array: pageConfig.pages, ctx });
+  const newKey = cencode({ ...decencode(key), pageId });
 
-    if (!cachedVariant) {
-        return getNewFullPage(ctx)
-    }
+  const cachedVariant = await cacheGet({ ctx, key: newKey });
+
+  if (!cachedVariant) {
+    return getNewFullPage(ctx);
+  }
 }

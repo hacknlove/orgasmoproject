@@ -5,21 +5,12 @@
     "allowJs": true,
     "removeComments": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
-    "types": [
-      "node",
-      "jest",
-      "@testing-library/jest-dom"
-    ],
+    "typeRoots": ["../node_modules/@types"],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "sourceMap": true,
     "outDir": "./dist/",
     "strict": true,
-    "lib": [
-      "es2020",
-      "DOM"
-    ],
+    "lib": ["es2020", "DOM"],
     "baseUrl": ".",
     "declaration": true,
     "noImplicitAny": false,
@@ -30,15 +21,11 @@
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "paths": {
-      "~/*": [
-        "./*"
-      ]
+      "~/*": ["./*"]
     },
     "jsx": "react-jsx"
   },
-  "include": [
-    "**/*",
-  ],
+  "include": ["**/*"],
   "exclude": [
     "node_modules",
     "buildTools",

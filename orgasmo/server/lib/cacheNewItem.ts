@@ -1,17 +1,21 @@
-export function cacheNewItem({ driver, cache, key, item }) {
-    if (item.noCache) {
-        return
-    }
-    if (item.autoRefresh) {
-        cacheNewAutoRefreshInterval({ driver, cache, key, item })
-    }
+import cacheNewAutoRefreshInterval from "../cache/cacheNewAutoRefreshInterval";
+import cacheNewExpirationTimeout from "../cache/cacheNewExpirationTimeout";
+import { nextRevalidation } from "../cache/maps";
 
-    if (item.timeChunk.expire) {
-        newExpirationTimeout({ cache, key, item })
-    }
+export function cacheNewItem({ ctx, key, item }) {
+  if (item.noCache) {
+    return;
+  }
+  if (item.autoRefresh) {
+    cacheNewAutoRefreshInterval({ ctx, key, item });
+  }
 
-    if (item.revalidate) {
-        nextRevalidation.set(key, new Date())
-    }
-    return cache.set(key, item)
+  if (item.timeChunk.expire) {
+    cacheNewExpirationTimeout({ ctx, key, item });
+  }
+
+  if (item.revalidate) {
+    nextRevalidation.set(key, new Date());
+  }
+  return ctx.cache.set(key, item);
 }

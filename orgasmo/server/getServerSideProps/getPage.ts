@@ -1,34 +1,30 @@
-import getCachedPage from "./getCachedPage"
-import getNewFullPage from "./getNewFullPage"
-import getCachedPageVariant from './getCachedPageVariant'
-import events from "../events"
-import sendFullPage from "./sendFullPage"
+import getCachedPage from "./getCachedPage";
+import getNewFullPage from "./getNewFullPage";
+import getCachedPageVariant from "./getCachedPageVariant";
+import events from "../events";
+import sendFullPage from "./sendFullPage";
 
 export default async function getPage(ctx) {
-    const {
-        key,
-        pageConfig
-    } = await getCachedPage(ctx)
+  const { key, pageConfig } = await getCachedPage(ctx);
 
-    if (!pageConfig) {
-        return getNewFullPage(ctx)
-    }
-    
-    if (pageConfig.response) {
-        return sendFullPage({ ctx, pageConfig })
-    }
+  if (!pageConfig) {
+    return getNewFullPage(ctx);
+  }
 
-    if (pageConfig.pages) {
-        return getCachedPageVariant({ pageConfig, ctx, key })
-    }
+  if (pageConfig.response) {
+    return sendFullPage({ ctx, pageConfig });
+  }
 
-    events.emit('error', {
-        type: 'internal',
-        message: 'Cached page is not full neither variant'
-    })
-    
-    return {
-        notFound: true
-    }
-} 
+  if (pageConfig.pages) {
+    return getCachedPageVariant({ pageConfig, ctx, key });
+  }
 
+  events.emit("error", {
+    type: "internal",
+    message: "Cached page is not full neither variant",
+  });
+
+  return {
+    notFound: true,
+  };
+}

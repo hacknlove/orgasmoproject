@@ -1,9 +1,9 @@
-process.env.MAX_REWRITES = undefined
-process.env.CACHE_EXPIRATION = undefined
-process.env.CACHE_RENEW = undefined
+process.env.MAX_REWRITES = undefined;
+process.env.CACHE_EXPIRATION = undefined;
+process.env.CACHE_RENEW = undefined;
 
-import './config'
+import "./config";
 
-test('dummy', () => {
-    expect(true).toBe(true)
-})
+test("dummy", () => {
+  expect(true).toBe(true);
+});

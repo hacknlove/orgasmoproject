@@ -1,22 +1,23 @@
-import getServerSidePropsFactory from './factory';
+// @ts-nocheck
+import getServerSidePropsFactory from "./factory";
 
 import getPage from "./getPage";
 
-jest.mock('./getPage', () => ({
-    __esModule: true,
-    default: jest.fn(() => 'result')
+jest.mock("./getPage", () => ({
+  __esModule: true,
+  default: jest.fn(() => "result"),
 }));
 
-describe('getServerSidePropsFactory', () => {
-    it('calls getPage', async () => {
-        const driver = {}
-        const ctx = {
-            req: {}
-        }
+describe("getServerSidePropsFactory", () => {
+  it("calls getPage", async () => {
+    const driver = {};
+    const ctx = {
+      req: {},
+    };
 
-        const result = await (getServerSidePropsFactory({ driver })(ctx));
+    const result = await getServerSidePropsFactory({ driver })(ctx);
 
-        expect(result).toBe('result');
-        expect(getPage).toHaveBeenCalledWith(ctx);
-    })
+    expect(result).toBe("result");
+    expect(getPage).toHaveBeenCalledWith(ctx);
+  });
 });
