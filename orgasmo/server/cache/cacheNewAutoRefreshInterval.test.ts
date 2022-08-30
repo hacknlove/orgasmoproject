@@ -10,6 +10,12 @@ jest.mock("./cacheRefresh", () => ({
 describe("newAutoRefreshInterval", () => {
   const cache = new Map();
 
+  afterAll(() => {
+    autoRefreshInterval.forEach((value) => {
+      clearInterval(value)
+    })
+  })
+
   it("sets an interval", async () => {
     const key = expect.getState().currentTestName;
     cacheNewAutoRefreshInterval({
