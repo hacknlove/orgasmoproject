@@ -9,12 +9,11 @@ export default function getServerSidePropsFactory({
   driver,
 }: FactoryParameters): GetServerSideProps {
   return async function GetServerSideProps(ctx: any) {
-    debugger
     ctx.driver = driver;
-    await Promise.all([getUser(ctx), getCache(ctx)]);
-
     ctx.setCookies = [];
     ctx.rewrites = 0;
+
+    await Promise.all([getUser(ctx), getCache(ctx)]);
 
     return getPage(ctx);
   };

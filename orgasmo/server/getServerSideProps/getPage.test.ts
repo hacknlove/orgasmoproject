@@ -57,7 +57,7 @@ describe("getPage", () => {
     getCachedPage.mockResolvedValue({
       key: "something",
       pageConfig: {
-        pages: ["some pages"],
+        pageIds: ["some pages"],
       },
     });
 

@@ -17,18 +17,14 @@ describe("expandPage", () => {
       driver: {},
     };
     pageConfig = {};
-    key = "";
+    key = "(Mparams_Jfoo.Lroles_Ptest-role";
   });
   it("redirects if page.redirect", async () => {
-    pageConfig.page = {
-      redirect: "Somewhere",
-    };
+    pageConfig.redirect = "Somewhere";
     expect(await expandPage({ pageConfig })).toEqual({ redirect: "Somewhere" });
   });
   it("rewrites if page.rewrite", async () => {
-    pageConfig.page = {
-      rewrite: "Somewhere",
-    };
+    pageConfig.rewrite = "Somewhere";
 
     expect(await expandPage({ ctx, pageConfig, key })).toBe("rewrite response");
     expect(rewrite).toBeCalledWith({ ctx, rewrite: "Somewhere", key });

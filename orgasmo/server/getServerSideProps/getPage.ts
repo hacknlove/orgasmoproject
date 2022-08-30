@@ -15,8 +15,8 @@ export default async function getPage(ctx) {
     return sendFullPage({ ctx, pageConfig });
   }
 
-  if (pageConfig.pages) {
-    return getCachedPageVariant({ pageConfig, ctx, key });
+  if (pageConfig.pageIds) {
+    return getCachedPageVariant({ pageIds: pageConfig.pageIds, ctx, key });
   }
 
   events.emit("error", {

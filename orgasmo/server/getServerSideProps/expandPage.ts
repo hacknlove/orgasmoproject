@@ -1,5 +1,4 @@
 import { decencode } from "cencode";
-import chooseOne from "../lib/chooseOne";
 import { cleanAwaitJson } from "../lib/cleanJson";
 import { currentTimeChunk } from "../lib/timechunks";
 import { serialize } from "../lib/serialization";
@@ -25,47 +24,45 @@ export default async function expandPage({
   key,
   params = undefined,
 }) {
-  const page = pageConfig.page ?? chooseOne({ array: pageConfig.pages, ctx });
-
-  if (page.redirect) {
+  if (pageConfig.redirect) {
     return {
-      redirect: page.redirect,
+      redirect: pageConfig.redirect,
     };
   }
 
-  if (page.rewrite) {
-    return rewrite({ ctx, rewrite: page.rewrite, key });
+  if (pageConfig.rewrite) {
+    return rewrite({ ctx, rewrite: pageConfig.rewrite, key });
   }
 
   params = params || decencode(key);
 
-  const timeChunk = currentTimeChunk(page.timeChunk);
+  const timeChunk = currentTimeChunk(pageConfig.timeChunk);
 
   return cleanAwaitJson({
     props: {
       top: getRows({
         ctx,
         params,
-        rows: page.top,
+        rows: pageConfig.top,
         timeChunk,
       }),
       rows: getRows({
         ctx,
         params,
-        rows: page.rows,
-        limit: page.rowsLimit,
+        rows: pageConfig.rows,
+        limit: pageConfig.rowsLimit,
         timeChunk,
       }),
       bottom: getRows({
         ctx,
         params,
-        rows: page.bottom,
+        rows: pageConfig.bottom,
         timeChunk,
       }),
       src:
-        page.rowsLimit &&
+        pageConfig.rowsLimit &&
         `/api/_ogr?c=${serialize({
-          pageId: page.id,
+          pageId: pageConfig.id,
           params,
           roles: ctx.req.user.roles,
           expire: timeChunk.expire,

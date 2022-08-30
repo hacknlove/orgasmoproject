@@ -1,3 +1,4 @@
+import events from "../events";
 import getPageCacheKeys from "./getPageCacheKeys";
 
 jest.mock("../events", () => ({
@@ -47,5 +48,17 @@ describe("getPageCacheKeys", () => {
     for await (const key of getPageCacheKeys(ctx)) {
       expect(key).toBe(expected.shift());
     }
+  });
+
+  it("emits an error if the driver rejects", async () => {
+    ctx.driver.page.allParameterMethods.mockRejectedValue("Some Error");
+
+    const expected = ["(Mparams_Jfoo.Lroles_Ptest-role"];
+
+    for await (const key of getPageCacheKeys(ctx)) {
+      expect(key).toBe(expected.shift());
+    }
+
+    expect(events.emit).toBeCalled();
   });
 });

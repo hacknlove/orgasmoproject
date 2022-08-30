@@ -35,7 +35,7 @@ export default async function getNewFullPage(ctx) {
 
   if (pageConfig.getParams) {
     try {
-      params = (await ctx.driver[pageConfig.getParams](ctx)) ?? params;
+      params = (await ctx.driver[pageConfig.getParams](ctx)) || params;
     } catch (error) {
       events.emit("error", {
         type: "driver",
