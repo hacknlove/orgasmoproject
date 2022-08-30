@@ -256,7 +256,11 @@ export default function Slider({
           aria-label="prev"
         />
       )}
-      <div ref={ref as React.LegacyRef<HTMLDivElement> | undefined} className="SliderRow" role="list">
+      <div
+        ref={ref as React.LegacyRef<HTMLDivElement> | undefined}
+        className="SliderRow"
+        role="list"
+      >
         {intro && (
           <div
             role="listitem"

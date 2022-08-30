@@ -12,9 +12,9 @@ describe("newAutoRefreshInterval", () => {
 
   afterAll(() => {
     autoRefreshInterval.forEach((value) => {
-      clearInterval(value)
-    })
-  })
+      clearInterval(value);
+    });
+  });
 
   it("sets an interval", async () => {
     const key = expect.getState().currentTestName;

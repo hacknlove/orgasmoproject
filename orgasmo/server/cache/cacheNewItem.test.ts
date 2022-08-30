@@ -27,7 +27,7 @@ describe("cacheNewItem", () => {
       timeChunk: {
         revalidate: 100,
         expire: 500,
-      }
+      },
     };
   });
   it("adds the expiration timeout", () => {

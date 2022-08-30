@@ -24,7 +24,7 @@ export default async function parseCommand({ req, res, driver }) {
     });
   }
 
-  await getUser({ driver, req })
+  await getUser({ driver, req });
 
   const user = req.user;
 

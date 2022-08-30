@@ -4,7 +4,7 @@ import { nextRevalidation } from "./maps";
 
 export default function cacheNewItem({ ctx, key, item }) {
   if (!item.timeChunk) {
-    return
+    return;
   }
   if (item.autoRefresh) {
     cacheNewAutoRefreshInterval({ ctx, key, item });
