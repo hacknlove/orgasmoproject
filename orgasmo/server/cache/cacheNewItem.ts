@@ -3,6 +3,9 @@ import cacheNewExpirationTimeout from "./cacheNewExpirationTimeout";
 import { nextRevalidation } from "./maps";
 
 export default function cacheNewItem({ ctx, key, item }) {
+  if (!item.timeChunk) {
+    return
+  }
   if (item.autoRefresh) {
     cacheNewAutoRefreshInterval({ ctx, key, item });
   }

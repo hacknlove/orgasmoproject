@@ -78,7 +78,7 @@ export default async function getNewFullPage(ctx) {
     item: pageConfig,
   });
 
-  sendFullPage({
+  return sendFullPage({
     ctx,
     pageConfig,
   });

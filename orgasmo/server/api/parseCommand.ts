@@ -1,4 +1,5 @@
 import events from "../events";
+import getUser from "../lib/getUser";
 import { parse } from "../lib/serialization";
 
 export default async function parseCommand({ req, res, driver }) {
@@ -23,7 +24,9 @@ export default async function parseCommand({ req, res, driver }) {
     });
   }
 
-  const user = req.user || (req.user = await driver.user.getUser({ req, res }));
+  await getUser({ driver, req })
+
+  const user = req.user;
 
   if (user.roles === roles) {
     return command;
