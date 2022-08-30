@@ -256,11 +256,7 @@ export default function Slider({
           aria-label="prev"
         />
       )}
-      {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        /* @ts-ignore */
-      }
-      <div ref={ref} className="SliderRow" role="list">
+      <div ref={ref as React.LegacyRef<HTMLDivElement> | undefined} className="SliderRow" role="list">
         {intro && (
           <div
             role="listitem"
