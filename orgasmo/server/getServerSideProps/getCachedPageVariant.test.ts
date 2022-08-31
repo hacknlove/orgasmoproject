@@ -1,68 +1,76 @@
-import getCachedPageVariant from './getCachedPageVariant'
-import { cencode, decencode } from 'cencode';
-import events from '../events'
+import getCachedPageVariant from "./getCachedPageVariant";
+import { cencode, decencode } from "cencode";
+import events from "../events";
 
-jest.mock('./getNewFullPage', () => ({
-    __esModule: true,
-    default: jest.fn(() => "getNewFullPageResponse")
-}))
-jest.mock('./sendFullPage', () => ({
-    __esModule: true,
-    default: jest.fn(() => "sendFullPageResponse")
-}))
-jest.mock('../events', () => ({
-    __esModule: true,
-    default: {
-        emit: jest.fn()
-    }
-}))
+jest.mock("./getNewFullPage", () => ({
+  __esModule: true,
+  default: jest.fn(() => "getNewFullPageResponse"),
+}));
+jest.mock("./sendFullPage", () => ({
+  __esModule: true,
+  default: jest.fn(() => "sendFullPageResponse"),
+}));
+jest.mock("../events", () => ({
+  __esModule: true,
+  default: {
+    emit: jest.fn(),
+  },
+}));
 
+describe("getCachedPageVariant", () => {
+  let pageIds;
+  let ctx;
+  let key;
 
+  beforeEach(() => {
+    pageIds = ["foo", "bar"];
+    key = "(Mparams_Jfoo.Lroles_Ptest-role";
+    ctx = {
+      cache: new Map(),
+      req: {
+        user: {},
+      },
+    };
+  });
+  it("returns a new full page if the variant is not cached", async () => {
+    expect(await getCachedPageVariant({ pageIds, ctx, key })).toBe(
+      "getNewFullPageResponse"
+    );
+  });
 
-describe('getCachedPageVariant', () => {
-    let pageIds
-    let ctx
-    let key
+  it("returns the sendFullPage if the variant is cached", async () => {
+    ctx.req.user.staticRandom = 0;
+    ctx.cache.set(
+      cencode({
+        ...decencode(key),
+        pageId: "foo",
+      }),
+      {
+        timeChunk: {},
+        response: "Something",
+      }
+    );
 
-    beforeEach(() => {
-        pageIds = ['foo', 'bar']
-        key = "(Mparams_Jfoo.Lroles_Ptest-role"
-        ctx = {
-            cache: new Map(),
-            req: {
-                user: {}
-            }
-        }
-    })
-    it('returns a new full page if the variant is not cached', async () => {
-        expect(await getCachedPageVariant({ pageIds, ctx, key })).toBe('getNewFullPageResponse')
-    })
+    expect(await getCachedPageVariant({ pageIds, ctx, key })).toBe(
+      "sendFullPageResponse"
+    );
+  });
 
-    it('returns the sendFullPage if the variant is cached', async () => {
-        ctx.req.user.staticRandom = 0
-        ctx.cache.set(cencode({
-            ...decencode(key),
-            pageId: 'foo'
-        }), {
-            timeChunk: {},
-            response: 'Something'
-        })
+  it("returns not found and emits an error if the cache is corrupted", async () => {
+    ctx.req.user.staticRandom = 0;
+    ctx.cache.set(
+      cencode({
+        ...decencode(key),
+        pageId: "foo",
+      }),
+      {
+        timeChunk: {},
+      }
+    );
 
-        expect(await getCachedPageVariant({ pageIds, ctx, key })).toBe('sendFullPageResponse')
-    })
-
-    it('returns not found and emits an error if the cache is corrupted', async () => {
-        ctx.req.user.staticRandom = 0
-        ctx.cache.set(cencode({
-            ...decencode(key),
-            pageId: 'foo'
-        }), {
-            timeChunk: {},
-        })
-
-        expect(await getCachedPageVariant({ pageIds, ctx, key })).toEqual({
-            notFound: true
-        })
-        expect(events.emit).toBeCalled()
-    })
-})
+    expect(await getCachedPageVariant({ pageIds, ctx, key })).toEqual({
+      notFound: true,
+    });
+    expect(events.emit).toBeCalled();
+  });
+});

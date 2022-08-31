@@ -6,8 +6,8 @@ export default function choseOne({ array, ctx }) {
     return null;
   }
 
-  let staticRandom = getStaticRandom(ctx)
-  
+  let staticRandom = getStaticRandom(ctx);
+
   const randomSeed = array.find((a) => a.randomSeed)?.randomSeed;
 
   if (randomSeed) {
