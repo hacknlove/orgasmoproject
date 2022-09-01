@@ -3,6 +3,11 @@
 import expandPage from "./expandPage";
 import rewrite from "./rewrite";
 
+jest.mock("./getRows", () => ({
+  __esModule: true,
+  default: jest.fn(() => "getRowsResponse"),
+}));
+
 jest.mock("./rewrite", () => ({
   __esModule: true,
   default: jest.fn(() => "rewrite response"),
@@ -15,6 +20,11 @@ describe("expandPage", () => {
   beforeEach(() => {
     ctx = {
       driver: {},
+      req: {
+        user: {
+          roles: ["test-role"],
+        },
+      },
     };
     pageConfig = {};
     key = "(Mparams_Jfoo.Lroles_Ptest-role";
@@ -28,5 +38,27 @@ describe("expandPage", () => {
 
     expect(await expandPage({ ctx, pageConfig, key })).toBe("rewrite response");
     expect(rewrite).toBeCalledWith({ ctx, rewrite: "Somewhere", key });
+  });
+  it("decode the key, if params is not passed", async () => {
+    pageConfig = {};
+    expect(await expandPage({ ctx, pageConfig, key })).toEqual({
+      props: {
+        bottom: "getRowsResponse",
+        rows: "getRowsResponse",
+        src: null,
+        top: "getRowsResponse",
+      },
+    });
+  });
+  it("adds a src to get more rows, if there is rowsLimit", async () => {
+    pageConfig = { rowsLimit: 14 };
+    expect(await expandPage({ ctx, pageConfig, key })).toEqual({
+      props: {
+        bottom: "getRowsResponse",
+        rows: "getRowsResponse",
+        src: expect.any(String),
+        top: "getRowsResponse",
+      },
+    });
   });
 });
