@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import sendFullPage from "./sendFullPage";
 import setCookies from "../lib/setCookies";
 import cacheControl from "../lib/cacheControl";

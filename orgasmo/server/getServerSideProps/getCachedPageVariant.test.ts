@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import getCachedPageVariant from "./getCachedPageVariant";
 import { cencode, decencode } from "cencode";
 import events from "../events";

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import events from "../events";
 import getPageCacheKeys from "./getPageCacheKeys";
 
