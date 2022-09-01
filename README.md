@@ -1,4 +1,4 @@
-# Orgasmo ![coverage](https://img.shields.io/badge/coverage-97.13%25-brightgreen)
+# Orgasmo ![coverage](https://img.shields.io/badge/coverage-99.6%25-brightgreen)
 
 ![Logo](./orgasmo.svg)
 ## The best user experience
