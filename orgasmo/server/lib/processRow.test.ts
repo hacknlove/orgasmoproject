@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import processRow from "./processRow";
 
 describe("processRow", () => {

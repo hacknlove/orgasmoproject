@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import cleanJson, { cleanAwaitJson, withCleanJson } from "./cleanJson";
 
 describe("cleanJson", () => {

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import cacheControl from "./cacheControl";
 
 describe("cacheContro", () => {

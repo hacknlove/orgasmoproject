@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import { currentTimeChunk, maxTimeChunk } from "./timechunks";
 
 jest.mock("./config", () => ({
