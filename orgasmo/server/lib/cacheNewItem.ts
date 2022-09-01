@@ -1,21 +1,20 @@
 import cacheNewAutoRefreshInterval from "../cache/cacheNewAutoRefreshInterval";
 import cacheNewExpirationTimeout from "../cache/cacheNewExpirationTimeout";
 import { nextRevalidation } from "../cache/maps";
+import { currentTimeChunk } from "./timechunks";
 
-export function cacheNewItem({ ctx, key, item }) {
-  if (item.noCache) {
+export default function cacheNewItem({ ctx, key, item }) {
+  if (item.noCache || !item.timeChunk || ctx.noCache) {
     return;
   }
   if (item.autoRefresh) {
     cacheNewAutoRefreshInterval({ ctx, key, item });
   }
 
-  if (item.timeChunk.expire) {
-    cacheNewExpirationTimeout({ ctx, key, item });
-  }
+  cacheNewExpirationTimeout({ ctx, key, item });
 
   if (item.revalidate) {
-    nextRevalidation.set(key, new Date());
+    nextRevalidation.set(key, currentTimeChunk().revalidate);
   }
   return ctx.cache.set(key, item);
 }
