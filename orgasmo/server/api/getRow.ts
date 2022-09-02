@@ -4,6 +4,7 @@ import { cleanAwaitJson } from "../lib/cleanJson";
 import { serialize } from "../lib/serialization";
 import parseCommand from "./parseCommand";
 import { currentTimeChunk } from "../lib/timechunks";
+import cacheControl from "../lib/cacheControl";
 
 export default async function getRow(ctx) {
   const { req, res, driver } = ctx;
@@ -38,17 +39,19 @@ export default async function getRow(ctx) {
   if (row.props.getMore) {
     row.props.src = `/api/_ogm?c=${serialize({
       ...row.props.getMore,
-      expire: currentTimeChunk().expire,
+      expire: currentTimeChunk(rowConfig.timeChunk).expire,
       roles: req.user.roles,
     })}`;
     delete row.props.getMore;
   }
 
-  return res.json({
+  cacheControl({ ctx: { res }, item: rowConfig });
+
+  res.json({
     row,
     src: `/api/_ogr?c=${serialize({
       ...command,
-      expire: currentTimeChunk().expire,
+      expire: currentTimeChunk(rowConfig.timeChunk).expire,
       roles: req.user.roles,
     })}`,
   });
