@@ -13,7 +13,7 @@ Orgasmo is a set of components and tools for developers that enhances Nextjs to 
 * and many, many more nice things out of the box like **AB testing**, **role-based permissions**, or **smart caching**.
 
 ### How to make a developer orgasm? 
-* **100% Bullshit free**: No boilerplate code, no weird esoteric magic, no complex configuration that makes possible the quickest quick-start you have ever experienced.
+* **100% Bullshit free**: No boilerplate code, no weird esoteric magic, no complex configuration and the quickest quick-start you have ever experienced.
 * **Incrementally adoptable**: This is not a take-it-all-or-leave-it-all framework.  Everything is designed to work and be useful alone and together. Just pick the piece you need now and use it now, within your current Nextjs application. 
 * **Fully decoupled**: You can effortless create multiple drivers for different backends or scenarios, and switch them easily. You could for instance have different mocked driver for your development or tests environments.
 * and many, many more nice things like, **type-safe**, **fully tested** or **DDD ready**
