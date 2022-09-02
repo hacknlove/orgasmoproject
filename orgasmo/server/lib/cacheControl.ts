@@ -4,7 +4,7 @@ export default function cacheControl({ ctx, item }) {
   }
   ctx.res.setHeader(
     "Cache-Control",
-    `${item.noCache ? 'private' : 'public'}, s-maxage=${
+    `${item.private ? "private" : "public"}, s-maxage=${
       item.timeChunk.revalidate / 1000
     }, immutable, must-revalidate, stale-while-revalidate=${
       item.timeChunk.revalidate / 1000

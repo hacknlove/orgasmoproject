@@ -47,7 +47,7 @@ export default async function getNewFullPage(ctx) {
     }
   }
 
-  if (pageIds) {
+  if (pageIds && !ctx.noCache) {
     await cacheNewItem({
       ctx,
       key: cencode(params),
@@ -72,11 +72,17 @@ export default async function getNewFullPage(ctx) {
     response,
   };
 
-  await cacheNewItem({
-    ctx,
-    key: cencode(params),
-    item: pageConfig,
-  });
+  if (pageIds) {
+    pageConfig.private = true;
+  }
+
+  if (!ctx.noCache && pageConfig.timeChunk && !pageConfig.private) {
+    await cacheNewItem({
+      ctx,
+      key: cencode(params),
+      item: pageConfig,
+    });
+  }
 
   return sendFullPage({
     ctx,

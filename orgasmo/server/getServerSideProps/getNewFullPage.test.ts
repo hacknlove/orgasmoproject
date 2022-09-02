@@ -33,6 +33,10 @@ describe("getNewFullPage", () => {
         },
         someGetParams: jest.fn(),
       },
+      res: {
+        setHeader: jest.fn(),
+      },
+      cache: new Map(),
     };
   });
   it("returns null if getPage returns falsy", async () => {
@@ -68,7 +72,10 @@ describe("getNewFullPage", () => {
   });
 
   it("use the default params if getParams returns falsy", async () => {
-    ctx.driver.page.getPage.mockResolvedValue({ getParams: "someGetParams" });
+    ctx.driver.page.getPage.mockResolvedValue({
+      timeChunk: {},
+      getParams: "someGetParams",
+    });
     ctx.driver.someGetParams.mockResolvedValue(false);
     await getNewFullPage(ctx);
   });
