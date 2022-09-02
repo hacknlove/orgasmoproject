@@ -1,5 +1,4 @@
 import processRow from "../lib/processRow";
-import chooseOne from "../lib/chooseOne";
 import { cleanAwaitJson } from "../lib/cleanJson";
 import { serialize } from "../lib/serialization";
 import parseCommand from "./parseCommand";
@@ -10,23 +9,23 @@ export default async function getRow(ctx) {
   const { req, res, driver } = ctx;
   const command = await parseCommand({ req, res, driver });
   if (!command) {
-    return;
-  }
-
-  const page = await driver.page.getPageFromId({ ...command });
-
-  if (!page || !page.getRow || !driver[page.getRow]) {
     return res.json(null);
   }
 
-  let rowConfig = await driver[page.getRow]({
-    ...command,
-    number: parseInt(req.query.n),
-  });
-
-  if (Array.isArray(rowConfig)) {
-    rowConfig = chooseOne({ array: rowConfig, ctx: { req, res } });
+  const page = await driver.page.getPageFromId({ ...command });
+  if (!page) {
+    return res.json(null);
   }
+
+  const number = parseInt(req.query.n);
+
+  const rowConfig =
+    page.rows?.[number] ??
+    (await driver[page.getRow]?.({
+      ...command,
+      number,
+      relative: number - (page.rows?.length ?? 0),
+    }));
 
   if (!rowConfig) {
     return res.json(null);

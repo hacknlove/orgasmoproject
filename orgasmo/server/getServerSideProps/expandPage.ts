@@ -40,6 +40,8 @@ export default async function expandPage({
 
   return cleanAwaitJson({
     props: {
+      layout: pageConfig.layout,
+      meta: pageConfig.meta,
       top: getRows({
         ctx,
         params,

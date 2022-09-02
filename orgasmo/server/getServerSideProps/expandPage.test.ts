@@ -47,6 +47,8 @@ describe("expandPage", () => {
         rows: "getRowsResponse",
         src: null,
         top: "getRowsResponse",
+        layout: null,
+        meta: null,
       },
     });
   });
@@ -58,6 +60,8 @@ describe("expandPage", () => {
         rows: "getRowsResponse",
         src: expect.any(String),
         top: "getRowsResponse",
+        layout: null,
+        meta: null,
       },
     });
   });
