@@ -34,7 +34,7 @@ describe("apiFactory", () => {
   it("calls getRow if the first part of orgasmo is _ogr", async () => {
     const req = {
       query: {
-        orgasmo: ["_ogr"],
+        _o: ["_ogr"],
       },
     };
     await apiFactory({ driver })(req, res);
@@ -45,7 +45,7 @@ describe("apiFactory", () => {
   it("calls getMore if the first part of orgasmo is _ogm", async () => {
     const req = {
       query: {
-        orgasmo: ["_ogm"],
+        _o: ["_ogm"],
       },
     };
     await apiFactory({ driver })(req, res);
@@ -56,7 +56,7 @@ describe("apiFactory", () => {
   it("calls apiCall if the first part of orgasmo is not _ogr or _ogm", async () => {
     const req = {
       query: {
-        orgasmo: ["test"],
+        _o: ["test"],
       },
     };
     await apiFactory({ driver })(req, res);

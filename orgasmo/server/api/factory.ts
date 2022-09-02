@@ -8,7 +8,7 @@ export default function apiFactory({
   driver,
 }: FactoryParameters): NextApiHandler {
   return async (req, res) => {
-    switch (req.query?.orgasmo?.[0]) {
+    switch (req.query?._o?.[0]) {
       case "_ogr":
         return getRow({ driver, req, res });
       case "_ogm":

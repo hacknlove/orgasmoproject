@@ -1,6 +1,6 @@
 import getRow from "../verticalscroll/getRow.export"
 
-export default {
+const pages = {
     '/': {
         id: '/',
         top: [
@@ -113,3 +113,5 @@ export default {
         getRow: 'verticalscroll.getRow',
     },
 }
+
+export default pages;
