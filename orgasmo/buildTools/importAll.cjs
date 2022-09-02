@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const glob = require("util").promisify(require("glob"));
 const chokidar = require("chokidar");
 const { writeFile } = require("fs").promises;
@@ -5,7 +6,7 @@ const { writeFile } = require("fs").promises;
 const parseFiles = require("./parseFiles.cjs");
 
 async function importAll({
-  package,
+  externalPackage,
   globPath,
   regexp,
   map,
@@ -16,7 +17,7 @@ async function importAll({
 
   const imports = parseFiles(files, regexp, map);
 
-  const string = fileFromImports(imports, package);
+  const string = fileFromImports(imports, externalPackage);
 
   await writeFile(filename, string).catch(console.error);
   console.log(filename, "updated");

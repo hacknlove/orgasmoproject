@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
 
 const processType = require("./processType.cjs");
@@ -18,13 +19,13 @@ module.exports =
           type: "driver",
           isEnabled: driver,
           isDevelopmentServer,
-          package: typeof driver === "string" && driver,
+          externalPackage: typeof driver === "string" && driver,
         },
         {
           type: "components",
           isEnabled: components,
           isDevelopmentServer,
-          package: typeof components === "string" && components,
+          externalPackage: typeof components === "string" && components,
         },
       ].map(processType)
     );

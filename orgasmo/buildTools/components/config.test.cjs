@@ -61,7 +61,7 @@ switch (type) {
     const actual = fileFromImports(imports);
     expect(actual).toEqual(expected);
   });
-  it("uses the package if provided", () => {
+  it("uses the externalPackage if provided", () => {
     const imports = [
       { filename: "Foo", from: "./components/Foo.dynamic.tsx" },
       { filename: "Bar", from: "./components/Bar.dynamic.tsx" },
@@ -69,7 +69,7 @@ switch (type) {
     const expected = `/* This file is created automatically at build time, there is no need to commit it */
 import React from 'react';
 import dynamic from 'next/dynamic';
-import external from foo-package
+import external from foo-externalPackage
 
 
 const Foo = dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true });
@@ -86,7 +86,7 @@ switch (type) {
   }
 }
 `;
-    const actual = fileFromImports(imports, "foo-package");
+    const actual = fileFromImports(imports, "foo-externalPackage");
     expect(actual).toEqual(expected);
   });
 });

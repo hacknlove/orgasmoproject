@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { importAll, watchAll } = require("./importAll.cjs");
 
 function process({ type, isEnabled, isDevelopmentServer }) {

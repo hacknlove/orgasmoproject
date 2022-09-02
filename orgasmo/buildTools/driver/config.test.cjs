@@ -99,7 +99,7 @@ export default all;
     expect(actual).toEqual(expected);
   });
 
-  it("uses the package name if provided", () => {
+  it("uses the externalPackage name if provided", () => {
     const imports = [
       {
         filename: "foo",
@@ -138,7 +138,7 @@ export default all;
 // @ts-nocheck
 
 import events from 'orgasmo/events';
-import external from 'foo-package';
+import external from 'foo-externalPackage';
 
 import foo from './drivers/mocked/something/foo.export.tsx';
 import bar from './drivers/mocked/something/bar.export.tsx';
@@ -159,7 +159,7 @@ events.on('onSomething', route2ーonSomething);
 
 export default all;
 `;
-    const actual = fileFromImports(imports, "foo-package");
+    const actual = fileFromImports(imports, "foo-externalPackage");
     expect(actual).toEqual(expected);
   });
 });

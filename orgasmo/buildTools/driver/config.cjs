@@ -6,14 +6,14 @@ const regexp = new RegExp(
 const globPath = `./drivers/{${driver},common}/**/*.{export,event,import}.{js,ts}`;
 const filename = "./driver.js";
 
-function fileFromImports(imports, package) {
+function fileFromImports(imports, externalPackage) {
   let indexString = "";
   let handlersString = "";
   let eventsString = "";
   let importString = "";
 
-  if (package) {
-    indexString = `${indexString}import external from '${package}';\n\n`;
+  if (externalPackage) {
+    indexString = `${indexString}import external from '${externalPackage}';\n\n`;
   }
 
   const all = {};
@@ -46,7 +46,7 @@ function fileFromImports(imports, package) {
     }
   }
 
-  indexString = package
+  indexString = externalPackage
     ? `${indexString}\n\nconst all = {\n  ...external,${handlersString}\n}\n`
     : `${indexString}\n\nconst all = {${handlersString}\n}\n`;
   indexString = `${indexString}${expand(all, "all")}`;
