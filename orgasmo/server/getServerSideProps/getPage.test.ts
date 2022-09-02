@@ -35,6 +35,13 @@ describe("getPage", () => {
       setCookies: [],
     };
   });
+  it('goes go straight to getNewFullPage if ctx.noCache', async () => {
+    ctx.noCache = true
+    await getPage(ctx);
+    expect(getNewFullPage).toBeCalled();
+    expect(getCachedPage).not.toBeCalled();
+
+  })
   it("returns from getNewPage if the page is not cached", async () => {
     await getPage(ctx);
 

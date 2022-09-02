@@ -5,6 +5,9 @@ import events from "../events";
 import sendFullPage from "./sendFullPage";
 
 export default async function getPage(ctx) {
+  if (ctx.noCache) {
+    return getNewFullPage(ctx);
+  }
   const { key, pageConfig } = await getCachedPage(ctx);
 
   if (!pageConfig) {

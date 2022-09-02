@@ -2,6 +2,7 @@ export type driver = Record<string, any>;
 
 export interface FactoryParameters {
   driver: driver;
+  noCache?: boolean;
 }
 
 export type Component = { (any): JSX.Element };
