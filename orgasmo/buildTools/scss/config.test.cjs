@@ -51,3 +51,20 @@ test("scss fileFromImports returns a scss source from imports", () => {
   const actual = fileFromImports(imports);
   expect(actual).toEqual(expected);
 });
+
+test("scss skips files from node_modules", () => {
+  const files = [
+    "./foo.scss",
+    "./style.scss",
+    "./bar.module.scss",
+    "./foo copy.scss",
+    "./node_modules/orgasmo/buildTools/scss/test/globPath/bar.css",
+  ];
+
+  expect(regexp.exec(files[0]).groups).toEqual({
+    path: "./foo.scss",
+  });
+  expect(regexp.exec(files[1]).groups).toEqual({ path: undefined });
+  expect(regexp.exec(files[2]).groups).toEqual({ path: undefined });
+  expect(regexp.exec(files[3]).groups).toEqual({ path: undefined });
+});

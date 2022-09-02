@@ -1,5 +1,5 @@
 const regexp =
-  /^\.\/style.scss$|.*(module\.[^.]{3,4}$)|.*( copy\.[^.]{3,4}$)|(?<path>.*)/;
+  /^.\/node_modules|^\.\/style.scss$|.*(module\.[^.]{3,4}$)|.*( copy\.[^.]{3,4}$)|(?<path>.*)/;
 const globPath = "./**/*.{scss,sass,css}";
 const filename = "./style.scss";
 

@@ -3,7 +3,7 @@
 ![Logo](./orgasmo.svg)
 ## The best user experience
 
-Orgasmo is a set of components and tools for developers that enhances Nextjs to help you build outstanding web apps, with the following characteristics.
+Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps, with the following characteristics.
 
 ### How to make a PO orgasm? 
 
