@@ -1,4 +1,6 @@
-jest.spyOn(console, "log").mockImplementation(() => {});
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
+jest.spyOn(console, "log").mockImplementation(jest.fn());
 jest.mock("glob", () =>
   jest.fn((param, callback) => callback(null, ["paths", "from", "glob"]))
 );
@@ -32,7 +34,7 @@ jest.setTimeout(24 * 60 * 60 * 1000);
 
 describe("importAll", () => {
   it("gets the files' paths , parses them into an imports array, generates a source, and writes it to a file", async () => {
-    function someMapFunction() {}
+    const someMapFunction = jest.fn();
     const fileFromImports = jest.fn().mockReturnValue("fileFromImports");
     await importAll({
       globPath: "some/glob/path",
@@ -61,7 +63,7 @@ describe("watchAll", () => {
     const config = {
       globPath: "some/glob/path",
       regexp: /some-regexp/,
-      map: () => {},
+      map: jest.fn(),
       fileFromImports: () => "fileFromImports",
       filename: "some/filename",
     };
@@ -78,5 +80,19 @@ describe("watchAll", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(writeFile).toHaveBeenCalledWith("some/filename", "fileFromImports");
+  });
+
+  it("calls config.refresh if defined", () => {
+    const config = {
+      globPath: "some/glob/path",
+      regexp: /some-regexp/,
+      map: jest.fn(),
+      fileFromImports: () => "fileFromImports",
+      filename: "some/filename",
+      refresh: jest.fn(),
+    };
+    watchAll(config);
+
+    expect(config.refresh).toBeCalled();
   });
 });

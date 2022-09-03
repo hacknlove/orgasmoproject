@@ -1,5 +1,5 @@
 import pages from './pages'
 
-export default function getPageFromId(config) {
-    return pages[config.pageId]
+export default function getPageFromId(pageId) {
+    return pages[pageId]
 }

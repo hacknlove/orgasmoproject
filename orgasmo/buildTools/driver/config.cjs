@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { readFile, writeFile } = require("fs/promises");
+const chokidar = require("chokidar");
+
 const driver = process.env.ORGASMO_DRIVER || "mocked";
 
 const regexp = new RegExp(
-  `^(?<from>\\./drivers/(${driver}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.m?[tj]s)$`
+  `^(?<from>\\./drivers/(${driver}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`
 );
-const globPath = `./drivers/{${driver},common}/**/*.{export,event,import}.{js,ts}`;
+const globPath = `./drivers/{${driver},common}/**/*.{export,event,import}.{js,ts,mjs,cjs}`;
 const filename = "./driver.js";
 
 function fileFromImports(imports, externalPackage) {
@@ -84,8 +89,43 @@ function map({ route = "", filename, from, type }) {
   };
 }
 
+function refresh() {
+  let updating;
+
+  const watcher = chokidar.watch("./drivers/**/*", {
+    ignoreInitial: true,
+    awaitWriteFinish: true,
+  });
+
+  async function updateComponentsToForceRefresh() {
+    const componentFile = await readFile("./Components.jsx", {
+      encoding: "utf-8",
+    }).catch(() => false);
+    if (!componentFile) {
+      return;
+    }
+    await writeFile(
+      "./Components.jsx",
+      componentFile.replace(/^\/\/ Refreshed at .*/gm, "") +
+        `// Refreshed at ${new Date().toISOString()}`
+    );
+  }
+  async function waitandupdate() {
+    await updating;
+    updating = updateComponentsToForceRefresh();
+    return updating;
+  }
+
+  watcher.on("add", waitandupdate);
+  watcher.on("unlink", waitandupdate);
+  watcher.on("change", waitandupdate);
+
+  console.log("Watching './drivers/**/*' to trigger refresh");
+}
+
 exports.fileFromImports = fileFromImports;
 exports.map = map;
 exports.regexp = regexp;
 exports.globPath = globPath;
 exports.filename = filename;
+exports.refresh = refresh;

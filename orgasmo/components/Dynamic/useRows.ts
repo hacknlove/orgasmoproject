@@ -29,6 +29,12 @@ export default function useRows({
   const [underTheBottomRows, setUnderTheBottomRows] = useState([] as number[]);
   const wait = useRef(Promise.resolve(undefined));
 
+  if (process.env.NODE_ENV === "development") {
+    useEffect(() => {
+      setRows(rowsProp);
+    }, [rowsProp]);
+  }
+
   const onHideBottom = useCallback(
     (element) => {
       setUnderTheBottomRows((current) => [
@@ -42,28 +48,25 @@ export default function useRows({
 
   const onHideTop = useCallback(
     (element) => {
-      let max = 0
-      const heights: number[] = []
-      let elementRect = element.getBoundingClientRect()
+      let max = 0;
+      const heights: number[] = [];
+      let elementRect = element.getBoundingClientRect();
 
       do {
-        const nextElement = element.nextElementSibling
-        const nextElementRect = nextElement?.getBoundingClientRect() ?? {}
+        const nextElement = element.nextElementSibling;
+        const nextElementRect = nextElement?.getBoundingClientRect() ?? {};
 
-        max = Math.max(max, elementRect.height)
+        max = Math.max(max, elementRect.height);
         if (nextElementRect.y !== elementRect.y) {
-          heights.push(max)
-          break
+          heights.push(max);
+          break;
         }
-        heights.push(0)
-        element = nextElement
-        elementRect = nextElementRect
-      } while (true)
+        heights.push(0);
+        element = nextElement;
+        elementRect = nextElementRect;
+      } while (true);
 
-      setOverTheTopRows((current: any) => [
-        ...current,
-        ...heights,
-      ]);
+      setOverTheTopRows((current: any) => [...current, ...heights]);
 
       (wait as any).working = false;
     },
@@ -74,11 +77,11 @@ export default function useRows({
     setOverTheTopRows((current) => {
       (wait as any).working = false;
       if (current.length <= 1) return [];
-      let zeros = 0
-      while (current[current.length -2 -zeros] === 0) {
-        zeros++
+      let zeros = 0;
+      while (current[current.length - 2 - zeros] === 0) {
+        zeros++;
       }
-      
+
       return current.slice(0, current.length - 1 - zeros);
     });
   }, [setOverTheTopRows]);

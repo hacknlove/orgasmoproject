@@ -37,6 +37,10 @@ function watchAll(config) {
   });
   watcher.on("add", waitandupdate);
   watcher.on("unlink", waitandupdate);
+
+  if (config.refresh) {
+    config.refresh();
+  }
 }
 
 exports.importAll = importAll;

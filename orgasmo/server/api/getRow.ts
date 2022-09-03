@@ -12,7 +12,7 @@ export default async function getRow(ctx) {
     return res.json(null);
   }
 
-  const page = await driver.page.getPageFromId({ ...command });
+  const page = await driver.page.getPageFromId(command.pageId);
   if (!page) {
     return res.json(null);
   }

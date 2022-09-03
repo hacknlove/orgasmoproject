@@ -1,7 +1,23 @@
-const { regexp, globPath, fileFromImports, map } = require("./config");
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { join } = require("path");
-
+const chokidar = require("chokidar");
 const glob = require("glob");
+
+const watcher = {
+  on: jest.fn(),
+};
+chokidar.watch = () => watcher;
+
+const writeFile = jest.fn().mockResolvedValue();
+const readFile = jest.fn().mockResolvedValue();
+
+jest.mock("fs/promises", () => ({
+  writeFile,
+  readFile,
+}));
+
+const { regexp, globPath, fileFromImports, map, refresh } = require("./config");
 
 test("driver regexp gets the full path and the file name from components starting with capital leter and ending in dynamic.{js,...}", () => {
   const files = [
@@ -198,5 +214,30 @@ describe("driver map", () => {
     };
     const actual = map(groups);
     expect(actual).toEqual(expected);
+  });
+});
+
+describe("refresh", () => {
+  test("if the file is empty or error, it does nothing", async () => {
+    refresh();
+    expect(watcher.on.mock.calls[0][0]).toBe("add");
+    expect(watcher.on.mock.calls[1][0]).toBe("unlink");
+    expect(watcher.on.mock.calls[2][0]).toBe("change");
+
+    await watcher.on.mock.calls[0][1]();
+
+    expect(writeFile).not.toBeCalled();
+  });
+  test("adds a comment at the end to trigger a refresh", async () => {
+    refresh();
+    expect(watcher.on.mock.calls[0][0]).toBe("add");
+    expect(watcher.on.mock.calls[1][0]).toBe("unlink");
+    expect(watcher.on.mock.calls[2][0]).toBe("change");
+
+    readFile.mockResolvedValue("Some file");
+
+    await watcher.on.mock.calls[0][1]();
+
+    expect(writeFile).toBeCalled();
   });
 });

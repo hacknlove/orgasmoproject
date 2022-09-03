@@ -7,7 +7,7 @@ const pages = {
             {
                 type: 'Header',
                 props: {
-                    text: 'Home recargar'
+                    text: 'Home'
                 }
             }
         ],

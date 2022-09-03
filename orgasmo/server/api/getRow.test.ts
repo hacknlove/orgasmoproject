@@ -45,9 +45,7 @@ describe("getRow", () => {
 
     await getRow(ctx);
 
-    expect(ctx.driver.page.getPageFromId).toBeCalledWith({
-      pageId: "getRow-test",
-    });
+    expect(ctx.driver.page.getPageFromId).toBeCalledWith("getRow-test");
     expect(ctx.res.json).toBeCalledWith(null);
   });
 
