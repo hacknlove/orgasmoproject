@@ -42,10 +42,29 @@ export default function useRows({
 
   const onHideTop = useCallback(
     (element) => {
+      let max = 0
+      const heights: number[] = []
+      let elementRect = element.getBoundingClientRect()
+
+      do {
+        const nextElement = element.nextElementSibling
+        const nextElementRect = nextElement?.getBoundingClientRect() ?? {}
+
+        max = Math.max(max, elementRect.height)
+        if (nextElementRect.y !== elementRect.y) {
+          heights.push(max)
+          break
+        }
+        heights.push(0)
+        element = nextElement
+        elementRect = nextElementRect
+      } while (true)
+
       setOverTheTopRows((current: any) => [
         ...current,
-        element.getClientRects()[0].height,
+        ...heights,
       ]);
+
       (wait as any).working = false;
     },
     [setOverTheTopRows]
@@ -55,7 +74,12 @@ export default function useRows({
     setOverTheTopRows((current) => {
       (wait as any).working = false;
       if (current.length <= 1) return [];
-      return current.slice(0, current.length - 1);
+      let zeros = 0
+      while (current[current.length -2 -zeros] === 0) {
+        zeros++
+      }
+      
+      return current.slice(0, current.length - 1 - zeros);
     });
   }, [setOverTheTopRows]);
 
