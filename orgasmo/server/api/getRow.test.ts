@@ -6,10 +6,6 @@ jest.mock("./parseCommand", () => ({
   default: jest.fn(),
 }));
 
-const res = {
-  json: jest.fn(),
-};
-
 describe("getRow", () => {
   let ctx;
   beforeEach(() => {
