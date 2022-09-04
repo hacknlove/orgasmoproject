@@ -1,9 +1,9 @@
-import getRow from "../verticalscroll/getRow.export"
+import getItemConfig from "../verticalscroll/getItemConfig.export"
 
 const pages = {
     '/': {
         id: '/',
-        top: [
+        header: [
             {
                 type: 'Header',
                 props: {
@@ -11,7 +11,7 @@ const pages = {
                 }
             }
         ],
-        rows: [
+        main: [
             {
                 type: 'Row',
                 props: {
@@ -38,9 +38,9 @@ const pages = {
             },
             
         ],
-        getRow: 'home.getRow',
-        rowsLimit: 2,
-        bottom: [
+        getItemConfig: 'home.getItemConfig',
+        mainSsrSize: 2,
+        footer: [
             {
                 type: 'Footer'
             }
@@ -48,7 +48,7 @@ const pages = {
     },
     basiclayout: {
         id: 'basiclayout',
-        top: [
+        header: [
             {
                 type: 'Header',
                 props: {
@@ -56,7 +56,7 @@ const pages = {
                 }
             }
         ],
-        rows: [
+        main: [
             {
                 type: 'Item',
                 props: {
@@ -67,7 +67,7 @@ const pages = {
             },
             
         ],
-        bottom: [
+        footer: [
             {
                 type: 'Footer'
             }
@@ -75,7 +75,7 @@ const pages = {
     },
     horizontalscroll: {
         id: 'horizontalscroll',
-        top: [
+        header: [
             {
                 type: 'Header',
                 props: {
@@ -83,7 +83,7 @@ const pages = {
                 }
             }
         ],
-        rows: [
+        main: [
             {
                 type: 'Row',
                 props: {
@@ -95,7 +95,7 @@ const pages = {
     },
     verticalscroll: {
         id: 'verticalscroll',
-        top: [
+        header: [
             {
                 type: 'Header',
                 props: {
@@ -103,14 +103,14 @@ const pages = {
                 }
             }
         ],
-        rows: [
-            getRow({ number: 0 }),
-            getRow({ number: 1 }),
-            getRow({ number: 2 }),
-            getRow({ number: 3 }),
+        main: [
+            getItemConfig({ number: 0 }),
+            getItemConfig({ number: 1 }),
+            getItemConfig({ number: 2 }),
+            getItemConfig({ number: 3 }),
         ],
-        rowsLimit: 4,
-        getRow: 'verticalscroll.getRow',
+        mainSsrSize: 4,
+        getItemConfig: 'verticalscroll.getItemConfig',
     },
 }
 

@@ -5,14 +5,14 @@ import parseCommand from "./parseCommand";
 import { currentTimeChunk } from "../lib/timechunks";
 import cacheControl from "../lib/cacheControl";
 
-export default async function getRow(ctx) {
+export default async function getItem(ctx) {
   const { req, res, driver } = ctx;
   const command = await parseCommand({ req, res, driver });
   if (!command) {
     return res.json(null);
   }
 
-  const page = await driver.page.getPageFromId(command.pageId);
+  const page = await driver.page.getPageConfigFromId(command.pageId);
   if (!page) {
     return res.json(null);
   }
@@ -21,7 +21,7 @@ export default async function getRow(ctx) {
 
   const rowConfig =
     page.rows?.[number] ??
-    (await driver[page.getRow]?.({
+    (await driver[page.getItemConfig]?.({
       ...command,
       number,
       relative: number - (page.rows?.length ?? 0),

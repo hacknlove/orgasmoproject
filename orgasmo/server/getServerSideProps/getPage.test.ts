@@ -3,13 +3,13 @@
 import getPage from "./getPage";
 import sendFullPage from "./sendFullPage";
 import getCachedPage from "./getCachedPage";
-import getNewFullPage from "./getNewFullPage";
+import getPageFromConfig from "./getPageFromConfig";
 
 jest.mock("./getCachedPage", () => ({
   __esModule: true,
   default: jest.fn(() => ({})),
 }));
-jest.mock("./getNewFullPage", () => ({
+jest.mock("./getPageFromConfig", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
@@ -35,16 +35,16 @@ describe("getPage", () => {
       setCookies: [],
     };
   });
-  it("goes go straight to getNewFullPage if ctx.noCache", async () => {
+  it("goes go straight to getPageFromConfig if ctx.noCache", async () => {
     ctx.noCache = true;
     await getPage(ctx);
-    expect(getNewFullPage).toBeCalled();
+    expect(getPageFromConfig).toBeCalled();
     expect(getCachedPage).not.toBeCalled();
   });
   it("returns from getNewPage if the page is not cached", async () => {
     await getPage(ctx);
 
-    expect(getNewFullPage).toBeCalled();
+    expect(getPageFromConfig).toBeCalled();
   });
   it("returns from sendFullPage if the page is fully cached", async () => {
     getCachedPage.mockResolvedValue({

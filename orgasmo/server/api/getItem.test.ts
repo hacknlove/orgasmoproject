@@ -1,4 +1,6 @@
-import getRow from "./getRow";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+import getItem from "./getItem";
 import parseCommand from "./parseCommand";
 
 jest.mock("./parseCommand", () => ({
@@ -6,7 +8,7 @@ jest.mock("./parseCommand", () => ({
   default: jest.fn(),
 }));
 
-describe("getRow", () => {
+describe("getItem", () => {
   let ctx;
   beforeEach(() => {
     ctx = {
@@ -23,38 +25,42 @@ describe("getRow", () => {
       },
       driver: {
         page: {
-          getPageFromId: jest.fn(),
+          getPageConfigFromId: jest.fn(),
         },
-        "somePage.getRow": jest.fn(),
+        "somePage.getItemConfig": jest.fn(),
       },
     };
   });
   it("does nothing if there is no command", async () => {
-    await getRow(ctx);
+    await getItem(ctx);
     (parseCommand as jest.Mock).mockReturnValue({});
 
     expect(ctx.res.json).toBeCalledWith(null);
   });
 
-  it("calls driver.page.getPageFromId to get the row", async () => {
-    (parseCommand as jest.Mock).mockReturnValue({ pageId: "getRow-test" });
+  it("calls driver.page.getPageConfigFromId to get the row", async () => {
+    (parseCommand as jest.Mock).mockReturnValue({
+      pageId: "getItemConfig-test",
+    });
 
-    await getRow(ctx);
+    await getItem(ctx);
 
-    expect(ctx.driver.page.getPageFromId).toBeCalledWith("getRow-test");
+    expect(ctx.driver.page.getPageConfigFromId).toBeCalledWith(
+      "getItemConfig-test"
+    );
     expect(ctx.res.json).toBeCalledWith(null);
   });
 
   it("serializes props.getMore if defined", async () => {
-    ctx.driver.page.getPageFromId.mockReturnValue({
-      getRow: "somePage.getRow",
+    ctx.driver.page.getPageConfigFromId.mockReturnValue({
+      getItemConfig: "somePage.getItemConfig",
     });
-    ctx.driver["somePage.getRow"].mockReturnValue({
+    ctx.driver["somePage.getItemConfig"].mockReturnValue({
       type: "test-1",
       props: { getMore: { handler: "test" } },
     });
 
-    await getRow(ctx);
+    await getItem(ctx);
 
     expect(ctx.res.json.mock.calls[0][0]).toEqual({
       row: {
@@ -68,32 +74,32 @@ describe("getRow", () => {
   });
 
   it("returns nothing if no configRow returned", async () => {
-    ctx.driver.page.getPageFromId.mockReturnValue({
-      getRow: "somePage.getRow",
+    ctx.driver.page.getPageConfigFromId.mockReturnValue({
+      getItemConfig: "somePage.getItemConfig",
     });
 
-    await getRow(ctx);
+    await getItem(ctx);
 
     expect(ctx.res.json.mock.calls[0][0]).toBeNull();
   });
 
   it("returns from the page rows if possible", async () => {
-    ctx.driver.page.getPageFromId.mockReturnValue({
-      getRow: "somePage.getRow",
+    ctx.driver.page.getPageConfigFromId.mockReturnValue({
+      getItemConfig: "somePage.getItemConfig",
       rows: [{}, {}, {}, {}, "this row"],
     });
 
-    await getRow(ctx);
-    expect(ctx.driver["somePage.getRow"]).not.toBeCalled();
+    await getItem(ctx);
+    expect(ctx.driver["somePage.getItemConfig"]).not.toBeCalled();
   });
 
   it("returns from the page rows if possible", async () => {
-    ctx.driver.page.getPageFromId.mockReturnValue({
-      getRow: "somePage.getRow",
+    ctx.driver.page.getPageConfigFromId.mockReturnValue({
+      getItemConfig: "somePage.getItemConfig",
       rows: [{}, {}],
     });
 
-    await getRow(ctx);
-    expect(ctx.driver["somePage.getRow"]).toBeCalled();
+    await getItem(ctx);
+    expect(ctx.driver["somePage.getItemConfig"]).toBeCalled();
   });
 });

@@ -1,17 +1,17 @@
 import getCachedPage from "./getCachedPage";
-import getNewFullPage from "./getNewFullPage";
+import getPageFromConfig from "./getPageFromConfig";
 import getCachedPageVariant from "./getCachedPageVariant";
 import events from "../events";
 import sendFullPage from "./sendFullPage";
 
-export default async function getPage(ctx) {
+export default async function getPageConfig(ctx) {
   if (ctx.noCache) {
-    return getNewFullPage(ctx);
+    return getPageFromConfig(ctx);
   }
   const { key, pageConfig } = await getCachedPage(ctx);
 
   if (!pageConfig) {
-    return getNewFullPage(ctx);
+    return getPageFromConfig(ctx);
   }
 
   if (pageConfig.response) {

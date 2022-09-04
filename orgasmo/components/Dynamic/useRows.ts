@@ -94,7 +94,7 @@ export default function useRows({
     });
   }, [setUnderTheBottomRows]);
 
-  const getRow = useCallback(async () => {
+  const getItemConfig = useCallback(async () => {
     if (noMore || !src) {
       (wait as any).working = false;
       return;
@@ -141,7 +141,7 @@ export default function useRows({
       ? unHideBottom
       : noMore
       ? undefined
-      : getRow,
+      : getItemConfig,
     onShowTop: overTheTopRows.length ? onShowTop : undefined,
   });
 
@@ -167,7 +167,7 @@ export default function useRows({
           lastElementClientRect.y - lastElementClientRect.height - threshold <
           windowHeight
         ) {
-          getRow();
+          getItemConfig();
         }
       }
     );
@@ -180,7 +180,7 @@ export default function useRows({
       overTheTopRows.length,
       rows.length - underTheBottomRows.length
     ) as any[],
-    getRow,
+    getItemConfig,
     ref,
     overTheTop: overTheTopRows.reduce((r, i) => r + i, 0),
     underTheBottom: underTheBottomRows.reduce((r, i) => r + i, 0),

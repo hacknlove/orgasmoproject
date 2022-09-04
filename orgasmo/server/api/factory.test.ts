@@ -1,10 +1,12 @@
-import getRow from "./getRow";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+import getItem from "./getItem";
 import getMore from "./getMore";
 import apiCall from "./apiCall";
 
 import apiFactory from "./factory";
 
-jest.mock("./getRow", () => ({
+jest.mock("./getItem", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
@@ -31,14 +33,14 @@ const driver = {};
 const res = {};
 
 describe("apiFactory", () => {
-  it("calls getRow if the first part of orgasmo is _ogr", async () => {
+  it("calls getItem if the first part of orgasmo is _ogr", async () => {
     const req = {
       query: {
         _o: ["_ogr"],
       },
     };
     await apiFactory({ driver })(req, res);
-    expect(getRow).toHaveBeenCalledWith({ driver, req, res });
+    expect(getItem).toHaveBeenCalledWith({ driver, req, res });
     expect(getMore).not.toHaveBeenCalled();
     expect(apiCall).not.toHaveBeenCalled();
   });
@@ -50,7 +52,7 @@ describe("apiFactory", () => {
     };
     await apiFactory({ driver })(req, res);
     expect(getMore).toHaveBeenCalledWith({ driver, req, res });
-    expect(getRow).not.toHaveBeenCalled();
+    expect(getItem).not.toHaveBeenCalled();
     expect(apiCall).not.toHaveBeenCalled();
   });
   it("calls apiCall if the first part of orgasmo is not _ogr or _ogm", async () => {
@@ -61,7 +63,7 @@ describe("apiFactory", () => {
     };
     await apiFactory({ driver })(req, res);
     expect(getMore).not.toHaveBeenCalled();
-    expect(getRow).not.toHaveBeenCalled();
+    expect(getItem).not.toHaveBeenCalled();
     expect(apiCall).toHaveBeenCalledWith({ driver, req, res });
   });
 });

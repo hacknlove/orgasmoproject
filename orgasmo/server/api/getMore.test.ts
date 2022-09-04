@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import getMore from "./getMore";
 import parseCommand from "./parseCommand";
 

@@ -14,9 +14,9 @@ export interface PageFactoryParameters {
 }
 
 export interface PageParameters {
-  top: RowProps[];
-  rows: RowProps[];
-  bottom: RowProps[];
+  header: RowProps[];
+  main: RowProps[];
+  footer: RowProps[];
   src: string;
 }
 

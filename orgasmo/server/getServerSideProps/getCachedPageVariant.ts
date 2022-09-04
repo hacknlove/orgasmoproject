@@ -1,7 +1,7 @@
 import chooseOne from "../lib/chooseOne";
 import { cencode, decencode } from "cencode";
 import cacheGet from "../cache/cacheGet";
-import getNewFullPage from "./getNewFullPage";
+import getPageFromConfig from "./getPageFromConfig";
 import sendFullPage from "./sendFullPage";
 import events from "../events";
 
@@ -12,7 +12,7 @@ export default async function getCachedPageVariant({ pageIds, ctx, key }) {
   const pageConfig = await cacheGet({ ctx, key: newKey });
 
   if (!pageConfig) {
-    return getNewFullPage(ctx);
+    return getPageFromConfig(ctx);
   }
 
   if (pageConfig.response) {

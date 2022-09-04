@@ -56,12 +56,12 @@ The name of the driver to be used is determined by the environmental variable `O
 
 For now these are the files you need to know about:
 
-* `/drivers/[your-driver]/pages/getPage.export.js`
-* `/drivers/[your-driver]/pages/getPageFromId.export.js`
+* `/drivers/[your-driver]/pages/getPageConfig.export.js`
+* `/drivers/[your-driver]/pages/getPageConfigFromId.export.js`
 
-`getPage.export.js` should export a function that accepts nextjs getServerSideProps context and returns the configuration of the page you want to render.
+`getPageConfig.export.js` should export a function that accepts nextjs getServerSideProps context and returns the configuration of the page you want to render.
 
-`getPageFromId.export.js` should export a function that accepts a pageId and returns the page configuration that correspond to that pageId. It's used by the data streamer.
+`getPageConfigFromId.export.js` should export a function that accepts a pageId and returns the page configuration that correspond to that pageId. It's used by the data streamer.
 
 
 so, What's a page configuration?
@@ -71,24 +71,41 @@ The page configuration is a JSON object that contains the recipe for a kind of p
 For now, just mind these fields:
 
 * id: unique id that identifies the page configuration. REQUIRED.
-* top: array with the items that go at the begining of the page and that will be always present. OPTIONAL
-* rows: array with the items that are managed by the  smart infinite vertical scroll. OPTIONAL
-* bottom: array with the items that go at the bottom of the page, and that will be always present. OPTIONAL
-* rowsLimit: the number of rows that will be render at SSR. The rest of the rows will be render at the discretion of the smart infinite vertical scroll.
+* header: array with the items that go at the begining of the page and that will be always present.
+* main: array with the items that are managed by the  smart infinite vertical scroll, (will be mounted when they are in the viewport and unmounted when ther go off the viewport)
+* footer: array with the items that go at the bottom of the page, and that will be always present.
+* mainSsrSize: the number of main items that will be render at SSR. 
 
 For now, consider these fields for the items:
 
 * type: the name of the Dynamic component that should be rendered
 * props: The props the Dynamic component will receive 
-### Have fun!
+#### Have fun!
 
-I think you have enough information to try to create different urls with different kind of pages.
+Now you can create different pageConfigs that show different pages.
 
-Play a bit around, try to build something, and then come back to learn a bit the next key feature that will allow you to reuse your page configurations, so you can use the same kind of page in multiple urls: **dynamic items**.
+Play a bit around, try to build something, and then come back to learn how to make the same page config render different pages depending on the path.
 
 ### Dynamic Items.
 
-Documentation in progress. Please be patient.
+So far your items have only two fields, `type` with the name of the dynamic component to be rendered, and `props` with the props the component will reveive.
+
+But this is clearly not enough to make the pageConfig a generic recipe for a kind of pages. because all the pages will receive the very exact same items.
+
+Items can have another field called `getProps` whose value is the dotted path to the driver's method that receives the page params, the item config and returns the item's dynamic props that will be merged with the item's static props.
+
+Let's say for now that the page params are `{ params: ctx.params }` where `ctx.params` come from [Next.js context parameter](https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props#context-parameter)
+
+#### Have fun!
+
+Now you can use a pageConfig for dynamic paths and show different content depending on the path.
+
+But Orgasmo promised you an awesom infinite vertical scroll, and a static array of item's on the pageConfig does not look like infinite at all... so come back later to learn how to generate more items on the fly, with `getItemConfig` a new field of the pageConfig.
+
+
+### getItemConfig
+
+The feature is there, but I am still writing the docs... you need to wait.
 
 ## WIP
 

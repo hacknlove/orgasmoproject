@@ -5,21 +5,21 @@ import Static from "./Static/Static";
 export default function PageFactory({
   Components,
 }: PageFactoryParameters): OrgasmoPage {
-  const Page = ({ top, rows, bottom, src, layout, meta }) => {
-    const topRendered = <Static rows={top} Components={Components} />;
-    const rowsRendered = (
-      <Dynamic rows={rows} src={src} Components={Components} />
+  const Page = ({ header, main, footer, src, layout, meta }) => {
+    const headerRendered = <Static rows={header} Components={Components} />;
+    const mainRendered = (
+      <Dynamic rows={main} src={src} Components={Components} />
     );
-    const bottomRendered = <Static rows={bottom} Components={Components} />;
+    const footerRendered = <Static rows={footer} Components={Components} />;
 
     if (layout) {
       return (
         <Components
           type={layout}
           props={{
-            top: topRendered,
-            rows: rowsRendered,
-            bottom: bottomRendered,
+            heade: headerRendered,
+            main: mainRendered,
+            footer: footerRendered,
             meta,
           }}
         />
@@ -27,9 +27,9 @@ export default function PageFactory({
     }
     return (
       <>
-        {topRendered}
-        {rowsRendered}
-        {bottomRendered}
+        {headerRendered}
+        {mainRendered}
+        {footerRendered}
       </>
     );
   };

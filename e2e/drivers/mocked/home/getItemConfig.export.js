@@ -1,4 +1,4 @@
-export default function getRow(config) {
+export default function getItemConfig(config) {
     return {
         type: 'Row',
         props: {

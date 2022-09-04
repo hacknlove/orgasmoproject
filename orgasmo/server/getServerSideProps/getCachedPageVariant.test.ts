@@ -4,7 +4,7 @@ import getCachedPageVariant from "./getCachedPageVariant";
 import { cencode, decencode } from "cencode";
 import events from "../events";
 
-jest.mock("./getNewFullPage", () => ({
+jest.mock("./getPageFromConfig", () => ({
   __esModule: true,
   default: jest.fn(() => "getNewFullPageResponse"),
 }));

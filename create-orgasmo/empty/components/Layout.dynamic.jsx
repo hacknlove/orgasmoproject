@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 export default function Layout({
-    top, rows, bottom, meta
+    header, main, footer, meta
 }) {
     return (
         <div className="container">
@@ -12,14 +12,14 @@ export default function Layout({
           </Head>
     
           <main className="main">
-            {top}
+            {header}
             <div className="grid">
-              {rows}
+              {main}
             </div>
           </main>
     
           <footer className="footer">
-            {bottom}
+            {footer}
           </footer>
         </div>
       )

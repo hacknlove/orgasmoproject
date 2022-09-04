@@ -1,4 +1,4 @@
-export default function getRow ({number}) {
+export default function getItemConfig ({number}) {
     return {
         type: 'Item',
         props: {

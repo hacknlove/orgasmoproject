@@ -42,27 +42,27 @@ export default async function expandPage({
     props: {
       layout: pageConfig.layout,
       meta: pageConfig.meta,
-      top: getRows({
+      header: getRows({
         ctx,
         params,
-        rows: pageConfig.top,
+        rows: pageConfig.header,
         timeChunk,
       }),
-      rows: getRows({
+      main: getRows({
         ctx,
         params,
-        rows: pageConfig.rows,
-        limit: pageConfig.rowsLimit,
+        rows: pageConfig.main,
+        limit: pageConfig.mainSsrSize,
         timeChunk,
       }),
-      bottom: getRows({
+      footer: getRows({
         ctx,
         params,
-        rows: pageConfig.bottom,
+        rows: pageConfig.footer,
         timeChunk,
       }),
       src:
-        pageConfig.rowsLimit &&
+        pageConfig.mainSsrSize &&
         `/api/_ogr?c=${serialize({
           pageId: pageConfig.id,
           params,

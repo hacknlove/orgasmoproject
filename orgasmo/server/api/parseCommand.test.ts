@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import events from "../events";
 import { serialize } from "../lib/serialization";
 import parseCommand from "./parseCommand";

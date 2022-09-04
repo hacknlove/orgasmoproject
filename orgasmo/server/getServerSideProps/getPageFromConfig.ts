@@ -7,14 +7,14 @@ import sendFullPage from "./sendFullPage";
 
 type pageParams = Record<string, any>;
 
-export default async function getNewFullPage(ctx) {
+export default async function getPageFromConfig(ctx) {
   let pageConfig;
   try {
-    pageConfig = await ctx.driver.page.getPage(ctx);
+    pageConfig = await ctx.driver.page.getPageConfig(ctx);
   } catch (error) {
     events.emit("error", {
       type: "driver",
-      method: "page.getPage",
+      method: "page.getPageConfig",
       params: [ctx],
       error,
     });

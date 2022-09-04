@@ -43,23 +43,23 @@ describe("expandPage", () => {
     pageConfig = {};
     expect(await expandPage({ ctx, pageConfig, key })).toEqual({
       props: {
-        bottom: "getRowsResponse",
-        rows: "getRowsResponse",
+        footer: "getRowsResponse",
+        main: "getRowsResponse",
         src: null,
-        top: "getRowsResponse",
+        header: "getRowsResponse",
         layout: null,
         meta: null,
       },
     });
   });
-  it("adds a src to get more rows, if there is rowsLimit", async () => {
-    pageConfig = { rowsLimit: 14 };
+  it("adds a src to get more rows, if there is mainSsrSize", async () => {
+    pageConfig = { mainSsrSize: 14 };
     expect(await expandPage({ ctx, pageConfig, key })).toEqual({
       props: {
-        bottom: "getRowsResponse",
-        rows: "getRowsResponse",
+        footer: "getRowsResponse",
+        main: "getRowsResponse",
         src: expect.any(String),
-        top: "getRowsResponse",
+        header: "getRowsResponse",
         layout: null,
         meta: null,
       },
