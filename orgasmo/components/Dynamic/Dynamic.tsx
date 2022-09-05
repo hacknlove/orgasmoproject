@@ -1,21 +1,21 @@
 import { DynamicProps } from "~/types";
-import useRows from "./useRows";
+import useItems from "./useItems";
 
 export default function Dynamic({
   src,
-  rows: rowsProp,
+  items: itemsProp,
   Components,
 }: DynamicProps) {
-  const { rows, ref, overTheTop, keyOffset, underTheBottom } = useRows({
+  const { items, ref, overTheTop, keyOffset, underTheBottom } = useItems({
     src,
-    rows: rowsProp ?? [],
+    items: itemsProp ?? [],
   });
 
   return (
     <>
       <div style={{ height: overTheTop }} />
       <div ref={ref}>
-        {rows.map(
+        {items.map(
           (props: any, i) =>
             props && (
               <Components

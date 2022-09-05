@@ -4,5 +4,6 @@
 /test-results/
 /playwright-report/
 /playwright/.cache/
-/example
+/examples/wip
 /orgasmo/test-report.html
+/orgasmo/node_modules

@@ -29,7 +29,7 @@ export interface RowProps {
 
 export interface DynamicProps {
   src?: string;
-  rows: RowProps[];
+  items: RowProps[];
   Components: Components;
 }
 
@@ -49,6 +49,6 @@ export interface SliderProps extends Record<string, any> {
 }
 
 export interface StaticProps {
-  rows: RowProps[];
+  items: RowProps[];
   Components: Components;
 }

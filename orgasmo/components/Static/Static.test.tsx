@@ -17,7 +17,7 @@ describe("Static", () => {
       <div className={props.className}>{type}</div>
     );
 
-    render(<Static rows={rows} Components={Components} />);
+    render(<Static items={rows} Components={Components} />);
 
     expect(screen.getByText("Foo")).toHaveClass("test-Foo");
     expect(screen.getByText("Bar")).toHaveClass("test-Bar");

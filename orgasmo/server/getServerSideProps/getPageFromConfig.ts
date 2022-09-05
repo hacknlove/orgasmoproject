@@ -21,7 +21,9 @@ export default async function getPageFromConfig(ctx) {
   }
 
   if (!pageConfig) {
-    return null;
+    return {
+      notFound: true,
+    };
   }
 
   const pageIds =
@@ -31,7 +33,11 @@ export default async function getPageFromConfig(ctx) {
     pageConfig = chooseOne({ array: pageConfig, ctx });
   }
 
-  let params: pageParams = { params: ctx.params, roles: ctx.req.user.roles };
+  let params: pageParams = {
+    params: ctx.params,
+    path: ctx.resolvedUrl.replace(/\?.*$/, ""),
+    roles: ctx.req.user.roles,
+  };
 
   if (pageConfig.getParams) {
     try {
@@ -43,7 +49,9 @@ export default async function getPageFromConfig(ctx) {
         params: [ctx],
         error,
       });
-      return null;
+      return {
+        notFound: true,
+      };
     }
   }
 

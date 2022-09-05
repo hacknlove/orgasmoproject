@@ -12,19 +12,19 @@ export default async function getItem(ctx) {
     return res.json(null);
   }
 
-  const page = await driver.page.getPageConfigFromId(command.pageId);
-  if (!page) {
+  const pageConfig = await driver.page.getPageConfigFromId(command.pageId);
+  if (!pageConfig) {
     return res.json(null);
   }
 
   const number = parseInt(req.query.n);
 
   const rowConfig =
-    page.rows?.[number] ??
-    (await driver[page.getItemConfig]?.({
+    pageConfig.main?.[number] ??
+    (await driver[pageConfig.getItemConfig]?.({
       ...command,
       number,
-      relative: number - (page.rows?.length ?? 0),
+      relative: number - (pageConfig.main?.length ?? 0),
     }));
 
   if (!rowConfig) {

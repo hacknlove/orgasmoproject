@@ -3,9 +3,9 @@
 import expandPage from "./expandPage";
 import rewrite from "./rewrite";
 
-jest.mock("./getRows", () => ({
+jest.mock("./getItems", () => ({
   __esModule: true,
-  default: jest.fn(() => "getRowsResponse"),
+  default: jest.fn(() => "getItemsResponse"),
 }));
 
 jest.mock("./rewrite", () => ({
@@ -43,23 +43,23 @@ describe("expandPage", () => {
     pageConfig = {};
     expect(await expandPage({ ctx, pageConfig, key })).toEqual({
       props: {
-        footer: "getRowsResponse",
-        main: "getRowsResponse",
+        footer: "getItemsResponse",
+        main: "getItemsResponse",
         src: null,
-        header: "getRowsResponse",
+        header: "getItemsResponse",
         layout: null,
         meta: null,
       },
     });
   });
-  it("adds a src to get more rows, if there is mainSsrSize", async () => {
+  it("adds a src to get more items, if there is mainSsrSize", async () => {
     pageConfig = { mainSsrSize: 14 };
     expect(await expandPage({ ctx, pageConfig, key })).toEqual({
       props: {
-        footer: "getRowsResponse",
-        main: "getRowsResponse",
+        footer: "getItemsResponse",
+        main: "getItemsResponse",
         src: expect.any(String),
-        header: "getRowsResponse",
+        header: "getItemsResponse",
         layout: null,
         meta: null,
       },

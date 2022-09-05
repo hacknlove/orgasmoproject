@@ -7,7 +7,8 @@
     "build": "tsc",
     "lint": "eslint . --fix",
     "pretty": "prettier --write .",
-    "prettylint": "npm run lint && npm run pretty"
+    "prettylint": "npm run lint && npm run pretty",
+    "dev": "nodemon --exec \"npm run build\""
   },
   "dependencies": {
     "@types/cookie": "^0.5.1",

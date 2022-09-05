@@ -21,6 +21,7 @@ describe("getPageFromConfig", () => {
   beforeEach(() => {
     ctx = {
       params: {},
+      resolvedUrl: "/some/url?with=queries",
       setCookies: [],
       req: {
         user: {
@@ -39,20 +40,20 @@ describe("getPageFromConfig", () => {
       cache: new Map(),
     };
   });
-  it("returns null if getPageConfig returns falsy", async () => {
+  it("returns not found if getPageConfig returns falsy", async () => {
     const response = await getPageFromConfig(ctx);
 
-    expect(response).toBeNull();
+    expect(response).toEqual({ notFound: true });
   });
-  it("returns null and emits error if driver.getPageConfig fails", async () => {
+  it("returns not found and emits error if driver.getPageConfig fails", async () => {
     ctx.driver.page.getPageConfig.mockRejectedValue("some error");
 
     const response = await getPageFromConfig(ctx);
 
-    expect(response).toBeNull();
+    expect(response).toEqual({ notFound: true });
     expect(events.emit).toBeCalled();
   });
-  it("returns null and emits error if the driver fails to get the pageParams", async () => {
+  it("returns not found and emits error if the driver fails to get the pageParams", async () => {
     ctx.driver.page.getPageConfig.mockResolvedValue({
       getParams: "someGetParams",
     });
@@ -60,7 +61,7 @@ describe("getPageFromConfig", () => {
 
     const response = await getPageFromConfig(ctx);
 
-    expect(response).toBeNull();
+    expect(response).toEqual({ notFound: true });
     expect(events.emit).toBeCalled();
   });
 

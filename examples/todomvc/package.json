@@ -1,0 +1,32 @@
+{
+  "name": "todomvg-orgasmo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hacknlove/orgasmoproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hacknlove/orgasmoproject/issues"
+  },
+  "homepage": "https://github.com/hacknlove/orgasmoproject#readme",
+  "dependencies": {
+    "next": "^12.2.5",
+    "orgasmo": "1.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5"
+}
+}

@@ -2,7 +2,7 @@ import { decencode } from "cencode";
 import { cleanAwaitJson } from "../lib/cleanJson";
 import { currentTimeChunk } from "../lib/timechunks";
 import { serialize } from "../lib/serialization";
-import getRows from "./getRows";
+import getItems from "./getItems";
 import rewrite from "./rewrite";
 
 interface expandPageParameters {
@@ -42,23 +42,23 @@ export default async function expandPage({
     props: {
       layout: pageConfig.layout,
       meta: pageConfig.meta,
-      header: getRows({
+      header: getItems({
         ctx,
         params,
-        rows: pageConfig.header,
+        items: pageConfig.header,
         timeChunk,
       }),
-      main: getRows({
+      main: getItems({
         ctx,
         params,
-        rows: pageConfig.main,
+        items: pageConfig.main,
         limit: pageConfig.mainSsrSize,
         timeChunk,
       }),
-      footer: getRows({
+      footer: getItems({
         ctx,
         params,
-        rows: pageConfig.footer,
+        items: pageConfig.footer,
         timeChunk,
       }),
       src:

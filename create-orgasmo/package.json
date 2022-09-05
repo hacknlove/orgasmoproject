@@ -21,5 +21,11 @@
   },
   "dependencies": {
     "fs-extra": "^10.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.25.1"
+  },
+  "scripts": {
+    "test": "playwright test"
   }
 }

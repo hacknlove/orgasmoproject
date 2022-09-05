@@ -83,20 +83,20 @@ describe("getItem", () => {
     expect(ctx.res.json.mock.calls[0][0]).toBeNull();
   });
 
-  it("returns from the page rows if possible", async () => {
+  it("returns from the page items if possible", async () => {
     ctx.driver.page.getPageConfigFromId.mockReturnValue({
       getItemConfig: "somePage.getItemConfig",
-      rows: [{}, {}, {}, {}, "this row"],
+      main: [{}, {}, {}, {}, "this row"],
     });
 
     await getItem(ctx);
     expect(ctx.driver["somePage.getItemConfig"]).not.toBeCalled();
   });
 
-  it("returns from the page rows if possible", async () => {
+  it("returns from the page items if possible", async () => {
     ctx.driver.page.getPageConfigFromId.mockReturnValue({
       getItemConfig: "somePage.getItemConfig",
-      rows: [{}, {}],
+      main: [{}, {}],
     });
 
     await getItem(ctx);

@@ -1,0 +1,51 @@
+import processRow from "../lib/processRow";
+import chooseOne from "../lib/chooseOne";
+import { serialize } from "../lib/serialization";
+import { maxTimeChunk } from "../lib/timechunks";
+
+export default async function getItems({
+  items: itemsProp,
+  params,
+  ctx,
+  limit = Infinity,
+  timeChunk,
+}) {
+  if (!itemsProp) {
+    return [];
+  }
+
+  const items: any[] = [];
+
+  for (let rowConfig of itemsProp) {
+    if (Array.isArray(rowConfig)) {
+      rowConfig = chooseOne({ array: rowConfig, ctx });
+    }
+    if (Array.isArray(rowConfig.cookies)) {
+      ctx.setCookies.push(...rowConfig.cookies);
+    } else if (rowConfig.cookies) {
+      ctx.setCookies.push(rowConfig.cookies);
+    }
+
+    const rowTimeChunk = maxTimeChunk({
+      timeChunkConf: rowConfig.timeChunk,
+      timeChunk,
+    });
+
+    const row = await processRow({ rowConfig, params, ctx });
+    if (row?.props?.getMore) {
+      row.props.src = `/api/_ogm?c=${serialize({
+        ...row.props.getMore,
+        roles: ctx.req.user.roles,
+        expire: rowTimeChunk.expire,
+      })}`;
+      delete row.props.getMore;
+    }
+
+    items.push(row);
+    if (!--limit) {
+      break;
+    }
+  }
+
+  return items;
+}

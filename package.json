@@ -4,17 +4,20 @@
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build -w orgasmo && npm run test -w orgasmo && npm run test -w e2e",
+    "test": "./test.sh",
     "build": "npm run build -w orgasmo",
-    "dev": "nodemon --exec \"npm run build && npm run dev -w e2e\""
+    "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1"
   },
   "author": "",
   "license": "MIT",
   "workspaces": [
     "orgasmo",
-    "example",
+    "examples/wip",
     "e2e",
-    "create-orgasmo"
+    "create-orgasmo",
+    "create-orgasmo/empty",
+    "examples/todomvc",
+    "examples/infinite"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

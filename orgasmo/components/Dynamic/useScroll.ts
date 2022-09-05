@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 export default function useScroll({
   onHideBottom,
   onHideTop,
-  onShowBotton,
+  onShowBottom,
   onShowTop,
   threshold,
   wait,
@@ -58,11 +58,11 @@ export default function useScroll({
           window.requestAnimationFrame(() => onHideTop(firstElement));
         }
         if (
-          onShowBotton &&
+          onShowBottom &&
           lastElementClientRect.y - threshold < currentHeight
         ) {
           wait.working = true;
-          window.requestAnimationFrame(onShowBotton);
+          window.requestAnimationFrame(onShowBottom);
         }
       }
 
@@ -94,6 +94,6 @@ export default function useScroll({
       window.removeEventListener("scroll", handler);
       window.removeEventListener("resize", handler);
     };
-  }, [onHideBottom, onHideTop, onShowBotton, onShowTop, ref]);
+  }, [onHideBottom, onHideTop, onShowBottom, onShowTop, ref]);
   return ref;
 }
