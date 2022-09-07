@@ -71,7 +71,8 @@ export default async function getPageFromConfig(ctx) {
 
   const key = cencode(params);
 
-  const response = await expandPage({ ctx, pageConfig, params, key });
+  const response =
+    pageConfig.response || (await expandPage({ ctx, pageConfig, params, key }));
 
   pageConfig = {
     timeChunk: pageConfig.timeChunk,
