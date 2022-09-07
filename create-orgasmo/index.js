@@ -1,8 +1,8 @@
+#!/usr/bin/env node
 const { join } = require('path')
 const { stat } = require('fs').promises
 var child_process = require('child_process');
 const fs = require('fs-extra')
-
 
 async function main () {
     const path = process.argv[2]

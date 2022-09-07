@@ -1,6 +1,6 @@
 {
   "name": "create-orgasmo",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Creates the empty scaffolding for a nextjs+orgasmo site.",
   "main": "index.js",
   "author": "Antonio Fernández Porrúa",
@@ -10,6 +10,9 @@
     "web",
     "webapp"
   ],
+  "bin": {
+    "create-orgasmo": "index.js"
+  },
   "homepage": "https://github.com/hacknlove/orgasmoproject",
   "bugs": {
     "url": "https://github.com/hacknlove/orgasmoproject/issues",
