@@ -42,6 +42,7 @@ You will have all the Next.js' benefits, and also you will enable your marketing
 
 But that's not all. Orgasmo also has nice gifts for you:
 
+* You still have full freedom to organize your code and your data schema as it suits you better.
 * It provides you with a DDD-ready architecture. Everything is intended to be greatly decoupled because at the end you don't know (or care) how the marketing team is going to use it.
 * You can adopt it incrementally. This is not a take-it-all-or-leave-it-all framework. Just pick the pieces you need now and use it now, within your current Next.js application.
 * The ability to write and use different drivers for different scenarios, for instance a mocked driver to developing new features or to run tests.
