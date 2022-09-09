@@ -1,16 +1,29 @@
 # Orgasmo ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
-![Logo](./assets/orgasmo.svg)
-## The best UX ever
+## The best UX, the best DX, the best MX (marketeer experience).
 
-Orgasmo's goal is to make it easy for you to improve your users' experience, by giving you the best work experience and a complete set of over-the-top features. 
+Orgasmo's goal is to make it easy for you to improve your users' experience, by giving you the best developer experience, the best marketeer experience, and a complete set of over-the-top features. 
 
-## The Vision.
+## The Context.
 
-**It should not be necessary to edit the code to change the order of two components in a page**.
+Writing code is expensive and slow. You can improve it cost and speed, but it will never be as cheap and fast as editing data.
 
-* Code is for: Components, Drivers and permanent styling.
-* Data is for: Content, Structure and ephemeral styling.
+Any web application in any highly competitive market requires increasingly shorter iteration cycles to run experiments, collect data, and thus optimize user acquisition and retention.
+
+But they also required to have very specific and unique features that set it apart from the competition.
+
+Summarizing, a web application needs to have very specialized functionalities and to be easily and quickly modifiable.
+
+But it's very hard to have both things.
+
+Either you use a CMS to configure an easily and quickly modifiable website, or you use a framweork to tailor a custom webapp.
+
+**Till now.**
+
+## The vision.
+
+* Code is for: Components, Drivers and CSS rules.
+* Data is for: Content, Structure and CSS variables.
 
 ### The Solution.
 
@@ -38,17 +51,23 @@ But that's not all. Orgasmo also has nice gifts for you:
 
 Good things come to those who wait.
 
-You could start using this now, just do
-```
-npm init orgasmo your-project-name
-```
-
-But I've decided to discourage any early use by not documenting anything, until I've used it in a production site, and I'm 100% sure it's production ready. 
-
-I want to feel free to do any breaking changes at any time without any concern or remorse.
-
-If you are interested, please **watch** and **star** the project up there in the right, so I know there are people waiting.
+If you are interested in this project, please **watch it** and **star it**, up there in the right, so I know there are people waiting.
 
 Thanks.
 
+### The helping...
 
+Even better things come to those who help.
+
+I cannot do this alone.
+
+There are many things that I am aware that I am not good at, but the things that worries me more are those other things that I am missing and I am not even aware of it.
+
+If you share the vision and you want to participate, introduce yourself at https://github.com/hacknlove/orgasmoproject/discussions/4
+
+### Thanks for sharing the vision.
+
+* Code is for: Components, Drivers and CSS rules.
+* Data is for: Content, Structure and CSS variables.
+
+![Logo](./assets/orgasmo.svg)
