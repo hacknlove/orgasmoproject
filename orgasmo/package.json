@@ -28,10 +28,10 @@
     "./events": "./dist/server/events.js",
     "./PageFactory": "./dist/components/PageFactory.js",
     "./serialization": "./dist/server/lib/serialization.js",
-    "./Slider.scss": "./components/Slider/Slider.scss",
+    "./Slider.scss": "./src/components/Slider/Slider.scss",
     "./Slider": "./dist/components/Slider/Slider.js",
     "./Static": "./dist/components/Static/Static.js",
-    "./withOrgasmo": "./buildTools/withOrgasmo.cjs"
+    "./withOrgasmo": "./src/buildTools/withOrgasmo.cjs"
   },
   "files": [
     "dist/",

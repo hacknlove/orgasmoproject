@@ -21,14 +21,14 @@
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./src/*"]
     },
     "jsx": "react-jsx"
   },
   "include": ["**/*"],
   "exclude": [
     "node_modules",
-    "buildTools",
+    "src/buildTools",
     "coverage",
     "dist",
     "**/*.test.ts",

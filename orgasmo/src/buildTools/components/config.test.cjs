@@ -18,7 +18,7 @@ test("components regexp gets the full path and the file name from components sta
 
 test("components globPath finds components ending with dynamic", (done) => {
   const expected = [
-    "./buildTools/components/test/globPath/but/this.dynamic.tsx",
+    "./src/buildTools/components/test/globPath/but/this.dynamic.tsx",
   ];
   glob(globPath, (err, files) => {
     if (err) {
