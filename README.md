@@ -70,5 +70,3 @@ If you share the vision and you want to participate, introduce yourself at https
 
 * Code is for: Components, Drivers and CSS rules.
 * Data is for: Content, Structure and CSS variables.
-
-![Logo](./assets/orgasmo.svg)
