@@ -1,5 +1,6 @@
 {
     "id": "/",
+    "path": "/",
     "layout": "Layout",
     "meta": {
         "title": "Create Next App",
@@ -67,11 +68,74 @@
                     "height": 16
                 }
             }
+        },
+        {
+            "type": "Header",
+            "props": {
+                "text": "Enhanced with",
+                "link": "orgasmo",
+                "href": "https://github.com/hacknlove/orgasmoproject"
+    
+            }
+        },
+        {
+            "type": "Description",
+            "props": {
+                "text": "Take a look at",
+                "source": "drivers/orgasmo-filesystem/data/pages/index.json"
+            }
+        },
+        {
+            "type": "Card",
+            "props": {
+                "href": "https://github.com/hacknlove/orgasmoproject",
+                "title": "Lighter pages",
+                "content": "And faster first load time, without sacrificing content or interactivity."
+            }
+        },
+        {
+            "type": "Card",
+            "props": {
+                "href": "https://github.com/hacknlove/orgasmoproject",
+                "title": "More Flexibility",
+                "content": "Make faster changes and be more agile using shorter iteration loops."
+            }
+        },
+        {
+            "type": "Card",
+            "props": {
+                "href": "https://github.com/hacknlove/orgasmoproject",
+                "title": "Safest changes",
+                "content": "Show your newest changes to a growing subset of your visitors."
+            }
+        },
+        {
+            "type": "Card",
+            "props": {
+                "href": "https://github.com/hacknlove/orgasmoproject",
+                "title": "AB testing",
+                "content": "Out of the box, any test AB, at any time, with no fuzz"
+            }
+        },
+        {
+            "type": "Card",
+            "props": {
+                "href": "https://github.com/hacknlove/orgasmoproject",
+                "title": "Roles",
+                "content": " Show different pages to different kind of users."
+            }
+        },
+        {
+            "type": "Card",
+            "props": {
+                "href": "https://github.com/hacknlove/orgasmoproject",
+                "title": "Smart caching",
+                "content": "Make your site faster and save resources."
+            }
         }
 
     ],
     "mainSsrSize": 2,
-    "getItemConfig": "page.getMoreItems",
     "footer": [
         {
             "type": "Footer", 

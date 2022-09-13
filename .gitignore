@@ -1,9 +1,7 @@
-/node_modules
-/orgasmo/coverage
-/orgasmo/dist
-/test-results/
-/playwright-report/
-/playwright/.cache/
-/examples/wip
-/orgasmo/test-report.html
-/orgasmo/node_modules
+coverage
+dist
+test-results
+playwright-report
+.cache
+test-report.html
+node_modules

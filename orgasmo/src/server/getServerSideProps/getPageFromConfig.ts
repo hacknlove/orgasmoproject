@@ -35,6 +35,7 @@ export default async function getPageFromConfig(ctx) {
 
   let params: pageParams = {
     params: ctx.params,
+    parsedPath: ctx.parsedPath,
     path: ctx.resolvedUrl.replace(/\?.*$/, ""),
     roles: ctx.req.user.roles,
   };

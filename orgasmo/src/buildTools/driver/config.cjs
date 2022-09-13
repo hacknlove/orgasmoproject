@@ -2,8 +2,9 @@
 
 const { readFile, writeFile } = require("fs/promises");
 const chokidar = require("chokidar");
+const isAModule = require("./isAModule");
 
-const driver = process.env.ORGASMO_DRIVER || "mocked";
+const driver = process.env.ORGASMO_DRIVER || "orgasmo-filesystem";
 
 const regexp = new RegExp(
   `^(?<from>\\./drivers/(${driver}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`
@@ -17,6 +18,10 @@ function fileFromImports(imports, externalPackage) {
   let eventsString = "";
   let importString = "";
 
+  if (!externalPackage && isAModule(driver)) {
+    externalPackage = driver;
+  }
+
   if (externalPackage) {
     indexString = `${indexString}import external from '${externalPackage}';\n\n`;
   }
@@ -26,7 +31,7 @@ function fileFromImports(imports, externalPackage) {
   for (const { from, route, filename, importName, name, type } of imports) {
     switch (type) {
       case "import": {
-        importString = `${importString}import ${importName} from '${from}';\n`;
+        importString = `${importString}import '${from}';\n`;
         continue;
       }
       case "event": {

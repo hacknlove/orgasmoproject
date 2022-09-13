@@ -1,0 +1,44 @@
+{
+    "id": "/",
+    "path": "/",
+    "header": [
+        {
+            "type": "Header",
+            "props": {
+                "text": "Index"
+            }
+        },
+        {
+            "type": "Index",
+            "props": {
+                "links": {
+                    "/both": "Vertical scroll + horizontal slider.",
+                    "/vertical": "Vertical scroll.",
+                    "/horizontal": "Horizontal slider."
+                }
+            }
+        }
+    ],
+    "main": [
+        {
+            "type": "Item",
+            "props": {
+                "string": "Infinite",
+                "number": 42,
+                "className": "fullWidth"
+            }
+        }
+    ],
+    "footer": [
+        {
+            "type": "Index",
+            "props": {
+                "links": {
+                    "/both": "Vertical scroll + horizontal slider.",
+                    "/vertical": "Vertical scroll.",
+                    "/horizontal": "Horizontal slider."
+                }
+            }
+        }
+    ]
+}

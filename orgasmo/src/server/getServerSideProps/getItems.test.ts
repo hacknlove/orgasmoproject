@@ -14,7 +14,7 @@ jest.mock("../lib/serialization", () => ({
 }));
 
 describe("getItems", () => {
-  it("retursn empty array if items is falsy", async () => {
+  it("returns empty array if items is falsy", async () => {
     const items = await getItems({
       items: undefined,
       params: {},
@@ -89,22 +89,6 @@ describe("getItems", () => {
 
     expect(setCookies.length).toBe(5);
   });
-  it("choosesOne if a row is and array", async () => {
-    const items = [[{}], [{}]];
-
-    (chooseOne as jest.Mock).mockImplementation(({ array }) => array[0]);
-
-    await getItems({
-      items,
-      params: {},
-      ctx: {
-        driver: {},
-        setCookies: [],
-      },
-      timeChunk: {},
-    });
-    expect(chooseOne).toHaveBeenCalledTimes(2);
-  });
   it("serializes the getMore property", async () => {
     const items = [{ props: { getMore: {}, test: true } }] as Record<
       string,
@@ -150,5 +134,33 @@ describe("getItems", () => {
       timeChunk: {},
     });
     expect(items[0].props.src).toEqual(expect.any(String));
+  });
+  it("gets the item from the driver if needed", async () => {
+    const items = [];
+    const getItemConfig = jest.fn((params) => params);
+    const response = await getItems({
+      items,
+      limit: 4,
+      getItemConfig,
+    });
+
+    expect(response).toEqual(
+      Array.from({ length: 4 }, (_, i) => ({
+        number: i,
+        params: undefined,
+        relative: i,
+      }))
+    );
+  });
+  it("breaks the loop if there is no itemConfig", async () => {
+    const items = [{}];
+    const getItemConfig = jest.fn(() => undefined);
+    const response = await getItems({
+      items,
+      limit: 4,
+      getItemConfig,
+    });
+
+    expect(response).toEqual([{}]);
   });
 });
