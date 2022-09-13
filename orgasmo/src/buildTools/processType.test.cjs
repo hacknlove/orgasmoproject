@@ -23,7 +23,7 @@ describe("processType", () => {
     });
     expect(response).toBe(undefined);
     expect(importAll).not.toHaveBeenCalled();
-    expect(watchAll).not.toHaveBeenCalledWith(config);
+    expect(watchAll).not.toHaveBeenCalled();
   });
   it("calls importAll with the specific config", () => {
     processType({
@@ -31,8 +31,8 @@ describe("processType", () => {
       isEnabled: true,
       isDevelopmentServer: false,
     });
-    expect(importAll).toHaveBeenCalledWith(config);
-    expect(watchAll).not.toHaveBeenCalledWith(config);
+    expect(importAll).toHaveBeenCalledWith(config, undefined);
+    expect(watchAll).not.toHaveBeenCalled();
   });
   it("calls watchAll with the specific config, if isDevelopmentServer is true", () => {
     processType({
@@ -40,7 +40,7 @@ describe("processType", () => {
       isEnabled: true,
       isDevelopmentServer: true,
     });
-    expect(importAll).toHaveBeenCalledWith(config);
-    expect(watchAll).toHaveBeenCalledWith(config);
+    expect(importAll).toHaveBeenCalledWith(config, undefined);
+    expect(watchAll).toHaveBeenCalledWith(config, undefined);
   });
 });

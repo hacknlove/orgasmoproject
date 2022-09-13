@@ -15,9 +15,8 @@
     "examples/wip",
     "e2e",
     "create-orgasmo",
-    "create-orgasmo/empty",
-    "examples/todomvc",
-    "examples/infinite"
+    "examples/infinite",
+    "drivers/orgasmo-filesystem"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

@@ -1,0 +1,10 @@
+{
+    "ignore": [
+        "./dist"
+    ],
+    "watch": [
+        "./src"
+    ],
+    "verbose": true,
+    "ext": "js,json,mjs,ts,tsx"
+}

@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { importAll, watchAll } = require("./importAll.cjs");
 
-function process({ type, isEnabled, isDevelopmentServer }) {
+function processType({
+  type,
+  isEnabled,
+  isDevelopmentServer,
+  externalPackage,
+}) {
   const config = require(`./${type}/config.cjs`);
 
   if (!isEnabled) {
@@ -10,10 +15,10 @@ function process({ type, isEnabled, isDevelopmentServer }) {
   }
 
   if (isDevelopmentServer) {
-    watchAll(config);
+    watchAll(config, externalPackage);
   }
 
-  return importAll(config);
+  return importAll(config, externalPackage);
 }
 
-module.exports = process;
+module.exports = processType;

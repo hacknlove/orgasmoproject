@@ -54,6 +54,7 @@ export default async function expandPage({
         items: pageConfig.main,
         limit: pageConfig.mainSsrSize,
         timeChunk,
+        getItemConfig: ctx.driver[pageConfig.getItemConfig],
       }),
       footer: getItems({
         ctx,

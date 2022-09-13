@@ -5,14 +5,10 @@ const { writeFile } = require("fs").promises;
 
 const parseFiles = require("./parseFiles.cjs");
 
-async function importAll({
-  externalPackage,
-  globPath,
-  regexp,
-  map,
-  fileFromImports,
-  filename,
-}) {
+async function importAll(
+  { globPath, regexp, map, fileFromImports, filename },
+  externalPackage
+) {
   const files = await glob(globPath);
 
   const imports = parseFiles(files, regexp, map);
@@ -23,12 +19,12 @@ async function importAll({
   console.log(filename, "updated");
 }
 
-function watchAll(config) {
+function watchAll(config, externalPackage) {
   console.log("Watching", config.globPath, "to generate", config.filename);
   let updating;
   async function waitandupdate() {
     await updating;
-    updating = importAll(config);
+    updating = importAll(config, externalPackage);
   }
 
   const watcher = chokidar.watch(config.globPath, {

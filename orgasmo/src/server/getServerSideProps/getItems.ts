@@ -1,7 +1,16 @@
 import processRow from "../lib/processRow";
-import chooseOne from "../lib/chooseOne";
 import { serialize } from "../lib/serialization";
 import { maxTimeChunk } from "../lib/timechunks";
+import type { currentChunkReturn } from "../lib/timechunks";
+
+interface getItemsParameters {
+  items: any[];
+  params?: Record<string, any>;
+  ctx: Record<string, any>;
+  limit?: number;
+  timeChunk: currentChunkReturn;
+  getItemConfig?: (any) => any;
+}
 
 export default async function getItems({
   items: itemsProp,
@@ -9,16 +18,27 @@ export default async function getItems({
   ctx,
   limit = Infinity,
   timeChunk,
-}) {
+  getItemConfig,
+}: getItemsParameters) {
   if (!itemsProp) {
     return [];
   }
 
   const items: any[] = [];
 
-  for (let rowConfig of itemsProp) {
-    if (Array.isArray(rowConfig)) {
-      rowConfig = chooseOne({ array: rowConfig, ctx });
+  const z = limit === Infinity ? itemsProp.length : limit;
+
+  for (let i = 0; i < z; i++) {
+    const rowConfig =
+      itemsProp[i] ??
+      (await getItemConfig?.({
+        params,
+        number: i,
+        relative: i - itemsProp.length,
+      }));
+
+    if (!rowConfig) {
+      break;
     }
     if (Array.isArray(rowConfig.cookies)) {
       ctx.setCookies.push(...rowConfig.cookies);

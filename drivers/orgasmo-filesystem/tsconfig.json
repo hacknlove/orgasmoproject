@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "allowJs": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["../node_modules/@types"],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "strict": true,
+    "lib": ["es2020", "DOM"],
+    "baseUrl": ".",
+    "declaration": true,
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "jsx": "react-jsx"
+  },
+  "include": ["**/*"],
+  "exclude": [
+    "node_modules",
+    "coverage",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "jest.config.js",
+    "jest"
+  ]
+}
