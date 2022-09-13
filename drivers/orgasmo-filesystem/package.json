@@ -1,6 +1,6 @@
 {
   "name": "orgasmo-filesystem",
-  "version": "1.0.0",
+  "version": "1.4.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "path-to-regexp": "^6.2.1"
   },
   "peerDependencies": {
-    "orgasmo": "1.4.0"
+    "orgasmo": "1.4.1"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
