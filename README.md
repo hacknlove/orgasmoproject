@@ -6,11 +6,11 @@ Orgasmo's goal is to make it easy for you to improve your users' experience, by 
 
 ## The Context.
 
-Writing code is expensive and slow. You can improve it cost and speed, but it will never be as cheap and fast as editing data.
+Writing code is expensive and slow. You can improve its cost and speed, but it will never be as cheap and fast as editing data.
 
-Any web application in any highly competitive market requires increasingly shorter iteration cycles to run experiments, collect data, and thus optimize user acquisition and retention.
+Any web application in any highly competitive market requires increasingly shorter iteration cycles to run experiments, collect data, and thus optimize user acquisition, retention and of course, revenue.
 
-But they also required to have very specific and unique features that set it apart from the competition.
+But it also requires to have very specific and unique features that set it apart from the competition.
 
 Summarizing, a web application needs to have very specialized functionalities and to be easily and quickly modifiable.
 
@@ -29,18 +29,18 @@ Either you use a CMS to configure an easily and quickly modifiable website, or y
 
 Orgasmo is a plugin for Next.js that makes this vision possible.
 
-You will have all the Next.js' benefits, and also you will enable your marketing team to:
+You will have all the Next.js' features, and also you will enable your marketing team to do the following things on their own without any developer assistance.
 
-* Change any content they want, including labels, on their own, without bothering you.
-* Change what components are shown in any page and in which order, on their own, without bothering you.
-* Add new routes and pages using and combining the existing components, on their own, without bothering you.
-* Create testing versions of any page to try their changes, and when they are happy with the changes, apply them back to the production page, on their own, without bothering you.
-* Set up progressive delivery strategies to gradually roll out their changes to limit any potential negative impact, on their own, without bothering you.
-* Show different pages or content to different users based on their geographical localization or any cookie or HTTP header, on their own, without bothering you.
-* Add as many contents as you want to any page without any performance penalty at all, on their own, without bothering you.
-* Set up role-based rules to show different content to different roles, on their own, without bothering you.
+* Change any content they want.
+* Change what components are shown in any page and in which order.
+* Add new routes and pages using and combining the existing components.
+* Create testing versions of any page to try their changes, and when they are happy with the changes, apply them back to the production page.
+* Set up progressive delivery strategies to gradually roll out their changes to limit any potential negative impact.
+* Show different pages or content to different users based on their geographical localization or any cookie or HTTP header.
+* Add as many contents as you want to any page without any performance penalty at all.
+* Set up role-based rules to show different content to different roles.
 
-But that's not all. Orgasmo also has nice gifts for you:
+But that's not all. Orgasmo also has nice characteristics to improve your development experience:
 
 * You still have full freedom to organize your code and your data schema as it suits you better.
 * It provides you with a DDD-ready architecture. Everything is intended to be greatly decoupled because at the end you don't know (or care) how the marketing team is going to use it.
