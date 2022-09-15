@@ -4,12 +4,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    "plugin:@typescript-eslint/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   overrides: [],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -19,7 +14,6 @@ module.exports = {
   plugins: ["react", "@typescript-eslint"],
   rules: {
     "@typescript-eslint/no-explicit-any": 0,
-    "react/prop-types": 0,
     "no-constant-condition": ["error", { checkLoops: false }],
   },
   ignorePatterns: ["/dist/**/*"],

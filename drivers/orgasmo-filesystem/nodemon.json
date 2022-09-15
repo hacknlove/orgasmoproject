@@ -1,10 +1,6 @@
 {
-    "ignore": [
-        "./dist"
-    ],
-    "watch": [
-        "./src"
-    ],
-    "verbose": true,
-    "ext": "js,json,mjs,ts,tsx"
+  "ignore": ["./dist"],
+  "watch": ["./src"],
+  "verbose": true,
+  "ext": "js,json,mjs,ts,tsx"
 }
