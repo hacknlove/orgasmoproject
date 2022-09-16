@@ -1,6 +1,6 @@
 import { promisify } from "util";
 import { glob as g } from "glob";
-import { match }  from "path-to-regexp";
+import { match } from "path-to-regexp";
 import { readJson } from "fs-extra";
 import { join } from "path";
 

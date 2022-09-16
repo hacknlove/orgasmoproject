@@ -1,6 +1,6 @@
-import { waitForIt, ids } from './parseDirectory'
+import { waitForIt, ids } from "./parseDirectory";
 
-export default async function getPageConfigFromIdFactory(pageId) {
-    await waitForIt
-    return ids.get(pageId)
+export default async function getPageConfigFromId(pageId) {
+  await waitForIt;
+  return ids.get(pageId);
 }
