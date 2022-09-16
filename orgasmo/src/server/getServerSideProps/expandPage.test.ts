@@ -60,4 +60,23 @@ describe("expandPage", () => {
       },
     });
   });
+  it("transform the cssVars into something you can pass to style props", async () => {
+    pageConfig = {
+      cssVars: {
+        someVar: "someValue",
+        someOtherVar: "someOtherValue",
+      },
+    };
+    expect(await expandPage({ ctx, pageConfig, key })).toEqual({
+      props: {
+        footer: "getItemsResponse",
+        main: "getItemsResponse",
+        header: "getItemsResponse",
+        cssVars: {
+          "--someVar": "someValue",
+          "--someOtherVar": "someOtherValue",
+        },
+      },
+    });
+  });
 });

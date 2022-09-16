@@ -11,6 +11,7 @@ export default function PageFactory({
     main,
     mainMode,
     mainThreshold,
+    cssVars,
     footer,
     src,
     layout,
@@ -39,6 +40,7 @@ export default function PageFactory({
         <Components
           type={layout}
           props={{
+            cssVars,
             header: headerRendered,
             main: mainRendered,
             footer: footerRendered,
@@ -48,11 +50,11 @@ export default function PageFactory({
       );
     }
     return (
-      <>
+      <div style={cssVars}>
         {headerRendered}
         {mainRendered}
         {footerRendered}
-      </>
+      </div>
     );
   };
   return Page;

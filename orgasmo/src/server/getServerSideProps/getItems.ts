@@ -61,6 +61,15 @@ export default async function getItems({
       delete row.props.getMore;
     }
 
+    if (row?.props?.cssVars) {
+      row.props.cssVars = Object.fromEntries(
+        Object.entries(row.props.cssVars).map(([key, value]) => [
+          `--${key}`,
+          value,
+        ])
+      );
+    }
+
     items.push(row);
     if (!--limit) {
       break;

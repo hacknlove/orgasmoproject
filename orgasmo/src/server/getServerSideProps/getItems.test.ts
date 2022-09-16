@@ -2,11 +2,9 @@
 // @ts-nocheck
 
 import getItems from "./getItems";
-import chooseOne from "../lib/chooseOne";
 import processRow from "../lib/processRow";
 import { serialize } from "../lib/serialization";
 
-jest.mock("../lib/chooseOne");
 jest.mock("../lib/processRow");
 jest.mock("../lib/setCookies");
 jest.mock("../lib/serialization", () => ({
@@ -162,5 +160,33 @@ describe("getItems", () => {
     });
 
     expect(response).toEqual([{}]);
+  });
+  it("transform the cssVars into something you can pass to style props", async () => {
+    const items = [
+      {
+        type: "Foo",
+        props: {
+          cssVars: {
+            someVar: "someValue",
+            someOtherVar: "someOtherValue",
+          },
+        },
+      },
+    ];
+    const response = await getItems({
+      items,
+    });
+
+    expect(response).toEqual([
+      {
+        type: "Foo",
+        props: {
+          cssVars: {
+            "--someVar": "someValue",
+            "--someOtherVar": "someOtherValue",
+          },
+        },
+      },
+    ]);
   });
 });

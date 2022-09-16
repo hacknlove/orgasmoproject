@@ -64,6 +64,14 @@ export default async function expandPage({
         items: pageConfig.footer,
         timeChunk,
       }),
+      cssVars:
+        pageConfig.cssVars &&
+        Object.fromEntries(
+          Object.entries(pageConfig.cssVars).map(([key, value]) => [
+            `--${key}`,
+            value,
+          ])
+        ),
       src:
         pageConfig.mainSsrSize &&
         `/api/_ogr?c=${serialize({
