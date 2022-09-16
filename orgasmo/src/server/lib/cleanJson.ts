@@ -37,6 +37,10 @@ export async function cleanAwaitJson(obj: any): Promise<any> {
   }
   if (typeof obj === "object") {
     for (const key in obj) {
+      if (obj[key] === undefined) {
+        delete obj[key];
+        continue;
+      }
       obj[key] = await cleanAwaitJson(obj[key]);
     }
   }
