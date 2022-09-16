@@ -20,6 +20,7 @@ async function cachedFetch(url) {
 export default function useItems({
   src: srcProps,
   items: itemsProp,
+  mode = "bubble",
   threshold = 50,
 }) {
   const [items, setItems] = useState<any[]>(itemsProp);
@@ -138,13 +139,14 @@ export default function useItems({
     threshold,
     wait,
     onHideBottom,
-    onHideTop,
+    onHideTop: mode === "bubble" && onHideTop,
     onShowBottom: underTheBottomItems.length
       ? unHideBottom
       : noMore
       ? undefined
       : getItemConfig,
-    onShowTop: overTheTopItems.length ? onShowTop : undefined,
+    onShowTop:
+      mode === "bubble" && overTheTopItems.length ? onShowTop : undefined,
   });
 
   useEffect(() => {

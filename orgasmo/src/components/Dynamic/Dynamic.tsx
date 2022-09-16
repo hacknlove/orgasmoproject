@@ -4,10 +4,14 @@ import useItems from "./useItems";
 export default function Dynamic({
   src,
   items: itemsProp,
+  mode,
+  threshold,
   Components,
 }: DynamicProps) {
   const { items, ref, overTheTop, keyOffset, underTheBottom } = useItems({
     src,
+    mode,
+    threshold,
     items: itemsProp ?? [],
   });
 

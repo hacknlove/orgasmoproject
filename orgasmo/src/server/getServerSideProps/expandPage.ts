@@ -56,6 +56,8 @@ export default async function expandPage({
         timeChunk,
         getItemConfig: ctx.driver[pageConfig.getItemConfig],
       }),
+      mainMode: pageConfig.mainMode,
+      mainThreshold: pageConfig.mainMode,
       footer: getItems({
         ctx,
         params,

@@ -45,10 +45,7 @@ describe("expandPage", () => {
       props: {
         footer: "getItemsResponse",
         main: "getItemsResponse",
-        src: null,
         header: "getItemsResponse",
-        layout: null,
-        meta: null,
       },
     });
   });
@@ -60,8 +57,6 @@ describe("expandPage", () => {
         main: "getItemsResponse",
         src: expect.any(String),
         header: "getItemsResponse",
-        layout: null,
-        meta: null,
       },
     });
   });

@@ -16,8 +16,12 @@ export interface PageFactoryParameters {
 export interface PageParameters {
   header: RowProps[];
   main: RowProps[];
+  mainMode?: "static" | "bubble" | "grow";
+  threshold: number;
   footer: RowProps[];
   src: string;
+  layout: string;
+  meta: Record<string, any>;
 }
 
 export type OrgasmoPage = { (PageParameters): JSX.Element };
@@ -30,6 +34,8 @@ export interface RowProps {
 export interface DynamicProps {
   src?: string;
   items: RowProps[];
+  mode: "bubble" | "grow";
+  threshold: number;
   Components: Components;
 }
 

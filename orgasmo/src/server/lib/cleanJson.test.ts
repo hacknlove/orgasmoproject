@@ -89,7 +89,6 @@ describe("cleanAwaitJson", () => {
       e: [undefined, new Date(0), { toHexString: () => "0x123" }, "test"],
     };
     expect(await cleanAwaitJson(obj)).toEqual({
-      a: null,
       b: "1970-01-01T00:00:00.000Z",
       c: "0x123",
       d: "test",
@@ -103,14 +102,13 @@ describe("cleanAwaitJson", () => {
       c: { toHexString: () => "0x123" },
       d: Promise.resolve("test"),
       e: [
-        undefined,
+        null,
         new Date(0),
         Promise.resolve({ toHexString: () => "0x123" }),
         "test",
       ],
     });
     expect(await cleanAwaitJson(obj)).toEqual({
-      a: null,
       b: "1970-01-01T00:00:00.000Z",
       c: "0x123",
       d: "test",
@@ -131,12 +129,11 @@ describe("withCleanJson", () => {
         b: Promise.resolve(new Date(0)),
         c: { toHexString: () => "0x123" },
         d: "test",
-        e: [undefined, new Date(0), { toHexString: () => "0x123" }, "test"],
+        e: [null, new Date(0), { toHexString: () => "0x123" }, "test"],
       },
     }));
     expect(await getServerSideProps({})).toEqual({
       props: {
-        a: null,
         b: "1970-01-01T00:00:00.000Z",
         c: "0x123",
         d: "test",
