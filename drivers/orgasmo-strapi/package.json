@@ -25,7 +25,7 @@
     "path-to-regexp": "^6.2.1"
   },
   "peerDependencies": {
-    "orgasmo": "1.5.0"
+    "orgasmo": "1.6.1"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
