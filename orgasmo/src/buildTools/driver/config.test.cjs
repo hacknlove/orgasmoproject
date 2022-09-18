@@ -95,19 +95,20 @@ describe("driver fileFromImport", () => {
 // @ts-nocheck
 
 import events from 'orgasmo/events';
+import baz from './drivers/orgasmo-filesystem/something/bar.event.tsx';
 import './drivers/orgasmo-filesystem/something/cos.import.tsx';
-import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
 import bar from './drivers/orgasmo-filesystem/something/bar.export.tsx';
+import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
 
 
 const all = {
-  ['something.foo']: foo,
   ['something.bar']: bar,
+  ['something.foo']: foo,
 }
 
 all.something = {};
-all.something.foo = foo;
 all.something.bar = bar;
+all.something.foo = foo;
 
 events.on('baz', baz);
 
@@ -137,7 +138,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something/onSomething.export.tsx",
+        from: "./drivers/orgasmo-filesystem/something1/onSomething.event.tsx",
         name: "onSomething",
         importName: "route1ーonSomething",
         route: "route1",
@@ -145,7 +146,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something/onSomething.export.tsx",
+        from: "./drivers/orgasmo-filesystem/something2/onSomething.event.tsx",
         name: "onSomething",
         importName: "route2ーonSomething",
         route: "route2",
@@ -156,21 +157,23 @@ export default all;
 // @ts-nocheck
 
 import events from 'orgasmo/events';
+import route1ーonSomething from './drivers/orgasmo-filesystem/something1/onSomething.event.tsx';
+import route2ーonSomething from './drivers/orgasmo-filesystem/something2/onSomething.event.tsx';
 import external from 'foo-externalPackage';
 
-import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
 import bar from './drivers/orgasmo-filesystem/something/bar.export.tsx';
+import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
 
 
 const all = {
   ...external,
-  ['something.foo']: foo,
   ['something.bar']: bar,
+  ['something.foo']: foo,
 }
 
 all.something = {};
-all.something.foo = foo;
 all.something.bar = bar;
+all.something.foo = foo;
 
 events.on('onSomething', route1ーonSomething);
 events.on('onSomething', route2ーonSomething);
@@ -202,7 +205,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something/onSomething.export.tsx",
+        from: "./drivers/orgasmo-filesystem/something1/onSomething.event.tsx",
         name: "onSomething",
         importName: "route1ーonSomething",
         route: "route1",
@@ -210,7 +213,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something/onSomething.export.tsx",
+        from: "./drivers/orgasmo-filesystem/something2/onSomething.event.tsx",
         name: "onSomething",
         importName: "route2ーonSomething",
         route: "route2",
@@ -221,21 +224,23 @@ export default all;
 // @ts-nocheck
 
 import events from 'orgasmo/events';
+import route1ーonSomething from './drivers/orgasmo-filesystem/something1/onSomething.event.tsx';
+import route2ーonSomething from './drivers/orgasmo-filesystem/something2/onSomething.event.tsx';
 import external from 'orgasmo-filesystem';
 
-import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
 import bar from './drivers/orgasmo-filesystem/something/bar.export.tsx';
+import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
 
 
 const all = {
   ...external,
-  ['something.foo']: foo,
   ['something.bar']: bar,
+  ['something.foo']: foo,
 }
 
 all.something = {};
-all.something.foo = foo;
 all.something.bar = bar;
+all.something.foo = foo;
 
 events.on('onSomething', route1ーonSomething);
 events.on('onSomething', route2ーonSomething);

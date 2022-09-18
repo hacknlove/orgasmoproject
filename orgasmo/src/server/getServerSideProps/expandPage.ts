@@ -75,7 +75,7 @@ export default async function expandPage({
       src:
         pageConfig.mainSsrSize &&
         `/api/_ogr?c=${serialize({
-          pageId: pageConfig.id,
+          pageId: pageConfig.pageId,
           params,
           roles: ctx.req.user.roles,
           expire: timeChunk.expire,

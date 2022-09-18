@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./test.sh",
-    "build": "npm run build -w orgasmo",
+    "build": "npm run build --workspaces --if-present",
+    "prettylint": "npm run prettylint --workspaces --if-present",
     "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1"
   },
   "author": "",
@@ -16,7 +17,10 @@
     "e2e",
     "create-orgasmo",
     "examples/infinite",
-    "drivers/orgasmo-filesystem"
+    "drivers/orgasmo-filesystem",
+    "drivers/orgasmo-mongo",
+    "drivers/orgasmo-strapi",
+    "examples/third-party/orgasmo-strapi-server"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

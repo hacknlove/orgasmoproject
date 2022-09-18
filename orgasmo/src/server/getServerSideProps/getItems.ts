@@ -40,11 +40,6 @@ export default async function getItems({
     if (!rowConfig) {
       break;
     }
-    if (Array.isArray(rowConfig.cookies)) {
-      ctx.setCookies.push(...rowConfig.cookies);
-    } else if (rowConfig.cookies) {
-      ctx.setCookies.push(rowConfig.cookies);
-    }
 
     const rowTimeChunk = maxTimeChunk({
       timeChunkConf: rowConfig.timeChunk,

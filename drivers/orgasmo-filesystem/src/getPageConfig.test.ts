@@ -30,4 +30,17 @@ describe("getPageConfig", () => {
 
     expect(await getPageConfig(ctx)).toBe("somePageConfig");
   });
+  it("returns the pageConfig if the path matches a route", async () => {
+    paths.set("/nop", {
+      match: () => null,
+      pageConfig: "notThins",
+    });
+    paths.set("/sip", {
+      match: () => ({ params: "someParams" }),
+      pageConfig: "somePageConfig",
+    });
+
+    expect(await getPageConfig(ctx)).toBe("somePageConfig");
+    expect(ctx.parsedPath).toBe("someParams");
+  });
 });

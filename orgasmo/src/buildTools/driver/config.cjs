@@ -28,6 +28,13 @@ function fileFromImports(imports, externalPackage) {
 
   const all = {};
 
+  imports.sort((a, b) => {
+    const commonFirstA = a.from.replace(/^.\/drivers\/common\//, "!");
+    const commonFirstB = b.from.replace(/^.\/drivers\/common\//, "!");
+
+    return commonFirstA <= commonFirstB ? -1 : 1;
+  });
+
   for (const { from, route, filename, importName, name, type } of imports) {
     switch (type) {
       case "import": {
@@ -35,6 +42,8 @@ function fileFromImports(imports, externalPackage) {
         continue;
       }
       case "event": {
+        importString = `${importString}import ${importName} from '${from}';\n`;
+
         eventsString = `${eventsString}events.on('${name}', ${importName});\n`;
         continue;
       }

@@ -31,19 +31,19 @@ export default async function parseDirectory(pathToJsonDirectory) {
       console.error(`${pagePath} is missing the required field "path"`);
       continue;
     }
-    if (!pageConfig.id) {
-      console.error(`${pagePath} is missing the required field "id"`);
+    if (!pageConfig.pageId) {
+      console.error(`${pagePath} is missing the required field "pageId"`);
       continue;
     }
 
-    if (ids.has(pageConfig.id)) {
+    if (ids.has(pageConfig.pageId)) {
       console.error(
-        `There is already a pageConfig with the id "${pageConfig.id}"`
+        `There is already a pageConfig with the pageId "${pageConfig.pageId}"`
       );
       continue;
     }
 
-    ids.set(pageConfig.id, pageConfig);
+    ids.set(pageConfig.pageId, pageConfig);
 
     const current = tempPaths.get(pageConfig.path);
 

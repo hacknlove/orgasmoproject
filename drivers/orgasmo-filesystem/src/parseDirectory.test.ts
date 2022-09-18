@@ -67,7 +67,7 @@ describe("parseDirectory", () => {
     );
   });
 
-  it("shows an error if the pageConfig has no id", async () => {
+  it("shows an error if the pageConfig has no pageId", async () => {
     readJson.mockResolvedValue({
       path: "/foo/:bar",
     });
@@ -75,28 +75,28 @@ describe("parseDirectory", () => {
     await parseDirectory("someDirectory");
 
     expect(console.error).toBeCalledWith(
-      'some/test/Path is missing the required field "id"'
+      'some/test/Path is missing the required field "pageId"'
     );
   });
-  it("shows an error if there are two pages with the same id", async () => {
+  it("shows an error if there are two pages with the same pageId", async () => {
     ids.set("someId", {});
 
     readJson.mockResolvedValue({
       path: "/foo/:bar",
-      id: "someId",
+      pageId: "someId",
     });
 
     await parseDirectory("someDirectory");
 
     expect(console.error).toBeCalledWith(
-      'There is already a pageConfig with the id "someId"'
+      'There is already a pageConfig with the pageId "someId"'
     );
   });
 
-  it("sets the page by id", async () => {
+  it("sets the page by pageId", async () => {
     readJson.mockResolvedValue({
       path: "/foo/:bar",
-      id: "someOtherId",
+      pageId: "someOtherId",
     });
 
     await parseDirectory("someDirectory");
@@ -111,15 +111,15 @@ describe("parseDirectory", () => {
 
     readJson.mockResolvedValueOnce({
       path: "/foo/:bar",
-      id: "someId",
+      pageId: "someId",
     });
     readJson.mockResolvedValueOnce({
       path: "/foo/:bar",
-      id: "someOtherId",
+      pageId: "someOtherId",
     });
     readJson.mockResolvedValueOnce({
       path: "/foo/:bar",
-      id: "anotherIdMore",
+      pageId: "anotherIdMore",
     });
 
     await parseDirectory("someDirectory");
@@ -127,15 +127,15 @@ describe("parseDirectory", () => {
     expect(paths.get("/foo/:bar").pageConfig).toEqual([
       {
         path: "/foo/:bar",
-        id: "someId",
+        pageId: "someId",
       },
       {
         path: "/foo/:bar",
-        id: "someOtherId",
+        pageId: "someOtherId",
       },
       {
         path: "/foo/:bar",
-        id: "anotherIdMore",
+        pageId: "anotherIdMore",
       },
     ]);
   });
@@ -147,15 +147,15 @@ describe("parseDirectory", () => {
 
     readJson.mockResolvedValueOnce({
       path: "/foo/:second",
-      id: "someOtherId",
+      pageId: "someOtherId",
     });
     readJson.mockResolvedValueOnce({
       path: "/foo/(last)",
-      id: "someId",
+      pageId: "someId",
     });
     readJson.mockResolvedValueOnce({
       path: "/foo/first",
-      id: "anotherIdMore",
+      pageId: "anotherIdMore",
     });
     await parseDirectory("someDirectory");
 

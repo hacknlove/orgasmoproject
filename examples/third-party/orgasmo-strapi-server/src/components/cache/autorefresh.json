@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_cache_autorefreshes",
+  "info": {
+    "displayName": "autorefresh",
+    "icon": "undo"
+  },
+  "options": {},
+  "attributes": {
+    "method": {
+      "type": "string",
+      "required": true
+    },
+    "miliseconds": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-    "id": "item",
+    "pageId": "item",
     "path": "/item/:string/:number",
     "header": [{
         "type": "Header",

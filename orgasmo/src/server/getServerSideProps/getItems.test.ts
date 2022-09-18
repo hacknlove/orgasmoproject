@@ -6,7 +6,6 @@ import processRow from "../lib/processRow";
 import { serialize } from "../lib/serialization";
 
 jest.mock("../lib/processRow");
-jest.mock("../lib/setCookies");
 jest.mock("../lib/serialization", () => ({
   serialize: jest.fn(),
 }));
@@ -62,31 +61,6 @@ describe("getItems", () => {
       { props: { row: true, test: "row2" } },
     ]);
   });
-  it("calls setCookies for each row", async () => {
-    const items = Array.from({ length: 5 }, () => ({
-      cookies: {},
-    }));
-
-    items[0].cookies = [{}];
-
-    (processRow as jest.Mock).mockImplementation(async ({ rowConfig }) => ({
-      props: { row: true, test: rowConfig },
-    }));
-
-    const setCookies = [];
-
-    await getItems({
-      items,
-      params: {},
-      ctx: {
-        setCookies,
-        driver: {},
-      },
-      timeChunk: {},
-    });
-
-    expect(setCookies.length).toBe(5);
-  });
   it("serializes the getMore property", async () => {
     const items = [{ props: { getMore: {}, test: true } }] as Record<
       string,
@@ -104,7 +78,6 @@ describe("getItems", () => {
       ctx: {
         driver: {},
         req: { user: { id: "test-user-id" } },
-        setCookies: [],
       },
       timeChunk: {},
     });
@@ -127,7 +100,6 @@ describe("getItems", () => {
       ctx: {
         driver: {},
         req: { user: {} },
-        setCookies: [],
       },
       timeChunk: {},
     });

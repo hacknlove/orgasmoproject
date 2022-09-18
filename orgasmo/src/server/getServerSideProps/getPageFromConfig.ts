@@ -27,7 +27,7 @@ export default async function getPageFromConfig(ctx) {
   }
 
   const pageIds =
-    Array.isArray(pageConfig) && pageConfig.map((page) => page.id);
+    Array.isArray(pageConfig) && pageConfig.map((page) => page.pageId);
 
   if (pageIds) {
     pageConfig = chooseOne({ array: pageConfig, ctx });
@@ -67,7 +67,7 @@ export default async function getPageFromConfig(ctx) {
         pageIds,
       },
     });
-    params.pageId = pageConfig.id;
+    params.pageId = pageConfig.pageId;
   }
 
   const key = cencode(params);

@@ -66,7 +66,10 @@ describe("getPageFromConfig", () => {
   });
 
   it("chooses one page, if there are more than one", async () => {
-    ctx.driver.page.getPageConfig.mockResolvedValue([{ id: 1 }, { id: 2 }]);
+    ctx.driver.page.getPageConfig.mockResolvedValue([
+      { pageId: 1 },
+      { pageId: 2 },
+    ]);
 
     chooseOne.mockImplementation(({ array }) => array[0]);
     await getPageFromConfig(ctx);

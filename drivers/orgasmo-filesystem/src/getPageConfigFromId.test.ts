@@ -8,7 +8,7 @@ jest.mock("./parseDirectory", () => ({
 }));
 
 describe("getPageConfigFromId", () => {
-  it("it waits for it and returns the page that matches the id", async () => {
+  it("it waits for it and returns the page that matches the pageId", async () => {
     ids.set("someId", "somePageConfig");
 
     expect(await getPageConfigFromId("someId")).toBe("somePageConfig");
