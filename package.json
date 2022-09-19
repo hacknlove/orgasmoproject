@@ -9,7 +9,7 @@
     "prettylint": "npm run prettylint --workspaces --if-present",
     "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1",
     "preversion": "npm test",
-    "postversion": "node scripts/publish"
+    "postversion": "node scripts/publish.cjs"
   },
   "author": "",
   "license": "MIT",
