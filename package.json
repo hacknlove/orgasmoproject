@@ -20,7 +20,7 @@
     "drivers/orgasmo-filesystem",
     "drivers/orgasmo-mongo",
     "drivers/orgasmo-strapi",
-    "examples/third-party/orgasmo-strapi-server"
+    "admin/orgasmo-strapi-admin"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
