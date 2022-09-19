@@ -12,7 +12,7 @@ export default async function getItem(ctx) {
     return res.json(null);
   }
 
-  const pageConfig = await driver.page.getPageConfigFromId(command.pageId);
+  const pageConfig = await driver.page.getPageConfigFromId(command.pageId, ctx);
   if (!pageConfig) {
     return res.json(null);
   }

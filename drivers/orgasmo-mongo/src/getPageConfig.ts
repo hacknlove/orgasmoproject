@@ -28,11 +28,30 @@ export default async function getPageConfig(ctx) {
     return lastA < lastB ? -1 : 1;
   });
 
+  let matchedDynamicPath
+  const pageConfigs: any[] = [];
   for (const pageConfig of regexps) {
+    if (matchedDynamicPath === pageConfig.dynamicPath) {
+      pageConfigs.push(pageConfig)
+      continue
+    }
+    if (matchedDynamicPath) {
+      break
+    }
     const matched = match(pageConfig.dynamicPath)(resolvedPath);
     if (matched) {
       ctx.parsedPath = matched.params;
-      return pageConfig;
+      matchedDynamicPath = pageConfig.dynamicPath
+      pageConfigs.push(pageConfig)
     }
+  }
+
+  switch (pageConfigs.length) {
+    case 0:
+      return null
+    case 1:
+      return pageConfigs[0]
+    default:
+      return pageConfigs
   }
 }

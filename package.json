@@ -18,9 +18,7 @@
     "create-orgasmo",
     "examples/infinite",
     "drivers/orgasmo-filesystem",
-    "drivers/orgasmo-mongo",
-    "drivers/orgasmo-strapi",
-    "admin/orgasmo-strapi-admin"
+    "drivers/orgasmo-mongo"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
