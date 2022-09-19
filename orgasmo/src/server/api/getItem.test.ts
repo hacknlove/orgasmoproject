@@ -46,7 +46,7 @@ describe("getItem", () => {
     await getItem(ctx);
 
     expect(ctx.driver.page.getPageConfigFromId).toBeCalledWith(
-      "getItemConfig-test"
+      "getItemConfig-test", ctx
     );
     expect(ctx.res.json).toBeCalledWith(null);
   });

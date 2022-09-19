@@ -3,7 +3,7 @@
 import getItem from "./getItem";
 import getMore from "./getMore";
 import apiCall from "./apiCall";
-
+import events from "../events";
 import apiFactory from "./factory";
 
 jest.mock("./getItem", () => ({
@@ -40,7 +40,7 @@ describe("apiFactory", () => {
       },
     };
     await apiFactory({ driver })(req, res);
-    expect(getItem).toHaveBeenCalledWith({ driver, req, res });
+    expect(getItem).toHaveBeenCalledWith({ driver, req, res, events });
     expect(getMore).not.toHaveBeenCalled();
     expect(apiCall).not.toHaveBeenCalled();
   });
@@ -51,7 +51,7 @@ describe("apiFactory", () => {
       },
     };
     await apiFactory({ driver })(req, res);
-    expect(getMore).toHaveBeenCalledWith({ driver, req, res });
+    expect(getMore).toHaveBeenCalledWith({ driver, req, res, events });
     expect(getItem).not.toHaveBeenCalled();
     expect(apiCall).not.toHaveBeenCalled();
   });
@@ -64,6 +64,6 @@ describe("apiFactory", () => {
     await apiFactory({ driver })(req, res);
     expect(getMore).not.toHaveBeenCalled();
     expect(getItem).not.toHaveBeenCalled();
-    expect(apiCall).toHaveBeenCalledWith({ driver, req, res });
+    expect(apiCall).toHaveBeenCalledWith({ driver, req, res, events });
   });
 });

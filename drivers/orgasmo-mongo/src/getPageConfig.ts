@@ -4,13 +4,13 @@ import { match } from "path-to-regexp";
 export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
 
-  const exactMatch = await mongoProxy.pageConfigs.findOne({
+  const exactMatch = await mongoProxy.pageConfigs.find({
     staticPath: resolvedPath,
-  });
+  }).toArray();
 
-  if (exactMatch) {
+  if (exactMatch.length) {
     ctx.parsedPath = {};
-    return exactMatch;
+    return exactMatch.length > 1 ? exactMatch : exactMatch[0];
   }
 
   const regexps = await mongoProxy.pageConfigs
@@ -48,7 +48,7 @@ export default async function getPageConfig(ctx) {
 
   switch (pageConfigs.length) {
     case 0:
-      return null
+      return undefined
     case 1:
       return pageConfigs[0]
     default:
