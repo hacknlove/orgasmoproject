@@ -15,10 +15,10 @@
   "license": "MIT",
   "workspaces": [
     "orgasmo",
-    "create-orgasmo",
-    "examples/infinite",
     "drivers/orgasmo-filesystem",
-    "drivers/orgasmo-mongo"
+    "drivers/orgasmo-mongo",
+    "examples/infinite",
+    "create-orgasmo"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

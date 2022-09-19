@@ -58,15 +58,10 @@ async function main() {
     }
 
     console.log("Publishing", workspacePackage.name);
-
-    promises.push(
-      execPromise("npm publish --dry-run", {
-        cwd: join(process.cwd(), workspace),
-      })
-    );
+    await execPromise("npm publish", {
+      cwd: join(process.cwd(), workspace),
+    })
   }
-
-  await Promise.all(promises);
 
   console.log("commit and tag");
   await execPromise("npm i --package-lock-only");
