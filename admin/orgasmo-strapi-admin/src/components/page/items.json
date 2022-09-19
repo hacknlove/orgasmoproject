@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_page_items",
+  "info": {
+    "displayName": "item",
+    "icon": "ellipsis-v",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "props": {
+      "type": "json"
+    },
+    "getProps": {
+      "type": "string"
+    },
+    "extra": {
+      "type": "json"
+    }
+  }
+}
