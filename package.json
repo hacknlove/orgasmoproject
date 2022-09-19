@@ -7,14 +7,14 @@
     "test": "./test.sh",
     "build": "npm run build --workspaces --if-present",
     "prettylint": "npm run prettylint --workspaces --if-present",
-    "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1"
+    "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1",
+    "preversion": "npm test",
+    "postversion": "node scripts/publish"
   },
   "author": "",
   "license": "MIT",
   "workspaces": [
     "orgasmo",
-    "examples/wip",
-    "e2e",
     "create-orgasmo",
     "examples/infinite",
     "drivers/orgasmo-filesystem",

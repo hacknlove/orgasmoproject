@@ -47,5 +47,6 @@
     "./getPageConfig": "./dist/getPageConfig.js",
     "./getPageConfigFromId": "./dist/getPageConfigFromId.js",
     "./parseDirectory": "./dist/parseDirectory.js"
-  }
+  },
+  "private": true
 }
