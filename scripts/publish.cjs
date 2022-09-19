@@ -26,7 +26,7 @@ async function main() {
 
     const workspacePackage = require(path);
 
-    workspace.version = version;
+    workspacePackage.version = version;
     for (const key of Object.keys(workspacePackage.dependencies ?? {})) {
       if (isOrgasmoRegexp.test(key)) {
         workspacePackage.dependencies[key] = version;
