@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_whatisthis_caches",
+  "info": {
+    "displayName": "cache",
+    "icon": "history",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "expiration": {
+      "type": "integer"
+    },
+    "renovation": {
+      "type": "integer"
+    },
+    "autorefresh": {
+      "type": "component",
+      "repeatable": false,
+      "component": "cache.autorefresh"
+    },
+    "private": {
+      "type": "boolean"
+    }
+  }
+}
