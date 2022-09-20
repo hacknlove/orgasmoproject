@@ -22,8 +22,8 @@ Either you use a CMS to configure an easily and quickly modifiable website, or y
 
 ## The vision.
 
-* Code is for: Components, Drivers and CSS rules.
-* Data is for: Content, Structure and CSS variables.
+* **Code is for: Components, Drivers and CSS rules.**
+* **Data is for: Content, Structure and CSS variables.**
 
 ### The Solution.
 
@@ -48,25 +48,10 @@ But that's not all. Orgasmo also has nice characteristics to improve your develo
 * The ability to write and use different drivers for different scenarios, for instance a mocked driver to developing new features or to run tests.
 * A notable reduction of bullshit and boilerplate code.
 
-### The waiting...
+### The Status
 
-Good things come to those who wait.
+This is a Work in progress. The schemas and contracts are not established yet, thus it's not recommendable at all for production environments.
 
-If you are interested in this project, please **watch it** and **star it**, up there in the right, so I know there are people waiting.
+Early adopters are invited to try it and provide feedback, but be aware that there is no guarantee of any kind of retro compatibility.
 
-Thanks.
-
-### The helping...
-
-Even better things come to those who help.
-
-I cannot do this alone.
-
-There are many things that I am aware that I am not good at, but the things that worries me more are those other things that I am missing and I am not even aware of it.
-
-If you share the vision and you want to participate, introduce yourself at https://github.com/hacknlove/orgasmoproject/discussions/4
-
-### Thanks for sharing the vision.
-
-* Code is for: Components, Drivers and CSS rules.
-* Data is for: Content, Structure and CSS variables.
+Breaking changes could and will happen.
