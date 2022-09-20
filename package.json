@@ -3,6 +3,10 @@
   "version": "1.6.2",
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps",
   "main": "index.js",
+  "engines": {
+    "node": ">=14.19.1 <=16.x.x",
+    "npm": ">=6.0.0"
+  },
   "scripts": {
     "test": "./test.sh",
     "build": "npm run build --workspaces --if-present",
@@ -17,8 +21,10 @@
     "orgasmo",
     "drivers/orgasmo-filesystem",
     "drivers/orgasmo-mongo",
+    "drivers/orgasmo-strapi",
     "examples/infinite",
-    "create-orgasmo"
+    "create-orgasmo",
+    "admin/orgasmo-strapi-admin"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

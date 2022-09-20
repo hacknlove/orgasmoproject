@@ -45,7 +45,7 @@
       "repeatable": false,
       "component": "page.layout"
     },
-    "head": {
+    "header": {
       "type": "component",
       "repeatable": true,
       "component": "page.items"

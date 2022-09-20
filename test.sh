@@ -6,5 +6,6 @@ npm run build
 npm test -w orgasmo
 npm test -w drivers/orgasmo-filesystem
 npm test -w drivers/orgasmo-mongo
+npm test -w drivers/orgasmo-strapi
 npm run test -w examples/infinite
 npm run test -w create-orgasmo

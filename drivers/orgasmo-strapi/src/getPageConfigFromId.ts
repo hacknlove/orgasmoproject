@@ -1,17 +1,18 @@
 import strapiFetch from "./strapiFetch";
+import mapStrapiToOrgasmo from "./mapStrapiToOrgasmo";
 
 export default async function getPageConfigFromId(pageId, ctx) {
-  const exactMatch = await strapiFetch(`page-configs?filters[pageId][$eq]=${pageId}&populate=*`)
+  const exactMatch = await strapiFetch(`page-configs?filters[pageId][$eq]=${pageId}&populate[0]=footer&populate[1]=main.items&populate[2]=header`)
 
   if (exactMatch.error) {
     ctx.events.emit("error", {
       type: "driver",
       driver: process.env.ORGASMO_DRIVER,
-      method: "page.getPageConfig",
+      method: "page.getPageConfigFromId",
       error: exactMatch.error
     })
     return null
   }
 
-  return exactMatch;
+  return mapStrapiToOrgasmo(exactMatch.data[0]);
 }

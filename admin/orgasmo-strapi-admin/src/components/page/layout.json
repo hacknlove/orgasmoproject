@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_page_layouts",
+  "info": {
+    "displayName": "layout",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "layout": {
+      "type": "string",
+      "required": true
+    },
+    "meta": {
+      "type": "json"
+    }
+  }
+}
