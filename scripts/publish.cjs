@@ -10,7 +10,7 @@ const isOrgasmoRegexp = /^orgasmo($|-)/;
 async function main() {
   const status = await execPromise("git status --porcelain");
 
-  if (status.stdout.length) {
+  if (status.stdout.length && status.stdout !== " M package-lock.json\n M package.json\n") {
     console.error("The repo is not clean");
     process.exit(1);
   }
