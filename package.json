@@ -1,6 +1,6 @@
 {
   "name": "orgasmoproject",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps",
   "main": "index.js",
   "engines": {

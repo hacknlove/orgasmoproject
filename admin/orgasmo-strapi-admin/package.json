@@ -1,7 +1,7 @@
 {
   "name": "orgasmo-strapi-admin",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.6.4",
   "description": "A Strapi application",
   "scripts": {
     "dev": "strapi develop",
