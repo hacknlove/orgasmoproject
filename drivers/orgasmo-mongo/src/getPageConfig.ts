@@ -4,9 +4,11 @@ import { match } from "path-to-regexp";
 export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
 
-  const exactMatch = await mongoProxy.pageConfigs.find({
-    staticPath: resolvedPath,
-  }).toArray();
+  const exactMatch = await mongoProxy.pageConfigs
+    .find({
+      staticPath: resolvedPath,
+    })
+    .toArray();
 
   if (exactMatch.length) {
     ctx.parsedPath = {};
@@ -28,30 +30,30 @@ export default async function getPageConfig(ctx) {
     return lastA < lastB ? -1 : 1;
   });
 
-  let matchedDynamicPath
+  let matchedDynamicPath;
   const pageConfigs: any[] = [];
   for (const pageConfig of regexps) {
     if (matchedDynamicPath === pageConfig.dynamicPath) {
-      pageConfigs.push(pageConfig)
-      continue
+      pageConfigs.push(pageConfig);
+      continue;
     }
     if (matchedDynamicPath) {
-      break
+      break;
     }
     const matched = match(pageConfig.dynamicPath)(resolvedPath);
     if (matched) {
       ctx.parsedPath = matched.params;
-      matchedDynamicPath = pageConfig.dynamicPath
-      pageConfigs.push(pageConfig)
+      matchedDynamicPath = pageConfig.dynamicPath;
+      pageConfigs.push(pageConfig);
     }
   }
 
   switch (pageConfigs.length) {
     case 0:
-      return undefined
+      return undefined;
     case 1:
-      return pageConfigs[0]
+      return pageConfigs[0];
     default:
-      return pageConfigs
+      return pageConfigs;
   }
 }

@@ -2,19 +2,17 @@
 // @ts-nocheck
 
 import getPageConfigFromId from "./getPageConfigFromId";
-import strapiFetch from './strapiFetch';
+import strapiFetch from "./strapiFetch";
 import mapStrapiToOrgasmo from "./mapStrapiToOrgasmo";
 
 jest.mock("./mapStrapiToOrgasmo", () => ({
   __esModule: true,
-  default: jest.fn(i => i)
+  default: jest.fn((i) => i),
 }));
-
-
 
 jest.mock("./strapiFetch", () => ({
   __esModule: true,
-  default: jest.fn()
+  default: jest.fn(),
 }));
 
 describe("getPageConfigFromId", () => {
@@ -23,27 +21,27 @@ describe("getPageConfigFromId", () => {
     ctx = {
       resolvedUrl: "/foo/bar",
       events: {
-        emit: jest.fn()
-      }
+        emit: jest.fn(),
+      },
     };
   });
   it("returns the pageConfig if the path matches any key", async () => {
-    strapiFetch.mockResolvedValue({ data: ["something"] })
-    
-    const response = await getPageConfigFromId(ctx)
-    expect(response).toEqual("something")
+    strapiFetch.mockResolvedValue({ data: ["something"] });
+
+    const response = await getPageConfigFromId(ctx);
+    expect(response).toEqual("something");
   });
-  it('emits and error if the endpoint errors', async () => {
-    strapiFetch.mockResolvedValue({ error: 'Some error' })
+  it("emits and error if the endpoint errors", async () => {
+    strapiFetch.mockResolvedValue({ error: "Some error" });
 
-    await getPageConfigFromId('pageId', ctx)
+    await getPageConfigFromId("pageId", ctx);
 
-    expect(ctx.events.emit).toBeCalledWith('error', {
+    expect(ctx.events.emit).toBeCalledWith("error", {
       type: "driver",
       driver: process.env.ORGASMO_DRIVER,
       method: "page.getPageConfigFromId",
-      error: "Some error"
-    })
-    expect(mapStrapiToOrgasmo).not.toBeCalled()
-  })
+      error: "Some error",
+    });
+    expect(mapStrapiToOrgasmo).not.toBeCalled();
+  });
 });

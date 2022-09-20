@@ -13,8 +13,8 @@ export default function apiFactory({
       driver,
       req,
       res,
-      events
-    }
+      events,
+    };
     switch (req.query?._o?.[0]) {
       case "_ogr":
         return getItem(ctx);

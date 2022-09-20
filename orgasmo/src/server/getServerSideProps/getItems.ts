@@ -26,11 +26,10 @@ export default async function getItems({
 
   const items: any[] = [];
 
-  const z = (
-    limit === Infinity ||
-    limit === -1 ||
-    limit === null
-  ) ? itemsProp.length : limit;
+  const z =
+    limit === Infinity || limit === -1 || limit === null
+      ? itemsProp.length
+      : limit;
 
   for (let i = 0; i < z; i++) {
     const rowConfig =
