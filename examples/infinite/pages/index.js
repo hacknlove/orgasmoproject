@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from './[..._o].js'
+export { default, getServerSideProps } from "./[..._o].js";

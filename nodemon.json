@@ -1,14 +1,12 @@
 {
-    "ignore": [
-        "orgasmo/dist"
-    ],
-    "watch": [
-        "orgasmo/server",
-        "orgasmo/components",
-        "orgasmo/buildTools",
-        "orgasmo/tsconfig.json",
-        "orgasmo/package.json"
-    ],
-    "verbose": true,
-    "ext": "js,json,mjs,ts,tsx"
+  "ignore": ["orgasmo/dist"],
+  "watch": [
+    "orgasmo/server",
+    "orgasmo/components",
+    "orgasmo/buildTools",
+    "orgasmo/tsconfig.json",
+    "orgasmo/package.json"
+  ],
+  "verbose": true,
+  "ext": "js,json,mjs,ts,tsx"
 }

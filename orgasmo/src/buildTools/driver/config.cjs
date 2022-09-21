@@ -70,7 +70,9 @@ function fileFromImports(imports, externalPackage) {
     : `${indexString}\n\nconst all = {${handlersString}\n}\n`;
   indexString = `${indexString}${expand(all, "all")}`;
 
-  indexString = `/* This file is created automatically at build time, there is no need to commit it */\n// @ts-nocheck\n\nimport events from 'orgasmo/events';\n${importString}${indexString}\n\n${eventsString}\nexport default all;\n`;
+  indexString = `/* This file is created automatically at build time, there is no need to commit it */\n\n${
+    eventsString && "import events from 'orgasmo/events';"
+  }\n${importString}${indexString}\n\n${eventsString}\nexport default all;\n`;
 
   return indexString;
 }

@@ -10,7 +10,9 @@
   "scripts": {
     "test": "./test.sh",
     "build": "npm run build --workspaces --if-present",
-    "prettylint": "npm run prettylint --workspaces --if-present",
+    "lint": "eslint . --fix",
+    "pretty": "prettier --write .",
+    "prettylint": "npm run lint && npm run pretty",
     "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1",
     "preversion": "npm test",
     "postversion": "node scripts/publish.cjs"
@@ -19,18 +21,32 @@
   "license": "MIT",
   "workspaces": [
     "orgasmo",
-    "drivers/orgasmo-filesystem",
-    "drivers/orgasmo-mongo",
-    "drivers/orgasmo-strapi",
+    "drivers/filesystem",
+    "drivers/mongo",
+    "drivers/strapi",
     "examples/infinite",
     "create-orgasmo",
-    "admin/orgasmo-strapi-admin"
+    "admin/strapi"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@types/cookie": "^0.5.1",
+    "@types/jest": "^28.1.6",
+    "@types/node": "^18.7.2",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "eslint": "^8.23.0",
+    "eslint-plugin-jest-extended": "^2.0.0",
+    "eslint-plugin-react": "^7.31.1",
+    "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
-    "jest-html-reporter": "^3.7.0",
-    "nodemon": "^2.0.19"
+    "jest-html-reporter": "^3.6.0",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "ts-jest": "^28.0.7",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
   },
   "keywords": [
     "Nextjs",

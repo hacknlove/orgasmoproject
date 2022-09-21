@@ -1,1 +1,30 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"id":{"$numberInt":"1"}},"name":"id_1","unique":true},{"v":{"$numberInt":"2"},"key":{"staticPath":{"$numberInt":"1"}},"name":"staticPath_1","sparse":true},{"v":{"$numberInt":"2"},"key":{"dynamicPath":{"$numberInt":"1"}},"name":"dynamicPath_1","sparse":true}],"uuid":"35b7b24106654219bd2d0273b436a1cd","collectionName":"pageConfigs","type":"collection"}
+{
+  "indexes": [
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "_id": { "$numberInt": "1" } },
+      "name": "_id_"
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "id": { "$numberInt": "1" } },
+      "name": "id_1",
+      "unique": true
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "staticPath": { "$numberInt": "1" } },
+      "name": "staticPath_1",
+      "sparse": true
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "dynamicPath": { "$numberInt": "1" } },
+      "name": "dynamicPath_1",
+      "sparse": true
+    }
+  ],
+  "uuid": "35b7b24106654219bd2d0273b436a1cd",
+  "collectionName": "pageConfigs",
+  "type": "collection"
+}

@@ -1,43 +1,44 @@
 {
-    "pageId": "item",
-    "path": "/item/:string/:number",
-    "header": [{
-        "type": "Header",
-        "props": {
-            "home": true
-        },
-        "getProps": "item.header"
+  "pageId": "item",
+  "path": "/item/:string/:number",
+  "header": [
+    {
+      "type": "Header",
+      "props": {
+        "home": true
+      },
+      "getProps": "item.header"
     },
     {
-        "type": "Index",
-        "props": {
-            "links": {
-                "/both": "Vertical scroll + horizontal slider.",
-                "/vertical": "Vertical scroll.",
-                "/horizontal": "Horizontal slider."
-            }
+      "type": "Index",
+      "props": {
+        "links": {
+          "/both": "Vertical scroll + horizontal slider.",
+          "/vertical": "Vertical scroll.",
+          "/horizontal": "Horizontal slider."
         }
-    }],
-    "main": [
-        {
-            "type": "Item",
-            "props": {
-                "className": "fullWidth"
-            },
-            "getProps": "item.main"
+      }
+    }
+  ],
+  "main": [
+    {
+      "type": "Item",
+      "props": {
+        "className": "fullWidth"
+      },
+      "getProps": "item.main"
+    }
+  ],
+  "footer": [
+    {
+      "type": "Index",
+      "props": {
+        "links": {
+          "/both": "Vertical scroll + horizontal slider.",
+          "/vertical": "Vertical scroll.",
+          "/horizontal": "Horizontal slider."
         }
-        
-    ],
-    "footer": [
-        {
-            "type": "Index",
-            "props": {
-                "links": {
-                    "/both": "Vertical scroll + horizontal slider.",
-                    "/vertical": "Vertical scroll.",
-                    "/horizontal": "Horizontal slider."
-                }
-            }
-        }
-    ]
+      }
+    }
+  ]
 }

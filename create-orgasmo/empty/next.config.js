@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+};
 
-const withOrgasmo = require('orgasmo/withOrgasmo')()
+const withOrgasmo = require("orgasmo/withOrgasmo")();
 
-module.exports = withOrgasmo(nextConfig)
+module.exports = withOrgasmo(nextConfig);

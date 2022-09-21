@@ -1,8 +1,9 @@
-
 # Mongo example
+
 From orgasmoproject root directory.
 
 ## Start Mongo
+
 ```
 docker run --name=orgasmo-example-infinite --rm -p 27017:27017 -d mongo
 

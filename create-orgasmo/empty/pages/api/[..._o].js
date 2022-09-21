@@ -1,4 +1,4 @@
-import apiFactory from 'orgasmo/api'
-import driver from '../../driver'
+import apiFactory from "orgasmo/api";
+import driver from "../../driver";
 
-export default apiFactory({ driver })
+export default apiFactory({ driver });

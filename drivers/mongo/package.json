@@ -1,0 +1,36 @@
+{
+  "name": "orgasmo-mongo",
+  "version": "1.6.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "dev": "nodemon --exec \"npm run build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hacknlove/orgasmoproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hacknlove/orgasmoproject/issues"
+  },
+  "homepage": "https://github.com/hacknlove/orgasmoproject#readme",
+  "dependencies": {
+    "mongodb": "^4.9.1",
+    "path-to-regexp": "^6.2.1"
+  },
+  "peerDependencies": {
+    "orgasmo": "1.6.4"
+  },
+  "files": [
+    "./dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./getPageConfig": "./dist/getPageConfig.js",
+    "./getPageConfigFromId": "./dist/getPageConfigFromId.js"
+  }
+}

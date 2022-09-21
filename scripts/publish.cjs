@@ -10,7 +10,10 @@ const isOrgasmoRegexp = /^orgasmo($|-)/;
 async function main() {
   const status = await execPromise("git status --porcelain");
 
-  if (status.stdout.length && status.stdout !== " M package-lock.json\n M package.json\n") {
+  if (
+    status.stdout.length &&
+    status.stdout !== " M package-lock.json\n M package.json\n"
+  ) {
     console.error("The repo is not clean");
     process.exit(1);
   }
@@ -60,7 +63,7 @@ async function main() {
     console.log("Publishing", workspacePackage.name);
     await execPromise("npm publish", {
       cwd: join(process.cwd(), workspace),
-    })
+    });
   }
 
   console.log("commit and tag");

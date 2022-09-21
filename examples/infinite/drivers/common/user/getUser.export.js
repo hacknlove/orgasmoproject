@@ -1,5 +1,5 @@
-export default function () {
-    return {
-        id: 'e2e-user'
-    }
+export default function getUser() {
+  return {
+    id: "e2e-user",
+  };
 }

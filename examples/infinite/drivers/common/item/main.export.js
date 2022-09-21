@@ -1,5 +1,5 @@
-export default function itemMain (config) {
-    return {
-        ...config.params.parsedPath
-    }
+export default function itemMain(config) {
+  return {
+    ...config.params.parsedPath,
+  };
 }

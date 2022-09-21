@@ -92,7 +92,6 @@ describe("driver fileFromImport", () => {
       },
     ];
     const expected = `/* This file is created automatically at build time, there is no need to commit it */
-// @ts-nocheck
 
 import events from 'orgasmo/events';
 import baz from './drivers/orgasmo-filesystem/something/bar.event.tsx';
@@ -154,7 +153,6 @@ export default all;
       },
     ];
     const expected = `/* This file is created automatically at build time, there is no need to commit it */
-// @ts-nocheck
 
 import events from 'orgasmo/events';
 import route1ーonSomething from './drivers/orgasmo-filesystem/something1/onSomething.event.tsx';
@@ -221,7 +219,6 @@ export default all;
       },
     ];
     const expected = `/* This file is created automatically at build time, there is no need to commit it */
-// @ts-nocheck
 
 import events from 'orgasmo/events';
 import route1ーonSomething from './drivers/orgasmo-filesystem/something1/onSomething.event.tsx';

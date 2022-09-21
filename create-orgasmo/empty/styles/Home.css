@@ -56,7 +56,7 @@
   font-size: 1.5rem;
   width: 100%;
 }
-.description+.description {
+.description + .description {
   margin-top: 0;
   line-height: 1.5;
   font-size: 1.5rem;
@@ -72,14 +72,14 @@
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
-.grid>div {
+.grid > div {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
   max-width: 800px;
 }
-.grid>div>div {
+.grid > div > div {
   flex-grow: 1;
 }
 .grid .footerContent {
@@ -133,7 +133,7 @@
 }
 
 @media (max-width: 600px) {
-  .grid>div {
+  .grid > div {
     width: 100%;
     flex-direction: column;
   }

@@ -1,43 +1,43 @@
 {
-    "pageId": "horizontal",
-    "path": "/horizontal",
-    "header": [
-        {
-            "type": "Header",
-            "props": {
-                "text": "Horizontal Scroll test",
-                "home": true
-            }
-        },
-        {
-            "type": "Index",
-            "props": {
-                "links": {
-                    "/both": "Vertical scroll + horizontal slider.",
-                    "/vertical": "Vertical scroll."
-                }
-            }
+  "pageId": "horizontal",
+  "path": "/horizontal",
+  "header": [
+    {
+      "type": "Header",
+      "props": {
+        "text": "Horizontal Scroll test",
+        "home": true
+      }
+    },
+    {
+      "type": "Index",
+      "props": {
+        "links": {
+          "/both": "Vertical scroll + horizontal slider.",
+          "/vertical": "Vertical scroll."
         }
-    ],
-    "main": [
-        {
-            "type": "Row",
-            "props": {
-                "title": "Horizontal Scroll"
-            },
-            "getProps": "secuential.rows"
+      }
+    }
+  ],
+  "main": [
+    {
+      "type": "Row",
+      "props": {
+        "title": "Horizontal Scroll"
+      },
+      "getProps": "secuential.rows"
+    }
+  ],
+  "footer": [
+    {
+      "type": "Index",
+      "props": {
+        "links": {
+          "/both": "Vertical scroll + horizontal slider.",
+          "/vertical": "Vertical scroll.",
+          "/horizontal": "Horizontal slider."
         }
-    ],
-    "footer": [
-        {
-            "type": "Index",
-            "props": {
-                "links": {
-                    "/both": "Vertical scroll + horizontal slider.",
-                    "/vertical": "Vertical scroll.",
-                    "/horizontal": "Horizontal slider."
-                }
-            }
-        }
-    ]
+      }
+    }
+  ]
 }

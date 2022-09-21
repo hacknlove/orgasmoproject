@@ -1,3 +1,3 @@
-export default function fooBar (req, res) {
-    res.json('Foo bar endpoint')
+export default function fooBar(req, res) {
+  res.json("Foo bar endpoint");
 }

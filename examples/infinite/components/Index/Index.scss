@@ -1,19 +1,19 @@
 #Index {
-    padding: 1rem 0;
-    margin: 0 auto;
-    list-style: circle;
-    display: flex;
-    justify-content: space-around;
-    a {
-        text-decoration: none;
-        font-size: large;
-        color: darkblue;
-        font-weight: bold;
+  padding: 1rem 0;
+  margin: 0 auto;
+  list-style: circle;
+  display: flex;
+  justify-content: space-around;
+  a {
+    text-decoration: none;
+    font-size: large;
+    color: darkblue;
+    font-weight: bold;
+  }
+  li {
+    margin-bottom: 1rem;
+    &:hover {
+      list-style: disc;
     }
-    li {
-        margin-bottom: 1rem;
-        &:hover {
-            list-style: disc;
-        }
-    }
+  }
 }
