@@ -9,6 +9,7 @@ export default async function cacheRevalidate({ ctx, key, item }) {
     newItem = await ctx.driver[item.revalidate](key);
   } catch (error) {
     events.emit("error", {
+      type: "driver",
       method: item.revalidate,
       error,
       params: [key],
