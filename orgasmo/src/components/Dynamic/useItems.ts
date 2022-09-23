@@ -20,7 +20,7 @@ async function cachedFetch(url) {
 export default function useItems({
   src: srcProps,
   items: itemsProp,
-  mode = "bubble",
+  mode,
   threshold = 50,
 }) {
   const [items, setItems] = useState<any[]>(itemsProp);
