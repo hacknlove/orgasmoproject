@@ -34,11 +34,12 @@ export default async function getItems({
   for (let i = 0; i < z; i++) {
     const rowConfig =
       itemsProp[i] ??
-      (getItem && await ctx.driver[getItem]?.({
-        params,
-        number: i,
-        relative: i - itemsProp.length,
-      }));
+      (getItem &&
+        (await ctx.driver[getItem]?.({
+          params,
+          number: i,
+          relative: i - itemsProp.length,
+        })));
 
     if (!rowConfig) {
       break;

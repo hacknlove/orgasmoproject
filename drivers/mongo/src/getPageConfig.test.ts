@@ -1,12 +1,12 @@
 import mongoProxy from "./mongoProxy";
 import getPageConfig from "./getPageConfig";
 
-jest.mock('./mongoProxy', () => ({
+jest.mock("./mongoProxy", () => ({
   __esModule: true,
   default: {
-    connect: jest.fn()
-  }
-}))
+    connect: jest.fn(),
+  },
+}));
 
 describe("getPageConfig", () => {
   let ctx;

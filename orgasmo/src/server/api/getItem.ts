@@ -19,15 +19,15 @@ export default async function getItem(ctx) {
   }
 
   if (!pageConfig.areas[command.area]) {
-    return res.json(null)
+    return res.json(null);
   }
 
-  const areaConfig = pageConfig.areas[command.area]
+  const areaConfig = pageConfig.areas[command.area];
 
   const number = parseInt(req.query.n);
 
   const rowConfig =
-  areaConfig.items?.[number] ??
+    areaConfig.items?.[number] ??
     (await driver[areaConfig.getItem]?.({
       ...command,
       number,

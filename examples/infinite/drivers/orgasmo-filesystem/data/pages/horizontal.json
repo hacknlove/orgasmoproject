@@ -4,45 +4,48 @@
   "areas": {
     "header": {
       "items": [
-      {
-        "type": "Header",
-        "props": {
-          "text": "Horizontal Scroll test",
-          "home": true
-        }
-      },
-      {
-        "type": "Index",
-        "props": {
-          "links": {
-            "/both": "Vertical scroll + horizontal slider.",
-            "/vertical": "Vertical scroll."
+        {
+          "type": "Header",
+          "props": {
+            "text": "Horizontal Scroll test",
+            "home": true
+          }
+        },
+        {
+          "type": "Index",
+          "props": {
+            "links": {
+              "/both": "Vertical scroll + horizontal slider.",
+              "/vertical": "Vertical scroll."
+            }
           }
         }
-      }
-    ]},
+      ]
+    },
     "main": {
       "items": [
-      {
-        "type": "Row",
-        "props": {
-          "title": "Horizontal Scroll"
-        },
-        "getProps": "secuential.rows"
-      }
-    ]},
+        {
+          "type": "Row",
+          "props": {
+            "title": "Horizontal Scroll"
+          },
+          "getProps": "secuential.rows"
+        }
+      ]
+    },
     "footer": {
       "items": [
-      {
-        "type": "Index",
-        "props": {
-          "links": {
-            "/both": "Vertical scroll + horizontal slider.",
-            "/vertical": "Vertical scroll.",
-            "/horizontal": "Horizontal slider."
+        {
+          "type": "Index",
+          "props": {
+            "links": {
+              "/both": "Vertical scroll + horizontal slider.",
+              "/vertical": "Vertical scroll.",
+              "/horizontal": "Horizontal slider."
+            }
           }
         }
-      }
-    ]}
+      ]
+    }
   }
 }
