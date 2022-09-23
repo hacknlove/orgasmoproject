@@ -5,13 +5,13 @@ import { readJson } from "fs-extra";
 import { join } from "path";
 import * as Ajv from "ajv";
 
-import * as pageConfigSchema from './pageConfigSchema.json'
+import * as pageConfigSchema from "./pageConfigSchema.json";
 
 const glob = promisify(g);
 
-const ajv = new Ajv()
+const ajv = new Ajv();
 
-const validate = ajv.compile(pageConfigSchema)
+const validate = ajv.compile(pageConfigSchema);
 
 export const dynamicPaths = new Map();
 export const staticPaths = new Map();
@@ -19,8 +19,6 @@ export const ids = new Map();
 
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
-
-
 
 export default async function parseDirectory(pathToJsonDirectory) {
   const tempStaticPaths = new Map();
@@ -40,27 +38,28 @@ export default async function parseDirectory(pathToJsonDirectory) {
       continue;
     }
 
-    const valid = validate(pageConfig)
+    const valid = validate(pageConfig);
 
     if (!valid) {
-      console.error(`${pagePath}:\n${JSON.stringify(validate.errors, null, 4)}`);
+      console.error(
+        `${pagePath}:\n${JSON.stringify(validate.errors, null, 4)}`
+      );
       continue;
     }
 
     ids.set(pageConfig.pageId, pageConfig);
     oldIds.delete(pageConfig.pageId);
 
-    let bucket
-    let path
+    let bucket;
+    let path;
 
     if (pageConfig.staticPath) {
-      bucket = tempStaticPaths
-      path = pageConfig.staticPath
+      bucket = tempStaticPaths;
+      path = pageConfig.staticPath;
     } else {
-      bucket = tempDynamicPaths
-      path = pageConfig.dynamicPath
+      bucket = tempDynamicPaths;
+      path = pageConfig.dynamicPath;
     }
-
 
     ids.set(pageConfig.pageId, pageConfig);
     oldIds.delete(pageConfig.pageId);
@@ -103,7 +102,7 @@ export default async function parseDirectory(pathToJsonDirectory) {
 
   staticPaths.clear();
   for (const [path, config] of tempStaticPaths) {
-    staticPaths.set(path, config)
+    staticPaths.set(path, config);
   }
 
   for (const oldId of oldIds) {

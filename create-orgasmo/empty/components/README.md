@@ -32,7 +32,6 @@ You can use a dynamic component as a regular component. From a React perspective
 
 In general you will only need to write the component, and let the orgasmo mount it where and when the data sais so.
 
-
 ## Where to place the components
 
 You can place your regular components wherever you want, but dynamic components have to be placed inside the `/components`tree.
@@ -72,4 +71,3 @@ return ({ type, props }) => (
     <Components type={type} props={props} />
 )
 ```
-

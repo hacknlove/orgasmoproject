@@ -16,7 +16,7 @@ ORGASMO_DRIVER=foo
 
 This will make Orgasmo use the NPM package `foo` as a driver, and to override/complete it with the content of the directory `driver/foo`
 
-More information in the sections [Writing a driver](#writing-a-driver) and  [Overriding-a-driver](#overriding-a-driver)
+More information in the sections [Writing a driver](#writing-a-driver) and [Overriding-a-driver](#overriding-a-driver)
 
 ## How to use a driver
 
@@ -25,9 +25,9 @@ Orgasmo build tools will compile an entry point for you to import. `~/driver.js`
 This file exposes all the drivers methods in two flavors, as a tree, and by the dotted key.
 
 ```js
-import driver from '~./driver'
+import driver from "~./driver";
 
-driver.foo.bar.buz === driver['foo.bar.buz']
+driver.foo.bar.buz === driver["foo.bar.buz"];
 ```
 
 Most of the time you will only need to pass the driver to an Orgasmo's factory, as we will see later.
@@ -39,6 +39,7 @@ For your convenience, to make it possible for you to start working with mocked d
 Not setting the `ORGASMO_DRIVER` environmental variable is the same as setting it to `orgasmo-filesystem`
 
 ## More ready to use drivers
+
 You can install and use the following drivers:
 
     orgasmo-mongo (README)[../../../drivers/mongo/README.mg]
@@ -47,7 +48,7 @@ You can install and use the following drivers:
 Currently, there are no plans to add more, but if you think that it makes sense to add some others like PostgreSQL or contentful, create an issue [here](https://github.com/hacknlove/orgasmoproject/issues/new).
 
 ## Writing a driver
- 
+
 Write your files on the drivers/[driver name] tree
 
 For those files that play a public role, there are a few suffixes you need to use to tell Orgasmo what's the role of the file.
@@ -55,7 +56,6 @@ For those files that play a public role, there are a few suffixes you need to us
     `.export.{js,ts}` This is a driver's method.
     `.event.{js,ts}` This is an event handler
     `.import.{js,ts}` This is for initialization.
-
 
 The rest of the files are ignored by Orgasmo. It's up to you to organize your driver as your discretion.
 
@@ -71,15 +71,14 @@ defines the method `foo.bar.buz` for the driver `my-driver`
     `page.getPageConfig`: This method receives a [Next.js getServerSideProps context parameter](https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props#context-parameter) enriched with some Orgasmo's attributes, and returns a pageConfig, (or an array of pageConfigs), (or a promise)
     `page.getPageConfigFromId`: This method receives a pageId and returns a pageConfig (or a promise)
 
-
 #### Custom methods
+
 In many scenarios, the pageConfig schema will allow you to set a method path, to transform/complete the page props.
 
 You can add all the methods you require. For instance.
 
     You might need to sign S3 URLs: You get the bucket and key from the database, and you use a `s3.sign` method to sign it and add a `src` property.
     You might share the same pageConfig for a dynamic path: You get one pageConfig for every path matching `/foo/:bar` and the pageConfig tells Orgasmo to use a `foo.getBar` method to fetch the items.
-
 
 ### handling events
 

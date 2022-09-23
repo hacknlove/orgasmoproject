@@ -1,5 +1,5 @@
-/* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 
 import parseDirectory, { waitForIt, ids, paths } from "./parseDirectory";
 import { glob } from "glob";
@@ -82,7 +82,9 @@ describe("parseDirectory", () => {
     );
   });
   it("shows an error if there are two pages with the same pageId", async () => {
-    glob.mockImplementation((path, cb) => cb(null, ["some/test/Path", "someOther/test/Path"]));
+    glob.mockImplementation((path, cb) =>
+      cb(null, ["some/test/Path", "someOther/test/Path"])
+    );
 
     readJson.mockResolvedValue({
       path: "/foo/:bar",

@@ -28,7 +28,7 @@
         },
         "getMeta": {
           "description": "Driver method to override the meta",
-          "type": "string" 
+          "type": "string"
         },
         "cssVars": {
           "description": "css variables",
@@ -36,7 +36,7 @@
         },
         "getCssVars": {
           "description": "Driver method to override the cssVars",
-          "type":"string"
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -123,16 +123,16 @@
       "properties": {
         "cannot": {
           "description": "Users with any of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
-          "type":"array",
+          "type": "array",
           "items": {
             "type": "string"
           }
         },
         "must": {
           "description": "Users without all of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
-          "type":"array",
+          "type": "array",
           "items": {
-            "type":"string"
+            "type": "string"
           }
         }
       }
@@ -151,21 +151,15 @@
     },
     "getFlowControl": {
       "description": "Driver method that overrides the pageConfig.flowControl",
-      "type":"string"
+      "type": "string"
     }
   },
   "oneOf": [
     {
-      "required": [
-        "staticPath",
-        "pageId"
-      ]
+      "required": ["staticPath", "pageId"]
     },
     {
-      "required": [
-        "dynamicPath",
-        "pageId"
-      ]
+      "required": ["dynamicPath", "pageId"]
     }
   ]
 }

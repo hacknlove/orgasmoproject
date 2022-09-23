@@ -28,8 +28,8 @@ export default async function expandPageConfig({
     params = params || decencode(key);
     pageConfig.flowControl = {
       ...pageConfig.flowControl,
-      ...await ctx.driver[pageConfig.getFlowControl]?.({ ctx, params })
-    }
+      ...(await ctx.driver[pageConfig.getFlowControl]?.({ ctx, params })),
+    };
   }
 
   if (pageConfig.flowControl?.redirect) {
@@ -48,8 +48,14 @@ export default async function expandPageConfig({
 
   return cleanAwaitJson({
     props: {
-      layout: expandLayout({ ctx, params, layoutConfig: pageConfig.layout}),
-      areas: expandAreas({ ctx, pageId: pageConfig.pageId, areasConfig: pageConfig.areas, params, timeChunk })
-    }
+      layout: expandLayout({ ctx, params, layoutConfig: pageConfig.layout }),
+      areas: expandAreas({
+        ctx,
+        pageId: pageConfig.pageId,
+        areasConfig: pageConfig.areas,
+        params,
+        timeChunk,
+      }),
+    },
   });
 }
