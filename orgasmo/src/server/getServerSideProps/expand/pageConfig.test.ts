@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import expandPage from "./expandPage";
-import rewrite from "./rewrite";
+import rewrite from "../rewrite";
 
 jest.mock("./getItems", () => ({
   __esModule: true,
