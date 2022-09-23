@@ -8,6 +8,7 @@ import cacheControl from "../lib/cacheControl";
 export default async function getItem(ctx) {
   const { req, res, driver } = ctx;
   const command = await parseCommand({ req, res, driver });
+
   if (!command) {
     return res.json(null);
   }
@@ -17,14 +18,20 @@ export default async function getItem(ctx) {
     return res.json(null);
   }
 
+  if (!pageConfig.areas[command.area]) {
+    return res.json(null)
+  }
+
+  const areaConfig = pageConfig.areas[command.area]
+
   const number = parseInt(req.query.n);
 
   const rowConfig =
-    pageConfig.main?.[number] ??
-    (await driver[pageConfig.getItemConfig]?.({
+  areaConfig.items?.[number] ??
+    (await driver[areaConfig.getItem]?.({
       ...command,
       number,
-      relative: number - (pageConfig.main?.length ?? 0),
+      relative: number - (areaConfig.items?.length ?? 0),
     }));
 
   if (!rowConfig) {
