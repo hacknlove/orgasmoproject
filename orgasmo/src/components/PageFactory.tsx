@@ -1,61 +1,60 @@
+import { useMemo } from 'react';
 import { useRouter } from "next/router";
 import { OrgasmoPage, PageFactoryParameters } from "~/types";
 import Dynamic from "./Dynamic/Dynamic";
 import Static from "./Static/Static";
+import DefaultLayout from './DefaultLayout/DefaultLayout';
+import Meta from './Meta/Meta';
+
+function renderArea ({ Components, area }) {
+  if (area.mode === 'static') {
+    return <Static items={area.items} Components={Components} />
+  }
+  return <Dynamic
+    items={area.items}
+    src={area.src}
+    mode={area.mode}
+    threshold={area.threshold}
+    Components={Components}
+  />
+}
 
 export default function PageFactory({
   Components,
 }: PageFactoryParameters): OrgasmoPage {
   const Page = ({
-    header,
-    main,
-    mainMode,
-    mainThreshold,
-    cssVars,
-    footer,
-    src,
     layout,
-    meta,
+    areas
   }) => {
-    const router = useRouter();
-
-    const headerRendered = <Static items={header} Components={Components} />;
-    const mainRendered =
-      mainMode === "static" ? (
-        <Static items={main} Components={Components} />
-      ) : (
-        <Dynamic
-          key={router.asPath}
-          items={main}
-          src={src}
-          mode={mainMode}
-          threshold={mainThreshold}
-          Components={Components}
-        />
-      );
-    const footerRendered = <Static items={footer} Components={Components} />;
-
-    if (layout) {
-      return (
-        <Components
-          type={layout}
-          props={{
-            cssVars,
-            header: headerRendered,
-            main: mainRendered,
-            footer: footerRendered,
-            meta,
-          }}
-        />
-      );
-    }
+    const router = useRouter()
+    const renderedAreas = useMemo(
+      () => Object.fromEntries(Object.entries(areas).map(([name, area]) => [name, renderArea({ Components, area })])), [areas]
+    )
+    
     return (
-      <div style={cssVars}>
-        {headerRendered}
-        {mainRendered}
-        {footerRendered}
-      </div>
-    );
+      <>
+        { layout?.meta && <Meta meta={layout?.meta} />}
+        { layout?.name
+          ? (
+            <Components
+              key={router.asPath}
+              type={layout.name}
+              props={{
+                areas: renderedAreas,
+                layout,
+              }}
+            />
+          )
+          : (
+            <DefaultLayout
+              key={router.asPath}
+              cssVars={layout?.cssVars}
+              areas={renderedAreas}
+            />
+          )
+        }
+      </>
+    )
   };
   return Page;
 }

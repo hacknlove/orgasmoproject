@@ -9,16 +9,16 @@ interface getItemsParameters {
   ctx: Record<string, any>;
   limit?: number;
   timeChunk: currentChunkReturn;
-  getItemConfig?: (any) => any;
+  getItem?: string;
 }
 
 export default async function getItems({
-  items: itemsProp,
+  items: itemsProp = [],
   params,
   ctx,
   limit = Infinity,
   timeChunk,
-  getItemConfig,
+  getItem,
 }: getItemsParameters) {
   if (!itemsProp) {
     return [];
@@ -34,7 +34,7 @@ export default async function getItems({
   for (let i = 0; i < z; i++) {
     const rowConfig =
       itemsProp[i] ??
-      (await getItemConfig?.({
+      (getItem && await ctx.driver[getItem]?.({
         params,
         number: i,
         relative: i - itemsProp.length,

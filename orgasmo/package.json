@@ -11,6 +11,7 @@
     "dev": "nodemon --exec \"npm run build\""
   },
   "dependencies": {
+    "ajv": "^8.11.0",
     "cencode": "^1.1.0",
     "chokidar": "^3.5.3",
     "glob": "^8.0.3",

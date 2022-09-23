@@ -1,25 +1,30 @@
 {
   "pageId": "vertical",
-  "path": "/vertical",
-  "header": [
-    {
-      "type": "Header",
-      "props": {
-        "text": "Vertical Scroll test",
-        "home": true
-      }
-    },
-    {
-      "type": "Index",
-      "props": {
-        "links": {
-          "/both": "Vertical scroll + horizontal slider.",
-          "/horizontal": "Horizontal slider."
+  "staticPath": "/vertical",
+  "areas": {
+    "header": {
+      "items": [
+        {
+          "type": "Header",
+          "props": {
+            "text": "Vertical Scroll test",
+            "home": true
+          }
+        },
+        {
+          "type": "Index",
+          "props": {
+            "links": {
+              "/both": "Vertical scroll + horizontal slider.",
+              "/horizontal": "Horizontal slider."
+            }
+          }
         }
-      }
+      ]
+    },
+    "main": {
+      "ssrSize": 4,
+      "getItem": "vertical.getItemConfig"
     }
-  ],
-  "main": [],
-  "mainSsrSize": 4,
-  "getItemConfig": "vertical.getItemConfig"
+  }
 }

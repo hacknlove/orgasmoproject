@@ -1,5 +1,5 @@
 import { cencode } from "cencode";
-import expandPage from "./expandPage";
+import expandPage from "./expand/pageConfig";
 import events from "../events";
 import chooseOne from "../lib/chooseOne";
 import cacheNewItem from "../cache/cacheNewItem";

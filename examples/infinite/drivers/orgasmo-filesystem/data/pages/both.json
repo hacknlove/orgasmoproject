@@ -1,62 +1,65 @@
 {
   "pageId": "both",
-  "path": "/both",
-  "header": [
-    {
-      "type": "Header",
-      "props": {
-        "text": "Vertical scroll + horizontal slider",
-        "home": true
-      }
-    },
-    {
-      "type": "Index",
-      "props": {
-        "links": {
-          "/vertical": "Vertical scroll.",
-          "/horizontal": "Horizontal slider."
+  "staticPath": "/both",
+  "areas": {
+    "header": { "items": [
+      {
+        "type": "Header",
+        "props": {
+          "text": "Vertical scroll + horizontal slider",
+          "home": true
+        }
+      },
+      {
+        "type": "Index",
+        "props": {
+          "links": {
+            "/vertical": "Vertical scroll.",
+            "/horizontal": "Horizontal slider."
+          }
         }
       }
-    }
-  ],
-  "main": [
-    {
-      "type": "Row",
-      "props": {
-        "title": "Row #1"
+    ]},
+    "main": {
+      "ssrSize": 2,
+      "getItem": "both.getItemConfig", 
+      "items": [
+      {
+        "type": "Row",
+        "props": {
+          "title": "Row #1"
+        },
+        "getProps": "random.rows",
+        "seed": "first"
       },
-      "getProps": "random.rows",
-      "seed": "first"
-    },
-    {
-      "type": "Row",
-      "props": {
-        "title": "Row #2"
+      {
+        "type": "Row",
+        "props": {
+          "title": "Row #2"
+        },
+        "getProps": "random.rows",
+        "seed": "second"
       },
-      "getProps": "random.rows",
-      "seed": "second"
-    },
-    {
-      "type": "Row",
-      "props": {
-        "title": "Row #3"
-      },
-      "getProps": "random.rows",
-      "seed": "third"
-    }
-  ],
-  "getItemConfig": "both.getItemConfig",
-  "mainSsrSize": 2,
-  "footer": [
-    {
-      "type": "Index",
-      "props": {
-        "links": {
-          "/both": "Vertical scroll + horizontal slider.",
-          "/vertical": "Vertical scroll.",
-          "/horizontal": "Horizontal slider."
+      {
+        "type": "Row",
+        "props": {
+          "title": "Row #3"
+        },
+        "getProps": "random.rows",
+        "seed": "third"
+      }
+    ]},
+    "footer": { "items": [
+      {
+        "type": "Index",
+        "props": {
+          "links": {
+            "/both": "Vertical scroll + horizontal slider.",
+            "/vertical": "Vertical scroll.",
+            "/horizontal": "Horizontal slider."
+          }
         }
       }
-    }
-  ]
+    ]}
+  }
 }

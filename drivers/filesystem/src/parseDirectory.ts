@@ -3,17 +3,28 @@ import { glob as g } from "glob";
 import { match } from "path-to-regexp";
 import { readJson } from "fs-extra";
 import { join } from "path";
+import * as Ajv from "ajv";
+
+import * as pageConfigSchema from './pageConfigSchema.json'
 
 const glob = promisify(g);
 
-export const paths = new Map();
+const ajv = new Ajv()
+
+const validate = ajv.compile(pageConfigSchema)
+
+export const dynamicPaths = new Map();
+export const staticPaths = new Map();
 export const ids = new Map();
 
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
 
+
+
 export default async function parseDirectory(pathToJsonDirectory) {
-  const tempPaths = new Map();
+  const tempStaticPaths = new Map();
+  const tempDynamicPaths = new Map();
 
   const oldIds = new Set(ids.keys());
 
@@ -29,29 +40,35 @@ export default async function parseDirectory(pathToJsonDirectory) {
       continue;
     }
 
-    if (!pageConfig.path) {
-      console.error(`${pagePath} is missing the required field "path"`);
-      continue;
-    }
-    if (!pageConfig.pageId) {
-      console.error(`${pagePath} is missing the required field "pageId"`);
-      continue;
-    }
+    const valid = validate(pageConfig)
 
-    if (ids.has(pageConfig.pageId) && !oldIds.has(pageConfig.pageId)) {
-      console.error(
-        `There is already a pageConfig with the pageId "${pageConfig.pageId}"`
-      );
+    if (!valid) {
+      console.error(`${pagePath}:\n${JSON.stringify(validate.errors, null, 4)}`);
       continue;
     }
 
     ids.set(pageConfig.pageId, pageConfig);
     oldIds.delete(pageConfig.pageId);
 
-    const current = tempPaths.get(pageConfig.path);
+    let bucket
+    let path
+
+    if (pageConfig.staticPath) {
+      bucket = tempStaticPaths
+      path = pageConfig.staticPath
+    } else {
+      bucket = tempDynamicPaths
+      path = pageConfig.dynamicPath
+    }
+
+
+    ids.set(pageConfig.pageId, pageConfig);
+    oldIds.delete(pageConfig.pageId);
+
+    const current = bucket.get(path);
 
     if (!current) {
-      tempPaths.set(pageConfig.path, pageConfig);
+      bucket.set(path, pageConfig);
       continue;
     }
 
@@ -60,12 +77,12 @@ export default async function parseDirectory(pathToJsonDirectory) {
       continue;
     }
 
-    tempPaths.set(pageConfig.path, [current, pageConfig]);
+    bucket.set(path, [current, pageConfig]);
   }
 
-  const sortedPaths = Array.from(tempPaths.keys());
+  const sortedDynamicPaths = Array.from(tempDynamicPaths.keys());
 
-  sortedPaths.sort((a, b) => {
+  sortedDynamicPaths.sort((a, b) => {
     const lastA = a
       .replace(/\/:/g, "/￾") // unicode FFFE before last character
       .replace(/\/\(/g, "/￿"); // unicode FFFF last character
@@ -76,12 +93,17 @@ export default async function parseDirectory(pathToJsonDirectory) {
     return lastA < lastB ? -1 : 1;
   });
 
-  paths.clear();
-  for (const path of sortedPaths) {
-    paths.set(path, {
+  dynamicPaths.clear();
+  for (const path of sortedDynamicPaths) {
+    dynamicPaths.set(path, {
       match: match(path),
-      pageConfig: tempPaths.get(path),
+      pageConfig: tempDynamicPaths.get(path),
     });
+  }
+
+  staticPaths.clear();
+  for (const [path, config] of tempStaticPaths) {
+    staticPaths.set(path, config)
   }
 
   for (const oldId of oldIds) {
