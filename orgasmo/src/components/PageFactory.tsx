@@ -7,16 +7,16 @@ import DefaultLayout from './DefaultLayout/DefaultLayout';
 import Meta from './Meta/Meta';
 
 function renderArea ({ Components, area }) {
-  if (area.mode === 'static') {
-    return <Static items={area.items} Components={Components} />
+  if (area.mode === 'bubble' || area.mode === 'grow') {
+    return <Dynamic
+      items={area.items}
+      src={area.src}
+      mode={area.mode}
+      threshold={area.threshold}
+      Components={Components}
+    />
   }
-  return <Dynamic
-    items={area.items}
-    src={area.src}
-    mode={area.mode}
-    threshold={area.threshold}
-    Components={Components}
-  />
+  return <Static items={area.items} Components={Components} />
 }
 
 export default function PageFactory({
