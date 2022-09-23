@@ -49,7 +49,7 @@ export default async function expandPageConfig({
   return cleanAwaitJson({
     props: {
       layout: expandLayout({ ctx, params, layoutConfig: pageConfig.layout}),
-      areas: expandAreas({ ctx, areasConfig: pageConfig.areas, params, timeChunk })
+      areas: expandAreas({ ctx, pageId: pageConfig.pageId, areasConfig: pageConfig.areas, params, timeChunk })
     }
   });
 }
