@@ -2,5 +2,5 @@
 
 set -e
 
-test.unit
-test.e2e
+./test.unit.sh
+./test.e2e.sh
