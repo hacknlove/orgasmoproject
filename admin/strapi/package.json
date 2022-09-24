@@ -1,30 +1,16 @@
 {
-  "name": "orgasmo-strapi-admin",
-  "private": true,
-  "version": "1.6.5",
-  "description": "A Strapi application",
-  "scripts": {
-    "dev": "strapi develop",
-    "start": "strapi start",
-    "build-strapi": "strapi build",
-    "strapi": "strapi"
+  "name": "@orgasmo/strapi-template",
+  "version": "1.7.0",
+  "description": "A Strapi template to manage an orgasmo webapp",
+  "homepage": "https://github.com/hacknlove/orgasmoproject",
+  "bugs": {
+    "url": "https://github.com/hacknlove/orgasmoproject/issues",
+    "email": "antonio@pykiss.com"
   },
-  "dependencies": {
-    "@strapi/plugin-i18n": "4.3.8",
-    "@strapi/plugin-users-permissions": "4.3.8",
-    "@strapi/strapi": "4.3.8",
-    "better-sqlite3": "7.4.6",
-    "react-select": "^5.4.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hacknlove/orgasmoproject.git"
   },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "26443e4f-2f44-4160-a2fb-be7d5a049ffa"
-  },
-  "engines": {
-    "node": ">=14.19.1 <=16.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+  "license": "MIT",
+  "author": "Antonio Fernández Porrúa"
 }

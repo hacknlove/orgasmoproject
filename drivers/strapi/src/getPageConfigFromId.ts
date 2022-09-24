@@ -3,7 +3,7 @@ import mapStrapiToOrgasmo from "./mapStrapiToOrgasmo";
 
 export default async function getPageConfigFromId(pageId, ctx) {
   const exactMatch = await strapiFetch(
-    `page-configs?filters[pageId][$eq]=${pageId}&populate[0]=footer&populate[1]=main.items&populate[2]=header`
+    `page-configs?filters[pageId][$eq]=${pageId}`
   );
 
   if (exactMatch.error) {

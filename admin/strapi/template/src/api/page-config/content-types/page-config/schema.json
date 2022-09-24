@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page_configs",
+  "info": {
+    "singularName": "page-config",
+    "pluralName": "page-configs",
+    "displayName": "pageConfig"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pageId": {
+      "type": "uid"
+    },
+    "staticPath": {
+      "type": "string"
+    },
+    "dynamicPath": {
+      "type": "string"
+    },
+    "layout": {
+      "type": "json"
+    },
+    "areas": {
+      "type": "json"
+    },
+    "cache": {
+      "type": "json"
+    },
+    "flowControl": {
+      "type": "json"
+    },
+    "getFlowControl": {
+      "type": "string"
+    }
+  }
+}
