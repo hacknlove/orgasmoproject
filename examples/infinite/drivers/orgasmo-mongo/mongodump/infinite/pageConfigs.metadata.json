@@ -7,12 +7,6 @@
     },
     {
       "v": { "$numberInt": "2" },
-      "key": { "id": { "$numberInt": "1" } },
-      "name": "id_1",
-      "unique": true
-    },
-    {
-      "v": { "$numberInt": "2" },
       "key": { "staticPath": { "$numberInt": "1" } },
       "name": "staticPath_1",
       "sparse": true
@@ -22,9 +16,15 @@
       "key": { "dynamicPath": { "$numberInt": "1" } },
       "name": "dynamicPath_1",
       "sparse": true
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "pageId": { "$numberInt": "1" } },
+      "name": "pageId_1",
+      "unique": true
     }
   ],
-  "uuid": "35b7b24106654219bd2d0273b436a1cd",
+  "uuid": "8bebb10ecd584598b59f3f84fe06fbaa",
   "collectionName": "pageConfigs",
   "type": "collection"
 }
