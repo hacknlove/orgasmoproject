@@ -6,7 +6,7 @@ export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
 
   const exactMatch = await strapiFetch(
-    `page-configs?filters[staticPath][$eq]=${resolvedPath}&populate[0]=footer&populate[1]=main.items&populate[2]=header`
+    `page-configs?filters[staticPath][$eq]=${resolvedPath}`
   );
 
   if (exactMatch.error) {
@@ -30,7 +30,7 @@ export default async function getPageConfig(ctx) {
   }
 
   const dynamicPages = await strapiFetch(
-    `page-configs?filters[dynamicPath][$notNull]=true&pagination[pageSize]=100&populate[0]=footer&populate[1]=main.items&populate[2]=header`
+    `page-configs?filters[dynamicPath][$notNull]=true&pagination[pageSize]=100`
   );
 
   if (dynamicPages.error) {
