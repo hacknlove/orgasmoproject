@@ -1,5 +1,5 @@
 import Item from "../Item/Item.dynamic";
-import Slider from "orgasmo/Slider";
+import Slider from "@orgasmo/orgasmo/Slider";
 import { OouiArrowNextLtr, OouiArrowPreviousLtr } from "../Icons";
 
 export default function Row({ items, src, title }) {

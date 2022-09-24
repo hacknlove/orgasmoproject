@@ -13,7 +13,7 @@ function fileFromImports(imports) {
     string = `${string}\n@import '${path}';`;
   }
 
-  string = `${string}\n@import 'orgasmo/Slider.scss';\n`;
+  string = `${string}\n@import '@orgasmo/orgasmo/Slider.scss';\n`;
 
   return string;
 }

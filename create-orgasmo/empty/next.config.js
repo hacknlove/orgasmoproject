@@ -4,6 +4,6 @@ const nextConfig = {
   swcMinify: true,
 };
 
-const withOrgasmo = require("orgasmo/withOrgasmo")();
+const withOrgasmo = require("@orgasmo/orgasmo/withOrgasmo")();
 
 module.exports = withOrgasmo(nextConfig);
