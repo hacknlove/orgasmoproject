@@ -24,7 +24,8 @@
     },
     "main": {
       "ssrSize": 4,
-      "getItem": "vertical.getItemConfig"
+      "getItem": "vertical.getItemConfig",
+      "mode": "bubble"
     }
   }
 }
