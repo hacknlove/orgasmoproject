@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import expandPage from "./expandPage";
-import rewrite from "../rewrite";
+
+import { decencode } from "cencode";
+import expandPage from "./pageConfig";
+import rewrite from "./rewrite";
 
 jest.mock("./getItems", () => ({
   __esModule: true,
@@ -11,6 +13,10 @@ jest.mock("./getItems", () => ({
 jest.mock("./rewrite", () => ({
   __esModule: true,
   default: jest.fn(() => "rewrite response"),
+}));
+
+jest.mock("cencode", () => ({
+  decencode: jest.fn(() => ({})),
 }));
 
 describe("expandPage", () => {
@@ -30,53 +36,48 @@ describe("expandPage", () => {
     key = "(Mparams_Jfoo.Lroles_Ptest-role";
   });
   it("redirects if page.redirect", async () => {
-    pageConfig.redirect = "Somewhere";
+    pageConfig.flowControl = { redirect: "Somewhere" };
     expect(await expandPage({ pageConfig })).toEqual({ redirect: "Somewhere" });
   });
   it("rewrites if page.rewrite", async () => {
-    pageConfig.rewrite = "Somewhere";
+    pageConfig.flowControl = { rewrite: "Somewhere" };
 
     expect(await expandPage({ ctx, pageConfig, key })).toBe("rewrite response");
     expect(rewrite).toBeCalledWith({ ctx, rewrite: "Somewhere", key });
   });
   it("decode the key, if params is not passed", async () => {
     pageConfig = {};
-    expect(await expandPage({ ctx, pageConfig, key })).toEqual({
-      props: {
-        footer: "getItemsResponse",
-        main: "getItemsResponse",
-        header: "getItemsResponse",
-      },
-    });
-  });
-  it("adds a src to get more items, if there is mainSsrSize", async () => {
-    pageConfig = { mainSsrSize: 14 };
-    expect(await expandPage({ ctx, pageConfig, key })).toEqual({
-      props: {
-        footer: "getItemsResponse",
-        main: "getItemsResponse",
-        src: expect.any(String),
-        header: "getItemsResponse",
-      },
-    });
+    await expandPage({ ctx, pageConfig, key });
+    expect(decencode).toBeCalled();
   });
   it("transform the cssVars into something you can pass to style props", async () => {
     pageConfig = {
-      cssVars: {
-        someVar: "someValue",
-        someOtherVar: "someOtherValue",
+      layout: {
+        cssVars: {
+          someVar: "someValue",
+          someOtherVar: "someOtherValue",
+        },
       },
     };
     expect(await expandPage({ ctx, pageConfig, key })).toEqual({
       props: {
-        footer: "getItemsResponse",
-        main: "getItemsResponse",
-        header: "getItemsResponse",
-        cssVars: {
-          "--someVar": "someValue",
-          "--someOtherVar": "someOtherValue",
+        areas: {},
+        layout: {
+          cssVars: {
+            "--someVar": "someValue",
+            "--someOtherVar": "someOtherValue",
+          },
+          meta: {},
         },
       },
+    });
+  });
+  it("expands flowControl if getFlowControl", async () => {
+    pageConfig.getFlowControl = "some.method";
+    ctx.driver["some.method"] = () => ({ redirect: "somewhere" });
+
+    expect(await expandPage({ ctx, pageConfig, key })).toEqual({
+      redirect: "somewhere",
     });
   });
 });

@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
-import parseDirectory, { waitForIt, ids, paths } from "./parseDirectory";
+import parseDirectory, {
+  waitForIt,
+  ids,
+  staticPaths,
+  dynamicPaths,
+} from "./parseDirectory";
 import { glob } from "glob";
 import { readJson } from "fs-extra";
 
@@ -20,7 +25,8 @@ jest.mock("fs-extra", () => ({
 describe("waitForIt", () => {
   beforeEach(() => {
     ids.clear();
-    paths.clear();
+    staticPaths.clear();
+    dynamicPaths.clear();
     glob.mockImplementation((path, cb) => cb(null, ["some/test/Path"]));
   });
   it("is a promise", () => {
@@ -45,13 +51,7 @@ describe("waitForIt", () => {
   });
 });
 
-describe("parseDirectory", () => {
-  beforeEach(() => {
-    ids.clear();
-    paths.clear();
-    glob.mockImplementation((path, cb) => cb(null, ["some/test/Path"]));
-  });
-
+describe("common", () => {
   it("shows an error if the json is falsy", async () => {
     readJson.mockResolvedValue(undefined);
 
@@ -65,9 +65,7 @@ describe("parseDirectory", () => {
 
     await parseDirectory("someDirectory");
 
-    expect(console.error).toBeCalledWith(
-      'some/test/Path is missing the required field "path"'
-    );
+    expect(console.error).toBeCalled();
   });
 
   it("shows an error if the pageConfig has no pageId", async () => {
@@ -77,9 +75,7 @@ describe("parseDirectory", () => {
 
     await parseDirectory("someDirectory");
 
-    expect(console.error).toBeCalledWith(
-      'some/test/Path is missing the required field "pageId"'
-    );
+    expect(console.error).toBeCalled();
   });
   it("shows an error if there are two pages with the same pageId", async () => {
     glob.mockImplementation((path, cb) =>
@@ -87,7 +83,7 @@ describe("parseDirectory", () => {
     );
 
     readJson.mockResolvedValue({
-      path: "/foo/:bar",
+      dynamicPath: "/foo/:bar",
       pageId: "someId",
     });
 
@@ -97,10 +93,26 @@ describe("parseDirectory", () => {
       'There is already a pageConfig with the pageId "someId"'
     );
   });
+  it("removes old ids", async () => {
+    ids.set("someOldId", {});
+
+    await parseDirectory("someDirectory");
+
+    expect(ids.has("someOldId")).toBe(false);
+  });
+});
+
+describe("staticPaths", () => {
+  beforeEach(() => {
+    ids.clear();
+    staticPaths.clear();
+    dynamicPaths.clear();
+    glob.mockImplementation((path, cb) => cb(null, ["some/test/Path"]));
+  });
 
   it("sets the page by pageId", async () => {
     readJson.mockResolvedValue({
-      path: "/foo/:bar",
+      staticPath: "/foo/bar",
       pageId: "someOtherId",
     });
 
@@ -109,65 +121,121 @@ describe("parseDirectory", () => {
     expect(ids.has("someOtherId")).toBe(true);
   });
 
-  it("adds the pageConfig as an array if there is another pageConfig for that path", async () => {
+  it("adds the pageConfig as an array if there is another pageConfig for that staticPath", async () => {
     glob.mockImplementation((path, cb) =>
       cb(null, ["some/file/path", "some/otherfile/path", "another/file/path"])
     );
 
     readJson.mockResolvedValueOnce({
-      path: "/foo/:bar",
-      pageId: "someId",
+      staticPath: "/foo/bar",
+      pageId: "1",
     });
     readJson.mockResolvedValueOnce({
-      path: "/foo/:bar",
-      pageId: "someOtherId",
+      staticPath: "/foo/bar",
+      pageId: "2",
     });
     readJson.mockResolvedValueOnce({
-      path: "/foo/:bar",
-      pageId: "anotherIdMore",
+      staticPath: "/foo/bar",
+      pageId: "3",
     });
 
     await parseDirectory("someDirectory");
 
-    expect(paths.get("/foo/:bar").pageConfig).toEqual([
+    expect(staticPaths.get("/foo/bar")).toEqual([
       {
-        path: "/foo/:bar",
-        pageId: "someId",
+        staticPath: "/foo/bar",
+        pageId: "1",
       },
       {
-        path: "/foo/:bar",
-        pageId: "someOtherId",
+        staticPath: "/foo/bar",
+        pageId: "2",
       },
       {
-        path: "/foo/:bar",
-        pageId: "anotherIdMore",
+        staticPath: "/foo/bar",
+        pageId: "3",
+      },
+    ]);
+  });
+});
+
+describe("dynamicPaths", () => {
+  beforeEach(() => {
+    ids.clear();
+    staticPaths.clear();
+    dynamicPaths.clear();
+    glob.mockImplementation((path, cb) => cb(null, ["some/test/Path"]));
+  });
+
+  it("sets the page by pageId", async () => {
+    readJson.mockResolvedValue({
+      dynamicPath: "/foo/:bar",
+      pageId: "someOtherId",
+    });
+
+    await parseDirectory("someDirectory");
+
+    expect(ids.has("someOtherId")).toBe(true);
+  });
+
+  it("adds the pageConfig as an array if there is another pageConfig for that dynamicPath", async () => {
+    glob.mockImplementation((path, cb) =>
+      cb(null, ["some/file/path", "some/otherfile/path", "another/file/path"])
+    );
+
+    readJson.mockResolvedValueOnce({
+      dynamicPath: "/foo/:bar",
+      pageId: "1",
+    });
+    readJson.mockResolvedValueOnce({
+      dynamicPath: "/foo/:bar",
+      pageId: "2",
+    });
+    readJson.mockResolvedValueOnce({
+      dynamicPath: "/foo/:bar",
+      pageId: "3",
+    });
+
+    await parseDirectory("someDirectory");
+
+    expect(dynamicPaths.get("/foo/:bar").pageConfig).toEqual([
+      {
+        dynamicPath: "/foo/:bar",
+        pageId: "1",
+      },
+      {
+        dynamicPath: "/foo/:bar",
+        pageId: "2",
+      },
+      {
+        dynamicPath: "/foo/:bar",
+        pageId: "3",
       },
     ]);
   });
 
-  it("sorts the paths", async () => {
+  it("sorts the dynamic paths", async () => {
     glob.mockImplementation((path, cb) =>
       cb(null, ["some/file/path", "some/otherfile/path", "another/file/path"])
     );
 
     readJson.mockResolvedValueOnce({
-      path: "/foo/:second",
-      pageId: "someOtherId",
+      dynamicPath: "/:foo/:second",
+      pageId: "2",
     });
     readJson.mockResolvedValueOnce({
-      path: "/foo/(last)",
-      pageId: "someId",
+      dynamicPath: "/:foo/(third)",
+      pageId: "3",
     });
     readJson.mockResolvedValueOnce({
-      path: "/foo/first",
-      pageId: "anotherIdMore",
+      dynamicPath: "/foo/:first",
+      pageId: "1",
     });
     await parseDirectory("someDirectory");
 
-    expect(Array.from(paths.keys())).toEqual([
-      "/foo/first",
-      "/foo/:second",
-      "/foo/(last)",
+    expect(Array.from(dynamicPaths.keys())).toEqual([
+      "/foo/:first",
+      "/:foo/:second",
+      "/:foo/(third)",
     ]);
   });
 });

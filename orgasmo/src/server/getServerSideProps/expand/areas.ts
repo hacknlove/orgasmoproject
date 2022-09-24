@@ -1,4 +1,4 @@
-import { expandArea } from "./area";
+import expandArea from "./area";
 
 export default async function expandAreas({
   ctx,

@@ -1,7 +1,7 @@
 import { decencode } from "cencode";
 import { cleanAwaitJson } from "../../lib/cleanJson";
 import { currentTimeChunk } from "../../lib/timechunks";
-import rewrite from "../rewrite";
+import rewrite from "./rewrite";
 import expandLayout from "./layout";
 import expandAreas from "./areas";
 

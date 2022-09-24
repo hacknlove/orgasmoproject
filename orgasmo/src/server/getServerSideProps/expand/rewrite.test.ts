@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import rewriteFn from "./rewrite";
-import { MAX_REWRITES } from "../lib/config";
-import events from "../events";
+import { MAX_REWRITES } from "../../lib/config";
+import events from "../../events";
 
-jest.mock("./getPage", () => ({
+jest.mock("../getPage", () => ({
   __esModule: true,
   default: jest.fn(() => "getPageResponse"),
 }));
 
-jest.mock("../events", () => ({
+jest.mock("../../events", () => ({
   __esModule: true,
   default: {
     emit: jest.fn(),

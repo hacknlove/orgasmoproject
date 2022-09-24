@@ -1,7 +1,7 @@
-import processRow from "../lib/processRow";
-import { serialize } from "../lib/serialization";
-import { maxTimeChunk } from "../lib/timechunks";
-import type { currentChunkReturn } from "../lib/timechunks";
+import processRow from "../../lib/processRow";
+import { serialize } from "../../lib/serialization";
+import { maxTimeChunk } from "../../lib/timechunks";
+import type { currentChunkReturn } from "../../lib/timechunks";
 
 interface getItemsParameters {
   items: any[];
@@ -20,10 +20,6 @@ export default async function getItems({
   timeChunk,
   getItem,
 }: getItemsParameters) {
-  if (!itemsProp) {
-    return [];
-  }
-
   const items: any[] = [];
 
   const z =

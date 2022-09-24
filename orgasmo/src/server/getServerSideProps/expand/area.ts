@@ -1,7 +1,7 @@
 import { serialize } from "../../lib/serialization";
-import getItems from "../getItems";
+import getItems from "./getItems";
 
-export async function expandArea({
+export default async function expandArea({
   ctx,
   name,
   pageId,
@@ -24,8 +24,7 @@ export async function expandArea({
   };
 
   if (
-    !area.src &&
-    (areaConfig.mode === "bublle" || areaConfig.mode === "grow") &&
+    (areaConfig.mode === "bubble" || areaConfig.mode === "grow") &&
     areaConfig.getItem
   ) {
     area.src = `/api/_ogr?c=${serialize({
@@ -36,6 +35,8 @@ export async function expandArea({
       expire: timeChunk.expire,
     })}`;
   }
+
+  delete area.getItem;
 
   return area;
 }

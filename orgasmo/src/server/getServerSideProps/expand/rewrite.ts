@@ -1,6 +1,6 @@
-import { MAX_REWRITES } from "../lib/config";
-import events from "../events";
-import getPageConfig from "./getPage";
+import { MAX_REWRITES } from "../../lib/config";
+import events from "../../events";
+import getPageConfig from "../getPage";
 
 export default function rewrite({ ctx, rewrite, key }) {
   if (!ctx.original) {
