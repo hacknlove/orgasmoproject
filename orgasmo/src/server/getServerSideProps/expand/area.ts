@@ -23,10 +23,7 @@ export default async function expandArea({
     items,
   };
 
-  if (
-    (areaConfig.mode === "bubble" || areaConfig.mode === "grow") &&
-    areaConfig.getItem
-  ) {
+  if (areaConfig.mode === "bubble" || areaConfig.mode === "grow") {
     area.src = `/api/_ogr?c=${serialize({
       pageId,
       area: name,

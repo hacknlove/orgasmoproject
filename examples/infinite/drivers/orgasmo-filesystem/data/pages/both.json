@@ -25,6 +25,7 @@
     "main": {
       "ssrSize": 2,
       "getItem": "both.getItemConfig",
+      "mode": "bubble",
       "items": [
         {
           "type": "Row",
