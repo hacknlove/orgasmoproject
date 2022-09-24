@@ -2,20 +2,29 @@
 // @ts-nocheck
 
 import getItems from "./getItems";
-import processRow from "../lib/processRow";
-import { serialize } from "../lib/serialization";
+import processRow from "../../lib/processRow";
+import { serialize } from "../../lib/serialization";
 
-jest.mock("../lib/processRow");
-jest.mock("../lib/serialization", () => ({
+jest.mock("../../lib/processRow");
+jest.mock("../../lib/serialization", () => ({
   serialize: jest.fn(),
 }));
 
 describe("getItems", () => {
+  let ctx;
+  beforeEach(() => {
+    ctx = {
+      driver: {
+        "some.method": jest.fn(),
+        echo: jest.fn((params) => params),
+      },
+    };
+  });
   it("returns empty array if items is falsy", async () => {
     const items = await getItems({
       items: undefined,
       params: {},
-      ctx: { driver: {} },
+      ctx,
     });
     expect(items).toEqual([]);
   });
@@ -26,7 +35,7 @@ describe("getItems", () => {
       props: { row: true, test: rowConfig },
     }));
 
-    const response = await getItems({ items, params: {}, ctx: { driver: {} } });
+    const response = await getItems({ items, params: {}, ctx });
 
     expect(processRow).toHaveBeenCalledTimes(5);
 
@@ -49,7 +58,7 @@ describe("getItems", () => {
     const response = await getItems({
       items,
       params: {},
-      ctx: { driver: {} },
+      ctx,
       limit: 3,
     });
 
@@ -107,11 +116,12 @@ describe("getItems", () => {
   });
   it("gets the item from the driver if needed", async () => {
     const items = [];
-    const getItemConfig = jest.fn((params) => params);
+    const getItem = "echo";
     const response = await getItems({
+      ctx,
       items,
       limit: 4,
-      getItemConfig,
+      getItem,
     });
 
     expect(response).toEqual(
@@ -124,11 +134,12 @@ describe("getItems", () => {
   });
   it("breaks the loop if there is no itemConfig", async () => {
     const items = [{}];
-    const getItemConfig = jest.fn(() => undefined);
+    const getItem = "some.method";
     const response = await getItems({
+      ctx,
       items,
       limit: 4,
-      getItemConfig,
+      getItem,
     });
 
     expect(response).toEqual([{}]);

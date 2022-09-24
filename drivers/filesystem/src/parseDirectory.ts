@@ -47,6 +47,12 @@ export default async function parseDirectory(pathToJsonDirectory) {
       continue;
     }
 
+    if (ids.has(pageConfig.pageId) && !oldIds.has(pageConfig.pageId)) {
+      console.error(
+        `There is already a pageConfig with the pageId "${pageConfig.pageId}"`
+      );
+    }
+
     ids.set(pageConfig.pageId, pageConfig);
     oldIds.delete(pageConfig.pageId);
 

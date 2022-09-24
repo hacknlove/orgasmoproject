@@ -27,7 +27,7 @@ describe("getItem", () => {
         page: {
           getPageConfigFromId: jest.fn(),
         },
-        "somePage.getItemConfig": jest.fn(),
+        "somePage.getItem": jest.fn(),
       },
     };
   });
@@ -40,23 +40,32 @@ describe("getItem", () => {
 
   it("calls driver.page.getPageConfigFromId to get the row", async () => {
     (parseCommand as jest.Mock).mockReturnValue({
-      pageId: "getItemConfig-test",
+      pageId: "getItem-test",
     });
 
     await getItem(ctx);
 
     expect(ctx.driver.page.getPageConfigFromId).toBeCalledWith(
-      "getItemConfig-test",
+      "getItem-test",
       ctx
     );
     expect(ctx.res.json).toBeCalledWith(null);
   });
 
   it("serializes props.getMore if defined", async () => {
-    ctx.driver.page.getPageConfigFromId.mockReturnValue({
-      getItemConfig: "somePage.getItemConfig",
+    (parseCommand as jest.Mock).mockReturnValue({
+      pageId: "getItem-test",
+      area: "main",
     });
-    ctx.driver["somePage.getItemConfig"].mockReturnValue({
+
+    ctx.driver.page.getPageConfigFromId.mockReturnValue({
+      areas: {
+        main: {
+          getItem: "somePage.getItem",
+        },
+      },
+    });
+    ctx.driver["somePage.getItem"].mockReturnValue({
       type: "test-1",
       props: { getMore: { handler: "test" } },
     });
@@ -76,7 +85,11 @@ describe("getItem", () => {
 
   it("returns nothing if no configRow returned", async () => {
     ctx.driver.page.getPageConfigFromId.mockReturnValue({
-      getItemConfig: "somePage.getItemConfig",
+      areas: {
+        main: {
+          getItem: "somePage.getItem",
+        },
+      },
     });
 
     await getItem(ctx);
@@ -85,22 +98,58 @@ describe("getItem", () => {
   });
 
   it("returns from the page items if possible", async () => {
+    (parseCommand as jest.Mock).mockReturnValue({
+      pageId: "getItem-test",
+      area: "main",
+    });
     ctx.driver.page.getPageConfigFromId.mockReturnValue({
-      getItemConfig: "somePage.getItemConfig",
-      main: [{}, {}, {}, {}, "this row"],
+      areas: {
+        main: {
+          getItem: "somePage.getItem",
+          items: [{}, {}, {}, {}, "this row"],
+        },
+      },
     });
 
     await getItem(ctx);
-    expect(ctx.driver["somePage.getItemConfig"]).not.toBeCalled();
+    expect(ctx.driver["somePage.getItem"]).not.toBeCalled();
   });
 
-  it("returns from the page items if possible", async () => {
+  it("gets a new item from the driver", async () => {
+    (parseCommand as jest.Mock).mockReturnValue({
+      pageId: "getItem-test",
+      area: "main",
+    });
+
     ctx.driver.page.getPageConfigFromId.mockReturnValue({
-      getItemConfig: "somePage.getItemConfig",
-      main: [{}, {}],
+      areas: {
+        main: {
+          items: [{}, {}],
+          getItem: "somePage.getItem",
+        },
+      },
     });
 
     await getItem(ctx);
-    expect(ctx.driver["somePage.getItemConfig"]).toBeCalled();
+    expect(ctx.driver["somePage.getItem"]).toBeCalled();
+  });
+  it("returns null if there is no area", async () => {
+    (parseCommand as jest.Mock).mockReturnValue({
+      pageId: "getItem-test",
+      area: "otherArea",
+    });
+
+    ctx.driver.page.getPageConfigFromId.mockReturnValue({
+      areas: {
+        main: {
+          items: [{}, {}],
+          getItem: "somePage.getItem",
+        },
+      },
+    });
+
+    await getItem(ctx);
+    expect(ctx.res.json.mock.calls[0][0]).toBeNull();
+    expect(ctx.driver["somePage.getItem"]).not.toBeCalled();
   });
 });
