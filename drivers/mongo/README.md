@@ -1,5 +1,3 @@
 # orgasmo mongo driver
 
-Moved to organization package: `@orgasmo/mongo`
-
-https://www.npmjs.com/package/@orgasmo/mongo
+This driver connects your orgasmo webapp with mongo.

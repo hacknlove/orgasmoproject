@@ -1,6 +1,6 @@
 {
   "name": "orgasmoproject",
-  "version": "1.6.6",
+  "version": "1.7.1",
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps",
   "main": "index.js",
   "engines": {
@@ -24,7 +24,7 @@
   "license": "MIT",
   "workspaces": [
     "orgasmo",
-    "drivers/filesystem",
+    "drivers/json",
     "drivers/mongo",
     "drivers/strapi",
     "examples/infinite",

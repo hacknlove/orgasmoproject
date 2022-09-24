@@ -1,5 +1,3 @@
 # orgasmo
 
-Moved to organization package: `@orgasmo/orgasmo`
-
-https://www.npmjs.com/package/@orgasmo/orgasmo
+nextjs plugin that adds in-data full dynamic pages.

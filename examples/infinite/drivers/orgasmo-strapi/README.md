@@ -12,8 +12,8 @@ npx create-strapi-app@latest orgasmo-strapi --quickstart --template @orgasmo/str
 
 mkdir orgasmo-strapi/.tmp
 
-cp orgasmoproject/examples/infinite/drivers/orgasmo-strapi/data.db orgasmo-strapi/.tmp/
-cp orgasmoproject/examples/infinite/drivers/orgasmo-strapi/.env orgasmo-strapi/
+cp orgasmoproject/examples/infinite/drivers/@orgasmo/strapi/data.db orgasmo-strapi/.tmp/
+cp orgasmoproject/examples/infinite/drivers/@orgasmo/strapi/.env orgasmo-strapi/
 
 cd orgasmo-strapi
 npm run develop
@@ -29,6 +29,6 @@ password: `BullSh1t.Security`
 
 ```
 npm run build -w orgasmo
-npm run build -w drivers/orgasmo-strapi
-ORGASMO_DRIVER=orgasmo-strapi npm run dev -w examples/infinite
+npm run build -w drivers/strapi
+ORGASMO_DRIVER=@orgasmo/strapi npm run dev -w examples/infinite
 ```

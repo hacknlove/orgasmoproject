@@ -4,7 +4,7 @@ const { readFile, writeFile } = require("fs/promises");
 const chokidar = require("chokidar");
 const isAModule = require("./isAModule");
 
-const driver = process.env.ORGASMO_DRIVER || "orgasmo-filesystem";
+const driver = process.env.ORGASMO_DRIVER || "@orgasmo/json";
 
 const regexp = new RegExp(
   `^(?<from>\\./drivers/(${driver}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`

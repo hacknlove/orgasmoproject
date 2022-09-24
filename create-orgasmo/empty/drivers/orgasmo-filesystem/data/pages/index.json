@@ -87,7 +87,7 @@
           "type": "Description",
           "props": {
             "text": "Take a look at",
-            "source": "drivers/orgasmo-filesystem/data/pages/index.json"
+            "source": "drivers/json/data/pages/index.json"
           }
         },
         {

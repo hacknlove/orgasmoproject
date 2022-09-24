@@ -34,16 +34,16 @@ Most of the time you will only need to pass the driver to an Orgasmo's factory, 
 
 ## default driver
 
-For your convenience, to make it possible for you to start working with mocked data, you can just drop JSON files on the `driver/orgasmo-filesystem` directory. Open the [README.md](orgasmo-filesystem/README.md) to learn the schema.
+For your convenience, to make it possible for you to start working with mocked data, you can just drop JSON files on the `driver/json` directory. Open the [README.md](json/README.md) to learn the schema.
 
-Not setting the `ORGASMO_DRIVER` environmental variable is the same as setting it to `orgasmo-filesystem`
+Not setting the `ORGASMO_DRIVER` environmental variable is the same as setting it to `@orgasmo/json`
 
 ## More ready to use drivers
 
 You can install and use the following drivers:
 
-    orgasmo-mongo (README)[../../../drivers/mongo/README.mg]
-    orgasmo-strapi (README)[../../../drivers/strapi/README.mg]
+    @orgasmo/mongo (README)[../../../drivers/mongo/README.mg]
+    @orgasmo/strapi (README)[../../../drivers/strapi/README.mg]
 
 Currently, there are no plans to add more, but if you think that it makes sense to add some others like PostgreSQL or contentful, create an issue [here](https://github.com/hacknlove/orgasmoproject/issues/new).
 

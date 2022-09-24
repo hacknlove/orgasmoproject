@@ -23,14 +23,14 @@ const { regexp, globPath, fileFromImports, map, refresh } = require("./config");
 
 test("driver regexp gets the full path and the file name from components starting with capital leter and ending in dynamic.{js,...}", () => {
   const files = [
-    "./drivers/orgasmo-filesystem/foo/bar.export.js",
+    "./drivers/@orgasmo/json/foo/bar.export.js",
     "./drivers/other/foo/bar.export.js",
-    "./drivers/orgasmo-filesystem/foo/baz.js",
+    "./drivers/@orgasmo/json/foo/baz.js",
   ];
 
   expect(regexp.exec(files[0]).groups).toEqual({
     filename: "bar",
-    from: "./drivers/orgasmo-filesystem/foo/bar.export.js",
+    from: "./drivers/@orgasmo/json/foo/bar.export.js",
     route: "foo",
     type: "export",
   });
@@ -39,7 +39,7 @@ test("driver regexp gets the full path and the file name from components startin
 });
 
 test("driver globPath finds files from the driver folder ending with export", (done) => {
-  const expected = ["./drivers/orgasmo-filesystem/foo.export.js"];
+  const expected = ["./drivers/@orgasmo/json/foo.export.js"];
 
   glob(globPath, { cwd: join(__dirname, "/test/globPath") }, (err, files) => {
     if (err) {
@@ -60,7 +60,7 @@ describe("driver fileFromImport", () => {
     const imports = [
       {
         filename: "foo",
-        from: "./drivers/orgasmo-filesystem/something/foo.export.tsx",
+        from: "./drivers/@orgasmo/json/something/foo.export.tsx",
         name: "foo",
         importName: "foo",
         route: "something",
@@ -68,7 +68,7 @@ describe("driver fileFromImport", () => {
       },
       {
         filename: "bar",
-        from: "./drivers/orgasmo-filesystem/something/bar.export.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.export.tsx",
         name: "bar",
         importName: "bar",
         route: "something",
@@ -76,7 +76,7 @@ describe("driver fileFromImport", () => {
       },
       {
         filename: "baz",
-        from: "./drivers/orgasmo-filesystem/something/bar.event.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.event.tsx",
         name: "baz",
         importName: "baz",
         route: "something",
@@ -84,7 +84,7 @@ describe("driver fileFromImport", () => {
       },
       {
         filename: "cos",
-        from: "./drivers/orgasmo-filesystem/something/cos.import.tsx",
+        from: "./drivers/@orgasmo/json/something/cos.import.tsx",
         name: "cos",
         importName: "cos",
         route: "something",
@@ -94,10 +94,10 @@ describe("driver fileFromImport", () => {
     const expected = `/* This file is created automatically at build time, there is no need to commit it */
 
 import events from 'orgasmo/events';
-import baz from './drivers/orgasmo-filesystem/something/bar.event.tsx';
-import './drivers/orgasmo-filesystem/something/cos.import.tsx';
-import bar from './drivers/orgasmo-filesystem/something/bar.export.tsx';
-import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
+import baz from './drivers/@orgasmo/json/something/bar.event.tsx';
+import './drivers/@orgasmo/json/something/cos.import.tsx';
+import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
+import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
 
 
 const all = {
@@ -121,7 +121,7 @@ export default all;
     const imports = [
       {
         filename: "foo",
-        from: "./drivers/orgasmo-filesystem/something/foo.export.tsx",
+        from: "./drivers/@orgasmo/json/something/foo.export.tsx",
         name: "foo",
         importName: "foo",
         route: "something",
@@ -129,7 +129,7 @@ export default all;
       },
       {
         filename: "bar",
-        from: "./drivers/orgasmo-filesystem/something/bar.export.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.export.tsx",
         name: "bar",
         importName: "bar",
         route: "something",
@@ -137,7 +137,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something1/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something1/onSomething.event.tsx",
         name: "onSomething",
         importName: "route1ーonSomething",
         route: "route1",
@@ -145,7 +145,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something2/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something2/onSomething.event.tsx",
         name: "onSomething",
         importName: "route2ーonSomething",
         route: "route2",
@@ -155,12 +155,12 @@ export default all;
     const expected = `/* This file is created automatically at build time, there is no need to commit it */
 
 import events from 'orgasmo/events';
-import route1ーonSomething from './drivers/orgasmo-filesystem/something1/onSomething.event.tsx';
-import route2ーonSomething from './drivers/orgasmo-filesystem/something2/onSomething.event.tsx';
+import route1ーonSomething from './drivers/@orgasmo/json/something1/onSomething.event.tsx';
+import route2ーonSomething from './drivers/@orgasmo/json/something2/onSomething.event.tsx';
 import external from 'foo-externalPackage';
 
-import bar from './drivers/orgasmo-filesystem/something/bar.export.tsx';
-import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
+import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
+import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
 
 
 const all = {
@@ -187,7 +187,7 @@ export default all;
     const imports = [
       {
         filename: "foo",
-        from: "./drivers/orgasmo-filesystem/something/foo.export.tsx",
+        from: "./drivers/@orgasmo/json/something/foo.export.tsx",
         name: "foo",
         importName: "foo",
         route: "something",
@@ -195,7 +195,7 @@ export default all;
       },
       {
         filename: "bar",
-        from: "./drivers/orgasmo-filesystem/something/bar.export.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.export.tsx",
         name: "bar",
         importName: "bar",
         route: "something",
@@ -203,7 +203,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something1/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something1/onSomething.event.tsx",
         name: "onSomething",
         importName: "route1ーonSomething",
         route: "route1",
@@ -211,7 +211,7 @@ export default all;
       },
       {
         filename: "onSomething",
-        from: "./drivers/orgasmo-filesystem/something2/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something2/onSomething.event.tsx",
         name: "onSomething",
         importName: "route2ーonSomething",
         route: "route2",
@@ -221,12 +221,12 @@ export default all;
     const expected = `/* This file is created automatically at build time, there is no need to commit it */
 
 import events from 'orgasmo/events';
-import route1ーonSomething from './drivers/orgasmo-filesystem/something1/onSomething.event.tsx';
-import route2ーonSomething from './drivers/orgasmo-filesystem/something2/onSomething.event.tsx';
-import external from 'orgasmo-filesystem';
+import route1ーonSomething from './drivers/@orgasmo/json/something1/onSomething.event.tsx';
+import route2ーonSomething from './drivers/@orgasmo/json/something2/onSomething.event.tsx';
+import external from '@orgasmo/json';
 
-import bar from './drivers/orgasmo-filesystem/something/bar.export.tsx';
-import foo from './drivers/orgasmo-filesystem/something/foo.export.tsx';
+import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
+import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
 
 
 const all = {
@@ -255,13 +255,13 @@ describe("driver map", () => {
   it("adds the importName and the name fields", () => {
     const groups = {
       filename: "foo",
-      from: "./drivers/orgasmo-filesystem/some/route/foo.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/foo.export.tsx",
       route: "some/route",
     };
 
     const expected = {
       filename: "foo",
-      from: "./drivers/orgasmo-filesystem/some/route/foo.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/foo.export.tsx",
       route: "some/route",
       importName: "someーrouteーfoo",
       name: "foo",
@@ -272,13 +272,13 @@ describe("driver map", () => {
   it("uses the last piece of the route as name if filename is index", () => {
     const groups = {
       filename: "index",
-      from: "./drivers/orgasmo-filesystem/some/route/index.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/index.export.tsx",
       route: "some/route",
     };
 
     const expected = {
       filename: "index",
-      from: "./drivers/orgasmo-filesystem/some/route/index.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/index.export.tsx",
       route: "some/route",
       importName: "someーrouteーindex",
       name: "route",

@@ -3,7 +3,7 @@ import { watch } from "chokidar";
 import { writeFile, readFile } from "fs/promises";
 
 const pagesPath =
-  process.env.FILESYSTEM_DATA_PATH ?? "drivers/orgasmo-filesystem/data/pages";
+  process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data/pages";
 
 parseDirectory(pagesPath);
 

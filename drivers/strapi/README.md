@@ -1,5 +1,3 @@
 # orgasmo strapi driver
 
-Moved to organization package: `@orgasmo/strapi`
-
-https://www.npmjs.com/package/@orgasmo/strapi
+This driver connects your orgasmo webapp with strapi, using the schema of `@orgasmo/strapi-template`

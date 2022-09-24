@@ -5,7 +5,7 @@ const { promisify } = require("util");
 
 const execPromise = promisify(exec);
 
-const isOrgasmoRegexp = /^orgasmo($|-)/;
+const isOrgasmoRegexp = /^@orgasmo\//;
 
 async function main() {
   const status = await execPromise("git status --porcelain");
@@ -61,7 +61,7 @@ async function main() {
     }
 
     console.log("Publishing", workspacePackage.name);
-    await execPromise("npm publish", {
+    await execPromise("npm publish --access public", {
       cwd: join(process.cwd(), workspace),
     });
   }
