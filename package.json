@@ -9,8 +9,11 @@
   },
   "scripts": {
     "test": "./test.sh",
+    "test.unit": "./test.unit.sh",
+    "test.e2e": "./test.e2e.sh",
     "build": "npm run build --workspaces --if-present",
     "lint": "eslint . --fix",
+    "lint.ci": "eslint .",
     "pretty": "prettier --write .",
     "prettylint": "npm run lint && npm run pretty",
     "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1",
