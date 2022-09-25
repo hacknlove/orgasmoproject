@@ -70,7 +70,28 @@ function fileFromImports(imports, externalPackage) {
     : `${indexString}\n\nconst all = {${handlersString}\n}\n`;
   indexString = `${indexString}${expand(all, "all")}`;
 
-  indexString = `/* This file is created automatically at build time, there is no need to commit it */\n\n${
+  indexString = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { components: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { driver: false })
+  *
+  * @example
+  * // forces the use of an external package as driver 
+  * withOrgasmo(nextConfig, { driver: 'package-name' })
+  *
+  */\n\n${
     eventsString && "import events from 'orgasmo/events';"
   }\n${importString}${indexString}\n\n${eventsString}\nexport default all;\n`;
 

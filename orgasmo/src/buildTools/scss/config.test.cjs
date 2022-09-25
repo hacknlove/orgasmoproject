@@ -41,7 +41,24 @@ test("scss fileFromImports returns a scss source from imports", () => {
     { path: "./some/other/scss/file.scss" },
     { path: undefined },
   ];
-  const expected = `/* This file is created automatically at build time, there is no need to commit it */
+  const expected = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {scss: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { scss: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { scss: false })
+  *
+  */
 
 @import './some/path.scss';
 @import './some/other/scss/file.scss';

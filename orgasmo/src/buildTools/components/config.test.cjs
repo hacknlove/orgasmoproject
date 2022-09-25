@@ -40,7 +40,28 @@ describe("components fileImports", () => {
       { filename: "Foo", from: "./components/Foo.dynamic.tsx" },
       { filename: "Bar", from: "./components/Bar.dynamic.tsx" },
     ];
-    const expected = `/* This file is created automatically at build time, there is no need to commit it */
+    const expected = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {components: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { components: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { components: false })
+  *
+  * @example
+  * // forces the use of an external package as components 
+  * withOrgasmo(nextConfig, { components: 'package-name' })
+  *
+  */
 import React from 'react';
 import dynamic from 'next/dynamic';
 
@@ -66,7 +87,28 @@ switch (type) {
       { filename: "Foo", from: "./components/Foo.dynamic.tsx" },
       { filename: "Bar", from: "./components/Bar.dynamic.tsx" },
     ];
-    const expected = `/* This file is created automatically at build time, there is no need to commit it */
+    const expected = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {components: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { components: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { components: false })
+  *
+  * @example
+  * // forces the use of an external package as components 
+  * withOrgasmo(nextConfig, { components: 'package-name' })
+  *
+  */
 import React from 'react';
 import dynamic from 'next/dynamic';
 import external from foo-externalPackage

@@ -4,7 +4,28 @@ const globPath = "./**/*.dynamic.{jsx,tsx,js,ts,cjs,mjs}";
 const filename = "./Components.jsx";
 
 function fileFromImports(imports, externalPackage) {
-  let string = `/* This file is created automatically at build time, there is no need to commit it */\nimport React from 'react';\nimport dynamic from 'next/dynamic';\n`;
+  let string = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {components: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { components: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { components: false })
+  *
+  * @example
+  * // forces the use of an external package as components 
+  * withOrgasmo(nextConfig, { components: 'package-name' })
+  *
+  */\nimport React from 'react';\nimport dynamic from 'next/dynamic';\n`;
 
   if (externalPackage) {
     string = `${string}import external from ${externalPackage}\n\n`;

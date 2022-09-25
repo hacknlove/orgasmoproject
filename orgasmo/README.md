@@ -8,5 +8,5 @@ nextjs plugin that adds in-data full dynamic pages.
 npm init orgasmp
 ```
 
-* Add [dynamic components](/create-orgasmo/empty/components)
-* edit your [drivers](/create-orgasmo/empty/drivers)
+- Add [dynamic components](/create-orgasmo/empty/components)
+- edit your [drivers](/create-orgasmo/empty/drivers)

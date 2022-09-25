@@ -91,7 +91,28 @@ describe("driver fileFromImport", () => {
         type: "import",
       },
     ];
-    const expected = `/* This file is created automatically at build time, there is no need to commit it */
+    const expected = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { components: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { driver: false })
+  *
+  * @example
+  * // forces the use of an external package as driver 
+  * withOrgasmo(nextConfig, { driver: 'package-name' })
+  *
+  */
 
 import events from 'orgasmo/events';
 import baz from './drivers/@orgasmo/json/something/bar.event.tsx';
@@ -152,7 +173,28 @@ export default all;
         type: "event",
       },
     ];
-    const expected = `/* This file is created automatically at build time, there is no need to commit it */
+    const expected = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { components: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { driver: false })
+  *
+  * @example
+  * // forces the use of an external package as driver 
+  * withOrgasmo(nextConfig, { driver: 'package-name' })
+  *
+  */
 
 import events from 'orgasmo/events';
 import route1ーonSomething from './drivers/@orgasmo/json/something1/onSomething.event.tsx';
@@ -218,7 +260,28 @@ export default all;
         type: "event",
       },
     ];
-    const expected = `/* This file is created automatically at build time, there is no need to commit it */
+    const expected = `/**
+  * @file This file is created automatically at build time, there is no need to commit it, but you can.
+  *
+  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
+  *
+  * @example
+  * // enables creation (the default)
+  * withOrgasmo(nextConfig)
+  *
+  * @example
+  * // explicity enables creation
+  * withOrgasmo(nextConfig, { components: true })
+  *
+  * @example
+  * // disable creation
+  * withOrgasmo(nextConfig, { driver: false })
+  *
+  * @example
+  * // forces the use of an external package as driver 
+  * withOrgasmo(nextConfig, { driver: 'package-name' })
+  *
+  */
 
 import events from 'orgasmo/events';
 import route1ーonSomething from './drivers/@orgasmo/json/something1/onSomething.event.tsx';
