@@ -31,6 +31,12 @@
             "number": 42,
             "className": "fullWidth"
           }
+        },
+        {
+          "type": "RandomButton",
+          "props": {
+            "text": "Random 🗘"
+          }
         }
       ]
     },

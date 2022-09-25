@@ -1,62 +1,56 @@
-import { useMemo } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import { OrgasmoPage, PageFactoryParameters } from "~/types";
-import Dynamic from "./Dynamic/Dynamic";
-import Static from "./Static/Static";
 import DefaultLayout from "./DefaultLayout/DefaultLayout";
 import Meta from "./Meta/Meta";
-
-function renderArea({ Components, area }) {
-  if (area.mode === "bubble" || area.mode === "grow") {
-    return (
-      <Dynamic
-        items={area.items}
-        src={area.src}
-        mode={area.mode}
-        threshold={area.threshold}
-        Components={Components}
-      />
-    );
-  }
-  return <Static items={area.items} Components={Components} />;
-}
+import AreasContext from "./AreasContext";
 
 export default function PageFactory({
   Components,
 }: PageFactoryParameters): OrgasmoPage {
-  const Page = ({ layout, areas }) => {
+  const Page = (ssrProps) => {
     const router = useRouter();
-    const renderedAreas = useMemo(
-      () =>
-        Object.fromEntries(
-          Object.entries(areas).map(([name, area]) => [
-            name,
-            renderArea({ Components, area }),
-          ])
-        ),
-      [areas]
+
+    const [props, setProps] = useState(ssrProps);
+
+    const layout = props.layout;
+    const areas = props.areas;
+
+    const setAreas = useCallback(
+      (areas) =>
+        setProps((props) => ({
+          ...props,
+          areas,
+        })),
+      [setProps]
+    );
+
+    const setLayout = useCallback(
+      (layout) =>
+        setProps((props) => ({
+          ...props,
+          layout,
+        })),
+      [setProps]
     );
 
     return (
-      <>
+      <AreasContext.Provider
+        value={{ areas, layout, Components, setAreas, setLayout }}
+      >
         {layout?.meta && <Meta meta={layout?.meta} />}
         {layout?.name ? (
           <Components
             key={router.asPath}
             type={layout.name}
             props={{
-              areas: renderedAreas,
-              layout,
+              cssVars: layout?.cssVars,
             }}
           />
         ) : (
-          <DefaultLayout
-            key={router.asPath}
-            cssVars={layout?.cssVars}
-            areas={renderedAreas}
-          />
+          <DefaultLayout key={router.asPath} cssVars={layout?.cssVars} />
         )}
-      </>
+      </AreasContext.Provider>
     );
   };
   return Page;
