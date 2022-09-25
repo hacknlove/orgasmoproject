@@ -1,6 +1,6 @@
 {
   "name": "@orgasmo/mongo",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "path-to-regexp": "^6.2.1"
   },
   "peerDependencies": {
-    "@orgasmo/orgasmo": "1.7.2"
+    "@orgasmo/orgasmo": "1.8.0"
   },
   "files": [
     "./dist"
