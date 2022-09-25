@@ -1,11 +1,15 @@
-import type { ReactNode } from "react";
+import { useContext } from "react";
+import Area from "../Area";
+import AreasContext from "../AreasContext";
 
-export default function DefaultLayout({ cssVars, areas }) {
+export default function DefaultLayout({ cssVars }) {
+  const { areas } = useContext(AreasContext);
+
   return (
     <div style={cssVars}>
-      {Object.entries(areas).map(([key, value]) => (
-        <div key={key} id={key}>
-          {value as ReactNode}
+      {Object.keys(areas).map((name) => (
+        <div key={name} id={name}>
+          <Area name={name} />
         </div>
       ))}
     </div>

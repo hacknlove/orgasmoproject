@@ -1,6 +1,7 @@
 import Head from "next/head";
+import Area from "@orgasmo/orgasmo/Area";
 
-export default function Layout({ areas }) {
+export default function Layout() {
   return (
     <div className="container">
       <Head>
@@ -8,11 +9,15 @@ export default function Layout({ areas }) {
       </Head>
 
       <main className="main">
-        {areas.header}
-        <div className="grid">{areas.main}</div>
+        <Area name="header" />
+        <div className="grid">
+          <Area name="main" />
+        </div>
       </main>
 
-      <footer className="footer">{areas.footer}</footer>
+      <footer className="footer">
+        <Area name="footer" />
+      </footer>
     </div>
   );
 }
