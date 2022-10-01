@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
-process.env.MONGO_URL = "someTestUrl";
+process.env.ORGASMO_MONGO_URL = "someTestUrl";
 
 import { MongoClient } from "mongodb";
 import mongoProxy from "./mongoProxy";

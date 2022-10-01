@@ -1,11 +1,13 @@
 import mongoProxy from "./mongoProxy";
 import { match } from "path-to-regexp";
 
+const pageConfigsCollectionName = process.env.ORGASMO_MONGO_PAGES_COLLECTION as string ?? 'pageConfigs'
+
 export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
   await mongoProxy.connect();
 
-  const exactMatch = await mongoProxy.pageConfigs
+  const exactMatch = await mongoProxy[pageConfigsCollectionName]
     .find({
       staticPath: resolvedPath,
     })
@@ -16,7 +18,7 @@ export default async function getPageConfig(ctx) {
     return exactMatch.length > 1 ? exactMatch : exactMatch[0];
   }
 
-  const regexps = await mongoProxy.pageConfigs
+  const regexps = await mongoProxy[pageConfigsCollectionName]
     .find({ dynamicPath: { $exists: 1 } })
     .toArray();
 

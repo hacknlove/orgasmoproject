@@ -1,5 +1,9 @@
 # Orgasmo ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
+## Documentation
+
+[Quick Start](https://orgasmo.dev/) 
+
 ## The best UX, the best DX, the best MX (marketeer experience).
 
 Orgasmo's goal is to make it easy for you to improve your users' experience, by giving you the best developer experience, the best marketeer experience, and a complete set of over-the-top features.
