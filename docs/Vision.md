@@ -1,10 +1,4 @@
-# Orgasmo ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
-
-## Documentation
-
-[Quick Start](https://docs.orgasmo.dev/) 
-
-## The best UX, the best DX, the best MX (marketeer experience).
+## Goal.
 
 Orgasmo's goal is to make it easy for you to improve your users' experience, by giving you the best developer experience, the best marketeer experience, and a complete set of over-the-top features.
 
@@ -51,4 +45,3 @@ But that's not all. Orgasmo also has nice characteristics to improve your develo
 - You can adopt it incrementally. This is not a take-it-all-or-leave-it-all framework. Just pick the pieces you need now and use it now, within your current Next.js application.
 - The ability to write and use different drivers for different scenarios, for instance a mocked driver to developing new features or to run tests.
 - A notable reduction of bullshit and boilerplate code.
-
