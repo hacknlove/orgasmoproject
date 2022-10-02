@@ -24,15 +24,16 @@ But because its name matches the pattern `.dynamic.{jsx,tsx}`, orgasmo will cons
 
 ```json
 {
-    "type": "Description",
-    "props": {
-        "text": "Take a look at",
-        "source": "drivers/@orgasmo/json/data/pages/index.json"
-    }
+  "type": "Description",
+  "props": {
+    "text": "Take a look at",
+    "source": "drivers/@orgasmo/json/data/pages/index.json"
+  }
 }
 ```
 
 into this
+
 ```jsx
 <Description text="Take a look at" "source"= "drivers/@orgasmo/json/data/pages/index.json" />
 ```
@@ -43,7 +44,7 @@ To create Dynamic components, you need to follow these 4 rules:
 
 1. The dynamic component needs to live somewhere inside the `/components/` tree.
 2. The file name should end in `.dynamic.{jsx,tsx}`.
-3. The name of the Dynamic component is the rest of the filename, and should be unique. 
+3. The name of the Dynamic component is the rest of the filename, and should be unique.
 4. The Component should be default exported.
 
 ## Area
@@ -81,22 +82,25 @@ export default function Layout() {
 For instance this line `<Area name="header" />` will render all the items of the area header.
 
 This would be the json will look something like
+
 ```json
 {
-    "areas": {
-        "header": {
-            "items": [
-                {
-                    "type": "some type",
-                    "props": {/* the props */}
-                },
-                /* more items */
-            ]
-            /* more area rendering settings */
-        },
-        /* more areas */
-    },
-    /* more page's settings */
+  "areas": {
+    "header": {
+      "items": [
+        {
+          "type": "some type",
+          "props": {
+            /* the props */
+          }
+        }
+        /* more items */
+      ]
+      /* more area rendering settings */
+    }
+    /* more areas */
+  }
+  /* more page's settings */
 }
 ```
 
@@ -104,6 +108,6 @@ The usual place for an `Area` component is the layout of the page, but `Area` co
 
 ---
 
-This is all you need to know to start creating your dynamic frontend side. 
+This is all you need to know to start creating your dynamic frontend side.
 
 Let's not take a look at the [drivers](GettingStarted/Drivers.md)

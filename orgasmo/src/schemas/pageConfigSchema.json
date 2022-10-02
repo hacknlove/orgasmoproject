@@ -38,7 +38,6 @@
         "cssVars": {
           "description": "css variables",
           "type": "object"
-          
         },
         "getCssVars": {
           "description": "Driver method to override the cssVars",

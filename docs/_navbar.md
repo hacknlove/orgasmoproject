@@ -1,4 +1,4 @@
-* Getting started
+- Getting started
 
   - [Next.js plugin](GettingStarted/Next.jsPlugin.md)
   - [Installation](GettingStarted/Installation.md)

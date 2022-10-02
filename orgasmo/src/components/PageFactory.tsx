@@ -35,8 +35,8 @@ export default function PageFactory({
     );
 
     useEffect(() => {
-      setProps(ssrProps)
-    }, [ssrProps])
+      setProps(ssrProps);
+    }, [ssrProps]);
 
     return (
       <AreasContext.Provider

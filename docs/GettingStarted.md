@@ -15,17 +15,15 @@ I'm sorry, but at this early stage I need to prioritize.
 
 ?> The previous warning only affects `create-orgasmo` script. Once it's you can use any package manager you fancy.
 
-
-
 ## Orgasmo
 
 Orgasmo enhances Next.js with **in-data** pages, which are pages that are not defined with js code, but with JSON data, that might be fetched from an API or database, and completed/transformed by some server side methods.
 
 For this we have two building blocks, and a good to have feature:
 
-* Dynamic Components
-* Drivers
-* scss importer
+- Dynamic Components
+- Drivers
+- scss importer
 
 ### Dynamic Components
 
@@ -37,8 +35,6 @@ Just put the file anywhere in the `/components/` tree, name it `Name.dynamic.{js
 
 ?> The Name should be unique among the dynamic components.
 
-
-
 ### Drivers
 
 The drivers are the abstraction and anti-corruption layer that sits between your data sources and orgasmo.
@@ -49,17 +45,17 @@ You can have as many drivers as you like, and choose one or another with the env
 
 Drivers can be:
 
-* External: a npm package, like `@orgasmo/json`
-* Custom: Completely defined in your source code.
-* Overrided: a npm package, overrided by your sorce code.
-* Common: It's not really a driver, is a way to share method accross all the drivers.
+- External: a npm package, like `@orgasmo/json`
+- Custom: Completely defined in your source code.
+- Overrided: a npm package, overrided by your sorce code.
+- Common: It's not really a driver, is a way to share method accross all the drivers.
 
 #### External drivers.
 
 Just install the package, set the variable, and follow any instruction the package might have.
 
+_For instance_
 
-*For instance*
 ```bash
 npm i @orgasmo/mongo
 ORGASMO_DRIVER=@orgasmo/mongo npm run dev
@@ -67,18 +63,18 @@ ORGASMO_DRIVER=@orgasmo/mongo npm run dev
 
 Currently, there are 3 official drivers you can import and use:
 
-* `@orgasmo/json`: it's meant to be use in development and testing.
-* `@orgasmo/mongo`: It fetches the pageConfigs from mongo.
-* `@orgasmo/strapi`: It fetches the pageConfigs from strapi.
+- `@orgasmo/json`: it's meant to be use in development and testing.
+- `@orgasmo/mongo`: It fetches the pageConfigs from mongo.
+- `@orgasmo/strapi`: It fetches the pageConfigs from strapi.
 
 #### Custom driver
 
-Write the driver's methods as the default export of files with the suffix `.export` at the path and name that matches the methods paths inside the driver object. For instance `/drivers/my-driver/page/getPageConfig.export.ts` will define the method `page.getPageConfig` for the driver `my-driver` 
+Write the driver's methods as the default export of files with the suffix `.export` at the path and name that matches the methods paths inside the driver object. For instance `/drivers/my-driver/page/getPageConfig.export.ts` will define the method `page.getPageConfig` for the driver `my-driver`
 
 At least you need to define these two methods, for they are directly used by orgasmo.
 
-* `pages.getPageConfig`: receives a getServerProps context and returns a `pageConfig` or an array of pageConfigs
-* `page.getPageConfigFromId`: receives a `pageId` and returns a `pageConfig`
+- `pages.getPageConfig`: receives a getServerProps context and returns a `pageConfig` or an array of pageConfigs
+- `page.getPageConfigFromId`: receives a `pageId` and returns a `pageConfig`
 
 You can define as many methods as you need, and they will be used dynamicalle as instructed by the pageConfigs.
 
@@ -125,15 +121,17 @@ It also has its advantages and disadvantages, but you don't need to use it if yo
 As you can see if you have created your orgasmo web app using `npm init orgasmo` the `nextConfig` is wrapped with `withOrgasmo`
 
 This starts the orgasmo build tools that creates the files
-* `/driver.js` that exports the aggregated driver object
-* `/Component.js` that exports the proxy component that mounts the dynamic components.
-* `/style.scss` that imports all the `scss` and `css` files 
+
+- `/driver.js` that exports the aggregated driver object
+- `/Component.js` that exports the proxy component that mounts the dynamic components.
+- `/style.scss` that imports all the `scss` and `css` files
 
 ?> in development mode, the orgasmo's build tool will listen for changes on the files to re build those.
 
 You can disable any of those build tools passing with the options parameter
 
-*For instance*
+_For instance_
+
 ```js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -144,20 +142,16 @@ const nextConfig = {
 const withOrgasmo = require("@orgasmo/orgasmo/withOrgasmo")();
 
 module.exports = withOrgasmo(nextConfig, { scss: true });
-
 ```
 
 ?> You could disable all, or even not wrap your `nextConfig` with orgasmo, and the dynamic pages would work, as long as you provide orgasmo with a working driver and a working dynamic components proxy.
-
-
-
 
 In a nutshell your driver needs to default-export an object with all the methods exported in two ways:
 
 - in a tree, like `driver.method.path`
 - by path, like `driver['method.path]`
 
-You must at least define these two methods, *unless your driver is meant to override other one that defines them*.
+You must at least define these two methods, _unless your driver is meant to override other one that defines them_.
 
-* `pages.getPageConfig`: receives a getServerProps context and returns a pageConfig or an array of pageConfigs
-* `page.getPageConfigFromId`: receives a pageId and returns a pageConfig
+- `pages.getPageConfig`: receives a getServerProps context and returns a pageConfig or an array of pageConfigs
+- `page.getPageConfigFromId`: receives a pageId and returns a pageConfig

@@ -39,10 +39,10 @@ For instance, consider the following files estructure.
 └─ [..._o].js
 </pre>
 
-* `/foo` is an **in-code** page rendered by `/pages/foo.js`
-* `/foo/bar` is an **in-code** page rendered by `/pages/foo/bar.js`
-* `/foo/any/other/path` is an **in-code** page redered by `/pages/foo/[..all].js`
-* `/any/other/page` is an **in-data** page rendered by `/pages/[..._o].js` 
+- `/foo` is an **in-code** page rendered by `/pages/foo.js`
+- `/foo/bar` is an **in-code** page rendered by `/pages/foo/bar.js`
+- `/foo/any/other/path` is an **in-code** page redered by `/pages/foo/[..all].js`
+- `/any/other/page` is an **in-data** page rendered by `/pages/[..._o].js`
 
 #### subpath
 
@@ -60,7 +60,6 @@ You will have something like.
 ...
 </pre>
 
-
 ## Data Side
 
 ?> If you are using the official drivers and the official admin panel, you don't need to read this documentation.
@@ -69,8 +68,8 @@ With orgasmo you can define your routes in the data source.
 
 There are two kind of dynamic routes:
 
-* `exactPath`: by string equality
-* `patternPath`: by pattern match *[path-to-regexp](https://github.com/pillarjs/path-to-regexp)* 
+- `exactPath`: by string equality
+- `patternPath`: by pattern match _[path-to-regexp](https://github.com/pillarjs/path-to-regexp)_
 
 When a page is going to be rendered by orgasmo, it tryes first to find an exact match. This exact matching search is fast, because indexing can be used.
 
@@ -86,17 +85,16 @@ It's very likely that different `patternPath`s match the same path, but the `pat
 
 Lexicographical order is used, with some replaces.
 
-* The secuence `/:[^/]+(/` is replaced with the penultimate character.
-* The character `(` is the last character.
-* The secuence `/:[^/]*/` is replaced with the antepenultimate character.
+- The secuence `/:[^/]+(/` is replaced with the penultimate character.
+- The character `(` is the last character.
+- The secuence `/:[^/]*/` is replaced with the antepenultimate character.
 
 This makes the following ordering:
 
-1. exact `/foo/bar/:baz` *second segment is `bar`* 
-2. placeholder `/foo/:bar/:baz` *second segment is anything `:bar`*
-3. named regexp `/foo/:bar(\\d+)/:baz` *second segment is a named regexp  `:bar(\\d+)`*
-4. unnamed regexp `/foo/(\\d+)/:baz` *second segment is an unnamed (not catched) regexp  `(\\d+)`*
-
+1. exact `/foo/bar/:baz` _second segment is `bar`_
+2. placeholder `/foo/:bar/:baz` _second segment is anything `:bar`_
+3. named regexp `/foo/:bar(\\d+)/:baz` _second segment is a named regexp `:bar(\\d+)`_
+4. unnamed regexp `/foo/(\\d+)/:baz` _second segment is an unnamed (not catched) regexp `(\\d+)`_
 
 ### Multiple matching
 
@@ -104,9 +102,8 @@ Multiple matching is used for AB testing, and progressive delivery.
 
 Multiple matching requires the same match, so:
 
-* if a `pageConfig` matches by `exactPath` equality, only other pageConfigs with the same exactPath will be part of the multiple matching. It does not matter whether other `pageConfig`s match by `patternPath`
-* if a `pageConfig` matches by `patternPath`, only pageConfigs with the same `patternPath` will be part of the multiple matching. It does not matter whether other `pageConfig`s have different `patternPath` that might match too.
-
+- if a `pageConfig` matches by `exactPath` equality, only other pageConfigs with the same exactPath will be part of the multiple matching. It does not matter whether other `pageConfig`s match by `patternPath`
+- if a `pageConfig` matches by `patternPath`, only pageConfigs with the same `patternPath` will be part of the multiple matching. It does not matter whether other `pageConfig`s have different `patternPath` that might match too.
 
 #### AB testing
 
@@ -121,4 +118,3 @@ You can use the field `cookie` at the root of the `pageConfig` to set cookies, o
 You can set the field `ratio` to change the probability of the `pageConfig` to be selected
 
 For instance if you have two `pageConfig`s, lets called them `newPageConfig` and `oldPageConfig` for the same path, and you want the `newPageConfig` to be shown only to a 5% of the users, you can set the `newPageConfig`'s ratio to 5 and `oldPageConfig`s ratio to 95
-

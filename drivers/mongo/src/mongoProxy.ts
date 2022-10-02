@@ -1,6 +1,8 @@
 import { MongoClient } from "mongodb";
 
-const mongoURL = process.env.ORGASMO_MONGO_URL as string ?? 'mongodb://localhost:27017/orgasmo';
+const mongoURL =
+  (process.env.ORGASMO_MONGO_URL as string) ??
+  "mongodb://localhost:27017/orgasmo";
 
 const mongo: Record<string, any> = {
   connect: async () => {

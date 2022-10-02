@@ -16,23 +16,22 @@ npm i @orgasmo/json
 You need to wrap your `next.config.js` with `withOrgasmo` to enable the Orgasmo's build tools.
 
 Anything that you can export from `next.config.js` can be wrapped:
-* an js object
-* a function that returns an js object
-* an async function that returns a promise of a js object.
 
-If you need to use several plugins, it should be safe to put `withOrgasmo` at the outter level, because it's not changing anything from the nextConfiguration at all. 
+- an js object
+- a function that returns an js object
+- an async function that returns a promise of a js object.
 
-*For instance*
+If you need to use several plugins, it should be safe to put `withOrgasmo` at the outter level, because it's not changing anything from the nextConfiguration at all.
+
+_For instance_
 
 ```js
 const withOrgasmo = require("orgasmo/withOrgasmo")();
 
 module.exports = withOrgasmo({
-    // nextConfig here
+  // nextConfig here
 });
-
 ```
-
 
 ## Add the catch-all route
 
@@ -67,7 +66,6 @@ import apiFactory from "@orgasmo/orgasmo/api";
 import driver from "../../driver";
 
 export default apiFactory({ driver });
-
 ```
 
 ## Drivers and components
@@ -75,4 +73,3 @@ export default apiFactory({ driver });
 It won't render any **in-data** page until you tell it how to get and render the pageConfigs.
 
 Take a look at the sections [Drivers](drivers.md) and your [Dynamic components](DynamicComponents.md)
-

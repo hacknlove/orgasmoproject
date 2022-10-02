@@ -1,9 +1,10 @@
 # Orgasmo ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
 A Next.js plugin that gives you the best UX, the best DX and the best MX (marketeer experience).
+
 ## Documentation
 
-[Quick Start](https://docs.orgasmo.dev/) 
+[Quick Start](https://docs.orgasmo.dev/)
 
 ## Why using orgasmo.
 
@@ -19,7 +20,7 @@ If you choose a framework, like Next.js, Most of the non functional changes, eve
 
 **Till now.**
 
-With oragasmo you can make the functional changes *(FI. a new behavior for a component)* in code , and the non-functional changes *(FI. a new page in a new route re-using the available components)* in data.
+With oragasmo you can make the functional changes _(FI. a new behavior for a component)_ in code , and the non-functional changes _(FI. a new page in a new route re-using the available components)_ in data.
 
 ## Vision.
 
@@ -48,4 +49,3 @@ But that's not all. Orgasmo also has nice characteristics to improve your develo
 - You can adopt it incrementally. This is not a take-it-all-or-leave-it-all framework. Just pick the pieces you need now and use it now, within your current Next.js application.
 - The ability to write and use different drivers for different scenarios, for instance a mocked driver to developing new features or to run tests.
 - A notable reduction of bullshit and boilerplate code.
-
