@@ -25,6 +25,9 @@ export default function useItems({
 }) {
   const [items, setItems] = useState<any[]>(itemsProp);
   const [src, setSrc] = useState(srcProps);
+  useEffect(() => {
+    setSrc(srcProps)
+  }, [srcProps])
   const [noMore, setNoMore] = useState(false);
   const [overTheTopItems, setOverTheTopItems] = useState([] as number[]);
   const [underTheBottomItems, setUnderTheBottomItems] = useState(

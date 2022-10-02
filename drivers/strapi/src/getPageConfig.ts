@@ -6,7 +6,7 @@ export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
 
   const exactMatch = await strapiFetch(
-    `page-configs?filters[staticPath][$eq]=${resolvedPath}`
+    `page-configs?filters[exactPath][$eq]=${resolvedPath}`
   );
 
   if (exactMatch.error) {
@@ -30,7 +30,7 @@ export default async function getPageConfig(ctx) {
   }
 
   const dynamicPages = await strapiFetch(
-    `page-configs?filters[dynamicPath][$notNull]=true&pagination[pageSize]=100`
+    `page-configs?filters[patternPath][$notNull]=true&pagination[pageSize]=100`
   );
 
   if (dynamicPages.error) {
@@ -44,12 +44,14 @@ export default async function getPageConfig(ctx) {
   }
 
   dynamicPages.data.sort((a, b) => {
-    const lastA = a.attributes.dynamicPath
-      .replace(/\/:/g, "/￾") // unicode FFFE before last character
-      .replace(/\/\(/g, "/￿"); // unicode FFFF last character
-    const lastB = b.attributes.dynamicPath
-      .replace(/\/:/g, "/￾") // unicode FFFE before last character
-      .replace(/\/\(/g, "/￿"); // unicode FFFF last character
+    const lastA = a.attributes.patternPath
+      .replace(/:[^/]+\(/g, "\uFFFE")
+      .replace(/\(/g, "\uFFFF")
+      .replace(/:[^/]*/, "\uFFFD");
+    const lastB = b.attributes.patternPath
+      .replace(/:[^/]+\(/g, "\uFFFE")
+      .replace(/\(/g, "\uFFFF")
+      .replace(/:[^/]*/, "\uFFFD");
 
     return lastA < lastB ? -1 : 1;
   });
@@ -58,7 +60,7 @@ export default async function getPageConfig(ctx) {
   const pageConfigs: any[] = [];
 
   for (const pageConfig of dynamicPages.data) {
-    if (matchedDynamicPath === pageConfig.attributes.dynamicPath) {
+    if (matchedDynamicPath === pageConfig.attributes.patternPath) {
       pageConfigs.push(pageConfig);
       continue;
     }
@@ -66,10 +68,10 @@ export default async function getPageConfig(ctx) {
       break;
     }
 
-    const matched = match(pageConfig.attributes.dynamicPath)(resolvedPath);
+    const matched = match(pageConfig.attributes.patternPath)(resolvedPath);
     if (matched) {
       ctx.parsedPath = matched.params;
-      matchedDynamicPath = pageConfig.attributes.dynamicPath;
+      matchedDynamicPath = pageConfig.attributes.patternPath;
       pageConfigs.push(pageConfig);
     }
   }

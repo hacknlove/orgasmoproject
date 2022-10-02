@@ -83,7 +83,7 @@ describe("common", () => {
     );
 
     readJson.mockResolvedValue({
-      dynamicPath: "/foo/:bar",
+      patternPath: "/foo/:bar",
       pageId: "someId",
     });
 
@@ -112,7 +112,7 @@ describe("staticPaths", () => {
 
   it("sets the page by pageId", async () => {
     readJson.mockResolvedValue({
-      staticPath: "/foo/bar",
+      exactPath: "/foo/bar",
       pageId: "someOtherId",
     });
 
@@ -121,21 +121,21 @@ describe("staticPaths", () => {
     expect(ids.has("someOtherId")).toBe(true);
   });
 
-  it("adds the pageConfig as an array if there is another pageConfig for that staticPath", async () => {
+  it("adds the pageConfig as an array if there is another pageConfig for that exactPath", async () => {
     glob.mockImplementation((path, cb) =>
       cb(null, ["some/file/path", "some/otherfile/path", "another/file/path"])
     );
 
     readJson.mockResolvedValueOnce({
-      staticPath: "/foo/bar",
+      exactPath: "/foo/bar",
       pageId: "1",
     });
     readJson.mockResolvedValueOnce({
-      staticPath: "/foo/bar",
+      exactPath: "/foo/bar",
       pageId: "2",
     });
     readJson.mockResolvedValueOnce({
-      staticPath: "/foo/bar",
+      exactPath: "/foo/bar",
       pageId: "3",
     });
 
@@ -143,15 +143,15 @@ describe("staticPaths", () => {
 
     expect(staticPaths.get("/foo/bar")).toEqual([
       {
-        staticPath: "/foo/bar",
+        exactPath: "/foo/bar",
         pageId: "1",
       },
       {
-        staticPath: "/foo/bar",
+        exactPath: "/foo/bar",
         pageId: "2",
       },
       {
-        staticPath: "/foo/bar",
+        exactPath: "/foo/bar",
         pageId: "3",
       },
     ]);
@@ -168,7 +168,7 @@ describe("dynamicPaths", () => {
 
   it("sets the page by pageId", async () => {
     readJson.mockResolvedValue({
-      dynamicPath: "/foo/:bar",
+      patternPath: "/foo/:bar",
       pageId: "someOtherId",
     });
 
@@ -177,21 +177,21 @@ describe("dynamicPaths", () => {
     expect(ids.has("someOtherId")).toBe(true);
   });
 
-  it("adds the pageConfig as an array if there is another pageConfig for that dynamicPath", async () => {
+  it("adds the pageConfig as an array if there is another pageConfig for that patternPath", async () => {
     glob.mockImplementation((path, cb) =>
       cb(null, ["some/file/path", "some/otherfile/path", "another/file/path"])
     );
 
     readJson.mockResolvedValueOnce({
-      dynamicPath: "/foo/:bar",
+      patternPath: "/foo/:bar",
       pageId: "1",
     });
     readJson.mockResolvedValueOnce({
-      dynamicPath: "/foo/:bar",
+      patternPath: "/foo/:bar",
       pageId: "2",
     });
     readJson.mockResolvedValueOnce({
-      dynamicPath: "/foo/:bar",
+      patternPath: "/foo/:bar",
       pageId: "3",
     });
 
@@ -199,15 +199,15 @@ describe("dynamicPaths", () => {
 
     expect(dynamicPaths.get("/foo/:bar").pageConfig).toEqual([
       {
-        dynamicPath: "/foo/:bar",
+        patternPath: "/foo/:bar",
         pageId: "1",
       },
       {
-        dynamicPath: "/foo/:bar",
+        patternPath: "/foo/:bar",
         pageId: "2",
       },
       {
-        dynamicPath: "/foo/:bar",
+        patternPath: "/foo/:bar",
         pageId: "3",
       },
     ]);
@@ -219,17 +219,18 @@ describe("dynamicPaths", () => {
     );
 
     readJson.mockResolvedValueOnce({
-      dynamicPath: "/:foo/:second",
+      patternPath: "/:foo/:second",
       pageId: "2",
     });
     readJson.mockResolvedValueOnce({
-      dynamicPath: "/:foo/(third)",
+      patternPath: "/:foo/(third)",
       pageId: "3",
     });
     readJson.mockResolvedValueOnce({
-      dynamicPath: "/foo/:first",
+      patternPath: "/foo/:first",
       pageId: "1",
     });
+
     await parseDirectory("someDirectory");
 
     expect(Array.from(dynamicPaths.keys())).toEqual([

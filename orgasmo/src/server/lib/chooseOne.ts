@@ -16,7 +16,7 @@ export default function choseOne({ array, ctx }) {
 
   if (array[0].ratio !== undefined) {
     const weight =
-      staticRandom * array.reduce((total, item) => total + item.ratio, 0);
+      staticRandom * array.reduce((total, item) => total + (item.ratio ?? 0), 0);
 
     let sum = 0;
     for (let i = 0; i < array.length; i++) {

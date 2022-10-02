@@ -1,6 +1,6 @@
 {
   "pageId": "both",
-  "staticPath": "/both",
+  "exactPath": "/both",
   "areas": {
     "header": {
       "items": [

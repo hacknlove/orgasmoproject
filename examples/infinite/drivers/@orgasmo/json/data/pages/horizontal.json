@@ -1,6 +1,6 @@
 {
   "pageId": "horizontal",
-  "staticPath": "/horizontal",
+  "exactPath": "/horizontal",
   "areas": {
     "header": {
       "items": [

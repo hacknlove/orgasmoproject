@@ -9,7 +9,7 @@ export default async function getPageConfig(ctx) {
 
   const exactMatch = await mongoProxy[pageConfigsCollectionName]
     .find({
-      staticPath: resolvedPath,
+      exactPath: resolvedPath,
     })
     .toArray();
 
@@ -19,16 +19,18 @@ export default async function getPageConfig(ctx) {
   }
 
   const regexps = await mongoProxy[pageConfigsCollectionName]
-    .find({ dynamicPath: { $exists: 1 } })
+    .find({ patternPath: { $exists: 1 } })
     .toArray();
 
   regexps.sort((a, b) => {
-    const lastA = a.dynamicPath
-      .replace(/\/:/g, "/￾") // unicode FFFE before last character
-      .replace(/\/\(/g, "/￿"); // unicode FFFF last character
-    const lastB = b.dynamicPath
-      .replace(/\/:/g, "/￾") // unicode FFFE before last character
-      .replace(/\/\(/g, "/￿"); // unicode FFFF last character
+    const lastA = a.patternPath
+      .replace(/:[^/]+\(/g, "\uFFFE")
+      .replace(/\(/g, "\uFFFF")
+      .replace(/:[^/]*/, "\uFFFD");
+    const lastB = b.patternPath
+      .replace(/:[^/]+\(/g, "\uFFFE")
+      .replace(/\(/g, "\uFFFF")
+      .replace(/:[^/]*/, "\uFFFD");
 
     return lastA < lastB ? -1 : 1;
   });
@@ -36,17 +38,17 @@ export default async function getPageConfig(ctx) {
   let matchedDynamicPath;
   const pageConfigs: any[] = [];
   for (const pageConfig of regexps) {
-    if (matchedDynamicPath === pageConfig.dynamicPath) {
+    if (matchedDynamicPath === pageConfig.patternPath) {
       pageConfigs.push(pageConfig);
       continue;
     }
     if (matchedDynamicPath) {
       break;
     }
-    const matched = match(pageConfig.dynamicPath)(resolvedPath);
+    const matched = match(pageConfig.patternPath)(resolvedPath);
     if (matched) {
       ctx.parsedPath = matched.params;
-      matchedDynamicPath = pageConfig.dynamicPath;
+      matchedDynamicPath = pageConfig.patternPath;
       pageConfigs.push(pageConfig);
     }
   }

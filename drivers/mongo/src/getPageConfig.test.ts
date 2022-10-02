@@ -30,41 +30,41 @@ describe("getPageConfig", () => {
   it("returns undefined if no page matches", async () => {
     expect(await getPageConfig(ctx)).toBeUndefined();
   });
-  it("returns the pageConfig if the resolvedPath is a staticPath", async () => {
+  it("returns the pageConfig if the resolvedPath is a exactPath", async () => {
     findToArray.mockReturnValue(["someStaticPathPageConfig"]);
     expect(await getPageConfig(ctx)).toBe("someStaticPathPageConfig");
   });
-  it("returns an array if multiple pageConfiges match the staticPath", async () => {
+  it("returns an array if multiple pageConfiges match the exactPath", async () => {
     findToArray.mockReturnValue(["someStaticPathPageConfig", "someOther"]);
     expect(await getPageConfig(ctx)).toEqual([
       "someStaticPathPageConfig",
       "someOther",
     ]);
   });
-  it("returns the pageConfig if the resolvedPath is a dynamicPath", async () => {
+  it("returns the pageConfig if the resolvedPath is a patternPath", async () => {
     findToArray.mockReturnValueOnce([]);
     findToArray.mockReturnValue([
-      { dynamicPath: "/not/:this" },
-      { dynamicPath: "/foo/:bar" },
-      { dynamicPath: "/foo/fuu" },
-      { dynamicPath: "/:foo/fuu" },
+      { patternPath: "/not/:this" },
+      { patternPath: "/foo/:bar" },
+      { patternPath: "/foo/fuu" },
+      { patternPath: "/:foo/fuu" },
     ]);
-    expect(await getPageConfig(ctx)).toEqual({ dynamicPath: "/foo/:bar" });
+    expect(await getPageConfig(ctx)).toEqual({ patternPath: "/foo/:bar" });
   });
   it("returns an array if there are multiple matches for the same pattern", async () => {
     findToArray.mockReturnValueOnce([]);
     findToArray.mockReturnValue([
-      { dynamicPath: "/not/:this" },
-      { dynamicPath: "/foo/:bar", foo: "foo" },
-      { dynamicPath: "/foo/fuu" },
-      { dynamicPath: "/:foo/fuu" },
-      { dynamicPath: "/foo/:bar", bar: "bar" },
-      { dynamicPath: "/foo/:bar", buz: "buz" },
+      { patternPath: "/not/:this" },
+      { patternPath: "/foo/:bar", foo: "foo" },
+      { patternPath: "/foo/fuu" },
+      { patternPath: "/:foo/fuu" },
+      { patternPath: "/foo/:bar", bar: "bar" },
+      { patternPath: "/foo/:bar", buz: "buz" },
     ]);
     expect(await getPageConfig(ctx)).toEqual([
-      { dynamicPath: "/foo/:bar", foo: "foo" },
-      { dynamicPath: "/foo/:bar", bar: "bar" },
-      { dynamicPath: "/foo/:bar", buz: "buz" },
+      { patternPath: "/foo/:bar", foo: "foo" },
+      { patternPath: "/foo/:bar", bar: "bar" },
+      { patternPath: "/foo/:bar", buz: "buz" },
     ]);
   });
 });

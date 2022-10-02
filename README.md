@@ -1,35 +1,32 @@
 # Orgasmo ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
+A Next.js plugin that gives you the best UX, the best DX and the best MX (marketeer experience).
 ## Documentation
 
 [Quick Start](https://docs.orgasmo.dev/) 
 
-## The best UX, the best DX, the best MX (marketeer experience).
+## Why using orgasmo.
 
-Orgasmo's goal is to make it easy for you to improve your users' experience, by giving you the best developer experience, the best marketeer experience, and a complete set of over-the-top features.
-
-## The Context.
-
-Writing code is expensive and slow. You can improve its cost and speed, but it will never be as cheap and fast as editing data.
-
-Any web application in any highly competitive market requires increasingly shorter iteration cycles to run experiments, collect data, and thus optimize user acquisition, retention and of course, revenue.
-
-But it also requires to have very specific and unique features that set it apart from the competition.
+Any web application in any highly competitive market requires increasingly shorter iteration cycles to run experiments, collect data, and thus optimize user acquisition, retention and of course, revenue. But it also requires to have very specific and unique features that set it apart from the competition.
 
 Summarizing, a web application needs to have very specialized functionalities and to be easily and quickly modifiable.
 
-But it's very hard to have both things.
+But it's very hard to have both things, because either you use a CMS to configure an easily and quickly modifiable website, or you use a framweork to tailor a custom webapp.
 
-Either you use a CMS to configure an easily and quickly modifiable website, or you use a framweork to tailor a custom webapp.
+If you choose a CMS, like workpress, it will be much harder for your developers to add the kind of specialization you might need.
+
+If you choose a framework, like Next.js, Most of the non functional changes, event the simplest ones, will require changin the code and redeploying, and the development cycle is expensive and slow. You can improve the workflows and tools to decrease the cost and increase the speed, but it will never be as cheap and fast as editing data in and administration panel.
 
 **Till now.**
 
-## The vision.
+With oragasmo you can make the functional changes *(FI. a new behavior for a component)* in code , and the non-functional changes *(FI. a new page in a new route re-using the available components)* in data.
+
+## Vision.
 
 - **Code is for: Components, Drivers and CSS rules.**
 - **Data is for: Content, Structure and CSS variables.**
 
-### The Solution.
+## Features.
 
 Orgasmo is a plugin for Next.js that makes this vision possible.
 

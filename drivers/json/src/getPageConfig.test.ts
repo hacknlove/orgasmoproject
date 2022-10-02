@@ -22,12 +22,12 @@ describe("getPageConfig", () => {
 
     expect(await getPageConfig(ctx)).toBeUndefined();
   });
-  it("returns the pageConfig if the path matches a staticPath", async () => {
+  it("returns the pageConfig if the path matches a exactPath", async () => {
     staticPaths.set("/foo/bar", "somePageConfig");
 
     expect(await getPageConfig(ctx)).toBe("somePageConfig");
   });
-  it("returns the pageConfig if the path matches a dynamicPath", async () => {
+  it("returns the pageConfig if the path matches a patternPath", async () => {
     dynamicPaths.set("/foo/:bar", {
       match: () => true,
       pageConfig: "somePageConfig",

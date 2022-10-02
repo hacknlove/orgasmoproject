@@ -14,10 +14,10 @@
     "pageId": {
       "type": "uid"
     },
-    "staticPath": {
+    "exactPath": {
       "type": "string"
     },
-    "dynamicPath": {
+    "patternPath": {
       "type": "string"
     },
     "layout": {

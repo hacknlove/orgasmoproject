@@ -1,6 +1,6 @@
 {
   "pageId": "/",
-  "staticPath": "/",
+  "exactPath": "/",
   "layout": {
     "name": "Layout",
     "meta": {

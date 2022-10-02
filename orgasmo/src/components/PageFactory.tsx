@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import { OrgasmoPage, PageFactoryParameters } from "~/types";
 import DefaultLayout from "./DefaultLayout/DefaultLayout";
@@ -33,6 +33,10 @@ export default function PageFactory({
         })),
       [setProps]
     );
+
+    useEffect(() => {
+      setProps(ssrProps)
+    }, [ssrProps])
 
     return (
       <AreasContext.Provider

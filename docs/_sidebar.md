@@ -3,7 +3,8 @@
   - [Installation](GettingStarted/Installation.md)
   - [Dynamic Components](GettingStarted/DynamicComponents.md)
   - [Drivers](GettingStarted/Drivers.md)
-
+  - [Dynamic Routes](GettingStarted/DynamicRoutes.md)
+  - [pageConfig](GettingStarted/PageConfig.md)
 
 <!--
 - [About orgasmo](Vision.md)

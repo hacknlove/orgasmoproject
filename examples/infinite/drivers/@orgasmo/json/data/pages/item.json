@@ -1,6 +1,6 @@
 {
   "pageId": "item",
-  "dynamicPath": "/item/:string/:number",
+  "patternPath": "/item/:string/:number",
   "areas": {
     "header": {
       "items": [

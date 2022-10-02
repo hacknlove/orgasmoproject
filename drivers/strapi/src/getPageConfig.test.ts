@@ -49,7 +49,7 @@ describe("getPageConfig", () => {
     });
     expect(mapStrapiToOrgasmo).not.toBeCalled();
   });
-  it("returns an array if multiple pageConfis match the staticPath", async () => {
+  it("returns an array if multiple pageConfis match the exactPath", async () => {
     strapiFetch.mockResolvedValue({
       data: ["someStaticPathPageConfig", "someOther"],
     });
@@ -58,37 +58,37 @@ describe("getPageConfig", () => {
       "someOther",
     ]);
   });
-  it("returns an array if multiple pageConfis match the staticPath", async () => {
+  it("returns an array if multiple pageConfis match the exactPath", async () => {
     strapiFetch.mockReturnValueOnce({ data: [] });
 
     strapiFetch.mockResolvedValue({
       data: [
-        { attributes: { dynamicPath: "/not/:this" } },
-        { attributes: { dynamicPath: "/foo/:bar" } },
-        { attributes: { dynamicPath: "/foo/fuu" } },
-        { attributes: { dynamicPath: "/:foo/fuu" } },
+        { attributes: { patternPath: "/not/:this" } },
+        { attributes: { patternPath: "/foo/:bar" } },
+        { attributes: { patternPath: "/foo/fuu" } },
+        { attributes: { patternPath: "/:foo/fuu" } },
       ],
     });
     expect(await getPageConfig(ctx)).toEqual({
-      attributes: { dynamicPath: "/foo/:bar" },
+      attributes: { patternPath: "/foo/:bar" },
     });
   });
   it("returns an array if there are multiple matches for the same pattern", async () => {
     strapiFetch.mockReturnValueOnce({ data: [] });
     strapiFetch.mockReturnValue({
       data: [
-        { attributes: { dynamicPath: "/not/:this" } },
-        { attributes: { dynamicPath: "/foo/:bar", foo: "foo" } },
-        { attributes: { dynamicPath: "/foo/fuu" } },
-        { attributes: { dynamicPath: "/:foo/fuu" } },
-        { attributes: { dynamicPath: "/foo/:bar", bar: "bar" } },
-        { attributes: { dynamicPath: "/foo/:bar", buz: "buz" } },
+        { attributes: { patternPath: "/not/:this" } },
+        { attributes: { patternPath: "/foo/:bar", foo: "foo" } },
+        { attributes: { patternPath: "/foo/fuu" } },
+        { attributes: { patternPath: "/:foo/fuu" } },
+        { attributes: { patternPath: "/foo/:bar", bar: "bar" } },
+        { attributes: { patternPath: "/foo/:bar", buz: "buz" } },
       ],
     });
     expect(await getPageConfig(ctx)).toEqual([
-      { attributes: { dynamicPath: "/foo/:bar", foo: "foo" } },
-      { attributes: { dynamicPath: "/foo/:bar", bar: "bar" } },
-      { attributes: { dynamicPath: "/foo/:bar", buz: "buz" } },
+      { attributes: { patternPath: "/foo/:bar", foo: "foo" } },
+      { attributes: { patternPath: "/foo/:bar", bar: "bar" } },
+      { attributes: { patternPath: "/foo/:bar", buz: "buz" } },
     ]);
   });
   it("emits and error if the endpoint for dynamicPaths errors", async () => {

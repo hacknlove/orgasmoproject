@@ -59,12 +59,12 @@ export default async function parseDirectory(pathToJsonDirectory) {
     let bucket;
     let path;
 
-    if (pageConfig.staticPath) {
+    if (pageConfig.exactPath) {
       bucket = tempStaticPaths;
-      path = pageConfig.staticPath;
+      path = pageConfig.exactPath;
     } else {
       bucket = tempDynamicPaths;
-      path = pageConfig.dynamicPath;
+      path = pageConfig.patternPath;
     }
 
     ids.set(pageConfig.pageId, pageConfig);
@@ -89,11 +89,13 @@ export default async function parseDirectory(pathToJsonDirectory) {
 
   sortedDynamicPaths.sort((a, b) => {
     const lastA = a
-      .replace(/\/:/g, "/￾") // unicode FFFE before last character
-      .replace(/\/\(/g, "/￿"); // unicode FFFF last character
+      .replace(/:[^/]+\(/g, "\uFFFE")
+      .replace(/\(/g, "\uFFFF")
+      .replace(/:[^/]*/, "\uFFFD");
     const lastB = b
-      .replace(/\/:/g, "/￾") // unicode FFFE before last character
-      .replace(/\/\(/g, "/￿"); // unicode FFFF last character
+      .replace(/:[^/]+\(/g, "\uFFFE")
+      .replace(/\(/g, "\uFFFF")
+      .replace(/:[^/]*/, "\uFFFD");
 
     return lastA < lastB ? -1 : 1;
   });

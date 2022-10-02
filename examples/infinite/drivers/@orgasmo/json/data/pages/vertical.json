@@ -1,6 +1,6 @@
 {
   "pageId": "vertical",
-  "staticPath": "/vertical",
+  "exactPath": "/vertical",
   "areas": {
     "header": {
       "items": [

@@ -40,7 +40,7 @@ More info: [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo)
 
 This driver gets the pageConfigs from a strapi server using the template `@orgasmo/strapi-template`
 
-Use the environmental variables `STRAPI_API_URL` and `STRAPI_API_TOKEN` to set the strapi url and the strappi access token.
+Use the environmental variables `STRAPI_API_URL` and `STRAPI_API_TOKEN` to set the strapi url and the strapi access token.
 
 More info: [`@orgasmo/strapi`](https://www.npmjs.com/package/@orgasmo/strapi)
 

@@ -5,8 +5,9 @@ nextjs plugin that adds in-data full dynamic pages.
 ## Quick Start
 
 ```bash
-npm init orgasmp
+npm init orgasmo your-new-site-name
 ```
 
-- Add [dynamic components](/create-orgasmo/empty/components)
-- edit your [drivers](/create-orgasmo/empty/drivers)
+## Documentation
+
+[docs.orgasmo.dev](https://docs.orgasmo.dev)

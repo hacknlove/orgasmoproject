@@ -7,13 +7,13 @@
     },
     {
       "v": { "$numberInt": "2" },
-      "key": { "staticPath": { "$numberInt": "1" } },
+      "key": { "exactPath": { "$numberInt": "1" } },
       "name": "staticPath_1",
       "sparse": true
     },
     {
       "v": { "$numberInt": "2" },
-      "key": { "dynamicPath": { "$numberInt": "1" } },
+      "key": { "patternPath": { "$numberInt": "1" } },
       "name": "dynamicPath_1",
       "sparse": true
     },
