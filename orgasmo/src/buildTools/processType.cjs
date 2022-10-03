@@ -10,7 +10,7 @@ function processType({
   const config = require(`./${type}/config.cjs`);
 
   if (!isEnabled) {
-    console.log(`Automatic ${config.filename} generation is disabled`);
+    console.info(`Automatic ${config.filename} generation is disabled`);
     return;
   }
 

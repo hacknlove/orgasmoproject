@@ -60,13 +60,13 @@ async function main() {
       continue;
     }
 
-    console.log("Publishing", workspacePackage.name);
+    console.info("Publishing", workspacePackage.name);
     await execPromise("npm publish --access public", {
       cwd: join(process.cwd(), workspace),
     });
   }
 
-  console.log("commit and tag");
+  console.info("commit and tag");
   await execPromise("npm i --package-lock-only");
 
   await execPromise(`git commit -am ${pack.version}`);

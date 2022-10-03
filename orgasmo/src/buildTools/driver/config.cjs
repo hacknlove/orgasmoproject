@@ -157,7 +157,7 @@ function refresh() {
   watcher.on("unlink", waitandupdate);
   watcher.on("change", waitandupdate);
 
-  console.log("Watching './drivers/**/*' to trigger refresh");
+  console.info("Watching './drivers/**/*' to trigger refresh");
 }
 
 exports.fileFromImports = fileFromImports;

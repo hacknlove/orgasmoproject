@@ -9,7 +9,7 @@ async function main() {
 
   if (!path.match(/^[a-z0-9-_]{1,214}$/)) {
     console.error("Error: Package name not valid.");
-    console.log(
+    console.info(
       "see: https://docs.npmjs.com/cli/v8/configuring-npm/package-json#name"
     );
     process.exit(1);
@@ -18,7 +18,7 @@ async function main() {
   if (!path) {
     console.error("Error: Parameter directory missing.");
 
-    console.log("npm init orgasmo directory");
+    console.info("npm init orgasmo directory");
     process.exit(1);
   }
 
@@ -28,11 +28,11 @@ async function main() {
 
   if (targetStat) {
     console.error("Error: Directory exists");
-    console.log("Try with a new directory name");
+    console.info("Try with a new directory name");
     process.exit(1);
   }
 
-  console.log("Scaffolding:");
+  console.info("Scaffolding:");
   await fs.copy(join(__dirname, "empty"), target);
 
   const packagePath = join(target, "package.json");
@@ -40,14 +40,14 @@ async function main() {
   package.name = path;
   fs.writeJSONSync(packagePath, package, { spaces: 4 });
 
-  console.log("Installing dependencies");
+  console.info("Installing dependencies");
   process.chdir(target);
 
   child_process.execSync("npm i", { stdio: "inherit" });
 
-  console.log("Done!\n\n");
+  console.info("Done!\n\n");
 
-  console.log(`run:\n\ncd ${path}\nnpm run dev\n`);
+  console.info(`run:\n\ncd ${path}\nnpm run dev\n`);
 }
 
 main();

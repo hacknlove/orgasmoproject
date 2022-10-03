@@ -16,11 +16,11 @@ async function importAll(
   const string = fileFromImports(imports, externalPackage);
 
   await writeFile(filename, string).catch(console.error);
-  console.log(filename, "updated");
+  console.info(filename, "updated");
 }
 
 function watchAll(config, externalPackage) {
-  console.log("Watching", config.globPath, "to generate", config.filename);
+  console.info("Watching", config.globPath, "to generate", config.filename);
   let updating;
   async function waitandupdate() {
     await updating;
