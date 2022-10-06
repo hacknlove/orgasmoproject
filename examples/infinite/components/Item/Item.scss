@@ -1,10 +1,11 @@
+
 .Item {
   position: relative;
   width: 200px;
   height: 200px;
-  margin: 5px;
+  margin: var(--margin, 5px);
   background: black;
-  border: 5px solid rgba(40, 106, 106);
+  border: 5px solid var(--border-color, rgba(40, 106, 106));
   box-shadow: 0px 6px 10px rgba(40, 106, 106, 0.2),
     0px -6px 10px rgba(40, 106, 106, 0.2), 6px 0px 10px rgba(40, 106, 106, 0.2),
     -6px 0px 10px rgba(40, 106, 106, 0.2);
@@ -32,16 +33,17 @@
 
 .fullWidth {
   overflow: hidden;
+  margin: 0 auto;
   border: 5px solid rgba(40, 106, 106);
-
+  text-align: center;
   .Item {
     pointer-events: none;
-    --viewWidth: 100vw;
-    width: 100vw;
-    height: 100vw;
+    --viewWidth: calc(100vmin - 350px);
+    width: calc(100vmin - 350px);
+    height: calc(100vmin - 350px);
     scale: 2.5;
     & > div > span {
-      font-size: 100vw;
+      font-size: calc(100vmin - 350px);
     }
   }
 }
