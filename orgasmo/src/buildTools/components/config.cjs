@@ -1,7 +1,7 @@
 const regexp =
   /(?<from>.*\b(?<filename>[A-Z][A-Za-z0-9]*)\.dynamic\.(.{2,3}))$/;
 const globPath = "./**/*.dynamic.{jsx,tsx,js,ts,cjs,mjs}";
-const filename = "./Components.jsx";
+const filename = "./DComponent.jsx";
 
 function fileFromImports(imports, externalPackage) {
   let string = `/**
@@ -31,14 +31,22 @@ function fileFromImports(imports, externalPackage) {
     string = `${string}import external from ${externalPackage}\n\n`;
   }
 
-  for (const { filename, from } of imports) {
-    string = `${string}\nconst ${filename} = dynamic(() => import('${from}'), { suspense: true });`;
+  string = `${string}\nexport const Components = {`
+
+  if (externalPackage) {
+    string = `${string}\n  ...external.Components,`
   }
 
-  string = `${string}\n\nexport default function DynamicComponent ({ type, props }) {\nswitch (type) {`;
+
+  for (const { filename, from } of imports) {
+    string = `${string}\n  ${filename}: dynamic(() => import('${from}'), { suspense: true }),`;
+  }
+  string = `${string}\n}`
+
+  string = `${string}\n\nexport default function DComponent ({ type, props }) {\nswitch (type) {`;
 
   for (const { filename } of imports) {
-    string = `${string}\n  case '${filename}':\n    return <React.Suspense fallback={null}><${filename} {...props} /></React.Suspense>`;
+    string = `${string}\n  case '${filename}':\n    return <React.Suspense fallback={null}><Components.${filename} {...props} /></React.Suspense>`;
   }
 
   string = externalPackage

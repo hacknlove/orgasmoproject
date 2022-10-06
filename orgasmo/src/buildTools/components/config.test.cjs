@@ -68,7 +68,7 @@ import dynamic from 'next/dynamic';
 const Foo = dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true });
 const Bar = dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true });
 
-export default function DynamicComponent ({ type, props }) {
+export default function DComponent ({ type, props }) {
 switch (type) {
   case 'Foo':
     return <React.Suspense fallback={null}><Foo {...props} /></React.Suspense>
@@ -117,7 +117,7 @@ import external from foo-externalPackage
 const Foo = dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true });
 const Bar = dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true });
 
-export default function DynamicComponent ({ type, props }) {
+export default function DComponent ({ type, props }) {
 switch (type) {
   case 'Foo':
     return <React.Suspense fallback={null}><Foo {...props} /></React.Suspense>

@@ -7,10 +7,10 @@ export interface FactoryParameters {
 
 export type Component = { (any): JSX.Element };
 
-export type Components = { (props: RowProps): JSX.Element };
+export type DComponent = { (props: RowProps): JSX.Element };
 
 export interface PageFactoryParameters {
-  Components: Components;
+  DComponent: DComponent;
 }
 
 export interface PageParameters {
@@ -36,7 +36,7 @@ export interface DynamicProps {
   items: RowProps[];
   mode: "bubble" | "grow";
   threshold: number;
-  Components: Components;
+  DComponent: DComponent;
 }
 
 export interface ErrorObject {
@@ -56,5 +56,5 @@ export interface SliderProps extends Record<string, any> {
 
 export interface StaticProps {
   items: RowProps[];
-  Components: Components;
+  DComponent: DComponent;
 }

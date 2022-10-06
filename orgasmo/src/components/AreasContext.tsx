@@ -1,9 +1,9 @@
 import { createContext } from "react";
 
-import type { Components } from "../types";
+import type { DComponent } from "../types";
 
 type AreaContext = {
-  Components: Components;
+  DComponent: DComponent;
   areas: Record<string, any>;
   layout: Record<string, any>;
   setLayout: { (layout: Record<string, any>): void };

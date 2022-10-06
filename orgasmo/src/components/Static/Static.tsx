@@ -2,7 +2,7 @@ import { StaticProps } from "../../types";
 
 export default function Static({
   items,
-  Components,
+  DComponent,
 }: StaticProps): JSX.Element {
   return (
     <>
@@ -10,7 +10,7 @@ export default function Static({
         items.map(
           (props, i) =>
             props && (
-              <Components key={i} type={props.type} props={props.props} />
+              <DComponent key={i} type={props.type} props={props.props} />
             )
         )}
     </>
