@@ -1,6 +1,12 @@
 {
   "pageId": "/",
   "exactPath": "/",
+  "layout": {
+    "cssVars": {
+      "margin": "5px",
+      "background-color": "#fff"
+    }
+  },
   "areas": {
     "header": {
       "items": [
