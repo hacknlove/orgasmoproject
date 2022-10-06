@@ -6,7 +6,7 @@ export default function Dynamic({
   items: itemsProp,
   mode,
   threshold,
-  Components,
+  DComponent,
 }: DynamicProps) {
   const { items, ref, overTheTop, keyOffset, underTheBottom } = useItems({
     src,
@@ -22,7 +22,7 @@ export default function Dynamic({
         {items.map(
           (props: any, i) =>
             props && (
-              <Components
+              <DComponent
                 key={i + keyOffset}
                 type={props.type}
                 props={props.props}

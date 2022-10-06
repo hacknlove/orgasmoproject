@@ -13,11 +13,11 @@ describe("Static", () => {
       { type: "Baz", props: { className: "test-Baz" } },
     ];
 
-    const Components = ({ type, props }) => (
+    const DComponent = ({ type, props }) => (
       <div className={props.className}>{type}</div>
     );
 
-    render(<Static items={rows} Components={Components} />);
+    render(<Static items={rows} DComponent={DComponent} />);
 
     expect(screen.getByText("Foo")).toHaveClass("test-Foo");
     expect(screen.getByText("Bar")).toHaveClass("test-Bar");

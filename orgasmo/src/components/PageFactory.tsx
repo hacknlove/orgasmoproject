@@ -6,7 +6,7 @@ import Meta from "./Meta/Meta";
 import AreasContext from "./AreasContext";
 
 export default function PageFactory({
-  Components,
+  DComponent,
 }: PageFactoryParameters): OrgasmoPage {
   const Page = (ssrProps) => {
     const router = useRouter();
@@ -40,11 +40,11 @@ export default function PageFactory({
 
     return (
       <AreasContext.Provider
-        value={{ areas, layout, Components, setAreas, setLayout }}
+        value={{ areas, layout, DComponent, setAreas, setLayout }}
       >
         {layout?.meta && <Meta meta={layout?.meta} />}
         {layout?.name ? (
-          <Components
+          <DComponent
             key={router.asPath}
             type={layout.name}
             props={{

@@ -66,9 +66,9 @@ function fileFromImports(imports, externalPackage) {
   }
 
   indexString = externalPackage
-    ? `${indexString}\n\nconst all = {\n  ...external,${handlersString}\n}\n`
-    : `${indexString}\n\nconst all = {${handlersString}\n}\n`;
-  indexString = `${indexString}${expand(all, "all")}`;
+    ? `${indexString}\n\nconst driver = {\n  ...external,${handlersString}\n}\n`
+    : `${indexString}\n\nconst driver = {${handlersString}\n}\n`;
+  indexString = `${indexString}${expand(all, "driver")}`;
 
   indexString = `/**
   * @file This file is created automatically at build time, there is no need to commit it, but you can.
@@ -93,7 +93,7 @@ function fileFromImports(imports, externalPackage) {
   *
   */\n\n${
     eventsString && "import events from 'orgasmo/events';"
-  }\n${importString}${indexString}\n\n${eventsString}\nexport default all;\n`;
+  }\n${importString}${indexString}\n\n${eventsString}\nexport default driver;\n`;
 
   return indexString;
 }
@@ -135,14 +135,14 @@ function refresh() {
   });
 
   async function updateComponentsToForceRefresh() {
-    const componentFile = await readFile("./Components.jsx", {
+    const componentFile = await readFile("./DComponent.jsx", {
       encoding: "utf-8",
     }).catch(() => false);
     if (!componentFile) {
       return;
     }
     await writeFile(
-      "./Components.jsx",
+      "./DComponent.jsx",
       componentFile.replace(/^\/\/ Refreshed at .*/gm, "") +
         `// Refreshed at ${new Date().toISOString()}`
     );
