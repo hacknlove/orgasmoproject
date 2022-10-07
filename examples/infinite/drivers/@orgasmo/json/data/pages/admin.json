@@ -1,119 +1,116 @@
 {
-    "pageId": "_oadmin",
-    "exactPath": "#",
-    "areas": {
-      "start": {
-        "items": [
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Page",
-              "area": "PageMenu"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Layout",
-              "area": "LayoutMenu"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Areas",
-              "area": "AreasMenu"
-            }
+  "pageId": "_oadmin",
+  "exactPath": "#",
+  "areas": {
+    "start": {
+      "items": [
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Page",
+            "area": "PageMenu"
           }
-        ]
-      },
-      "LayoutMenu": {
-        "items": [
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Layout name",
-              "area": "EditLayoutName"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Meta tags",
-              "area": "EditMetaTags"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "JS snippets",
-              "area": "EditJSSnippets"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "CSS vars",
-              "area": "EditCSSVars"
-            }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Layout",
+            "area": "LayoutMenu"
           }
-        ]
-      },
-      "AreasMenu": {
-        "items": [
-
-        ]
-      },
-      "PageMenu": {
-        "items": [
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Clone page",
-              "area": "layout"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Edit path",
-              "area": "layout"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "cookies",
-              "area": "layout"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "ratio",
-              "area": "layout"
-            }
-          },
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Description",
-              "area": "EditDescription"
-            }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Areas",
+            "area": "AreasMenu"
           }
-        ]
-      },
-      "MiscellaneousMenu": {
-        "items": [
-          {
-            "type": "AdminButton",
-            "props": {
-              "label": "Notes",
-              "area": "layout"
-            }
+        }
+      ]
+    },
+    "LayoutMenu": {
+      "items": [
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Layout name",
+            "area": "EditLayoutName"
           }
-        ]
-      }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Meta tags",
+            "area": "EditMetaTags"
+          }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "JS snippets",
+            "area": "EditJSSnippets"
+          }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "CSS vars",
+            "area": "EditCSSVars"
+          }
+        }
+      ]
+    },
+    "AreasMenu": {
+      "items": []
+    },
+    "PageMenu": {
+      "items": [
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Clone page",
+            "area": "layout"
+          }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Edit path",
+            "area": "layout"
+          }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "cookies",
+            "area": "layout"
+          }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "ratio",
+            "area": "layout"
+          }
+        },
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Description",
+            "area": "EditDescription"
+          }
+        }
+      ]
+    },
+    "MiscellaneousMenu": {
+      "items": [
+        {
+          "type": "AdminButton",
+          "props": {
+            "label": "Notes",
+            "area": "layout"
+          }
+        }
+      ]
     }
+  }
 }
-  
