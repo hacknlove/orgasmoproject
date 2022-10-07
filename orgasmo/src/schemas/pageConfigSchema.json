@@ -30,16 +30,18 @@
         "meta": {
           "description": "The html meta properties, (including title)",
           "type": "array",
-          "items": [{
-            "type": "array",
-            "contains": {
-              "type": "string"
-            } ,
-            "minContains": 2,
-            "maxContains": 2,
-            "minItems": 2,
-            "maxItems": 3
-          }]
+          "items": [
+            {
+              "type": "array",
+              "contains": {
+                "type": "string"
+              },
+              "minContains": 2,
+              "maxContains": 2,
+              "minItems": 2,
+              "maxItems": 3
+            }
+          ]
         },
         "getMeta": {
           "description": "Driver method to override the meta",
