@@ -24,6 +24,8 @@ async function main() {
 
   const promises = [];
 
+  pack.workspaces.push('create-orgasmo/empty')
+
   for (const workspace of pack.workspaces) {
     const path = join(process.cwd(), workspace, "package.json");
 

@@ -44,10 +44,8 @@ function keepAdminPaths(url) {
   }
 
   if (!menu.style.display) {
-    console.log("SKIP");
     return;
   }
-  console.log(url);
   if (url.startsWith("/admin")) {
     return;
   }
@@ -65,8 +63,6 @@ export function Admin({
   driverMethods,
   originalPageConfig,
 }) {
-  console.log({ pageConfig });
-
   const isDirty = useMemo(
     () => !equal(pageConfig, originalPageConfig),
     [pageConfig, originalPageConfig]

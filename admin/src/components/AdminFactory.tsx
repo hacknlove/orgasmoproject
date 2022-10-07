@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 
 import { Admin } from "./Admin";
 
+const ADMIN_GET_PAGE_CONFIG_ENDPOINT =
+  process.env.ADMIN_GET_PAGE_CONFIG_ENDPOINT ?? "/api/_oadmin/getPageConfig";
+
 export default function AdminFactory({ DComponent, Components, Page }) {
   const AdminPage = ({
     pageConfig,
@@ -13,11 +16,12 @@ export default function AdminFactory({ DComponent, Components, Page }) {
     const [expandedPageConfig, setExpandedPageConfig] = useState<any>();
 
     useEffect(() => {
-      fetch("/api/_oga", {
+      fetch(ADMIN_GET_PAGE_CONFIG_ENDPOINT, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           pageConfig: editablePageConfig,
           resolvedUrl,

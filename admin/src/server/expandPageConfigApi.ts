@@ -1,13 +1,9 @@
-import expandPageConfig from "../getServerSideProps/expand/pageConfig";
-import events from "../events";
+import expandPageConfig from "@orgasmo/orgasmo/expandPageConfig";
+import events from "@orgasmo/orgasmo/events";
 
 type pageParams = Record<string, any>;
 
-export default async function renderApiCall(ctx) {
-  if (ctx.req.method !== "POST") {
-    return ctx.res.json(null);
-  }
-
+export default async function expandPageConfigApi(ctx) {
   ctx.req.user = { roles: [] };
 
   const { pageConfig, resolvedUrl } = ctx.req.body;
