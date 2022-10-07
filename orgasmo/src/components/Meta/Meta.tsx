@@ -1,12 +1,20 @@
 import Head from "next/head";
+import { useMemo } from "react";
 
-export default function Meta({ meta }: { meta: Record<string, string> }) {
+export default function Meta({ meta }) {
+  const title = useMemo(
+    () => meta && meta.find(([name]) => name === "title")?.[1],
+    [meta]
+  );
+
   return (
-    <Head>
-      <title>{meta.title}</title>
-      {Object.entries(meta).map(([key, value]) => (
-        <meta key={key} name={key} content={value}></meta>
-      ))}
-    </Head>
+    meta && (
+      <Head>
+        {title !== undefined && <title>{title}</title>}
+        {meta.map(([key, value]) => (
+          <meta key={key} name={key} content={value}></meta>
+        ))}
+      </Head>
+    )
   );
 }

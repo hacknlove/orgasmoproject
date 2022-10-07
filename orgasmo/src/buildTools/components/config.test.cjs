@@ -65,15 +65,17 @@ describe("components fileImports", () => {
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-const Foo = dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true });
-const Bar = dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true });
+export const Components = {
+  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true }),
+  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true }),
+}
 
 export default function DComponent ({ type, props }) {
 switch (type) {
   case 'Foo':
-    return <React.Suspense fallback={null}><Foo {...props} /></React.Suspense>
+    return <React.Suspense fallback={null}><Components.Foo {...props} /></React.Suspense>
   case 'Bar':
-    return <React.Suspense fallback={null}><Bar {...props} /></React.Suspense>
+    return <React.Suspense fallback={null}><Components.Bar {...props} /></React.Suspense>
   default:
     return <div data-component-name={type}/>
   }
@@ -113,16 +115,18 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import external from foo-externalPackage
 
-
-const Foo = dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true });
-const Bar = dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true });
+export const Components = {
+  ...external.Components,
+  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true }),
+  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true }),
+}
 
 export default function DComponent ({ type, props }) {
 switch (type) {
   case 'Foo':
-    return <React.Suspense fallback={null}><Foo {...props} /></React.Suspense>
+    return <React.Suspense fallback={null}><Components.Foo {...props} /></React.Suspense>
   case 'Bar':
-    return <React.Suspense fallback={null}><Bar {...props} /></React.Suspense>
+    return <React.Suspense fallback={null}><Components.Bar {...props} /></React.Suspense>
   default:
     return external({ type, props }) ?? <div data-component-name={type}/>
   }

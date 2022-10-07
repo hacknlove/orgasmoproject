@@ -5,10 +5,13 @@ import AreasContext from "../AreasContext";
 export default function DefaultLayout({ cssVars }) {
   const { areas } = useContext(AreasContext);
 
+  if (!areas) {
+    return null;
+  }
   return (
     <div style={cssVars}>
       {Object.keys(areas).map((name) => (
-        <div key={name} id={name}>
+        <div key={name} id={name} className="_oa">
           <Area name={name} />
         </div>
       ))}

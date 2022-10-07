@@ -121,18 +121,18 @@ import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
 import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
 
 
-const all = {
+const driver = {
   ['something.bar']: bar,
   ['something.foo']: foo,
 }
 
-all.something = {};
-all.something.bar = bar;
-all.something.foo = foo;
+driver.something = {};
+driver.something.bar = bar;
+driver.something.foo = foo;
 
 events.on('baz', baz);
 
-export default all;
+export default driver;
 `;
     const actual = fileFromImports(imports);
     expect(actual).toEqual(expected);
@@ -205,20 +205,20 @@ import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
 import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
 
 
-const all = {
+const driver = {
   ...external,
   ['something.bar']: bar,
   ['something.foo']: foo,
 }
 
-all.something = {};
-all.something.bar = bar;
-all.something.foo = foo;
+driver.something = {};
+driver.something.bar = bar;
+driver.something.foo = foo;
 
 events.on('onSomething', route1ーonSomething);
 events.on('onSomething', route2ーonSomething);
 
-export default all;
+export default driver;
 `;
     const actual = fileFromImports(imports, "foo-externalPackage");
     expect(actual).toEqual(expected);
@@ -292,20 +292,20 @@ import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
 import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
 
 
-const all = {
+const driver = {
   ...external,
   ['something.bar']: bar,
   ['something.foo']: foo,
 }
 
-all.something = {};
-all.something.bar = bar;
-all.something.foo = foo;
+driver.something = {};
+driver.something.bar = bar;
+driver.something.foo = foo;
 
 events.on('onSomething', route1ーonSomething);
 events.on('onSomething', route2ーonSomething);
 
-export default all;
+export default driver;
 `;
 
     const actual = fileFromImports(imports);
