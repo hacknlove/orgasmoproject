@@ -32,7 +32,8 @@
     "./Static": "./dist/components/Static/Static.js",
     "./AreasContext": "./dist/components/AreasContext.js",
     "./Area": "./dist/components/Area.js",
-    "./withOrgasmo": "./src/buildTools/withOrgasmo.cjs"
+    "./withOrgasmo": "./src/buildTools/withOrgasmo.cjs",
+    "./expandPageConfig": "./dist/server/getServerSideProps/expand/pageConfig.js"
   },
   "files": [
     "dist/",

@@ -4,7 +4,6 @@ import getItem from "./getItem";
 import getMore from "./getMore";
 import apiCall from "./apiCall";
 import events from "../events";
-import renderApiCall from "./renderApiCall";
 
 export default function apiFactory({
   driver,
@@ -21,8 +20,6 @@ export default function apiFactory({
         return getItem(ctx);
       case "_ogm":
         return getMore(ctx);
-      case "_oga":
-        return renderApiCall(ctx);
       default:
         return apiCall(ctx);
     }

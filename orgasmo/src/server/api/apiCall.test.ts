@@ -22,9 +22,9 @@ describe("apiCall", () => {
   it("pass it to the driver", async () => {
     ctx.req.method = "GET";
     ctx.req.query._o = ["some", "api", "path"];
-    apiCall(ctx);
+    await apiCall(ctx);
 
-    expect(ctx.driver["some.api.path.GET"]).toBeCalledWith(ctx.req, ctx.res);
+    expect(ctx.driver["some.api.path.GET"]).toBeCalledWith(ctx);
   });
   it("returns not found if there is no handler for the path", async () => {
     ctx.req.method = "POST";
