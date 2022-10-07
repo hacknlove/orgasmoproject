@@ -67,7 +67,7 @@ describe("expandPage", () => {
             "--someVar": "someValue",
             "--someOtherVar": "someOtherValue",
           },
-          meta: {},
+          meta: [],
         },
       },
     });

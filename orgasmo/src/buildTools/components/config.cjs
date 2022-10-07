@@ -28,20 +28,19 @@ function fileFromImports(imports, externalPackage) {
   */\nimport React from 'react';\nimport dynamic from 'next/dynamic';\n`;
 
   if (externalPackage) {
-    string = `${string}import external from ${externalPackage}\n\n`;
+    string = `${string}import external from ${externalPackage}\n`;
   }
 
-  string = `${string}\nexport const Components = {`
+  string = `${string}\nexport const Components = {`;
 
   if (externalPackage) {
-    string = `${string}\n  ...external.Components,`
+    string = `${string}\n  ...external.Components,`;
   }
-
 
   for (const { filename, from } of imports) {
     string = `${string}\n  ${filename}: dynamic(() => import('${from}'), { suspense: true }),`;
   }
-  string = `${string}\n}`
+  string = `${string}\n}`;
 
   string = `${string}\n\nexport default function DComponent ({ type, props }) {\nswitch (type) {`;
 

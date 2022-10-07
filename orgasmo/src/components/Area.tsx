@@ -25,5 +25,8 @@ export function RenderArea({ area, DComponent }) {
 export default function Area({ name }) {
   const { areas, DComponent } = useContext(AreasContext);
 
-  return useMemo(() => <RenderArea area={areas[name]} DComponent={DComponent} />, [areas[name], DComponent]);
+  return useMemo(
+    () => <RenderArea area={areas[name]} DComponent={DComponent} />,
+    [areas[name], DComponent]
+  );
 }

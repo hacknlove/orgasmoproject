@@ -4,7 +4,11 @@ export default async function expandLayout({ ctx, layoutConfig, params }) {
   if (!layoutConfig) {
     return;
   }
-  const expandedMeta = ctx.driver[layoutConfig.getMeta]?.({ ctx, params });
+  const expandedMeta = ctx.driver[layoutConfig.getMeta]?.({
+    ctx,
+    params,
+    meta: layoutConfig.meta,
+  });
   const expandedCssVars = ctx.driver[layoutConfig.getCssVars]?.({
     ctx,
     params,
@@ -16,9 +20,6 @@ export default async function expandLayout({ ctx, layoutConfig, params }) {
       ...layoutConfig.cssVars,
       ...(await expandedCssVars),
     }),
-    meta: {
-      ...layoutConfig.meta,
-      ...(await expandedMeta),
-    },
+    meta: (await expandedMeta) ?? layoutConfig.meta ?? [],
   };
 }
