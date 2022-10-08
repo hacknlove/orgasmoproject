@@ -15,7 +15,7 @@ export const AdminComponentsObject = {
   EditCSSVars,
   EditMetaTags,
   ClonePage,
-  EditPage
+  EditPage,
 };
 
 export default function AdminComponentsFactory(DComponent) {
@@ -35,7 +35,7 @@ export default function AdminComponentsFactory(DComponent) {
         case "ClonePage":
           return <ClonePage {...props} />;
         case "EditPage":
-          return <EditPage {...props} />
+          return <EditPage {...props} />;
         default:
           return <DComponent type={type} props={props} />;
       }
