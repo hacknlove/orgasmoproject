@@ -68,35 +68,35 @@
           "type": "AdminButton",
           "props": {
             "label": "Clone page",
-            "area": "layout"
+            "area": "ClonePage"
           }
         },
         {
           "type": "AdminButton",
           "props": {
-            "label": "Edit path",
-            "area": "layout"
+            "label": "Edit Page",
+            "area": "EditPage"
           }
         },
         {
           "type": "AdminButton",
           "props": {
             "label": "cookies",
-            "area": "layout"
+            "area": "EditCookies"
           }
         },
         {
           "type": "AdminButton",
           "props": {
             "label": "ratio",
-            "area": "layout"
+            "area": "EditRatio"
           }
         },
         {
           "type": "AdminButton",
           "props": {
-            "label": "Description",
-            "area": "EditDescription"
+            "label": "Notes",
+            "area": "EditNotes"
           }
         }
       ]

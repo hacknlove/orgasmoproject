@@ -10,7 +10,6 @@ export default function EditJSSnipplets() {
       <label>Edit JS snippets</label>
       <textarea
         ref={ref}
-        autoFocus={true}
         defaultValue={pageConfig?.layout?.jssnippets}
         cols={80}
         rows={20}

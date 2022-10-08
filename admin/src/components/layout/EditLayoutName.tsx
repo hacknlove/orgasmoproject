@@ -15,7 +15,6 @@ export default function EditLayoutName() {
       <input
         ref={ref}
         type="text"
-        autoFocus={true}
         list="_oadminComponents"
         defaultValue={pageConfig?.layout?.name}
       />
