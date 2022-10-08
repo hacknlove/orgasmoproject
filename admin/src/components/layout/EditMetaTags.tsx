@@ -36,7 +36,7 @@ export default function EditMetaTags() {
     setMetaTags(metaTags);
 
     return;
-  }, [pageConfig?.layout?.metaTags]);
+  }, [pageConfig?.layout?.meta]);
 
   const addNewMetaTag = useCallback(() => {
     const newVar = ref.current.value.trim();
@@ -63,7 +63,7 @@ export default function EditMetaTags() {
     ref.current.value = "";
   }, [setMetaTags, metaTags, ref.current]);
 
-  useEffect(reset, [reset, pageConfig?.layout?.metaTags]);
+  useEffect(reset, [reset, pageConfig?.layout?.meta]);
 
   const changed = useMemo(
     () => metaTags.find(([, a, b]) => a !== b),
