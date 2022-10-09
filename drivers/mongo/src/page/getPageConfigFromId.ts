@@ -1,4 +1,4 @@
-import mongoProxy from "./mongoProxy";
+import mongoProxy from "../mongoProxy";
 
 const pageConfigsCollectionName =
   (process.env.ORGASMO_MONGO_PAGES_COLLECTION as string) ?? "pageConfigs";

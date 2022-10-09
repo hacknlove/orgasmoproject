@@ -1,5 +1,5 @@
-import getPageConfigFromId from "./getPageConfigFromId";
-import mongoProxy from "./mongoProxy";
+import getPageConfigFromId from "../getPageConfigFromId";
+import mongoProxy from "../mongoProxy";
 
 describe("getPageConfigFromId", () => {
   let pageConfigs;

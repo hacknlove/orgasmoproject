@@ -6,9 +6,7 @@
       "margin": "5px",
       "background-color": "#fff"
     },
-    "meta": [
-      ["title", "Index 2"]
-    ]
+    "meta": [["title", "Index 2"]]
   },
   "areas": {
     "header": {

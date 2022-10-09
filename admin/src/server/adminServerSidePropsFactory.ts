@@ -2,8 +2,16 @@ import { cleanAwaitJson } from "@orgasmo/orgasmo/cleanJson";
 
 export default function adminServerSidePropsFactory({ driver }) {
   return async (ctx) => {
+    if (ctx.resolvedUrl.startsWith("/admin/_back?to=")) {
+      return {
+        props: {
+          to: ctx.query.to,
+        },
+      };
+    }
     ctx.resolvedUrl =
       ctx.resolvedUrl.substring("/admin".length).replace(/\?.*$/, "") || "/";
+
     const adminConfig = cleanAwaitJson(
       driver.page.getPageConfigFromId("_oadmin")
     );

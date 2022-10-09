@@ -2,9 +2,7 @@
   "pageId": "vertical",
   "exactPath": "/vertical",
   "layout": {
-    "meta": [
-      ["title", "Vertical Scroll test"]
-    ]
+    "meta": [["title", "Vertical Scroll test"]]
   },
   "areas": {
     "header": {

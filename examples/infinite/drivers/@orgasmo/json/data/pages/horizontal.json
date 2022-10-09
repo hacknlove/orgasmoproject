@@ -2,9 +2,7 @@
   "pageId": "horizontal",
   "exactPath": "/horizontal",
   "layout": {
-    "meta": [
-      ["title", "Horizontal Scroll test"]
-    ]
+    "meta": [["title", "Horizontal Scroll test"]]
   },
   "areas": {
     "header": {

@@ -1,4 +1,4 @@
-import mongoProxy from "./mongoProxy";
+import mongoProxy from "../mongoProxy";
 import { match } from "path-to-regexp";
 
 const pageConfigsCollectionName =

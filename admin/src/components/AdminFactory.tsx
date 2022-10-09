@@ -48,41 +48,47 @@ export default function AdminFactory({ DComponent, Components, Page, css }) {
       setEditablePageConfig(pageConfigs[selectedPageId]);
     }, [pageConfigs, selectedPageId]);
 
-    const adminRendered = (
-      <Admin
-        adminAreas={adminPageConfig.areas}
-        DComponent={DComponent}
-        Components={Components}
-        originalPageConfig={pageConfigs[selectedPageId]}
-        pageConfig={editablePageConfig}
-        pageConfigIds={Object.keys(pageConfigs)}
-        setSelectedPageId={setSelectedPageId}
-        setPageConfig={setEditablePageConfig}
-        driverMethods={driverMethods}
-        css={css}
-      />
+    const adminRendered = useMemo(
+      () => (
+        <Admin
+          adminAreas={adminPageConfig.areas}
+          DComponent={DComponent}
+          Components={Components}
+          originalPageConfig={pageConfigs[selectedPageId]}
+          pageConfig={editablePageConfig}
+          pageConfigIds={Object.keys(pageConfigs)}
+          setSelectedPageId={setSelectedPageId}
+          setPageConfig={setEditablePageConfig}
+          driverMethods={driverMethods}
+          css={css}
+        />
+      ),
+      [editablePageConfig]
     );
+
     const pageRendered = useMemo(
       () => expandedPageConfig && <Page {...expandedPageConfig} />,
       [expandedPageConfig]
     );
 
-    if (adminPageConfig.layout?.name) {
-      return (
-        <DComponent
-          type={adminPageConfig.layout?.name}
-          admin={adminRendered}
-          page={pageRendered}
-        />
-      );
-    }
+    return useMemo(() => {
+      if (adminPageConfig.layout?.name) {
+        return (
+          <DComponent
+            type={adminPageConfig.layout?.name}
+            admin={adminRendered}
+            page={pageRendered}
+          />
+        );
+      }
 
-    return (
-      <>
-        {adminRendered}
-        {pageRendered}
-      </>
-    );
+      return (
+        <>
+          {adminRendered}
+          {pageRendered}
+        </>
+      );
+    }, [expandedPageConfig, editablePageConfig]);
   };
 
   return AdminPage;

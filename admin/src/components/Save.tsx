@@ -2,13 +2,13 @@ import AdminContext from "./AdminContext";
 import { useContext, useCallback } from "react";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "./Alert";
+import Router from "next/router";
 
 const ADMIN_UPDATE_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/updatePageConfig";
 // const ADMIN_NEW_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/newPageConfig";
 
 function forceReload() {
-  window.history.pushState({ ...window.history.state }, "");
-  window.history.back();
+  Router.replace(`/admin/_back?to=${encodeURIComponent(Router.asPath)}`);
 }
 
 export default function Save() {
