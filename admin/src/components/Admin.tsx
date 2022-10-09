@@ -10,6 +10,7 @@ import * as equal from "fast-deep-equal";
 
 import Router from "next/router";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
+import Save from "./Save";
 
 // Copy-pasted from ./admin.css
 const defaultCss = `
@@ -232,8 +233,8 @@ export function Admin({
     setAdminArea(areaName);
     window.history.pushState(
       {
-        ...window.history.state, 
-        pageConfig
+        ...window.history.state,
+        pageConfig,
       },
       "",
       `#${areaName === "start" ? "" : areaName}`
@@ -249,23 +250,26 @@ export function Admin({
   }, []);
 
   useEffect(() => {
-    window.history.replaceState({
-      ...window.history.state,
-      pageConfig
-    }, "");
+    window.history.replaceState(
+      {
+        ...window.history.state,
+        pageConfig,
+      },
+      ""
+    );
     setAdminArea(window.location.hash.substring(1) || "start");
 
-    function popstateHandler ({ state }) {
+    function popstateHandler({ state }) {
       if (state && state?.pageConfig) {
         setPageConfig(state.pageConfig);
       }
-      if (window.location.pathname) 
-      setAdminArea(window.location.hash.substring(1) || "start");
+      if (window.location.pathname)
+        setAdminArea(window.location.hash.substring(1) || "start");
     }
 
-    window.addEventListener("popstate",popstateHandler);
+    window.addEventListener("popstate", popstateHandler);
 
-    return () => window.removeEventListener("popstate", popstateHandler)
+    return () => window.removeEventListener("popstate", popstateHandler);
   }, []);
 
   function updatePageConfig(pageConfig) {
@@ -274,7 +278,7 @@ export function Admin({
   }
 
   if (!pageConfig) {
-    return null
+    return null;
   }
 
   return (
@@ -310,7 +314,7 @@ export function Admin({
         <div id="_oadmin_menu">
           <div id="_oadmin_menu_path">
             <span>
-              {pageConfig.exactPath ?? pageConfig.patternPath} {isDirty && '*'}
+              {pageConfig.exactPath ?? pageConfig.patternPath} {isDirty && "*"}
             </span>
             <button
               className="_oadmin_button"
@@ -331,22 +335,7 @@ export function Admin({
               DComponent={AdminComponents}
             />
           )}
-          {isDirty && (
-            <>
-              <div className="_oadmin_save_menu">
-                <div>
-                  <button
-                    className="_oadmin_button"
-                    onClick={() => updatePageConfig(originalPageConfig)}
-                  >
-                    Reset
-                  </button>
-                  <button className="_oadmin_button">Save</button>
-                  <button className="_oadmin_button">Save as...</button>
-                </div>
-              </div>
-            </>
-          )}
+          <Save />
         </div>
       </AdminContext.Provider>
     </div>

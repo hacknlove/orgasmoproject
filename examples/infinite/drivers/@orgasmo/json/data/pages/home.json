@@ -2,6 +2,7 @@
   "pageId": "home",
   "exactPath": "/",
   "layout": {
+    "meta": [["title", "Index"]],
     "cssVars": {
       "margin": "5px",
       "background-color": "#fff"

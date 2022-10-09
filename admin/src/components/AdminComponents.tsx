@@ -2,10 +2,10 @@ import { useCallback } from "react";
 
 import AdminMenuItem from "./AdminMenuItem";
 import ChoosePageId from "./ChoosePageId";
-import EditLayoutName from "./layout/EditLayoutName";
-import EditJSSnippets from "./layout/EditJSSnippets";
-import EditCSSVars from "./layout/EditCSSvars";
-import EditMetaTags from "./layout/EditMetaTags";
+import EditLayoutName from "./page/EditLayoutName";
+import EditJSSnippets from "./page/EditJSSnippets";
+import EditCSSVars from "./page/EditCSSvars";
+import EditMetaTags from "./page/EditMetaTags";
 import EditPage from "./page/EditPage";
 import EditCookies from "./page/EditCookies";
 

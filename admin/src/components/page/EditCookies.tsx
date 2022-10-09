@@ -57,7 +57,7 @@ function EditCookieOptions({ resolve, serializedOptions }) {
           <button className="_oadmin_button" onClick={() => resolve()}>
             ✖
           </button>
-        </div>{" "}
+        </div>
         <div className="_oadmin_modal_fields">
           <label>Domain</label>
           <input

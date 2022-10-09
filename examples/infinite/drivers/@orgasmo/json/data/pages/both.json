@@ -1,6 +1,11 @@
 {
   "pageId": "both",
   "exactPath": "/both",
+  "layout": {
+    "meta": [
+      ["title", "Vertical scroll + horizontal slider"]
+    ]
+  },
   "areas": {
     "header": {
       "items": [

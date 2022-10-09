@@ -1,6 +1,9 @@
 {
   "pageId": "item",
   "patternPath": "/item/:string/:number",
+  "layout": {
+    "getMeta": "item.title"
+  },
   "areas": {
     "header": {
       "items": [

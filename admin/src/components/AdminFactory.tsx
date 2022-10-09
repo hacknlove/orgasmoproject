@@ -2,8 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 
 import { Admin } from "./Admin";
 
-const ADMIN_GET_PAGE_CONFIG_ENDPOINT =
-  process.env.ADMIN_GET_PAGE_CONFIG_ENDPOINT ?? "/api/_oadmin/getPageConfig";
+const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/getPageConfig";
 
 export default function AdminFactory({ DComponent, Components, Page, css }) {
   const AdminPage = ({
@@ -21,12 +20,12 @@ export default function AdminFactory({ DComponent, Components, Page, css }) {
     const [expandedPageConfig, setExpandedPageConfig] = useState<any>();
 
     useEffect(() => {
-      setSelectedPageId(Object.keys(pageConfigs)[0])
-    }, [resolvedUrl])
+      setSelectedPageId(Object.keys(pageConfigs)[0]);
+    }, [resolvedUrl]);
 
     useEffect(() => {
       if (!editablePageConfig) {
-        return
+        return;
       }
       fetch(ADMIN_GET_PAGE_CONFIG_ENDPOINT, {
         method: "POST",

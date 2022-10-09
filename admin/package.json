@@ -27,7 +27,9 @@
   "exports": {
     "./AdminFactory": "./dist/components/AdminFactory.js",
     "./adminServerSidePropsFactory": "./dist/server/adminServerSidePropsFactory.js",
-    "./expandPageConfigApi": "./dist/server/expandPageConfigApi.js"
+    "./expandPageConfigApi": "./dist/server/expandPageConfigApi.js",
+    "./updatePageConfigApi": "./dist/server/updatePageConfigApi.js",
+    "./newPageConfigApi": "./dist/server/newPageConfigApi.js"
   },
   "files": [
     "dist/"

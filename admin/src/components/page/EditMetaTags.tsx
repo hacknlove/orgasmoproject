@@ -141,7 +141,9 @@ export default function EditMetaTags() {
                   ...pageConfig,
                   layout: {
                     ...pageConfig.layout,
-                    meta: metaTags.filter((e) => e[1] !== null),
+                    meta: metaTags
+                      .filter((e) => e[1] !== null)
+                      .map((e) => [e[0], e[1]]),
                   },
                 });
               }}

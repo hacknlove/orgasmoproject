@@ -51,7 +51,6 @@ export default function EditPage() {
 
   const getEditValues = useCallback(
     () => ({
-      pageId: pageConfig.pageId,
       exactPath: pageConfig.exactPath,
       patternPath: pageConfig.patternPath,
       notes: pageConfig.notes,
@@ -125,13 +124,6 @@ export default function EditPage() {
 
   return (
     <div className="_oadmin_dialog">
-      <EditValue
-        label="Page Id"
-        field="pageId"
-        editValues={editValues}
-        onChange={editValue}
-        pageConfig={pageConfig}
-      />
       <EditValue
         label="Exact Path"
         field="exactPath"
