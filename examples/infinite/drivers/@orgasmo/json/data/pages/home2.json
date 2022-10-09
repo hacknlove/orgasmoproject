@@ -1,5 +1,5 @@
 {
-  "pageId": "home",
+  "pageId": "home_alt",
   "exactPath": "/",
   "layout": {
     "cssVars": {
@@ -13,17 +13,7 @@
         {
           "type": "Header",
           "props": {
-            "text": "Index"
-          }
-        },
-        {
-          "type": "Index",
-          "props": {
-            "links": {
-              "/both": "Vertical scroll + horizontal slider.",
-              "/vertical": "Vertical scroll.",
-              "/horizontal": "Horizontal slider."
-            }
+            "text": "Index 2"
           }
         }
       ]

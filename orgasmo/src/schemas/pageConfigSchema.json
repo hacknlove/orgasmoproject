@@ -15,6 +15,9 @@
       "description": "Use it for path pattern matching (see path-to-regexp). The page config must have or exactPath or patternPath, but not both or none",
       "type": "string"
     },
+    "notes": {
+      "type": "string"
+    },
     "ration": {
       "description": "Used for progressive delivery and AB testing, Changes the probability of a pageConfig to be shown.",
       "type": "number",

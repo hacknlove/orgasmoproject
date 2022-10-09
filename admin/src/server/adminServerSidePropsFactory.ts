@@ -7,10 +7,18 @@ export default function adminServerSidePropsFactory({ driver }) {
     const adminConfig = cleanAwaitJson(
       driver.page.getPageConfigFromId("_oadmin")
     );
+    let pageConfigs = await cleanAwaitJson(driver.page.getPageConfig(ctx));
+
+    if (!Array.isArray(pageConfigs)) {
+      pageConfigs = [pageConfigs];
+    }
+
     return {
       props: {
-        pageConfig: await cleanAwaitJson(driver.page.getPageConfig(ctx)),
-        adminAreas: (await adminConfig).areas,
+        pageConfigs: Object.fromEntries(
+          pageConfigs.map((pageConfig) => [pageConfig.pageId, pageConfig])
+        ),
+        adminPageConfig: await adminConfig,
         driverMethods: Object.keys(driver).filter((method) =>
           method.includes(".")
         ),

@@ -5,7 +5,14 @@ function fieldIsDirty({ pageConfig, editValues, field }) {
   return editValues[field] !== pageConfig[field] && "*";
 }
 
-function EditValue({ pageConfig, editValues, onChange, field, label }) {
+function EditValue({
+  pageConfig,
+  editValues,
+  onChange,
+  field,
+  label,
+  ...props
+}) {
   return (
     <>
       <label>
@@ -16,6 +23,7 @@ function EditValue({ pageConfig, editValues, onChange, field, label }) {
         data-field={field}
         value={editValues[field] || ""}
         onChange={onChange}
+        {...props}
       />
     </>
   );
@@ -47,6 +55,7 @@ export default function EditPage() {
       exactPath: pageConfig.exactPath,
       patternPath: pageConfig.patternPath,
       notes: pageConfig.notes,
+      ratio: pageConfig.ratio,
     }),
     [pageConfig]
   );
@@ -97,11 +106,15 @@ export default function EditPage() {
     [editValues]
   );
 
-  const save = useCallback(() => {
+  const apply = useCallback(() => {
     for (const [key, value] of Object.entries(editValues)) {
-      if (value === undefined) {
+      if (!value === undefined) {
         delete editValues[key];
       }
+    }
+
+    if (Object.prototype.hasOwnProperty.call(editValues, "ratio")) {
+      editValues.ratio = parseFloat(editValues.ratio) || undefined;
     }
 
     updatePageConfig({
@@ -133,6 +146,15 @@ export default function EditPage() {
         onChange={editValue}
         pageConfig={pageConfig}
       />
+      <EditValue
+        label="Ratio"
+        field="ratio"
+        editValues={editValues}
+        onChange={editValue}
+        pageConfig={pageConfig}
+        placeholder="Number"
+        type="number"
+      />
       <EditValueTextArea
         label="Notes"
         field="notes"
@@ -146,8 +168,8 @@ export default function EditPage() {
           <button className="_oadmin_button" onClick={reset}>
             Reset
           </button>
-          <button className="_oadmin_button" onClick={save}>
-            Save
+          <button className="_oadmin_button" onClick={apply}>
+            Apply
           </button>
         </div>
       )}

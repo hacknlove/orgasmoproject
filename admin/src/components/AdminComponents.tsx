@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 
-import AdminButton from "./AdminButton";
+import AdminMenuItem from "./AdminMenuItem";
+import ChoosePageId from "./ChoosePageId";
 import EditLayoutName from "./layout/EditLayoutName";
 import EditJSSnippets from "./layout/EditJSSnippets";
 import EditCSSVars from "./layout/EditCSSvars";
@@ -10,7 +11,8 @@ import EditPage from "./page/EditPage";
 import EditCookies from "./page/EditCookies";
 
 export const AdminComponentsObject = {
-  AdminButton,
+  AdminMenuItem,
+  ChoosePageId,
   EditLayoutName,
   EditJSSnippets,
   EditCSSVars,
@@ -24,8 +26,10 @@ export default function AdminComponentsFactory(DComponent) {
   return useCallback(
     ({ type, props }) => {
       switch (type) {
-        case "AdminButton":
-          return <AdminComponentsObject.AdminButton {...props} />;
+        case "AdminMenuItem":
+          return <AdminComponentsObject.AdminMenuItem {...props} />;
+        case "ChoosePageId":
+          return <ChoosePageId {...props} />;
         case "EditLayoutName":
           return <AdminComponentsObject.EditLayoutName {...props} />;
         case "EditJSSnippets":

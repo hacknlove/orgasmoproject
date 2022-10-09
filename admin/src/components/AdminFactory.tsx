@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import { Admin } from "./Admin";
-
-import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT =
   process.env.ADMIN_GET_PAGE_CONFIG_ENDPOINT ?? "/api/_oadmin/getPageConfig";
 
 export default function AdminFactory({ DComponent, Components, Page, css }) {
   const AdminPage = ({
-    pageConfig,
+    pageConfigs,
     resolvedUrl,
-    adminAreas,
+    adminPageConfig,
     driverMethods,
   }) => {
-    const [editablePageConfig, setEditablePageConfig] = useState(pageConfig);
+    const [selectedPageId, setSelectedPageId] = useState(
+      Object.keys(pageConfigs)[0]
+    );
+    const [editablePageConfig, setEditablePageConfig] = useState(
+      pageConfigs[selectedPageId]
+    );
     const [expandedPageConfig, setExpandedPageConfig] = useState<any>();
 
     useEffect(() => {
@@ -36,23 +39,42 @@ export default function AdminFactory({ DComponent, Components, Page, css }) {
     }, [editablePageConfig, resolvedUrl, setExpandedPageConfig]);
 
     useEffect(() => {
-      setEditablePageConfig(pageConfig);
-    }, [pageConfig]);
+      setEditablePageConfig(pageConfigs[selectedPageId]);
+    }, [pageConfigs, selectedPageId]);
+
+    const adminRendered = (
+      <Admin
+        adminAreas={adminPageConfig.areas}
+        DComponent={DComponent}
+        Components={Components}
+        originalPageConfig={pageConfigs[selectedPageId]}
+        pageConfig={editablePageConfig}
+        pageConfigIds={Object.keys(pageConfigs)}
+        setSelectedPageId={setSelectedPageId}
+        setPageConfig={setEditablePageConfig}
+        driverMethods={driverMethods}
+        css={css}
+      />
+    );
+    const pageRendered = useMemo(
+      () => expandedPageConfig && <Page {...expandedPageConfig} />,
+      [expandedPageConfig]
+    );
+
+    if (adminPageConfig.layout?.name) {
+      return (
+        <DComponent
+          type={adminPageConfig.layout?.name}
+          admin={adminRendered}
+          page={pageRendered}
+        />
+      );
+    }
 
     return (
       <>
-        <AsyncComponents area="_oadminModal" />
-        <Admin
-          adminAreas={adminAreas}
-          DComponent={DComponent}
-          Components={Components}
-          originalPageConfig={pageConfig}
-          pageConfig={editablePageConfig}
-          setPageConfig={setEditablePageConfig}
-          driverMethods={driverMethods}
-          css={css}
-        />
-        {expandedPageConfig && <Page {...expandedPageConfig} />}
+        {adminRendered}
+        {pageRendered}
       </>
     );
   };

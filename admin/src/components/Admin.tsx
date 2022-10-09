@@ -9,6 +9,7 @@ import AdminContext from "./AdminContext";
 import * as equal from "fast-deep-equal";
 
 import Router from "next/router";
+import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 
 // Copy-pasted from ./admin.css
 const defaultCss = `
@@ -30,16 +31,16 @@ const defaultCss = `
   flex-direction: column;
 }
 
-#_oadmin_menu_path {
+#_oadmin_menu_pageId {
   font-weight: bold;
   padding: 0.25rem 1rem 1rem;
 }
 
-#_oadmin_menu_pageId {
+#_oadmin_menu_path {
   display: flex;
   justify-content: space-between;
 }
-#_oadmin_menu_pageId > span {
+#_oadmin_menu_path > span {
   font-weight: bold;
   padding: 1rem 1rem 0.25rem;
 }
@@ -51,6 +52,12 @@ const defaultCss = `
   justify-content: space-between;
   column-gap: 1rem;
   padding: 0.5rem 1rem;
+  border: none;
+  color: white;
+  background: transparent;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 ._oadmin_menu_item:hover {
@@ -211,6 +218,8 @@ export function Admin({
   driverMethods,
   originalPageConfig,
   css,
+  pageConfigIds,
+  setSelectedPageId,
 }) {
   const isDirty = useMemo(
     () => !equal(pageConfig, originalPageConfig),
@@ -281,11 +290,17 @@ export function Admin({
           Components,
           AdminComponents,
           driverMethods,
+          pageConfigIds,
+          setSelectedPageId,
         }}
       >
+        <AsyncComponents area="_oadminModal" />
         <div id="_oadmin_menu">
-          <div id="_oadmin_menu_pageId">
-            <span>pageId: {pageConfig.pageId}</span>
+          <div id="_oadmin_menu_path">
+            <span>
+              {pageConfig.exactPath ? "Exact" : "Pattern"} Path:{" "}
+              {pageConfig.exactPath ?? pageConfig.patternPath}
+            </span>
             <button
               className="_oadmin_button"
               onClick={(event) => {
@@ -297,10 +312,6 @@ export function Admin({
               ✖
             </button>
           </div>
-          <span id="_oadmin_menu_path">
-            {pageConfig.exactPath ? "Exact" : "Pattern"} Path:{" "}
-            {pageConfig.exactPath ?? pageConfig.patternPath}
-          </span>
           {AdminComponentsObject[adminArea] ? (
             <AdminComponents type={adminArea} props={{}} />
           ) : (

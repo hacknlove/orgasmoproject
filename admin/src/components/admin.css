@@ -17,15 +17,10 @@
 }
 
 #_oadmin_menu_path {
-  font-weight: bold;
-  padding: 0.25rem 1rem 1rem;
-}
-
-#_oadmin_menu_pageId {
   display: flex;
   justify-content: space-between;
 }
-#_oadmin_menu_pageId > span {
+#_oadmin_menu_path > span {
   font-weight: bold;
   padding: 1rem 1rem 0.25rem;
 }
@@ -37,6 +32,12 @@
   justify-content: space-between;
   column-gap: 1rem;
   padding: 0.5rem 1rem;
+  border: none;
+  color: white;
+  background: transparent;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 ._oadmin_menu_item:hover {

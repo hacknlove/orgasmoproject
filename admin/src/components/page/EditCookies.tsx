@@ -158,8 +158,6 @@ export default function EditCookies() {
     [string, string | null, string, string][]
   >([]);
 
-  console.log(cookies);
-
   const ref: any = useRef();
 
   const reset = useCallback(() => {
