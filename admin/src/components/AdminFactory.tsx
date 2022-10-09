@@ -7,7 +7,7 @@ import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT =
   process.env.ADMIN_GET_PAGE_CONFIG_ENDPOINT ?? "/api/_oadmin/getPageConfig";
 
-export default function AdminFactory({ DComponent, Components, Page }) {
+export default function AdminFactory({ DComponent, Components, Page, css }) {
   const AdminPage = ({
     pageConfig,
     resolvedUrl,
@@ -50,6 +50,7 @@ export default function AdminFactory({ DComponent, Components, Page }) {
           pageConfig={editablePageConfig}
           setPageConfig={setEditablePageConfig}
           driverMethods={driverMethods}
+          css={css}
         />
         {expandedPageConfig && <Page {...expandedPageConfig} />}
       </>
