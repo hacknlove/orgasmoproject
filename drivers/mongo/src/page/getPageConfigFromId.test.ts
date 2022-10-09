@@ -1,4 +1,4 @@
-import getPageConfigFromId from "../getPageConfigFromId";
+import getPageConfigFromId from "./getPageConfigFromId";
 import mongoProxy from "../mongoProxy";
 
 describe("getPageConfigFromId", () => {
