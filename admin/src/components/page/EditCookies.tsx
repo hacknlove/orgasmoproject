@@ -11,53 +11,145 @@ import {
 
 import AdminContext from "../AdminContext";
 
-function EditCookieOptions({ resolve, reject, options }) {
-  const [editOptions, setEditOptions] = useState(options);
+function EditCookieOptions({ resolve, serializedOptions }) {
+  const [editOptions, setEditOptions] = useState(JSON.parse(serializedOptions));
+
+  const onChange = useCallback(
+    (event) => {
+      setEditOptions((editOptions) => ({
+        ...editOptions,
+        [event.target.name]: event.target.value,
+      }));
+    },
+    [setEditOptions]
+  );
+
+  const onCheck = useCallback(
+    (event) => {
+      setEditOptions((editOptions) => ({
+        ...editOptions,
+        [event.target.name]: !editOptions[event.target.name],
+      }));
+    },
+    [setEditOptions]
+  );
+
+  const isDirty = useMemo(
+    () => serializedOptions !== serializeOrdered(editOptions),
+    [editOptions, serializedOptions]
+  );
 
   return (
-    <div className="_oadmin_modal_wrapper">
+    <div
+      className="_oadmin_modal_wrapper"
+      onClick={(event) => {
+        event.stopPropagation();
+        if (
+          (event.target as HTMLDivElement).className === "_oadmin_modal_wrapper"
+        ) {
+          resolve();
+        }
+      }}
+    >
       <div className="_oadmin_modal">
+        <div id="_oadmin_menu_pageId">
+          <span>Edit cookie options</span>
+          <button className="_oadmin_button" onClick={() => resolve()}>
+            ✖
+          </button>
+        </div>{" "}
         <div className="_oadmin_modal_fields">
           <label>Domain</label>
-          <input value={editOptions.domain ?? ""} name="domain" />
+          <input
+            value={editOptions.domain ?? ""}
+            name="domain"
+            onChange={onChange}
+          />
           <label>Path</label>
-          <input value={editOptions.path ?? ""} name="path" />
+          <input
+            value={editOptions.path ?? ""}
+            name="path"
+            onChange={onChange}
+          />
           <label>Expires</label>
           <input
             type="datetime-local"
             value={editOptions.expires ?? ""}
             name="expires"
+            onChange={onChange}
           />
           <label>Max Age</label>
-          <input type="number" value={editOptions.maxAge ?? ""} name="maxAge" />
+          <input
+            type="number"
+            value={editOptions.maxAge ?? ""}
+            name="maxAge"
+            onChange={onChange}
+          />
         </div>
         <label>
           <input
             type="checkbox"
-            checked={editOptions.httpOnly}
+            checked={Boolean(editOptions.httpOnly)}
             name="httpOnly"
+            onClick={onCheck}
           />
           &ensp;HTTP Only
         </label>
         <label>
           <input
             type="checkbox"
-            checked={editOptions.sameSite}
+            checked={Boolean(editOptions.sameSite)}
             name="sameSite"
+            onClick={onCheck}
           />
           &ensp;Same Site
         </label>
         <label>
-          <input type="checkbox" checked={editOptions.secure} name="secure" />
+          <input
+            type="checkbox"
+            checked={Boolean(editOptions.secure)}
+            name="secure"
+            onClick={onCheck}
+          />
           &ensp;Secure
         </label>
-        <div>
-          <button className="_oadmin_button">Reset</button>
-          <button className="_oadmin_button">Apply</button>
-        </div>
+        {isDirty && (
+          <div>
+            <button
+              className="_oadmin_button"
+              onClick={() => setEditOptions(JSON.parse(serializedOptions))}
+            >
+              Reset
+            </button>
+            <button
+              className="_oadmin_button"
+              onClick={() => resolve(serializeOrdered(editOptions))}
+            >
+              Apply
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
+}
+
+function serializeOrdered(object) {
+  if (!object) {
+    return "{}";
+  }
+  const entries = Object.entries(object);
+  entries.sort((a, b) => {
+    if (a[0] < b[0]) {
+      return -1;
+    }
+    if (b[0] < a[0]) {
+      return 1;
+    }
+    return 0;
+  });
+
+  return JSON.stringify(Object.fromEntries(entries));
 }
 
 export default function EditCookies() {
@@ -65,6 +157,9 @@ export default function EditCookies() {
   const [cookies, setCookies] = useState<
     [string, string | null, string, string][]
   >([]);
+
+  console.log(cookies);
+
   const ref: any = useRef();
 
   const reset = useCallback(() => {
@@ -79,8 +174,8 @@ export default function EditCookies() {
       ([name, value, options]) => [
         name,
         value as string,
-        JSON.stringify(options),
-        `${value};${JSON.stringify(options)}` as string,
+        serializeOrdered(options),
+        `${value};${serializeOrdered(options)}` as string,
       ]
     );
 
@@ -109,7 +204,7 @@ export default function EditCookies() {
           withValue.groups.name.replace(/\s+/g, "-"),
           withValue.groups.content,
           "{}",
-          `${withValue.groups.content};{}`,
+          "",
         ],
       ]);
     }
@@ -119,7 +214,13 @@ export default function EditCookies() {
 
   useEffect(reset, [reset, pageConfig?.cookies]);
 
-  const changed = useMemo(() => cookies.find(([, a, b]) => a !== b), [cookies]);
+  const changed = useMemo(
+    () =>
+      cookies.find(
+        ([, value, options, original]) => `${value};${options}` !== original
+      ),
+    [cookies]
+  );
 
   return (
     <div className="_oadmin_dialog">
@@ -129,7 +230,7 @@ export default function EditCookies() {
           value === null && original !== null ? null : (
             <Fragment key={name}>
               <label>
-                {name} {value !== original && "*"}
+                {name} {`${value};${options}` !== original && "*"}
               </label>
               <div>
                 <input
@@ -168,19 +269,18 @@ export default function EditCookies() {
                 onClick={async () => {
                   const newOptions = await asyncit(
                     EditCookieOptions,
-                    { options: JSON.parse(options) },
+                    { serializedOptions: options },
                     "_oadminModal"
                   );
+
+                  if (!newOptions) {
+                    return;
+                  }
 
                   setCookies(
                     cookies.map((element, j) =>
                       i === j
-                        ? [
-                            element[0],
-                            element[1],
-                            JSON.stringify(newOptions),
-                            element[3],
-                          ]
+                        ? [element[0], element[1], newOptions, element[3]]
                         : element
                     )
                   );
@@ -219,7 +319,9 @@ export default function EditCookies() {
               onClick={() => {
                 updatePageConfig({
                   ...pageConfig,
-                  cookies: cookies.filter((e) => e[1] !== null),
+                  cookies: cookies
+                    .filter((e) => e[1] !== null)
+                    .map((e) => [e[0], e[1], JSON.parse(e[2])]),
                 });
               }}
             >

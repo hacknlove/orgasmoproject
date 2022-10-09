@@ -17,14 +17,12 @@ const defaultCss = `
   min-height: 2rem;
   position: fixed;
   background: #555;
-  border: 3px solid #fff;
-  border-bottom: 0;
-  border-right: 0;
   bottom: 0;
   right: 0;
   z-index: 999999999;
   color: #fff;
-  font-family: sans;
+  font-family: sans-serif;
+  box-shadow: 0 0 15px #000a, 0 0 20px #fffa;
 }
 
 #_oadmin_menu {
@@ -78,7 +76,7 @@ const defaultCss = `
   border-top: 1px solid #999;
 }
 
-#_oadmin button {
+._oadmin_button {
   border: 0;
   color: white;
   font-size: 100%;
@@ -87,7 +85,7 @@ const defaultCss = `
   cursor: pointer;
 }
 
-#_oadmin button:hover {
+._oadmin_button:hover {
   background: #000;
 }
 
@@ -107,11 +105,12 @@ const defaultCss = `
 
 ._oadmin_modal {
   background: #555;
-  padding: 2rem;
+  padding: 0 1rem 1rem;
   display: flex;
   flex-direction: column;
   row-gap: 0.25rem;
   color: #fff;
+  box-shadow: 0 0 15px #000a, 0 0 20px #fffa;
 }
 
 ._oadmin_modal_fields {
@@ -157,7 +156,6 @@ const defaultCss = `
 ._oadmin_input_new_item > input {
   flex-grow: 1;
 }
-
 `;
 
 function hide(event?) {
