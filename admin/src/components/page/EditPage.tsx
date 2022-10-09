@@ -111,7 +111,7 @@ export default function EditPage() {
   }, [updatePageConfig, editValues]);
 
   return (
-    <div className="_oad">
+    <div className="_oadmin_dialog">
       <EditValue
         label="Page Id"
         field="pageId"
@@ -143,8 +143,12 @@ export default function EditPage() {
 
       {isDirty && (
         <div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={save}>Save</button>
+          <button className="_oadmin_button" onClick={reset}>
+            Reset
+          </button>
+          <button className="_oadmin_button" onClick={save}>
+            Save
+          </button>
         </div>
       )}
     </div>

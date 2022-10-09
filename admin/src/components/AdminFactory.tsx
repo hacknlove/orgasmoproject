@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import { Admin } from "./Admin";
 
+import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
+
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT =
   process.env.ADMIN_GET_PAGE_CONFIG_ENDPOINT ?? "/api/_oadmin/getPageConfig";
 
@@ -39,6 +41,7 @@ export default function AdminFactory({ DComponent, Components, Page }) {
 
     return (
       <>
+        <AsyncComponents area="_oadminModal" />
         <Admin
           adminAreas={adminAreas}
           DComponent={DComponent}

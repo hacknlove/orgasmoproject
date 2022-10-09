@@ -10,11 +10,161 @@ import * as equal from "fast-deep-equal";
 
 import Router from "next/router";
 
+// Copy-pasted from ./admin.css
+const defaultCss = `
+#_oadmin {
+  min-width: 2rem;
+  min-height: 2rem;
+  position: fixed;
+  background: #555;
+  border: 3px solid #fff;
+  border-bottom: 0;
+  border-right: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999999999;
+  color: #fff;
+  font-family: sans;
+}
+
+#_oadmin_menu {
+  display: none;
+  flex-direction: column;
+}
+
+#_oadmin_menu_path {
+  font-weight: bold;
+  padding: 0.25rem 1rem 1rem;
+}
+
+#_oadmin_menu_pageId {
+  display: flex;
+  justify-content: space-between;
+}
+#_oadmin_menu_pageId > span {
+  font-weight: bold;
+  padding: 1rem 1rem 0.25rem;
+}
+
+._oadmin_menu_item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+._oadmin_menu_item:hover {
+  background: black;
+}
+
+._oadmin_dialog {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  align-items: end;
+  row-gap: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+
+._oadmin_save_menu {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  align-items: end;
+  row-gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #999;
+}
+
+#_oadmin button {
+  border: 0;
+  color: white;
+  font-size: 100%;
+  padding: 0.3rem 0.9rem;
+  background: #555;
+  cursor: pointer;
+}
+
+#_oadmin button:hover {
+  background: #000;
+}
+
+._oadmin_modal_wrapper {
+  font-family: sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0005;
+  z-index: 99999999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+._oadmin_modal {
+  background: #555;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+  color: #fff;
+}
+
+._oadmin_modal_fields {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+._oadmin_dialog_grid_3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+._oadmin_dialog_grid_2 {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+._oadmin_input_with_x {
+  padding-right: 1.5rem;
+}
+
+._oadmin_input_x {
+  position: absolute;
+  margin-left: -1rem;
+  color: #a00;
+  cursor: pointer;
+}
+
+._oadmin_input_new_item {
+  display: flex;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+._oadmin_input_new_item > input {
+  flex-grow: 1;
+}
+
+`;
+
 function hide(event?) {
   if (event?.target?.tagName === "A") {
     return;
   }
-  const menu = document.getElementById("_oapw") as HTMLDivElement;
+  const menu = document.getElementById("_oadmin_menu") as HTMLDivElement;
 
   if (!menu) {
     return;
@@ -25,7 +175,7 @@ function hide(event?) {
 
 function show() {
   window.removeEventListener("click", hide);
-  const menu = document.getElementById("_oapw") as HTMLDivElement;
+  const menu = document.getElementById("_oadmin_menu") as HTMLDivElement;
 
   if (!menu) {
     return;
@@ -37,7 +187,7 @@ function show() {
 }
 
 function keepAdminPaths(url) {
-  const menu = document.getElementById("_oapw") as HTMLDivElement;
+  const menu = document.getElementById("_oadmin_menu") as HTMLDivElement;
 
   if (!menu) {
     return;
@@ -62,6 +212,7 @@ export function Admin({
   setPageConfig,
   driverMethods,
   originalPageConfig,
+  css,
 }) {
   const isDirty = useMemo(
     () => !equal(pageConfig, originalPageConfig),
@@ -70,7 +221,7 @@ export function Admin({
 
   const AdminComponents = AdminComponentsFactory(DComponent);
 
-  function chooseModal(areaName) {
+  function chooseMenu(areaName) {
     setAdminArea(areaName);
     window.history.pushState(
       { pageConfig },
@@ -119,15 +270,7 @@ export function Admin({
       }}
     >
       <Head>
-        <style>
-          {`#_oadmin{min-width:2rem;min-height:2rem;position:fixed;background:#555;border:3px solid #fff;border-bottom:0;border-right:0;bottom:0;right:0;cursor:pointer;z-index:999999999;color:#fff;font-family:sans}` +
-            `#_oapw{cursor:default;display:none;flex-direction:column}` +
-            `._oab{cursor: pointer;display:flex;align-items:center;justify-content:space.between;column-gap:1rem;padding:0.5rem 1rem}` +
-            `._oab:hover{background:black}` +
-            `._oad{display:flex;flex-direction:column;display:flex;align-items:end;row-gap:0.25rem;padding:0.5rem 1rem}` +
-            `#_oadmin button{border:0;color:white;font-size:100%;padding:0.3rem 0.9rem;background:#555;cursor:pointer}` +
-            `#_oadmin button:hover{background:#000}`}
-        </style>
+        <style>{css || defaultCss}</style>
       </Head>
       <AdminContext.Provider
         value={{
@@ -135,21 +278,20 @@ export function Admin({
           originalPageConfig,
           isDirty,
           updatePageConfig,
-          chooseModal,
+          chooseMenu,
           DComponent,
           Components,
           AdminComponents,
           driverMethods,
         }}
       >
-        <div id="_oapw">
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span style={{ fontWeight: "bold", padding: "1rem 1rem 0.25rem" }}>
-              pageId: {pageConfig.pageId}
-            </span>
+        <div id="_oadmin_menu">
+          <div id="_oadmin_menu_pageId">
+            <span>pageId: {pageConfig.pageId}</span>
             <button
+              className="_oadmin_button"
               onClick={(event) => {
-                chooseModal("start");
+                chooseMenu("start");
                 hide();
                 (event.target as HTMLButtonElement).blur();
               }}
@@ -157,7 +299,7 @@ export function Admin({
               ✖
             </button>
           </div>
-          <span style={{ fontWeight: "bold", padding: "0.25rem 1rem 1rem" }}>
+          <span id="_oadmin_menu_path">
             {pageConfig.exactPath ? "Exact" : "Pattern"} Path:{" "}
             {pageConfig.exactPath ?? pageConfig.patternPath}
           </span>
@@ -171,12 +313,15 @@ export function Admin({
           )}
           {isDirty && (
             <>
-              <div className="_oad" style={{ borderTop: "1px solid #999" }}>
+              <div className="_oadmin_save_menu">
                 <div>
-                  <button onClick={() => updatePageConfig(originalPageConfig)}>
+                  <button
+                    className="_oadmin_button"
+                    onClick={() => updatePageConfig(originalPageConfig)}
+                  >
                     Reset pageConfing
                   </button>
-                  <button>Save pageConfig</button>
+                  <button className="_oadmin_button">Save pageConfig</button>
                 </div>
               </div>
             </>

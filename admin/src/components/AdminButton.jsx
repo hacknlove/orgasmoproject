@@ -1,14 +1,21 @@
+import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import { useContext } from "react";
 import AdminContext from "./AdminContext";
-export default function AdminButton({ label, area }) {
-  const { chooseModal } = useContext(AdminContext);
+export default function AdminButton({ label, area, modal }) {
+  const { chooseMenu, DComponent, Components } = useContext(AdminContext);
 
   return (
     <div
-      className="_oab"
+      className="_oadmin_menu_item"
       onClick={(event) => {
         event.stopPropagation();
-        chooseModal(area);
+        if (area) {
+          chooseMenu(area);
+        }
+
+        if (Components[modal]) {
+          asyncit(DComponent, { type: modal, props: {} }, "_oadminModal");
+        }
       }}
     >
       {label}

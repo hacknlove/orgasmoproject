@@ -78,17 +78,10 @@ export default function EditCSSVars() {
   );
 
   return (
-    <div className="_oad">
+    <div className="_oadmin_dialog">
       <AdminCSSVarsDataList filter={filter} />
       <label>Edit CSS vars</label>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "auto auto",
-          columnGap: "1rem",
-          rowGap: "0.25rem",
-        }}
-      >
+      <div className="_oadmin_dialog_grid_2">
         {vars.map(([name, value, original], i) =>
           value === null && original !== null ? null : (
             <Fragment key={name}>
@@ -97,7 +90,7 @@ export default function EditCSSVars() {
               </label>
               <div>
                 <input
-                  style={{ paddingRight: "1.5rem" }}
+                  className="_oadmin_input_with_x"
                   type="text"
                   value={value ?? ""}
                   onChange={(event) =>
@@ -111,17 +104,12 @@ export default function EditCSSVars() {
                   }
                 />
                 <span
+                  className="_oadmin_input_x"
                   onClick={() =>
                     setVars(
                       vars.map((e, j) => (i === j ? [e[0], null, e[2]] : e))
                     )
                   }
-                  style={{
-                    position: "absolute",
-                    marginLeft: "-1rem",
-                    color: "#a00",
-                    cursor: "pointer",
-                  }}
                 >
                   ✖
                 </span>
@@ -130,21 +118,25 @@ export default function EditCSSVars() {
           )
         )}
       </div>
-      <div style={{ display: "flex", width: "100%", marginTop: "0.5rem" }}>
+      <div className="_oadmin_input_new_item">
         <input
           list="_oadminCSSVars"
           placeholder="new variable"
-          style={{ flexGrow: 1 }}
           ref={ref}
           onKeyDown={(event) => event.key === "Enter" && addNewCssVar()}
         />
-        <button onClick={addNewCssVar}>new var</button>
+        <button className="_oadmin_button" onClick={addNewCssVar}>
+          new var
+        </button>
       </div>
       <div>
         {changed && (
           <>
-            <button onClick={reset}>Reset</button>
+            <button className="_oadmin_button" onClick={reset}>
+              Reset
+            </button>
             <button
+              className="_oadmin_button"
               onClick={() => {
                 updatePageConfig({
                   ...pageConfig,

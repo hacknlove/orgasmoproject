@@ -7,6 +7,7 @@ import EditCSSVars from "./layout/EditCSSvars";
 import EditMetaTags from "./layout/EditMetaTags";
 import ClonePage from "./page/ClonePage";
 import EditPage from "./page/EditPage";
+import EditCookies from "./page/EditCookies";
 
 export const AdminComponentsObject = {
   AdminButton,
@@ -16,6 +17,7 @@ export const AdminComponentsObject = {
   EditMetaTags,
   ClonePage,
   EditPage,
+  EditCookies,
 };
 
 export default function AdminComponentsFactory(DComponent) {
@@ -36,6 +38,8 @@ export default function AdminComponentsFactory(DComponent) {
           return <ClonePage {...props} />;
         case "EditPage":
           return <EditPage {...props} />;
+        case "EditCookies":
+          return <EditCookies {...props} />;
         default:
           return <DComponent type={type} props={props} />;
       }

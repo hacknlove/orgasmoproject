@@ -9,7 +9,7 @@ export default function EditLayoutName() {
   const ref: any = useRef();
 
   return (
-    <div className="_oad">
+    <div className="_oadmin_dialog">
       <AdminComponentsDataList Components={Components} />
       <label>Edit Layout Name</label>
       <input
@@ -20,6 +20,7 @@ export default function EditLayoutName() {
       />
       <div>
         <button
+          className="_oadmin_button"
           onClick={() => {
             ref.current.value = pageConfig?.layout?.name || "";
           }}
@@ -27,6 +28,7 @@ export default function EditLayoutName() {
           Reset
         </button>
         <button
+          className="_oadmin_button"
           onClick={() => {
             updatePageConfig({
               ...pageConfig,

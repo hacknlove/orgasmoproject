@@ -6,7 +6,7 @@ export default function EditJSSnipplets() {
   const ref: any = useRef();
 
   return (
-    <div className="_oad">
+    <div className="_oadmin_dialog">
       <label>Edit JS snippets</label>
       <textarea
         ref={ref}
@@ -16,6 +16,7 @@ export default function EditJSSnipplets() {
       />
       <div>
         <button
+          className="_oadmin_button"
           onClick={() => {
             ref.current.value = pageConfig?.layout?.jssnippets || "";
           }}
@@ -23,6 +24,7 @@ export default function EditJSSnipplets() {
           Reset
         </button>
         <button
+          className="_oadmin_button"
           onClick={() => {
             updatePageConfig({
               ...pageConfig,
