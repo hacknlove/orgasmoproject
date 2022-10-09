@@ -21,6 +21,13 @@ export default function AdminFactory({ DComponent, Components, Page, css }) {
     const [expandedPageConfig, setExpandedPageConfig] = useState<any>();
 
     useEffect(() => {
+      setSelectedPageId(Object.keys(pageConfigs)[0])
+    }, [resolvedUrl])
+
+    useEffect(() => {
+      if (!editablePageConfig) {
+        return
+      }
       fetch(ADMIN_GET_PAGE_CONFIG_ENDPOINT, {
         method: "POST",
         headers: {

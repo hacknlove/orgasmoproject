@@ -17,20 +17,16 @@
         {
           "type": "AdminMenuItem",
           "props": {
-            "label": "Layout",
-            "area": "LayoutMenu"
-          }
-        },
-        {
-          "type": "AdminMenuItem",
-          "props": {
             "label": "Areas",
             "area": "AreasMenu"
           }
         }
       ]
     },
-    "LayoutMenu": {
+    "AreasMenu": {
+      "items": []
+    },
+    "PageMenu": {
       "items": [
         {
           "type": "AdminMenuItem",
@@ -59,25 +55,11 @@
             "label": "CSS vars",
             "area": "EditCSSVars"
           }
-        }
-      ]
-    },
-    "AreasMenu": {
-      "items": []
-    },
-    "PageMenu": {
-      "items": [
-        {
-          "type": "AdminMenuItem",
-          "props": {
-            "label": "Clone page",
-            "area": "ClonePage"
-          }
         },
         {
           "type": "AdminMenuItem",
           "props": {
-            "label": "Edit Page",
+            "label": "Configuration",
             "area": "EditPage"
           }
         },

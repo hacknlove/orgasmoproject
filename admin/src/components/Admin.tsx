@@ -231,11 +231,13 @@ export function Admin({
   function chooseMenu(areaName) {
     setAdminArea(areaName);
     window.history.pushState(
-      { pageConfig },
+      {
+        ...window.history.state, 
+        pageConfig
+      },
       "",
       `#${areaName === "start" ? "" : areaName}`
     );
-    show();
   }
 
   const [adminArea, setAdminArea] = useState("start");
@@ -247,22 +249,32 @@ export function Admin({
   }, []);
 
   useEffect(() => {
-    window.history.replaceState({ pageConfig }, "");
+    window.history.replaceState({
+      ...window.history.state,
+      pageConfig
+    }, "");
     setAdminArea(window.location.hash.substring(1) || "start");
-    show();
 
-    window.addEventListener("popstate", ({ state }) => {
+    function popstateHandler ({ state }) {
       if (state && state?.pageConfig) {
         setPageConfig(state.pageConfig);
       }
+      if (window.location.pathname) 
       setAdminArea(window.location.hash.substring(1) || "start");
-      show();
-    });
+    }
+
+    window.addEventListener("popstate",popstateHandler);
+
+    return () => window.removeEventListener("popstate", popstateHandler)
   }, []);
 
   function updatePageConfig(pageConfig) {
     window.history.pushState({ pageConfig }, "");
     setPageConfig(pageConfig);
+  }
+
+  if (!pageConfig) {
+    return null
   }
 
   return (
@@ -298,8 +310,7 @@ export function Admin({
         <div id="_oadmin_menu">
           <div id="_oadmin_menu_path">
             <span>
-              {pageConfig.exactPath ? "Exact" : "Pattern"} Path:{" "}
-              {pageConfig.exactPath ?? pageConfig.patternPath}
+              {pageConfig.exactPath ?? pageConfig.patternPath} {isDirty && '*'}
             </span>
             <button
               className="_oadmin_button"
@@ -328,9 +339,10 @@ export function Admin({
                     className="_oadmin_button"
                     onClick={() => updatePageConfig(originalPageConfig)}
                   >
-                    Reset pageConfing
+                    Reset
                   </button>
-                  <button className="_oadmin_button">Save pageConfig</button>
+                  <button className="_oadmin_button">Save</button>
+                  <button className="_oadmin_button">Save as...</button>
                 </div>
               </div>
             </>
