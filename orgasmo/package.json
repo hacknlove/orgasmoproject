@@ -33,7 +33,8 @@
     "./AreasContext": "./dist/components/AreasContext.js",
     "./Area": "./dist/components/Area.js",
     "./withOrgasmo": "./src/buildTools/withOrgasmo.cjs",
-    "./expandPageConfig": "./dist/server/getServerSideProps/expand/pageConfig.js"
+    "./expandPageConfig": "./dist/server/getServerSideProps/expand/pageConfig.js",
+    "./AsyncComponents": "./dist/components/AsyncComponents.js"
   },
   "files": [
     "dist/",
