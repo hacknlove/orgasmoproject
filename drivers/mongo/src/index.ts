@@ -7,6 +7,8 @@ const filesystemDriver = {
   page: {
     getPageConfig,
     getPageConfigFromId,
+  },
+  admin: {
     updatePageConfig,
     newPageConfig,
   },
