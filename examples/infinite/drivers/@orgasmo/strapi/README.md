@@ -22,7 +22,7 @@ npm run develop
 user: `admin@example.com`
 password: `BullSh1t.Security`
 
-> Trhough 20 years of effort, we've successfully trained everyone to use passwords that are hard for humans to remember, but easy for computers to guess.
+> Through 20 years of effort, we've successfully trained everyone to use passwords that are hard for humans to remember, but easy for computers to guess.
 > https://xkcd.com/936/
 
 ## Start orgasmo
