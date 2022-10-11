@@ -6,6 +6,8 @@ const pageConfigsCollectionName =
 export default async function newPageConfig(ctx, pageConfig) {
   await mongoProxy.connect();
 
+  delete pageConfig._id;
+
   await mongoProxy[pageConfigsCollectionName].insertOne(pageConfig);
 
   return { ok: true };
