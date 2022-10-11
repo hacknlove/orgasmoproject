@@ -1,4 +1,4 @@
-import { waitForIt, staticPaths, dynamicPaths } from "./parseDirectory";
+import { waitForIt, staticPaths, dynamicPaths } from "../parseDirectory";
 
 export default async function getPageConfig(ctx) {
   await waitForIt;

@@ -1,7 +1,7 @@
 import getPageConfigFromId from "./getPageConfigFromId";
-import { ids } from "./parseDirectory";
+import { ids } from "../parseDirectory";
 
-jest.mock("./parseDirectory", () => ({
+jest.mock("../parseDirectory", () => ({
   __esModule: true,
   waitForIt: Promise.resolve(),
   ids: new Map(),
