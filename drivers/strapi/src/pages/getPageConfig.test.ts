@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import getPageConfig from "./getPageConfig";
-import strapiFetch from "./strapiFetch";
-import mapStrapiToOrgasmo from "./mapStrapiToOrgasmo";
+import strapiFetch from "../strapiFetch";
+import mapStrapiToOrgasmo from "../mapStrapiToOrgasmo";
 
-jest.mock("./mapStrapiToOrgasmo", () => ({
+jest.mock("../mapStrapiToOrgasmo", () => ({
   __esModule: true,
   default: jest.fn((i) => i),
 }));
 
-jest.mock("./strapiFetch", () => ({
+jest.mock("../strapiFetch", () => ({
   __esModule: true,
   default: jest.fn(),
 }));

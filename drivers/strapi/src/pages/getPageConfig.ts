@@ -1,6 +1,6 @@
-import strapiFetch from "./strapiFetch";
+import strapiFetch from "../strapiFetch";
 import { match } from "path-to-regexp";
-import mapStrapiToOrgasmo from "./mapStrapiToOrgasmo";
+import mapStrapiToOrgasmo from "../mapStrapiToOrgasmo";
 
 export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");

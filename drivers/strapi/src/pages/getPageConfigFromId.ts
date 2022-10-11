@@ -1,5 +1,5 @@
-import strapiFetch from "./strapiFetch";
-import mapStrapiToOrgasmo from "./mapStrapiToOrgasmo";
+import strapiFetch from "../strapiFetch";
+import mapStrapiToOrgasmo from "../mapStrapiToOrgasmo";
 
 export default async function getPageConfigFromId(pageId, ctx) {
   const exactMatch = await strapiFetch(
