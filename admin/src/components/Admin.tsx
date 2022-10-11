@@ -220,7 +220,7 @@ export function Admin({
     }
 
     function makeInactive(event) {
-      let element = event.target
+      let element = event.target;
       while (element) {
         if (
           ["A", "BUTTON", "SELECT", "OPTION", "INPUT"].includes(element.tagName)
@@ -315,19 +315,16 @@ export function Admin({
               {pageConfig?.exactPath ?? pageConfig?.patternPath}{" "}
               {isDirty && "*"}
             </span>
-            {
-              adminArea !== 'start' && (
-                <button
-                  className="_oadmin_button"
-                  onClick={() => {
-                    chooseMenu("start");
-                  }}
-                >
-                  🠄
-                </button>
-              )
-
-            }
+            {adminArea !== "start" && (
+              <button
+                className="_oadmin_button"
+                onClick={() => {
+                  chooseMenu("start");
+                }}
+              >
+                🠄
+              </button>
+            )}
           </div>
           {AdminComponentsObject[adminArea] ? (
             <AdminComponents type={adminArea} props={{}} />

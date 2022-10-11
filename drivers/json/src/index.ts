@@ -18,13 +18,12 @@ const filesystemDriver = {
   },
   admin: {
     updatePageConfig: notPossible,
-    newPageConfig: notPossible
+    newPageConfig: notPossible,
   },
   "page.getPageConfig": getPageConfig,
   "page.getPageConfigFromId": getPageConfigFromId,
   "admin.updatePageConfig": notPossible,
   "admin.newPageConfig": notPossible,
-
 };
 
 export default filesystemDriver;

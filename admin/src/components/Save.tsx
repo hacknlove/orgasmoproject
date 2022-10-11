@@ -12,7 +12,7 @@ function forceReload() {
 }
 
 function InputPageId({ resolve }) {
-  const [pageId, setPageId] = useState<string>('') 
+  const [pageId, setPageId] = useState<string>("");
   return (
     <div
       className="_oadmin_modal_wrapper"
@@ -33,27 +33,25 @@ function InputPageId({ resolve }) {
           </button>
         </div>
         <div className="_oadmin_modal_fields">
-          <label>pageConfig</label><input value={pageId} onChange={event => setPageId(event.target.value)} />
+          <label>pageConfig</label>
+          <input
+            value={pageId}
+            onChange={(event) => setPageId(event.target.value)}
+          />
         </div>
         {pageId && (
           <div>
-            <button
-              className="_oadmin_button"
-              onClick={() => resolve()}
-            >
+            <button className="_oadmin_button" onClick={() => resolve()}>
               Cancel
             </button>
-            <button
-              className="_oadmin_button"
-              onClick={() => resolve(pageId)}
-            >
+            <button className="_oadmin_button" onClick={() => resolve(pageId)}>
               Save
             </button>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
 
 export default function Save() {
@@ -91,10 +89,10 @@ export default function Save() {
   }, [pageConfig]);
 
   const saveAs = useCallback(async () => {
-    const pageId = await asyncit(InputPageId, {}, '_oadminModal');
+    const pageId = await asyncit(InputPageId, {}, "_oadminModal");
 
     if (!pageId) {
-      return
+      return;
     }
 
     const response = await fetch(ADMIN_NEW_PAGE_CONFIG_ENDPOINT, {
@@ -106,7 +104,7 @@ export default function Save() {
       body: JSON.stringify({
         pageConfig: {
           ...pageConfig,
-          pageId
+          pageId,
         },
       }),
     })
@@ -126,9 +124,12 @@ export default function Save() {
 
     asyncit(
       Alert,
-      { title: "Saved", text: `The pageConfig has been save with the pageId ${pageId}` },
+      {
+        title: "Saved",
+        text: `The pageConfig has been save with the pageId ${pageId}`,
+      },
       "_oadminModal"
-    )
+    );
   }, [pageConfig]);
 
   if (!isDirty) {
@@ -158,7 +159,9 @@ export default function Save() {
         <button className="_oadmin_button" onClick={save}>
           Save
         </button>
-        <button className="_oadmin_button" onClick={saveAs}>Save as...</button>
+        <button className="_oadmin_button" onClick={saveAs}>
+          Save as...
+        </button>
       </div>
     </div>
   );
