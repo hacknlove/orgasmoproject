@@ -26,7 +26,6 @@ module.exports = {
   ignorePatterns: [
     "**/dist/**/*",
     "/examples/infinite",
-    "/admin/strapi",
     "/create-orgasmo/empty",
   ],
   settings: {
