@@ -16,6 +16,15 @@
   flex-direction: column;
 }
 
+#_oadmin_menu._oadmin_menu_active {
+  display: flex;
+}
+
+#_oadmin_menu_pageId {
+  font-weight: bold;
+  padding: 0.25rem 1rem 1rem;
+}
+
 #_oadmin_menu_path {
   display: flex;
   justify-content: space-between;

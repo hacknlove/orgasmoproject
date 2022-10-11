@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { RenderArea } from "@orgasmo/orgasmo/Area";
 import AdminComponentsFactory, {
   AdminComponentsObject,
@@ -30,6 +30,10 @@ const defaultCss = `
 #_oadmin_menu {
   display: none;
   flex-direction: column;
+}
+
+#_oadmin_menu._oadmin_menu_active {
+  display: flex;
 }
 
 #_oadmin_menu_pageId {
@@ -166,50 +170,6 @@ const defaultCss = `
 }
 `;
 
-function hide(event?) {
-  if (event?.target?.tagName === "A") {
-    return;
-  }
-  const menu = document.getElementById("_oadmin_menu") as HTMLDivElement;
-
-  if (!menu) {
-    return;
-  }
-  menu.style.display = "";
-  window.removeEventListener("click", hide);
-}
-
-function show() {
-  window.removeEventListener("click", hide);
-  const menu = document.getElementById("_oadmin_menu") as HTMLDivElement;
-
-  if (!menu) {
-    return;
-  }
-  menu.style.display = "flex";
-  setTimeout(() => {
-    window.addEventListener("click", hide);
-  }, 1000);
-}
-
-function keepAdminPaths(url) {
-  const menu = document.getElementById("_oadmin_menu") as HTMLDivElement;
-
-  if (!menu) {
-    return;
-  }
-
-  if (!menu.style.display) {
-    return;
-  }
-  if (url.startsWith("/admin")) {
-    return;
-  }
-  Router.events.emit("routeChangeError");
-  Router.replace("/admin" + url);
-  throw "Ignore this error.";
-}
-
 export function Admin({
   adminAreas,
   DComponent,
@@ -226,28 +186,74 @@ export function Admin({
     () => !equal(pageConfig, originalPageConfig),
     [pageConfig, originalPageConfig]
   );
+  const [menuIsActive, setMenuIsActive] = useState(true);
+  const [adminArea, setAdminArea] = useState("start");
 
   const AdminComponents = AdminComponentsFactory(DComponent);
 
-  function chooseMenu(areaName) {
-    setAdminArea(areaName);
-    window.history.pushState(
-      {
-        ...window.history.state,
-        pageConfig,
-      },
-      "",
-      `#${areaName === "start" ? "" : areaName}`
-    );
-  }
+  const updatePageConfig = useCallback(
+    (pageConfig) => {
+      window.history.pushState({ pageConfig }, "");
+      setPageConfig(pageConfig);
+    },
+    [setPageConfig]
+  );
 
-  const [adminArea, setAdminArea] = useState("start");
+  const chooseMenu = useCallback(
+    (areaName) => {
+      setAdminArea(areaName);
+      window.history.pushState(
+        {
+          ...window.history.state,
+          pageConfig,
+        },
+        "",
+        `#${areaName === "start" ? "" : areaName}`
+      );
+    },
+    [setAdminArea]
+  );
 
   useEffect(() => {
+    if (!menuIsActive) {
+      return;
+    }
+
+    function makeInactive(event) {
+      let element = event.target
+      while (element) {
+        if (
+          ["A", "BUTTON", "SELECT", "OPTION", "INPUT"].includes(element.tagName)
+        ) {
+          return;
+        }
+        element = element.parentElement;
+      }
+
+      setMenuIsActive(false);
+    }
+
+    window.addEventListener("click", makeInactive);
+
+    return () => {
+      window.removeEventListener("click", makeInactive);
+    };
+  }, [menuIsActive]);
+
+  useEffect(() => {
+    function keepAdminPaths(url) {
+      if (url.startsWith("/admin")) {
+        return;
+      }
+      Router.events.emit("routeChangeError");
+      Router.replace("/admin" + url);
+      throw "Ignore this error.";
+    }
+
     Router.events.on("routeChangeStart", keepAdminPaths);
 
     () => Router.events.off("routeChangeStart", keepAdminPaths);
-  }, []);
+  }, [menuIsActive]);
 
   useEffect(() => {
     window.history.replaceState(
@@ -272,24 +278,13 @@ export function Admin({
     return () => window.removeEventListener("popstate", popstateHandler);
   }, []);
 
-  function updatePageConfig(pageConfig) {
-    window.history.pushState({ pageConfig }, "");
-    setPageConfig(pageConfig);
-  }
-
-  if (!pageConfig) {
-    return null;
-  }
-
   return (
     <div
       id="_oadmin"
-      onMouseEnter={show}
+      onMouseEnter={() => setMenuIsActive(true)}
       onClick={(event) => {
         event.stopPropagation();
-        if ((event.target as HTMLDListElement).id === "_oadmin") {
-          show();
-        }
+        setMenuIsActive(true);
       }}
     >
       <Head>
@@ -311,21 +306,28 @@ export function Admin({
         }}
       >
         <AsyncComponents area="_oadminModal" />
-        <div id="_oadmin_menu">
+        <div
+          id="_oadmin_menu"
+          className={menuIsActive ? "_oadmin_menu_active" : ""}
+        >
           <div id="_oadmin_menu_path">
             <span>
-              {pageConfig.exactPath ?? pageConfig.patternPath} {isDirty && "*"}
+              {pageConfig?.exactPath ?? pageConfig?.patternPath}{" "}
+              {isDirty && "*"}
             </span>
-            <button
-              className="_oadmin_button"
-              onClick={(event) => {
-                chooseMenu("start");
-                hide();
-                (event.target as HTMLButtonElement).blur();
-              }}
-            >
-              ✖
-            </button>
+            {
+              adminArea !== 'start' && (
+                <button
+                  className="_oadmin_button"
+                  onClick={() => {
+                    chooseMenu("start");
+                  }}
+                >
+                  🠄
+                </button>
+              )
+
+            }
           </div>
           {AdminComponentsObject[adminArea] ? (
             <AdminComponents type={adminArea} props={{}} />

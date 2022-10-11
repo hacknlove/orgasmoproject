@@ -16,10 +16,10 @@ export default function ChoosePageId() {
   return (
     <select
       className="_oadmin_menu_item"
-      value={pageConfig.pageId}
+      value={pageConfig?.pageId}
       onChange={onChange}
     >
-      {pageConfigIds.map((key) => (
+      {pageConfigIds?.map((key) => (
         <option key={key} value={key}>
           {key}
         </option>
