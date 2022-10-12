@@ -1,0 +1,33 @@
+{
+  "name": "@orgasmo/state",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "lint": "eslint . --fix",
+    "pretty": "prettier --write .",
+    "prettylint": "npm run lint && npm run pretty",
+    "dev": "nodemon --exec \"npm run build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hacknlove/orgasmoproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hacknlove/orgasmoproject/issues"
+  },
+  "homepage": "https://github.com/hacknlove/orgasmoproject#readme",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./react": "./dist/react.js",
+    "./plugins/var": "./dist/plugins/var.js"
+  }
+}

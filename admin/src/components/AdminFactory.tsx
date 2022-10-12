@@ -4,7 +4,7 @@ import { Admin } from "./Admin";
 
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/getPageConfig";
 
-export default function AdminFactory({ DComponent, Components, Page, css }) {
+export default function AdminFactory({ DComponent, Components, Page }) {
   const AdminPage = ({
     pageConfigs,
     resolvedUrl,
@@ -60,7 +60,6 @@ export default function AdminFactory({ DComponent, Components, Page, css }) {
           setSelectedPageId={setSelectedPageId}
           setPageConfig={setEditablePageConfig}
           driverMethods={driverMethods}
-          css={css}
         />
       ),
       [editablePageConfig]

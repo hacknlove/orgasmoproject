@@ -18,10 +18,18 @@ export default function PageFactory({
 
     const setAreas = useCallback(
       (areas) =>
-        setProps((props) => ({
-          ...props,
-          areas,
-        })),
+        setProps((props) => {
+          if (areas instanceof Function) {
+            return {
+              ...props,
+              areas: areas(props.areas),
+            };
+          }
+          return {
+            ...props,
+            areas,
+          };
+        }),
       [setProps]
     );
 

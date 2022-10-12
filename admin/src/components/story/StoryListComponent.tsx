@@ -68,7 +68,7 @@ export default function StoryListComponent({
                 : ""
             }`}
           >
-            <Link href={`/story?component=${component}&story=${name}`} shallow>
+            <Link href={`/story?component=${component}&story=${name}`}>
               <a className="StoryListComponent_a" title={description}>
                 {" "}
                 <ClarityBookmarkLine className="ClarityBookmarkLine" />

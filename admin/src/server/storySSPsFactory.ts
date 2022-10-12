@@ -7,7 +7,7 @@ export async function getStoriesList({ driver, Components }) {
       stories[key] = {
         empty: {
           itemConfig: {
-            props: "",
+            props: {},
           },
           description: `Create the first story for the component ${key}`,
         },
@@ -39,16 +39,23 @@ export default function storySSPsFactory({ driver, Components, layout }) {
               },
             })),
           },
+          storyTitle: {
+            items: [
+              {
+                type: "StoryTitle",
+                props: {
+                  component: "Choose a story",
+                  story: "",
+                  isDirty: false,
+                },
+              },
+            ],
+          },
         } as Record<string, any>,
       },
     };
 
-    console.log(ctx.query);
-
     const story = stories[ctx.query.component]?.[ctx.query.story];
-
-    console.log(story);
-    console.log(stories);
 
     if (!story) {
       return response;
@@ -73,6 +80,19 @@ export default function storySSPsFactory({ driver, Components, layout }) {
             story: ctx.query.story,
             description: story.description,
             itemConfig: story.itemConfig,
+          },
+        },
+      ],
+    };
+
+    response.props.areas.storyTitle = {
+      items: [
+        {
+          type: "StoryTitle",
+          props: {
+            component: ctx.query.component,
+            story: ctx.query.story,
+            isDirty: false,
           },
         },
       ],

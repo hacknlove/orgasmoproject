@@ -5,30 +5,27 @@ export default function JSONEditor(props) {
   const refEditor = useRef(null) as any;
 
   useEffect(() => {
-    // create editor
-    console.log("hola");
-
+    if (!refContainer.current) {
+      return;
+    }
     import("vanilla-jsoneditor").then(({ JSONEditor }) => {
       if (refEditor.current) {
-        return;
+        return null;
       }
-      console.log("create editor", refContainer.current);
       refEditor.current = new JSONEditor({
         target: refContainer.current,
-        props: {},
+        props,
       });
     });
 
     return () => {
-      console.log("destrouy");
       // destroy editor
       if (refEditor.current) {
-        console.log("destroy editor");
         refEditor.current.destroy();
         refEditor.current = null;
       }
     };
-  }, []);
+  }, [refEditor.current, refContainer.current]);
 
   // update props
   useEffect(() => {

@@ -1,6 +1,7 @@
 import AreasContext from "@orgasmo/orgasmo/AreasContext";
 import { useRouter } from "next/router";
 import { useContext, Component, ErrorInfo, ReactNode } from "react";
+import * as equal from "fast-deep-equal";
 
 export default function StoryRender({ itemConfig }) {
   const router = useRouter();
@@ -28,6 +29,12 @@ class ErrorBoundary extends Component<Props, State> {
 
   public static getDerivedStateFromError(error: Error): State {
     return { hasError: error };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!equal(this.props, prevProps)) {
+      this.setState({ hasError: false });
+    }
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {

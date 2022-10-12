@@ -1,0 +1,6 @@
+{
+  "ignore": ["dist"],
+  "watch": ["src", "orgasmo/package.json"],
+  "verbose": true,
+  "ext": "js,json,mjs,ts,tsx"
+}
