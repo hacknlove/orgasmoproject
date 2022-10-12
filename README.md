@@ -1,4 +1,4 @@
-# Orgasmo ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+# Orgasmo
 
 A Next.js plugin that gives you the best UX, the best DX and the best MX (marketeer experience).
 
