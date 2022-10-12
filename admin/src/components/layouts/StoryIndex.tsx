@@ -1,5 +1,5 @@
 import Area from "@orgasmo/orgasmo/Area";
-import { DynamicStateProvider } from "@orgasmo/state/react";
+import { DynamicStateProvider } from "@orgasmo/dynamicstate/react";
 
 export default function StoryIndex() {
   return (

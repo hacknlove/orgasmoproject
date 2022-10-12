@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useMemo, useEffect, useContext } from "react";
 import * as equal from "fast-deep-equal";
 import AreasContext from "@orgasmo/orgasmo/AreasContext";
-import { useDynamicResource } from "@orgasmo/state/react";
+import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 
 import JSONEditor from "./JsonEditor";
 export default function StoryPlayground({ description, itemConfig }) {
