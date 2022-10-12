@@ -1,77 +1,85 @@
-import { cleanAwaitJson } from "@orgasmo/orgasmo/cleanJson";
-
 export async function getStoriesList({ driver, Components }) {
   const stories =
     (await driver?.story?.getAllStories().catch(() => ({}))) || {};
 
   for (const key of Object.keys(Components)) {
     if (!stories[key]) {
-      stories[key] = [
-        {
-          props: {},
-          name: "empty",
+      stories[key] = {
+        empty: {
+          itemConfig: {
+            props: "",
+          },
           description: `Create the first story for the component ${key}`,
         },
-      ];
+      };
     }
   }
 
   return stories;
 }
 
-export async function storyIndexSSPsFactory(props) {
-  const stories = await getStoriesList(props);
-
-  return {
-    props: {
-      layout: {
-        name: "StoryIndex",
-        meta: [["title", "Orgasmo's stories"]],
-      },
-      areas: {
-        storiesList: {
-          items: Object.entries(stories).map(([component, stories]) => ({
-            type: "StoryListComponent",
-            props: {
-              component,
-              stories,
-            },
-          })),
-        },
-      },
-    },
-  };
-}
-
-export default function storySSPsFactory({ driver, Components }) {
+export default function storySSPsFactory({ driver, Components, layout }) {
   return async function getServerSideProps(ctx) {
-    if (!ctx.query?._o?.length) {
-      return storyIndexSSPsFactory({ driver, Components });
+    const stories = await getStoriesList({ driver, Components });
+
+    const response = {
+      props: {
+        layout: {
+          name: "StoryIndex",
+          meta: [["title", "Orgasmo's stories"]],
+          ...layout,
+        },
+        areas: {
+          storiesList: {
+            items: Object.entries(stories).map(([component, stories]) => ({
+              type: "StoryListComponent",
+              props: {
+                component,
+                stories,
+              },
+            })),
+          },
+        } as Record<string, any>,
+      },
+    };
+
+    console.log(ctx.query);
+
+    const story = stories[ctx.query.component]?.[ctx.query.story];
+
+    console.log(story);
+    console.log(stories);
+
+    if (!story) {
+      return response;
     }
 
-    return { notFound: true };
+    response.props.areas.storyComponent = {
+      items: [
+        {
+          type: "StoryRender",
+          props: {
+            itemConfig: story.itemConfig,
+          },
+        },
+      ],
+    };
 
-    /*         let storyPageConfig = '_ostoryPageIndex'
+    response.props.areas.storyPlayground = {
+      items: [
+        {
+          type: "StoryPlayground",
+          props: {
+            story: ctx.query.story,
+            description: story.description,
+            itemConfig: story.itemConfig,
+          },
+        },
+      ],
+    };
 
-        if (!ctx.query?._o?.length) {
-            storyPageConfig = '_ostoryPage'
-        }
+    console.log(response);
 
-        const pageConfig = cleanAwaitJson(
-            driver.page.getPageConfigFromId(storyPageConfig)
-        );
-
-        return {
-            props: {
-              pageConfigs: Object.fromEntries(
-                pageConfigs.map((pageConfig) => [pageConfig.pageId, pageConfig])
-              ),
-              adminPageConfig: await adminConfig,
-              driverMethods: Object.keys(driver).filter((method) =>
-                method.includes(".")
-              ),
-              resolvedUrl: ctx.resolvedUrl,
-            },
-          }; */
+    return response;
   };
 }

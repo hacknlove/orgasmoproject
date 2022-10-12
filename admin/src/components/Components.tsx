@@ -27,4 +27,10 @@ export default {
   StoryIndex: dynamic(() => import("./layouts/StoryIndex.js"), {
     suspense: true,
   }),
+  StoryRender: dynamic(() => import("./story/StoryRender.js"), {
+    suspense: true,
+  }),
+  StoryPlayground: dynamic(() => import("./story/StoryPlayground.js"), {
+    suspense: true,
+  }),
 };

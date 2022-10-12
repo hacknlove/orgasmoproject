@@ -35,5 +35,8 @@
   },
   "files": [
     "dist/"
-  ]
+  ],
+  "dependencies": {
+    "vanilla-jsoneditor": "^0.7.9"
+  }
 }
