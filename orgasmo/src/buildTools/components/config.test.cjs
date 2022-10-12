@@ -41,98 +41,62 @@ describe("components fileImports", () => {
       { filename: "Bar", from: "./components/Bar.dynamic.tsx" },
     ];
     const expected = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {components: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { components: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { components: false })
-  *
-  * @example
-  * // forces the use of an external package as components 
-  * withOrgasmo(nextConfig, { components: 'package-name' })
-  *
-  */
+* @file This file is created automatically at build time.
+* more info: https://docs.orgasmo.dev/
+*/
 import React from 'react';
 import dynamic from 'next/dynamic';
+import ーorgasmoーadminーComponents from "@orgasmo/admin/Components"
+
 
 export const Components = {
+...ーorgasmoーadminーComponents,
+
   Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true }),
   Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true }),
 }
 
 export default function DComponent ({ type, props }) {
-switch (type) {
-  case 'Foo':
-    return <React.Suspense fallback={null}><Components.Foo {...props} /></React.Suspense>
-  case 'Bar':
-    return <React.Suspense fallback={null}><Components.Bar {...props} /></React.Suspense>
-  default:
-    return <div data-component-name={type}/>
-  }
+  const Component = Components[type] ? Components[type] : <div data-component-name={type}/>;
+  return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
 }
 `;
     const actual = fileFromImports(imports);
+
     expect(actual).toEqual(expected);
   });
-  it("uses the externalPackage if provided", () => {
+  it("skips missing externalPackages", () => {
     const imports = [
       { filename: "Foo", from: "./components/Foo.dynamic.tsx" },
       { filename: "Bar", from: "./components/Bar.dynamic.tsx" },
     ];
     const expected = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {components: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { components: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { components: false })
-  *
-  * @example
-  * // forces the use of an external package as components 
-  * withOrgasmo(nextConfig, { components: 'package-name' })
-  *
-  */
+* @file This file is created automatically at build time.
+* more info: https://docs.orgasmo.dev/
+*/
 import React from 'react';
 import dynamic from 'next/dynamic';
-import external from foo-externalPackage
+import ーorgasmoーadminーComponents from "@orgasmo/admin/Components"
+
 
 export const Components = {
-  ...external.Components,
+...ーorgasmoーadminーComponents,
+
   Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true }),
   Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true }),
 }
 
 export default function DComponent ({ type, props }) {
-switch (type) {
-  case 'Foo':
-    return <React.Suspense fallback={null}><Components.Foo {...props} /></React.Suspense>
-  case 'Bar':
-    return <React.Suspense fallback={null}><Components.Bar {...props} /></React.Suspense>
-  default:
-    return external({ type, props }) ?? <div data-component-name={type}/>
-  }
+  const Component = Components[type] ? Components[type] : <div data-component-name={type}/>;
+  return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
 }
 `;
+    jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const actual = fileFromImports(imports, "foo-externalPackage");
     expect(actual).toEqual(expected);
+    expect(console.warn).toBeCalledWith(
+      "module not found:",
+      "foo-externalPackage"
+    );
   });
 });

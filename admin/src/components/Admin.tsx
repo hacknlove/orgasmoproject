@@ -1,9 +1,6 @@
 import Head from "next/head";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { RenderArea } from "@orgasmo/orgasmo/Area";
-import AdminComponentsFactory, {
-  AdminComponentsObject,
-} from "./AdminComponents";
 
 import AdminContext from "./AdminContext";
 import * as equal from "fast-deep-equal";
@@ -189,8 +186,6 @@ export function Admin({
   const [menuIsActive, setMenuIsActive] = useState(true);
   const [adminArea, setAdminArea] = useState("start");
 
-  const AdminComponents = AdminComponentsFactory(DComponent);
-
   const updatePageConfig = useCallback(
     (pageConfig) => {
       window.history.pushState({ pageConfig }, "");
@@ -299,7 +294,6 @@ export function Admin({
           chooseMenu,
           DComponent,
           Components,
-          AdminComponents,
           driverMethods,
           pageConfigIds,
           setSelectedPageId,
@@ -326,13 +320,10 @@ export function Admin({
               </button>
             )}
           </div>
-          {AdminComponentsObject[adminArea] ? (
-            <AdminComponents type={adminArea} props={{}} />
+          {Components[adminArea] ? (
+            <DComponent type={adminArea} props={{}} />
           ) : (
-            <RenderArea
-              area={adminAreas[adminArea]}
-              DComponent={AdminComponents}
-            />
+            <RenderArea area={adminAreas[adminArea]} DComponent={DComponent} />
           )}
           <Save />
         </div>

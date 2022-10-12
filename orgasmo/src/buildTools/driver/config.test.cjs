@@ -3,8 +3,8 @@
 const { join } = require("path");
 const chokidar = require("chokidar");
 const glob = require("glob");
-jest.mock("./isAModule", () => jest.fn());
-const isAModule = require("./isAModule");
+jest.mock("../isAModule", () => jest.fn());
+const isAModule = require("../isAModule");
 
 const watcher = {
   on: jest.fn(),

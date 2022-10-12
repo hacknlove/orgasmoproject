@@ -29,7 +29,9 @@
     "./adminServerSidePropsFactory": "./dist/server/adminServerSidePropsFactory.js",
     "./expandPageConfigApi": "./dist/server/expandPageConfigApi.js",
     "./updatePageConfigApi": "./dist/server/updatePageConfigApi.js",
-    "./newPageConfigApi": "./dist/server/newPageConfigApi.js"
+    "./newPageConfigApi": "./dist/server/newPageConfigApi.js",
+    "./storySSPsFactory": "./dist/server/storySSPsFactory.js",
+    "./Components": "./dist/components/Components.js"
   },
   "files": [
     "dist/"

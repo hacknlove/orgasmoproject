@@ -2,57 +2,83 @@ const regexp =
   /(?<from>.*\b(?<filename>[A-Z][A-Za-z0-9]*)\.dynamic\.(.{2,3}))$/;
 const globPath = "./**/*.dynamic.{jsx,tsx,js,ts,cjs,mjs}";
 const filename = "./DComponent.jsx";
+const isAModule = require("../isAModule");
 
-function fileFromImports(imports, externalPackage) {
-  let string = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {components: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { components: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { components: false })
-  *
-  * @example
-  * // forces the use of an external package as components 
-  * withOrgasmo(nextConfig, { components: 'package-name' })
-  *
-  */\nimport React from 'react';\nimport dynamic from 'next/dynamic';\n`;
+function getName(externalPackage) {
+  return externalPackage.replace(/[/.@]/g, "ー");
+}
 
-  if (externalPackage) {
-    string = `${string}import external from ${externalPackage}\n`;
+function importExternalPackages(externalPackages) {
+  let string = "\n";
+
+  for (const externalPackage of externalPackages) {
+    if (!isAModule(externalPackage)) {
+      console.warn("module not found:", externalPackage);
+      continue;
+    }
+    string = `${string}import ${getName(
+      externalPackage
+    )} from "${externalPackage}"\n`;
   }
 
-  string = `${string}\nexport const Components = {`;
+  return string;
+}
 
-  if (externalPackage) {
-    string = `${string}\n  ...external.Components,`;
+function useExternalPackages(externalPackages) {
+  let string = "\n";
+
+  for (const externalPackage of externalPackages) {
+    if (!isAModule(externalPackage)) {
+      console.warn("module not found:", externalPackage);
+      continue;
+    }
+    string = `\n...${getName(externalPackage)},${string}`;
   }
 
+  return string;
+}
+
+function useImports(imports) {
+  if (!imports) {
+    return "";
+  }
+  let string = "";
   for (const { filename, from } of imports) {
     string = `${string}\n  ${filename}: dynamic(() => import('${from}'), { suspense: true }),`;
   }
-  string = `${string}\n}`;
 
-  string = `${string}\n\nexport default function DComponent ({ type, props }) {\nswitch (type) {`;
+  return string;
+}
 
-  for (const { filename } of imports) {
-    string = `${string}\n  case '${filename}':\n    return <React.Suspense fallback={null}><Components.${filename} {...props} /></React.Suspense>`;
-  }
+function fileFromImports(imports, externalPackages) {
+  externalPackages = externalPackages || "";
+  externalPackages = externalPackages
+    .split(",")
+    .map((externalPackage) => externalPackage.trim())
+    .filter(Boolean);
+  externalPackages.push("@orgasmo/admin/Components");
 
-  string = externalPackage
-    ? `${string}\n  default:\n    return external({ type, props }) ?? <div data-component-name={type}/>\n`
-    : `${string}\n  default:\n    return <div data-component-name={type}/>\n`;
+  let string = `\
+/**
+* @file This file is created automatically at build time.
+* more info: https://docs.orgasmo.dev/
+*/
+import React from 'react';\nimport dynamic from 'next/dynamic';${importExternalPackages(
+    externalPackages
+  )}
 
-  return `${string}  }\n}\n`;
+export const Components = {${useExternalPackages(externalPackages)}${useImports(
+    imports
+  )}
+}
+
+export default function DComponent ({ type, props }) {
+  const Component = Components[type] ? Components[type] : <div data-component-name={type}/>;
+  return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
+}
+`;
+
+  return string;
 }
 
 exports.fileFromImports = fileFromImports;
