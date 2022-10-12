@@ -1,6 +1,6 @@
 {
   "name": "@orgasmo/orgasmo",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps",
   "scripts": {
     "test": "jest",
