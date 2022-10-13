@@ -1,6 +1,6 @@
 {
   "name": "@orgasmo/json",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "path-to-regexp": "^6.2.1"
   },
   "peerDependencies": {
-    "@orgasmo/orgasmo": "1.11.0"
+    "@orgasmo/orgasmo": "1.11.1"
   },
   "files": [
     "./dist"
