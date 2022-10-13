@@ -30,8 +30,8 @@
     "examples/infinite",
     "create-orgasmo",
     "drivers/strapi/template",
-    "admin",
-    "state"
+    "state",
+    "admin"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
