@@ -98,8 +98,6 @@ export default function storySSPsFactory({ driver, Components, layout }) {
       ],
     };
 
-    console.log(response);
-
     return response;
   };
 }

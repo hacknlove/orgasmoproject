@@ -31,11 +31,10 @@
     "./Components": "./dist/components/Components.js"
   },
   "files": [
-    "dist/"
-  ],
+    "dist/"  ],
   "dependencies": {
+    "@monaco-editor/react": "^4.4.6",
     "@orgasmo/dynamicstate": "1.11.1",
-    "fast-deep-equal": "^3.1.3",
-    "vanilla-jsoneditor": "^0.7.9"
+    "fast-deep-equal": "^3.1.3"
   }
 }

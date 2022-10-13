@@ -4,62 +4,93 @@ import * as equal from "fast-deep-equal";
 import AreasContext from "@orgasmo/orgasmo/AreasContext";
 import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 
-import JSONEditor from "./JsonEditor";
+import Editor, { useMonaco } from "@monaco-editor/react";
+
 export default function StoryPlayground({ description, itemConfig }) {
   const router = useRouter();
-  const [editItemConfig, setEditItemConfig] = useState<Record<string, any>>({
-    json: itemConfig,
-  });
+  const monaco = useMonaco();
+
+  const [editItemConfig, setEditItemConfig] = useState<string>(
+    JSON.stringify(itemConfig, null, 2)
+  );
+
   const { setAreas } = useContext(AreasContext);
-  const [reset, setReset] = useState({});
+
   const [editNotes, setEditNotes] = useState(description);
+
   const isDirty = useDynamicResource(
     `var://${router.query.component}/${router.query.story}/isDirty`
   );
-  const isItemConfigDirty = useMemo(() => {
-    let json = editItemConfig.json;
-    if (editItemConfig.text) {
-      try {
-        json = JSON.parse(editItemConfig.text);
-      } catch {
-        return;
-      }
-    }
 
-    return !equal(itemConfig, json);
+  const isItemConfigDirty = useMemo(() => {
+    try {
+      return !equal(itemConfig, JSON.parse(editItemConfig));
+    } catch {
+      return false;
+    }
   }, [editItemConfig, itemConfig]);
+
   const isNotesDirty = useMemo(
     () => editNotes !== description,
     [editNotes, description]
   );
-  const jsoneditor = useMemo(
-    () => <JSONEditor content={editItemConfig} onChange={setEditItemConfig} />,
-    [router.query.component, router.query.story, reset]
-  );
+
+  const [itemConfigFile, notesFile] = useMemo(() => {
+    return [
+      {
+        defaultValue: editItemConfig,
+        defaultLanguage: "JSON",
+        onChange: (value) => setEditItemConfig(value || ""),
+        path: "itemConfig",
+        reset: () => {
+          const jsonstring = JSON.stringify(itemConfig);
+          monaco?.editor
+            ?.getModel?.("file:///itemConfig" as any)
+            ?.setValue(jsonstring);
+          setEditItemConfig(jsonstring);
+        },
+        isDirty: () => {
+          return isItemConfigDirty;
+        },
+      },
+      {
+        defaultValue: editNotes,
+        defaultLanguage: "Markdown",
+        onChange: (value) => setEditNotes(value || ""),
+        path: "notesFile",
+        reset: () => {
+          monaco?.editor
+            ?.getModel?.("file:///notesFile" as any)
+            ?.setValue(description);
+          setEditNotes(description);
+        },
+        isDirty: () => isNotesDirty,
+      },
+    ];
+  }, [setEditItemConfig]);
+
+  const [file, setFile] = useState(notesFile);
 
   useEffect(() => {
-    let json = editItemConfig.json;
-    if (editItemConfig.text) {
-      try {
-        json = JSON.parse(editItemConfig.text);
-      } catch {
-        return;
-      }
-    }
+    try {
+      const json = JSON.parse(editItemConfig);
 
-    setAreas((areas) => ({
-      ...areas,
-      storyComponent: {
-        items: [
-          {
-            type: "StoryRender",
-            props: {
-              itemConfig: json,
+      setAreas((areas) => ({
+        ...areas,
+        storyComponent: {
+          items: [
+            {
+              type: "StoryRender",
+              props: {
+                itemConfig: json,
+              },
             },
-          },
-        ],
-      },
-    }));
+          ],
+        },
+      }));
+    } catch {
+      //
+    }
   }, [editItemConfig]);
 
   useEffect(() => {
@@ -67,52 +98,60 @@ export default function StoryPlayground({ description, itemConfig }) {
   }, [isItemConfigDirty, isNotesDirty]);
 
   useEffect(() => {
-    setEditItemConfig({ json: itemConfig });
+    setEditItemConfig(JSON.stringify(itemConfig));
     setEditNotes(description);
   }, [description, itemConfig]);
 
+  const showButtons =
+    (file === itemConfigFile && isItemConfigDirty) ||
+    (file === notesFile && isNotesDirty);
+
   return (
-    <div>
-      {jsoneditor}
-      <div id="StoryPlayground_buttons">
-        {isItemConfigDirty && (
+    <>
+      <div id="StoryPlayground_buttons"></div>
+      <div className="øtabs">
+        <button
+          className={`øtab ${file === notesFile ? "øactive" : ""}`}
+          onClick={() => setFile(notesFile)}
+        >
+          Notes {isNotesDirty ? "*" : ""}
+        </button>
+        <button
+          className={`øtab ${file === itemConfigFile ? "øactive" : ""}`}
+          onClick={() => setFile(itemConfigFile)}
+        >
+          Config {isItemConfigDirty ? "*" : ""}
+        </button>
+        <div style={{ flexGrow: 1 }}></div>
+
+        {showButtons && (
           <>
-            <button
-              className="_oadmin_button"
-              onClick={() => {
-                setEditItemConfig({ json: itemConfig });
-                setReset({});
-              }}
-            >
+            <button className="øbuttons" onClick={file.reset}>
               Reset
             </button>
-            <button className="_oadmin_button">Save as</button>
-            <button className="_oadmin_button">Save</button>
+            <button className="øbuttons">Save as</button>
+            <button className="øbuttons">Save</button>
           </>
         )}
       </div>
-      <div id="StoryPlayground_description">
-        <label>Notes</label>
-        <textarea
-          className="StoryPlayground_textarea"
-          value={editNotes}
-          onChange={(event) => setEditNotes(event.target.value)}
+      <div id="StoryPlaygroundEditor">
+        <Editor
+          theme="vs-dark"
+          className=" overflow-hidden"
+          {...file}
+          options={{
+            padding: {
+              bottom: 0,
+            },
+            scrollBeyondLastLine: false,
+            minimap: {
+              enabled: false,
+            },
+          }}
         />
-        {isNotesDirty && (
-          <div className="øbotonera">
-            <button
-              className="_oadmin_button"
-              onClick={() => {
-                setEditNotes(description);
-              }}
-            >
-              Reset
-            </button>
-            <button className="_oadmin_button">Save as</button>
-            <button className="_oadmin_button">Save</button>
-          </div>
-        )}
       </div>
-    </div>
+    </>
   );
 }
+
+// https://github.com/json-editor/json-editor
