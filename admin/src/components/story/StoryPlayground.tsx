@@ -1,12 +1,47 @@
 import { useRouter } from "next/router";
-import { useState, useMemo, useEffect, useContext } from "react";
+import { useState, useMemo, useEffect, useContext, useCallback } from "react";
 import * as equal from "fast-deep-equal";
 import AreasContext from "@orgasmo/orgasmo/AreasContext";
 import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 
 import Editor, { useMonaco } from "@monaco-editor/react";
+import CarbonReset from "../icons/CarbonReset";
+import CodiconSave from "../icons/CodiconSave";
+import asyncit from "@orgasmo/orgasmo/AsyncComponents";
+import SaveAsInput from "../SaveAsInput";
 
-export default function StoryPlayground({ description, itemConfig }) {
+function IsDirtyButtons({ isDirty, file, story }) {
+  if (!isDirty) {
+    return null;
+  }
+
+  const save = useCallback(async () => {
+    const storyName = await asyncit(
+      SaveAsInput,
+      {
+        title: `Save ${file.label}`,
+        label: "Story",
+        defaultValue: story,
+      },
+      "_oadminModal"
+    );
+
+    if (!storyName) {
+      return;
+    }
+
+    file.save(storyName);
+  }, [file, story]);
+
+  return (
+    <div className="øTabButtons">
+      <CarbonReset onClick={file.reset} />
+      <CodiconSave onClick={save} />
+    </div>
+  );
+}
+
+export default function StoryPlayground_({ description, itemConfig }) {
   const router = useRouter();
   const monaco = useMonaco();
 
@@ -41,6 +76,7 @@ export default function StoryPlayground({ description, itemConfig }) {
         defaultValue: editItemConfig,
         defaultLanguage: "JSON",
         onChange: (value) => setEditItemConfig(value || ""),
+        label: "Config",
         path: "itemConfig",
         reset: () => {
           const jsonstring = JSON.stringify(itemConfig);
@@ -57,6 +93,7 @@ export default function StoryPlayground({ description, itemConfig }) {
         defaultValue: editNotes,
         defaultLanguage: "Markdown",
         onChange: (value) => setEditNotes(value || ""),
+        label: "Notes",
         path: "notesFile",
         reset: () => {
           monaco?.editor
@@ -102,10 +139,6 @@ export default function StoryPlayground({ description, itemConfig }) {
     setEditNotes(description);
   }, [description, itemConfig]);
 
-  const showButtons =
-    (file === itemConfigFile && isItemConfigDirty) ||
-    (file === notesFile && isNotesDirty);
-
   return (
     <>
       <div id="StoryPlayground_buttons"></div>
@@ -114,25 +147,25 @@ export default function StoryPlayground({ description, itemConfig }) {
           className={`øtab ${file === notesFile ? "øactive" : ""}`}
           onClick={() => setFile(notesFile)}
         >
-          Notes {isNotesDirty ? "*" : ""}
+          Notes{" "}
+          <IsDirtyButtons
+            isDirty={isNotesDirty}
+            file={notesFile}
+            story={router.query.story}
+          />
         </button>
         <button
           className={`øtab ${file === itemConfigFile ? "øactive" : ""}`}
           onClick={() => setFile(itemConfigFile)}
         >
-          Config {isItemConfigDirty ? "*" : ""}
+          Config{" "}
+          <IsDirtyButtons
+            isDirty={isItemConfigDirty}
+            file={itemConfigFile}
+            story={router.query.story}
+          />
         </button>
         <div style={{ flexGrow: 1 }}></div>
-
-        {showButtons && (
-          <>
-            <button className="øbuttons" onClick={file.reset}>
-              Reset
-            </button>
-            <button className="øbuttons">Save as</button>
-            <button className="øbuttons">Save</button>
-          </>
-        )}
       </div>
       <div id="StoryPlaygroundEditor">
         <Editor

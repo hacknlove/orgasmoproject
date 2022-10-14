@@ -1,3 +1,1 @@
-import newPageConfigApi from "@orgasmo/admin/newPageConfigApi";
-
-export default newPageConfigApi;
+export { default } from "@orgasmo/admin/newPageConfigApi";

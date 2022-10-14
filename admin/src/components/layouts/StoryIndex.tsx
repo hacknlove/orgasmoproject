@@ -1,9 +1,11 @@
 import Area from "@orgasmo/orgasmo/Area";
 import { DynamicStateProvider } from "@orgasmo/dynamicstate/react";
+import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 
 export default function StoryIndex() {
   return (
     <DynamicStateProvider initialState={{}}>
+      <AsyncComponents area="_oadminModal" />
       <div id="storyIndex">
         <div id="StoryListComponents">
           <h2 id="StortListComponents_h2">Components</h2>

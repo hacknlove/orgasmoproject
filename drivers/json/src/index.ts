@@ -1,15 +1,23 @@
-import parseDirectory from "./parseDirectory";
+import parsePageDirectory from "./page/parseDirectory";
+import parseStoryDirectory from "./admin/parseDirectory";
+
 import { watch } from "chokidar";
 import { writeFile, readFile } from "fs/promises";
 import notPossible from "./admin/notPossible";
 
-const pagesPath =
-  process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data/pages";
+const dataPath =
+  process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
 
-parseDirectory(pagesPath);
+const pagesPath = `${dataPath}/pages`;
+
+const storiesPath = `${dataPath}/stories`;
+
+parsePageDirectory(pagesPath);
+parseStoryDirectory(storiesPath);
 
 import getPageConfig from "./page/getPageConfig";
 import getPageConfigFromId from "./page/getPageConfigFromId";
+import getAllStories from "./admin/getAllStories";
 
 const filesystemDriver = {
   page: {
@@ -19,17 +27,26 @@ const filesystemDriver = {
   admin: {
     updatePageConfig: notPossible,
     newPageConfig: notPossible,
+    updateStoryConfig: notPossible,
+    newStoryConfig: notPossible,
+    getAllStories,
   },
   "page.getPageConfig": getPageConfig,
   "page.getPageConfigFromId": getPageConfigFromId,
   "admin.updatePageConfig": notPossible,
   "admin.newPageConfig": notPossible,
+  "admin.updateStoryConfig": notPossible,
+  "admin.newStoryConfig": notPossible,
+  "admin.getAllStories": getAllStories,
 };
 
 export default filesystemDriver;
 
 async function reparse() {
-  await parseDirectory(pagesPath);
+  await Promise.all([
+    parsePageDirectory(pagesPath),
+    parseStoryDirectory(storiesPath),
+  ]);
 
   const componentFile = await readFile("./Components.jsx", {
     encoding: "utf-8",

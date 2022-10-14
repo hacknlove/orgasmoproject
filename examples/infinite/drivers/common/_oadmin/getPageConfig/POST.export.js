@@ -1,3 +1,1 @@
-import expandPageConfigApi from "@orgasmo/admin/expandPageConfigApi";
-
-export default expandPageConfigApi;
+export { default } from "@orgasmo/admin/expandPageConfigApi";

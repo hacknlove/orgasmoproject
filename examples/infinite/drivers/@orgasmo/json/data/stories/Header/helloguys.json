@@ -1,0 +1,10 @@
+{
+  "component": "Header",
+  "story": "helloguys",
+  "description": "A hello guys story",
+  "itemConfig": {
+    "props": {
+      "text": "helloguys"
+    }
+  }
+}

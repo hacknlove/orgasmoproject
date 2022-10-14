@@ -27,6 +27,8 @@
     "./expandPageConfigApi": "./dist/server/expandPageConfigApi.js",
     "./updatePageConfigApi": "./dist/server/updatePageConfigApi.js",
     "./newPageConfigApi": "./dist/server/newPageConfigApi.js",
+    "./updateStoryConfigApi": "./dist/server/updateStoryConfigApi.js",
+    "./newStoryConfigApi": "./dist/server/newStoryConfigApi.js",
     "./storySSPsFactory": "./dist/server/storySSPsFactory.js",
     "./Components": "./dist/components/Components.js"
   },

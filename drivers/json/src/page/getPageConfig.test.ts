@@ -1,7 +1,7 @@
-import { dynamicPaths, staticPaths } from "../parseDirectory";
+import { dynamicPaths, staticPaths } from "./parseDirectory";
 import getPageConfig from "./getPageConfig";
 
-jest.mock("../parseDirectory", () => ({
+jest.mock("./parseDirectory", () => ({
   __esModule: true,
   waitForIt: Promise.resolve(),
   dynamicPaths: new Map(),

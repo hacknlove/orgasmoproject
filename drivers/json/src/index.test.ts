@@ -4,7 +4,7 @@
 process.env.NODE_ENV = "development";
 import fileSystemDriver from "./index";
 import { watch } from "chokidar";
-import parseDirectory from "./parseDirectory";
+import parseDirectory from "./page/parseDirectory";
 import { readFile } from "fs/promises";
 
 jest.mock("fs/promises", () => ({
@@ -24,7 +24,7 @@ jest.mock("chokidar", () => {
   };
 });
 
-jest.mock("./parseDirectory", () => ({
+jest.mock("./page/parseDirectory", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
