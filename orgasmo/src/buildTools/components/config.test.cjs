@@ -52,8 +52,8 @@ import ーorgasmoーadminーComponents from "@orgasmo/admin/Components"
 export const Components = {
 ...ーorgasmoーadminーComponents,
 
-  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true }),
-  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true }),
+  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true, loading: undefined }),
+  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true, loading: undefined }),
 }
 
 export default function DComponent ({ type, props }) {
@@ -82,8 +82,8 @@ import ーorgasmoーadminーComponents from "@orgasmo/admin/Components"
 export const Components = {
 ...ーorgasmoーadminーComponents,
 
-  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true }),
-  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true }),
+  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true, loading: undefined }),
+  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true, loading: undefined }),
 }
 
 export default function DComponent ({ type, props }) {
