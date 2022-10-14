@@ -5,3 +5,5 @@
 .next/
 dist/
 coverage/
+ext/
+/ext

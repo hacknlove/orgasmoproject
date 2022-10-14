@@ -3,9 +3,9 @@ import { useState, useMemo, useEffect, useContext } from "react";
 import * as equal from "fast-deep-equal";
 import AreasContext from "@orgasmo/orgasmo/AreasContext";
 import { useDynamicResource } from "@orgasmo/dynamicstate/react";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const JSONEditor = dynamic(() => import('./JsonEditor.js'), { ssr: false });
+const JSONEditor = dynamic(() => import("./JsonEditor.js"), { ssr: false });
 export default function StoryPlayground({ description, itemConfig }) {
   const router = useRouter();
   const [editItemConfig, setEditItemConfig] = useState<Record<string, any>>({

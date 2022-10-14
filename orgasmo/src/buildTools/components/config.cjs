@@ -44,7 +44,7 @@ function useImports(imports) {
   }
   let string = "";
   for (const { filename, from } of imports) {
-    string = `${string}\n  ${filename}: dynamic(() => import('${from}'), { suspense: true }),`;
+    string = `${string}\n  ${filename}: dynamic(() => import('${from}'), { suspense: true, loading: undefined }),`;
   }
 
   return string;

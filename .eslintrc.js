@@ -24,6 +24,7 @@ module.exports = {
     "no-constant-condition": ["error", { checkLoops: false }],
   },
   ignorePatterns: [
+    "**/ext/**/*",
     "**/dist/**/*",
     "/examples/infinite",
     "/create-orgasmo/empty",
