@@ -31,7 +31,7 @@ export default {
     suspense: true,
   }),
   StoryPlayground: dynamic(() => import("./story/StoryPlayground.js"), {
-    suspense: true,
+    suspense: true
   }),
   StoryTitle: dynamic(() => import("./story/StoryTitle.js"), {
     suspense: true,

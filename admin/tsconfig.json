@@ -31,6 +31,7 @@
     "src/buildTools",
     "coverage",
     "dist",
+    "ext",
     "**/*.test.ts",
     "**/*.test.tsx",
     "jest.config.js",

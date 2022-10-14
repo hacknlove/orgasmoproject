@@ -31,7 +31,9 @@
     "./Components": "./dist/components/Components.js"
   },
   "files": [
-    "dist/"  ],
+    "dist/",
+    "ext/"
+  ],
   "dependencies": {
     "@monaco-editor/react": "^4.4.6",
     "@orgasmo/dynamicstate": "1.11.1",
