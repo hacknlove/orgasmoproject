@@ -45,10 +45,13 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  StoryPlayground: dynamic(() => import("./story/StoryPlayground.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
+  StoryPlayground: dynamic(
+    () => import("./story/PlayGround/StoryPlayground.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
   StoryTitle: dynamic(() => import("./story/StoryTitle.js"), {
     suspense: true,
     loading: undefined,

@@ -1,7 +1,7 @@
 import AdminComponents from "../components/Components";
 export async function getStoriesList({ driver, Components }) {
   const stories =
-    (await driver?.admin?.getAllStories().catch(() => ({}))) || {};
+    (await driver?.admin?.getAllStories?.().catch(() => ({}))) || {};
 
   for (const key in Components) {
     if (AdminComponents[key]) {
