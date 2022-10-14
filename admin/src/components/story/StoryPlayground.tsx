@@ -9,6 +9,10 @@ import CarbonReset from "../icons/CarbonReset";
 import CodiconSave from "../icons/CodiconSave";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import SaveAsInput from "../SaveAsInput";
+import Alert from "../Alert";
+
+const ADMIN_UPDATE_STORY_CONFIG_ENDPOINT = "/api/_oadmin/updateStoryConfig";
+const ADMIN_NEW_STORY_CONFIG_ENDPOINT = "/api/_oadmin/newStoryConfig";
 
 function IsDirtyButtons({ isDirty, file, story }) {
   if (!isDirty) {
@@ -58,11 +62,7 @@ export default function StoryPlayground_({ description, itemConfig }) {
   );
 
   const isItemConfigDirty = useMemo(() => {
-    try {
-      return !equal(itemConfig, JSON.parse(editItemConfig));
-    } catch {
-      return false;
-    }
+    return !equal(itemConfig, JSON.parse(editItemConfig));
   }, [editItemConfig, itemConfig]);
 
   const isNotesDirty = useMemo(
@@ -75,7 +75,14 @@ export default function StoryPlayground_({ description, itemConfig }) {
       {
         defaultValue: editItemConfig,
         defaultLanguage: "JSON",
-        onChange: (value) => setEditItemConfig(value || ""),
+        onChange: (value) => {
+          try {
+            JSON.parse(value);
+            setEditItemConfig(value || "");
+          } catch {
+            //
+          }
+        },
         label: "Config",
         path: "itemConfig",
         reset: () => {
@@ -84,6 +91,48 @@ export default function StoryPlayground_({ description, itemConfig }) {
             ?.getModel?.("file:///itemConfig" as any)
             ?.setValue(jsonstring);
           setEditItemConfig(jsonstring);
+        },
+        save: async (storyname) => {
+          const isNew = storyname !== router.query.story;
+          const endpoint = isNew
+            ? ADMIN_NEW_STORY_CONFIG_ENDPOINT
+            : ADMIN_UPDATE_STORY_CONFIG_ENDPOINT;
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              component: router.query.component,
+              story: router.query.story,
+              description,
+              itemConfig: JSON.parse(editItemConfig),
+            }),
+          })
+            .then((r) => r.json())
+            .catch((error) => ({ error }));
+
+          if (typeof response.error === "string") {
+            return asyncit(
+              Alert,
+              { title: "Error", text: response.error },
+              "_oadminModal"
+            );
+          }
+          if (response.error) {
+            return asyncit(Alert, response.error, "_oadminModal");
+          }
+          if (isNew) {
+            router.push({
+              pathname: router.pathname,
+              query: {
+                ...router.query,
+                story: storyname,
+              },
+            });
+          }
         },
         isDirty: () => {
           return isItemConfigDirty;
@@ -95,6 +144,48 @@ export default function StoryPlayground_({ description, itemConfig }) {
         onChange: (value) => setEditNotes(value || ""),
         label: "Notes",
         path: "notesFile",
+        save: async (storyname) => {
+          const isNew = storyname !== router.query.story;
+          const endpoint = isNew
+            ? ADMIN_NEW_STORY_CONFIG_ENDPOINT
+            : ADMIN_UPDATE_STORY_CONFIG_ENDPOINT;
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              component: router.query.component,
+              story: router.query.story,
+              description: editNotes,
+              itemConfig,
+            }),
+          })
+            .then((r) => r.json())
+            .catch((error) => ({ error }));
+
+          if (typeof response.error === "string") {
+            return asyncit(
+              Alert,
+              { title: "Error", text: response.error },
+              "_oadminModal"
+            );
+          }
+          if (response.error) {
+            return asyncit(Alert, response.error, "_oadminModal");
+          }
+          if (isNew) {
+            router.push({
+              pathname: router.pathname,
+              query: {
+                ...router.query,
+                story: storyname,
+              },
+            });
+          }
+        },
         reset: () => {
           monaco?.editor
             ?.getModel?.("file:///notesFile" as any)
@@ -104,30 +195,26 @@ export default function StoryPlayground_({ description, itemConfig }) {
         isDirty: () => isNotesDirty,
       },
     ];
-  }, [setEditItemConfig]);
+  }, [setEditItemConfig, router]);
 
   const [file, setFile] = useState(notesFile);
 
   useEffect(() => {
-    try {
-      const json = JSON.parse(editItemConfig);
+    const json = JSON.parse(editItemConfig);
 
-      setAreas((areas) => ({
-        ...areas,
-        storyComponent: {
-          items: [
-            {
-              type: "StoryRender",
-              props: {
-                itemConfig: json,
-              },
+    setAreas((areas) => ({
+      ...areas,
+      storyComponent: {
+        items: [
+          {
+            type: "StoryRender",
+            props: {
+              itemConfig: json,
             },
-          ],
-        },
-      }));
-    } catch {
-      //
-    }
+          },
+        ],
+      },
+    }));
   }, [editItemConfig]);
 
   useEffect(() => {

@@ -1,3 +1,5 @@
+import EpCloseBold from "./icons/EpCloseBold";
+
 export default function Alert({ title, text, resolve, name, message }) {
   return (
     <div
@@ -12,13 +14,21 @@ export default function Alert({ title, text, resolve, name, message }) {
       }}
     >
       <div className="_oadmin_modal">
-        <div id="_oadmin_menu_pageId">
+        <div className="_oadmin_modal_title">
           <span>{title || name}</span>
-          <button className="_oadmin_button" onClick={() => resolve()}>
-            ✖
-          </button>
+          <EpCloseBold
+            className="_oadmin_modal_close"
+            onClick={() => resolve()}
+          />
         </div>
-        <div>{text || message}</div>
+        <div className="_oadmin_modal_body">
+          <div>{text || message}</div>
+          <div className="_oadmin_modal_buttons">
+            <button className="_oadmin_button" onClick={() => resolve()}>
+              Ok
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
