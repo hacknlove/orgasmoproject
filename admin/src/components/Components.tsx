@@ -59,4 +59,8 @@ export default {
     suspense: true,
     loading: undefined,
   }),
+  PageListComponent: dynamic(
+    () => import("./story/list/PageListComponent.js"),
+    { suspense: true, loading: undefined }
+  ),
 };

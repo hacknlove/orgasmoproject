@@ -6,7 +6,9 @@ import getAllStories from "./admin/getAllStories";
 import updateStoryConfig from "./admin/updateStoryConfig";
 import deletePageConfig from "./admin/deletePageConfig";
 import deleteStoryConfig from "./admin/deleteStoryConfig";
-const filesystemDriver = {
+import getAllPages from "./admin/getAllPages";
+
+const mongoDriver = {
   page: {
     getPageConfig,
     getPageConfigFromId,
@@ -18,6 +20,7 @@ const filesystemDriver = {
     getAllStories,
     deletePageConfig,
     deleteStoryConfig,
+    getAllPages,
   },
   "admin.updatePageConfig": updatePageConfig,
   "admin.newPageConfig": newPageConfig,
@@ -25,8 +28,9 @@ const filesystemDriver = {
   "admin.getAllStories": getAllStories,
   "admin.deletePageConfig": deletePageConfig,
   "admin.deleteStoryConfig": deleteStoryConfig,
+  "admin.getAllages": getAllPages,
   "page.getPageConfig": getPageConfig,
   "page.getPageConfigFromId": getPageConfigFromId,
 };
 
-export default filesystemDriver;
+export default mongoDriver;

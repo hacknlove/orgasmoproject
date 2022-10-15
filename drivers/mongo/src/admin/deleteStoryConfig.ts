@@ -6,8 +6,6 @@ const storyConfigsCollectionName =
 export default async function deleteStoryConfig(ctx, { component, story }) {
   await mongoProxy.connect();
 
-  console.log({ component, story });
-
   await mongoProxy[storyConfigsCollectionName].deleteOne({
     component,
     story,

@@ -14,6 +14,8 @@ export default function StoryIndex() {
         <div id="StoryListComponents">
           <h2 id="StortListComponents_h2">Components</h2>
           <Area name="storiesList" />
+          <h2 id="StortListComponents_h2">Pages</h2>
+          <Area name="pagesList" />
         </div>
         <div id="StoryTitle">
           {storyTitleArea ? (

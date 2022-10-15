@@ -22,9 +22,65 @@ export async function getStoriesList({ driver, Components }) {
   return stories;
 }
 
+export function getPagesList({ driver }) {
+  return driver?.admin?.getAllPages?.().catch(() => ({})) || {};
+}
+
+export function completeComponent({ response, ctx, stories }) {
+  const storyConfig = stories[ctx.query.component]?.[ctx.query.story];
+
+  if (!storyConfig) {
+    return null;
+  }
+
+  response.props.areas.storyComponent = {
+    items: [
+      {
+        type: "StoryRender",
+        props: {
+          itemConfig: storyConfig.itemConfig,
+        },
+      },
+    ],
+  };
+
+  response.props.areas.storyPlayground = {
+    items: [
+      {
+        type: "StoryPlayground",
+        props: {
+          story: ctx.query.story,
+          description: storyConfig.description,
+          itemConfig: storyConfig.itemConfig,
+        },
+      },
+    ],
+  };
+
+  response.props.areas.storyTitle = {
+    items: [
+      {
+        type: "StoryTitle",
+        props: {
+          component: ctx.query.component,
+          story: ctx.query.story,
+          isDirty: false,
+        },
+      },
+    ],
+  };
+}
+
+export function completePage({ response, ctx, pages }) {
+  return null;
+}
+
 export default function storySSPsFactory({ driver, Components, layout }) {
   return async function getServerSideProps(ctx) {
-    const stories = await getStoriesList({ driver, Components });
+    const [stories, pages] = await Promise.all([
+      getStoriesList({ driver, Components }),
+      getPagesList({ driver }),
+    ]);
 
     const response = {
       props: {
@@ -43,53 +99,23 @@ export default function storySSPsFactory({ driver, Components, layout }) {
               },
             })),
           },
+          pagesList: {
+            items: Object.entries(pages).map(([path, stories]) => ({
+              type: "PageListComponent",
+              props: {
+                path,
+                stories,
+              },
+            })),
+          },
         } as Record<string, any>,
       },
     };
 
-    const story = stories[ctx.query.component]?.[ctx.query.story];
-
-    if (!story) {
-      return response;
-    }
-
-    response.props.areas.storyComponent = {
-      items: [
-        {
-          type: "StoryRender",
-          props: {
-            itemConfig: story.itemConfig,
-          },
-        },
-      ],
-    };
-
-    response.props.areas.storyPlayground = {
-      items: [
-        {
-          type: "StoryPlayground",
-          props: {
-            story: ctx.query.story,
-            description: story.description,
-            itemConfig: story.itemConfig,
-          },
-        },
-      ],
-    };
-
-    response.props.areas.storyTitle = {
-      items: [
-        {
-          type: "StoryTitle",
-          props: {
-            component: ctx.query.component,
-            story: ctx.query.story,
-            isDirty: false,
-          },
-        },
-      ],
-    };
-
-    return response;
+    return (
+      completeComponent({ response, ctx, stories }) ||
+      completePage({ response, ctx, pages }) ||
+      response
+    );
   };
 }
