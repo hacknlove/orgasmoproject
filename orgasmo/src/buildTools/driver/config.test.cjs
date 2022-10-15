@@ -126,9 +126,9 @@ const driver = {
   ['something.foo']: foo,
 }
 
-driver.something = {};
-driver.something.bar = bar;
-driver.something.foo = foo;
+driver['something'] = {};
+driver['something']['bar'] = bar;
+driver['something']['foo'] = foo;
 
 events.on('baz', baz);
 
@@ -211,9 +211,9 @@ const driver = {
   ['something.foo']: foo,
 }
 
-driver.something = {};
-driver.something.bar = bar;
-driver.something.foo = foo;
+driver['something'] = {};
+driver['something']['bar'] = bar;
+driver['something']['foo'] = foo;
 
 events.on('onSomething', route1ーonSomething);
 events.on('onSomething', route2ーonSomething);
@@ -298,9 +298,9 @@ const driver = {
   ['something.foo']: foo,
 }
 
-driver.something = {};
-driver.something.bar = bar;
-driver.something.foo = foo;
+driver['something'] = {};
+driver['something']['bar'] = bar;
+driver['something']['foo'] = foo;
 
 events.on('onSomething', route1ーonSomething);
 events.on('onSomething', route2ーonSomething);
