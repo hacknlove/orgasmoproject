@@ -33,15 +33,15 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  StoryListComponent: dynamic(() => import("./story/StoryListComponent.js"), {
+  StoryListComponent: dynamic(() => import("./story/list/StoryListComponent.js"), {
     suspense: true,
     loading: undefined,
   }),
-  StoryIndex: dynamic(() => import("./layouts/StoryIndex.js"), {
+  StoryIndex: dynamic(() => import("./story/StoryIndex.js"), {
     suspense: true,
     loading: undefined,
   }),
-  StoryRender: dynamic(() => import("./story/StoryRender.js"), {
+  StoryRender: dynamic(() => import("./story/render/StoryRender.js"), {
     suspense: true,
     loading: undefined,
   }),
@@ -52,7 +52,7 @@ export default {
       loading: undefined,
     }
   ),
-  StoryTitle: dynamic(() => import("./story/StoryTitle.js"), {
+  StoryTitle: dynamic(() => import("./story/title/StoryTitle.js"), {
     suspense: true,
     loading: undefined,
   }),
