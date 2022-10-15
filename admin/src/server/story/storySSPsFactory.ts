@@ -1,4 +1,4 @@
-import AdminComponents from "../components/Components";
+import AdminComponents from "../../components/Components";
 export async function getStoriesList({ driver, Components }) {
   const stories =
     (await driver?.admin?.getAllStories?.().catch(() => ({}))) || {};
@@ -42,19 +42,7 @@ export default function storySSPsFactory({ driver, Components, layout }) {
                 stories,
               },
             })),
-          },
-          storyTitle: {
-            items: [
-              {
-                type: "StoryTitle",
-                props: {
-                  component: "Choose a story",
-                  story: "",
-                  isDirty: false,
-                },
-              },
-            ],
-          },
+          }
         } as Record<string, any>,
       },
     };

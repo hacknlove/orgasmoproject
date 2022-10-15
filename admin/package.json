@@ -23,14 +23,15 @@
   "homepage": "https://github.com/hacknlove/orgasmoproject#readme",
   "exports": {
     "./AdminFactory": "./dist/components/admin/AdminFactory.js",
-    "./adminSSPsFactory": "./dist/server/adminSSPsFactory.js",
-    "./expandPageConfigApi": "./dist/server/expandPageConfigApi.js",
-    "./updatePageConfigApi": "./dist/server/updatePageConfigApi.js",
-    "./newPageConfigApi": "./dist/server/newPageConfigApi.js",
-    "./updateStoryConfigApi": "./dist/server/updateStoryConfigApi.js",
-    "./newStoryConfigApi": "./dist/server/newStoryConfigApi.js",
-    "./storySSPsFactory": "./dist/server/storySSPsFactory.js",
-    "./Components": "./dist/components/Components.js"
+    "./Components": "./dist/components/Components.js",
+
+    "./adminSSPsFactory": "./dist/server/admin/adminSSPsFactory.js",
+    "./expandPageConfigApi": "./dist/server/admin/expandPageConfigApi.js",
+    "./updatePageConfigApi": "./dist/server/admin/updatePageConfigApi.js",
+    "./newPageConfigApi": "./dist/server/admin/newPageConfigApi.js",
+    "./updateStoryConfigApi": "./dist/server/story/updateStoryConfigApi.js",
+    "./newStoryConfigApi": "./dist/server/story/newStoryConfigApi.js",
+    "./storySSPsFactory": "./dist/server/story/storySSPsFactory.js"
   },
   "files": [
     "dist/",
