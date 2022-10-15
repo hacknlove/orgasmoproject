@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { JSONEditor } from "../../../ext/jsoneditor";
+import { JSONEditor } from "../../../../ext/jsoneditor";
 
 export default function JSONEditorWrapper(props) {
   const refContainer = useRef(null) as any;

@@ -9,7 +9,7 @@ import {
   useRef,
 } from "react";
 
-import AdminContext from "../AdminContext";
+import AdminContext from "../admin/AdminContext";
 
 function EditCookieOptions({ resolve, serializedOptions }) {
   const [editOptions, setEditOptions] = useState(JSON.parse(serializedOptions));

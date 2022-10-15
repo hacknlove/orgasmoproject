@@ -1,6 +1,6 @@
-import AdminContext from "../AdminContext";
+import AdminContext from "../admin/AdminContext";
 import { useContext, useRef } from "react";
-import { AdminComponentsDataList } from "../AdminDataLists";
+import { AdminComponentsDataList } from "../admin/AdminDataLists";
 
 export default function EditLayoutName() {
   const { updatePageConfig, pageConfig, Components } = useContext(

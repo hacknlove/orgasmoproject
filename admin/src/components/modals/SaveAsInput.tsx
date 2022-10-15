@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EpCloseBold from "./icons/EpCloseBold";
+import EpCloseBold from "../icons/EpCloseBold";
 
 export default function SaveAsInput({
   resolve,

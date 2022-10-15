@@ -1,4 +1,4 @@
-import AdminContext from "../AdminContext";
+import AdminContext from "../admin/AdminContext";
 import {
   useContext,
   useCallback,
@@ -9,7 +9,7 @@ import {
   useRef,
 } from "react";
 
-import { AdminCSSVarsDataList } from "../AdminDataLists";
+import { AdminCSSVarsDataList } from "../admin/AdminDataLists";
 
 export default function EditCSSVars() {
   const { updatePageConfig, pageConfig } = useContext(AdminContext) as any;

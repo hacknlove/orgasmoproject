@@ -1,4 +1,4 @@
-import EpCloseBold from "./icons/EpCloseBold";
+import EpCloseBold from "../icons/EpCloseBold";
 
 export default function Alert({ title, text, resolve, name, message }) {
   return (

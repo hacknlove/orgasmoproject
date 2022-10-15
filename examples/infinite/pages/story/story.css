@@ -75,28 +75,28 @@
 
 ._oadmin_button {
   border: 0;
-  color: #333;
+  color: var(--_oadmin_button_color, #333);
   font-size: 100%;
   padding: 0.3rem 0.9rem;
-  background: #fafafa;
+  background: var(--_oadmin_button_background, #fafafa);
   cursor: pointer;
   border-radius: 4px;
   padding: 10px 16px;
   font-size: 12px;
   font-weight: normal;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+  box-shadow: var(--_oadmin_button_shadow, rgba(0, 0, 0, 0.1) 0 0 0 1px inset);
 }
 
 ._oadmin_button:hover {
-  background: #f2f2f2;
+  background: var(--_oadmin_button_background_hover, #f2f2f2);
 }
 
 ._oadmin_button:active {
-  background: #fff;
+  background: var(--_oadmin_button_background_active, #fff);
 }
 
 ._oadmin_button:focus {
-  box-shadow: #1ea7fd 0 0 0 1px inset;
+  box-shadow: var(--_oadmin_button_shadow_focus, #1ea7fd 0 0 0 1px inset);
   outline: none;
 }
 
@@ -252,19 +252,7 @@
   height: 100vh;
   overflow: auto;
 }
-#StoryTitle {
-  grid-area: title;
-  text-align: center;
-  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
-    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
-  letter-spacing: 3.85px;
-  font-weight: 900;
-  color: #333;
-  font-size: 21px;
-  background: #f6f9fc;
-  border-bottom: 1px solid #0000000d;
-}
+
 #StoryComponent {
   grid-area: component;
   display: flex;
@@ -342,17 +330,6 @@
 }
 #StoryPlaygroundEditor {
   flex-grow: 1;
-}
-#StoryPlayground_buttons {
-  background: #252526;
-  display: flex;
-  column-gap: 5px;
-  border-bottom: var(--jse-main-border);
-  border-left: var(--jse-main-border);
-  border-right: var(--jse-main-border);
-}
-#StoryPlayground_buttons > button._oadmin_button {
-  margin: 15px 0;
 }
 #StoryPlayground .svelte-jsoneditor-react .jse-main .jse-contents {
   border-bottom: none;
@@ -462,4 +439,33 @@
 .øbotonera {
   display: flex;
   column-gap: 0.5rem;
+}
+
+#StoryTitle {
+  grid-area: title;
+  text-align: center;
+  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
+    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  letter-spacing: 3.85px;
+  font-weight: 900;
+  color: #333;
+  font-size: 21px;
+  background: #f6f9fc;
+  border-bottom: 1px solid #0000000d;
+}
+#StoryTitle_h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+#StoryTitle_button {
+  position: absolute;
+  right: 1rem;
+  --_oadmin_button_color: #fff;
+  font-weight: bold;
+  --_oadmin_button_background: #fd271c;
+  --_oadmin_button_background_hover: hsl(3, 98%, 60%);
+  --_oadmin_button_background_active: #fd271c;
 }

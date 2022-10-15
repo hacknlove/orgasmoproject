@@ -1,4 +1,4 @@
-import AdminContext from "../AdminContext";
+import AdminContext from "../admin/AdminContext";
 import { useContext, useRef } from "react";
 
 export default function EditJSSnipplets() {

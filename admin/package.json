@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/hacknlove/orgasmoproject#readme",
   "exports": {
-    "./AdminFactory": "./dist/components/AdminFactory.js",
-    "./adminServerSidePropsFactory": "./dist/server/adminServerSidePropsFactory.js",
+    "./AdminFactory": "./dist/components/admin/AdminFactory.js",
+    "./adminSSPsFactory": "./dist/server/adminSSPsFactory.js",
     "./expandPageConfigApi": "./dist/server/expandPageConfigApi.js",
     "./updatePageConfigApi": "./dist/server/updatePageConfigApi.js",
     "./newPageConfigApi": "./dist/server/newPageConfigApi.js",

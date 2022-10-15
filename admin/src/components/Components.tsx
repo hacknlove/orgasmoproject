@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 
 export default {
-  AdminMenuItem: dynamic(() => import("./AdminMenuItem.js"), {
+  AdminMenuItem: dynamic(() => import("./admin/AdminMenuItem.js"), {
     suspense: true,
     loading: undefined,
   }),
-  ChoosePageId: dynamic(() => import("./ChoosePageId.js"), {
+  ChoosePageId: dynamic(() => import("./admin/ChoosePageId.js"), {
     suspense: true,
     loading: undefined,
   }),
