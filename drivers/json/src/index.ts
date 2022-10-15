@@ -29,6 +29,8 @@ const filesystemDriver = {
     newPageConfig: notPossible,
     updateStoryConfig: notPossible,
     newStoryConfig: notPossible,
+    deletePageConfig: notPossible,
+    deleteStoryConfig: notPossible,
     getAllStories,
   },
   "page.getPageConfig": getPageConfig,
@@ -38,6 +40,8 @@ const filesystemDriver = {
   "admin.updateStoryConfig": notPossible,
   "admin.newStoryConfig": notPossible,
   "admin.getAllStories": getAllStories,
+  "admin.deletePageConfig": notPossible,
+  "admin.deleteStoryConfig": notPossible,
 };
 
 export default filesystemDriver;

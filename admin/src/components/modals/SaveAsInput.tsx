@@ -32,6 +32,7 @@ export default function SaveAsInput({
           <div className="_oadmin_modal_fields">
             <label>{label}</label>
             <input
+              autoFocus
               className="_oadmin_input"
               value={value}
               onChange={(event) => setValue(event.target.value)}

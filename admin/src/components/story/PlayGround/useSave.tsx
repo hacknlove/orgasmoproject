@@ -58,7 +58,15 @@ export default function useSave({ files, description, itemConfig }) {
       if (response.error) {
         return asyncit(Alert, response.error, "_oadminModal");
       }
+
+      router.push({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          story: storyName,
+        },
+      });
     },
-    [files.current]
+    [files.current, router.query.component, router.query.story]
   );
 }

@@ -33,10 +33,13 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  StoryListComponent: dynamic(() => import("./story/list/StoryListComponent.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
+  StoryListComponent: dynamic(
+    () => import("./story/list/StoryListComponent.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
   StoryIndex: dynamic(() => import("./story/StoryIndex.js"), {
     suspense: true,
     loading: undefined,

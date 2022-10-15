@@ -42,7 +42,7 @@ export default function storySSPsFactory({ driver, Components, layout }) {
                 stories,
               },
             })),
-          }
+          },
         } as Record<string, any>,
       },
     };
