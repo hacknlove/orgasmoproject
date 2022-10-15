@@ -72,7 +72,48 @@ export function completeComponent({ response, ctx, stories }) {
 }
 
 export function completePage({ response, ctx, pages }) {
-  return null;
+  const pageConfig = pages[ctx.query.path]?.[ctx.query.pageId];
+
+  if (!pageConfig) {
+    return null;
+  }
+
+  response.props.areas.pageRender = {
+    items: [
+      {
+        type: "PageREnder",
+        props: {
+          pageConfig,
+        },
+      },
+    ],
+  };
+
+  response.props.areas.pagePlayground = {
+    items: [
+      {
+        type: "PagePlayground",
+        props: {
+          pageConfig,
+        },
+      },
+    ],
+  };
+
+  response.props.areas.storyTitle = {
+    items: [
+      {
+        type: "StoryTitle",
+        props: {
+          component: ctx.query.component,
+          story: ctx.query.story,
+          isDirty: false,
+        },
+      },
+    ],
+  };
+
+  return;
 }
 
 export default function storySSPsFactory({ driver, Components, layout }) {
