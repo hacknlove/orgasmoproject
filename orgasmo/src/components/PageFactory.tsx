@@ -1,68 +1,69 @@
-import { useState, useCallback, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect, useRef } from "react";
 import { OrgasmoPage, PageFactoryParameters } from "~/types";
 import DefaultLayout from "./DefaultLayout/DefaultLayout";
 import Meta from "./Meta/Meta";
-import AreasContext from "./AreasContext";
+import { DynamicStateProvider } from "@orgasmo/dynamicstate/react";
 
 export default function PageFactory({
   DComponent,
 }: PageFactoryParameters): OrgasmoPage {
-  const Page = (ssrProps) => {
-    const router = useRouter();
+  const Page = (props) => {
+    const [initialState, setInitialState] = useState(() => {
+      const response = {
+        "var://layout": props.layout,
+        "var://areasNames": [] as string[],
+        "var://DComponent": { DComponent },
+      };
 
-    const [props, setProps] = useState(ssrProps);
+      for (const areaName in props.areas) {
+        response["var://areasNames"].push(areaName);
+        response[`var://area/${areaName}`] = props.areas[areaName];
+      }
 
-    const layout = props.layout;
-    const areas = props.areas;
+      return response;
+    });
 
-    const setAreas = useCallback(
-      (areas) =>
-        setProps((props) => {
-          if (areas instanceof Function) {
-            return {
-              ...props,
-              areas: areas(props.areas),
-            };
-          }
-          return {
-            ...props,
-            areas,
-          };
-        }),
-      [setProps]
-    );
+    const lastProps = useRef(props);
 
-    const setLayout = useCallback(
-      (layout) =>
-        setProps((props) => ({
-          ...props,
-          layout,
-        })),
-      [setProps]
-    );
+    const layout = initialState["var://layout"];
 
     useEffect(() => {
-      setProps(ssrProps);
-    }, [ssrProps]);
+      if (lastProps.current === props) {
+        return;
+      }
+
+      const newInitialState = {
+        "var://layout": props.layout,
+        "var://areasNames": [] as string[],
+      } as any;
+
+      for (const areaName in lastProps.current.areas) {
+        newInitialState[`var://area/${areaName}`] = null;
+      }
+
+      for (const areaName in props.areas) {
+        newInitialState["var://areasNames"].push(areaName);
+        newInitialState[`var://area/${areaName}`] = props.areas[areaName];
+      }
+
+      lastProps.current = props;
+      setInitialState(newInitialState);
+    }, [props]);
 
     return (
-      <AreasContext.Provider
-        value={{ areas, layout, DComponent, setAreas, setLayout }}
-      >
+      <DynamicStateProvider initialState={initialState}>
         {layout?.meta && <Meta meta={layout?.meta} />}
         {layout?.name ? (
           <DComponent
-            key={router.asPath}
             type={layout.name}
             props={{
               cssVars: layout?.cssVars,
             }}
           />
         ) : (
-          <DefaultLayout key={router.asPath} cssVars={layout?.cssVars} />
+          <DefaultLayout cssVars={layout?.cssVars} />
         )}
-      </AreasContext.Provider>
+      </DynamicStateProvider>
     );
   };
   return Page;

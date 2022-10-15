@@ -1,10 +1,9 @@
 import Area from "@orgasmo/orgasmo/Area";
-import { DynamicStateProvider } from "@orgasmo/dynamicstate/react";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 
 export default function StoryIndex() {
   return (
-    <DynamicStateProvider initialState={{}}>
+    <>
       <AsyncComponents area="_oadminModal" />
       <div id="storyIndex">
         <div id="StoryListComponents">
@@ -21,6 +20,6 @@ export default function StoryIndex() {
           <Area name="storyPlayground" />
         </div>
       </div>
-    </DynamicStateProvider>
+    </>
   );
 }

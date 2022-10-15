@@ -1,23 +1,19 @@
-import { useContext } from "react";
-import AreasContext from "@orgasmo/orgasmo/AreasContext";
+import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 
 export default function RandomButton({ text }) {
-  const { setAreas, areas } = useContext(AreasContext);
+  const mainAreaResource = useDynamicResource("var://areas/main");
 
   return (
     <div className="RandomButton">
       <button
         onClick={() => {
-          const newAreas = {
-            ...areas,
-            main: { ...areas.main },
-          };
-          newAreas.main.items[0].props.number = Math.floor(Math.random() * 100);
-          newAreas.main.items[0].props.string = Math.random()
+          const mainNewArea = { ...areas.main };
+          mainNewArea.items[0].props.number = Math.floor(Math.random() * 100);
+          mainNewArea.items[0].props.string = Math.random()
             .toString(36)
             .substring(2);
 
-          setAreas(newAreas);
+          mainAreaResource.setValue(mainNewArea);
         }}
       >
         {text}

@@ -1,7 +1,6 @@
-import { useContext, useMemo } from "react";
-import AreasContext from "./AreasContext";
 import Dynamic from "./Dynamic/Dynamic";
 import Static from "./Static/Static";
+import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 
 export function RenderArea({ area, DComponent }) {
   if (!area) {
@@ -23,10 +22,8 @@ export function RenderArea({ area, DComponent }) {
 }
 
 export default function Area({ name }) {
-  const { areas, DComponent } = useContext(AreasContext);
+  const [area] = useDynamicValue(`var://area/${name}`);
+  const [{ DComponent }] = useDynamicValue(`var://DComponent`);
 
-  return useMemo(
-    () => <RenderArea area={areas[name]} DComponent={DComponent} />,
-    [areas[name], DComponent]
-  );
+  return <RenderArea area={area} DComponent={DComponent} />;
 }

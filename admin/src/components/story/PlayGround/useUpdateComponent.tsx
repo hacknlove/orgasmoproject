@@ -1,24 +1,23 @@
-import AreasContext from "@orgasmo/orgasmo/AreasContext";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
+import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 
 export default function useUpdateComponent(editItemConfig) {
-  const { setAreas } = useContext(AreasContext);
+  const storyComponentAreaResource = useDynamicResource(
+    "var://area/storyComponent"
+  );
 
   useEffect(() => {
     const json = JSON.parse(editItemConfig);
 
-    setAreas((areas) => ({
-      ...areas,
-      storyComponent: {
-        items: [
-          {
-            type: "StoryRender",
-            props: {
-              itemConfig: json,
-            },
+    storyComponentAreaResource.setValue({
+      items: [
+        {
+          type: "StoryRender",
+          props: {
+            itemConfig: json,
           },
-        ],
-      },
-    }));
+        },
+      ],
+    });
   }, [editItemConfig]);
 }

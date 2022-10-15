@@ -1,7 +1,5 @@
 import VarPlugin from "./plugins/var";
 
-const defaultConf = {};
-
 const proxyHandler = {
   get(target, url) {
     return target.getValue(url);
@@ -20,12 +18,11 @@ const proxyHandler = {
 
 export default class SharedState {
   plugins: Map<any, any>;
-  conf: Record<string, any>;
   resources: Map<any, any>;
   proxy: ProxyConstructor;
   defaultError: any;
 
-  constructor({ plugins = [] as any, conf = {}, initialState = {} } = {}) {
+  constructor({ plugins = [] as any, initialState = {} } = {}) {
     this.plugins = new Map(
       plugins.map((Plugin) => [Plugin.protocol, new Plugin(this)])
     );
@@ -34,7 +31,6 @@ export default class SharedState {
       this.plugins.set("var", new VarPlugin());
     }
 
-    this.conf = { ...defaultConf, ...conf };
     this.resources = new Map();
 
     this.proxy = new Proxy(this, proxyHandler);

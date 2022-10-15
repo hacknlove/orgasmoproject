@@ -1,16 +1,16 @@
-import { useContext } from "react";
 import Area from "../Area";
-import AreasContext from "../AreasContext";
+import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 
 export default function DefaultLayout({ cssVars }) {
-  const { areas } = useContext(AreasContext);
+  const [areas] = useDynamicValue("var://areasNames");
 
   if (!areas) {
     return null;
   }
+
   return (
     <div style={cssVars}>
-      {Object.keys(areas).map((name) => (
+      {areas.map((name) => (
         <div key={name} id={name} className="_oa">
           <Area name={name} />
         </div>

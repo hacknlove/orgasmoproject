@@ -1,11 +1,11 @@
-import AreasContext from "@orgasmo/orgasmo/AreasContext";
 import { useRouter } from "next/router";
-import { useContext, Component, ErrorInfo, ReactNode } from "react";
+import { Component, ErrorInfo, ReactNode } from "react";
 import * as equal from "fast-deep-equal";
+import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 
 export default function StoryRender({ itemConfig }) {
   const router = useRouter();
-  const { DComponent } = useContext(AreasContext);
+  const [{ DComponent }] = useDynamicValue("var://DComponent");
 
   return (
     <ErrorBoundary>

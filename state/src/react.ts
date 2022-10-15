@@ -17,7 +17,6 @@ export const clientSide: Record<string, any> = {};
 interface StateProviderParams {
   children: any;
   plugins?: any[];
-  conf?: any;
   initialState?: any;
   testContextRef?: any;
 }
@@ -25,12 +24,11 @@ interface StateProviderParams {
 export function DynamicStateProvider({
   children,
   plugins = [],
-  conf = {},
   initialState,
   testContextRef,
 }: StateProviderParams) {
   const value = useMemo(() => {
-    const sharedState = new SharedState({ plugins, conf, initialState });
+    const sharedState = new SharedState({ plugins, initialState });
     clientSide.sharedState = sharedState;
     if (testContextRef) {
       testContextRef.sharedState = sharedState;

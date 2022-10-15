@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
-import { useState, useMemo, useEffect, useContext } from "react";
+import { useState, useMemo, useEffect } from "react";
 import * as equal from "fast-deep-equal";
-import AreasContext from "@orgasmo/orgasmo/AreasContext";
 import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 import dynamic from "next/dynamic";
 
@@ -11,7 +10,10 @@ export default function StoryPlayground({ description, itemConfig }) {
   const [editItemConfig, setEditItemConfig] = useState<Record<string, any>>({
     json: itemConfig,
   });
-  const { setAreas } = useContext(AreasContext);
+  const storyComponentAreaResource = useDynamicResource(
+    "var://area/storyComponent"
+  );
+
   const [reset, setReset] = useState({});
   const [editNotes, setEditNotes] = useState(description);
   const isDirty = useDynamicResource(
@@ -48,19 +50,16 @@ export default function StoryPlayground({ description, itemConfig }) {
       }
     }
 
-    setAreas((areas) => ({
-      ...areas,
-      storyComponent: {
-        items: [
-          {
-            type: "StoryRender",
-            props: {
-              itemConfig: json,
-            },
+    storyComponentAreaResource.setValue({
+      items: [
+        {
+          type: "StoryRender",
+          props: {
+            itemConfig: json,
           },
-        ],
-      },
-    }));
+        },
+      ],
+    });
   }, [editItemConfig]);
 
   useEffect(() => {
