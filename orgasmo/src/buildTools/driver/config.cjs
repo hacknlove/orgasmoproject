@@ -5,97 +5,223 @@ const chokidar = require("chokidar");
 const isAModule = require("../isAModule");
 
 const driver = process.env.ORGASMO_DRIVER || "@orgasmo/json";
+const driverArray = driver.split(",");
 
 const regexp = new RegExp(
-  `^(?<from>\\./drivers/(${driver}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`
+  `^(?<from>\\./drivers/(${driverArray.join(
+    "|"
+  )}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`
 );
-const globPath = `./drivers/{${driver},common}/**/*.{export,event,import}.{js,ts,mjs,cjs}`;
-const filename = "./driver.js";
 
-function fileFromImports(imports, externalPackage) {
-  let indexString = "";
-  let handlersString = "";
-  let eventsString = "";
-  let importString = "";
+function sort(imports) {
+  const sortRegexp = new RegExp(
+    `^\\./drivers/(${driverArray.join("|")}|common)/`
+  );
 
-  if (!externalPackage && isAModule(driver)) {
-    externalPackage = driver;
+  function sortReplace(match, driver) {
+    return String.fromCharCode(0xffff - driverArray.indexOf(driver));
   }
 
-  if (externalPackage) {
-    indexString = `${indexString}import external from '${externalPackage}';\n\n`;
+  imports.sort((a, b) => {
+    const commonFirstA = a.from.replace(sortRegexp, sortReplace);
+    const commonFirstB = b.from.replace(sortRegexp, sortReplace);
+
+    if (commonFirstA < commonFirstB) {
+      return -1;
+    }
+    if (commonFirstA < commonFirstB) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+const globPath = `./drivers/{${driver},common}/**/*.{export,event,import}.{js,ts,mjs,cjs}`;
+
+function byType(imports) {
+  const response = {};
+
+  for (const file of imports) {
+    response[file.type] ??= [];
+    response[file.type].push(file);
+  }
+
+  return response;
+}
+
+function importExternals(driverArray) {
+  let string = "";
+
+  for (const driver of driverArray) {
+    if (isAModule(driver)) {
+      string = `${string}\nimport ${getExternalName(driver)} from "${driver}";`;
+    }
+  }
+  return string;
+}
+
+function justImports(imports) {
+  if (!imports) {
+    return "";
+  }
+  sort(imports);
+
+  let string = "";
+  for (const { from } of imports) {
+    string = `${string}\nimport "${from}";`;
+  }
+
+  return string;
+}
+
+function importEvents(imports) {
+  if (!imports) {
+    return "";
+  }
+
+  sort(imports);
+
+  const finalImports = {};
+
+  for (const { from, importName } of imports) {
+    finalImports[importName] = from;
+  }
+  let string = `\nimport events from "orgasmo/events";`;
+
+  for (const importName in finalImports) {
+    string = `${string}\nimport ${importName} from "${finalImports[importName]}";`;
+  }
+
+  return string;
+}
+
+function importExports(imports) {
+  if (!imports) {
+    return "";
+  }
+
+  sort(imports);
+
+  const finalImports = {};
+
+  for (const { from, importName } of imports) {
+    finalImports[importName] = from;
+  }
+
+  let string = "";
+  for (const importName in finalImports) {
+    string = `${string}\nimport ${importName} from "${finalImports[importName]}";`;
+  }
+
+  return string;
+}
+
+function useEvents(imports) {
+  if (!imports) {
+    return "";
+  }
+
+  const finalImports = {};
+
+  for (const { importName, name } of imports) {
+    finalImports[importName] = name;
+  }
+  let string = "";
+
+  for (const importName in finalImports) {
+    string = `${string}events.on("${finalImports[importName]}", ${importName});\n`;
+  }
+
+  return string;
+}
+
+function getExternalName(driver) {
+  return driver.replace(/[/@.]/g, "ー");
+}
+
+function useExternals(driverArray) {
+  let string = "";
+
+  for (const driver of driverArray) {
+    if (isAModule(driver)) {
+      string = `${string}\n  ...${getExternalName(driver)},`;
+    }
+  }
+  return string;
+}
+
+function useExportsStrings(imports) {
+  if (!imports) {
+    return "";
+  }
+
+  let string = "";
+
+  const finalImports = {};
+
+  for (const { route, filename, importName } of imports) {
+    finalImports[importName] = { route, filename };
+  }
+
+  for (const importName in finalImports) {
+    string = `${string}\n  ["${`${finalImports[importName].route}/${finalImports[importName].filename}`
+      .replace(/index$/, "")
+      .replace(/\//g, ".")}"]: ${importName},`;
+  }
+
+  return string;
+}
+
+function useExportsTree(imports) {
+  if (!imports) {
+    return "";
+  }
+
+  const finalImports = {};
+
+  for (const { route, name, importName } of imports) {
+    finalImports[importName] = { route, name };
   }
 
   const all = {};
 
-  imports.sort((a, b) => {
-    const commonFirstA = a.from.replace(/^.\/drivers\/common\//, "!");
-    const commonFirstB = b.from.replace(/^.\/drivers\/common\//, "!");
-
-    return commonFirstA <= commonFirstB ? -1 : 1;
-  });
-
-  for (const { from, route, filename, importName, name, type } of imports) {
-    switch (type) {
-      case "import": {
-        importString = `${importString}import '${from}';\n`;
-        continue;
-      }
-      case "event": {
-        importString = `${importString}import ${importName} from '${from}';\n`;
-
-        eventsString = `${eventsString}events.on('${name}', ${importName});\n`;
-        continue;
-      }
-      case "export": {
-        indexString = `${indexString}import ${importName} from '${from}';\n`;
-        handlersString = `${handlersString}\n  ['${`${route}/${filename}`
-          .replace(/index$/, "")
-          .replace(/\//g, ".")}']: ${importName},`;
-
-        let current = all;
-        if (route) {
-          for (const part of route.split("/")) {
-            current = current[part] = current[part] ?? {};
-          }
-        }
-        current[name] = current[name] ?? {};
-        current[name].__importName = importName;
+  for (const importName in finalImports) {
+    const { route, name } = finalImports[importName];
+    let current = all;
+    if (route) {
+      for (const part of route.split("/")) {
+        current = current[part] = current[part] ?? {};
       }
     }
+    current[name] = current[name] ?? {};
+    current[name].__importName = importName;
   }
 
-  indexString = externalPackage
-    ? `${indexString}\n\nconst driver = {\n  ...external,${handlersString}\n}\n`
-    : `${indexString}\n\nconst driver = {${handlersString}\n}\n`;
-  indexString = `${indexString}${expand(all, "driver")}`;
+  return expand(all, "driver");
+}
 
-  indexString = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { components: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { driver: false })
-  *
-  * @example
-  * // forces the use of an external package as driver 
-  * withOrgasmo(nextConfig, { driver: 'package-name' })
-  *
-  */\n\n${
-    eventsString && "import events from 'orgasmo/events';"
-  }\n${importString}${indexString}\n\n${eventsString}\nexport default driver;\n`;
+function fileFromImports(imports) {
+  const importsByType = byType(imports);
 
-  return indexString;
+  return `\
+/**
+ * @file This file is created automatically at build time.
+ * more info: https://docs.orgasmo.dev/
+ */
+${importExternals(driverArray)}\
+${justImports(importsByType.import)}\
+${importEvents(importsByType.event)}\
+${importExports(importsByType.export)}
+
+const driver = {${useExternals(driverArray)}${useExportsStrings(
+    importsByType.export
+  )}
+}
+${useExportsTree(importsByType.export)}
+
+${useEvents(importsByType.event)}
+export default driver;
+`;
 }
 
 function expand(obj, name) {
@@ -104,8 +230,8 @@ function expand(obj, name) {
     if (key === "__importName") {
       continue;
     }
-    string = `${string}\n${name}['${key}'] = ${obj[key].__importName ?? "{}"};`;
-    string = `${string}${expand(obj[key], `${name}['${key}']`)}`;
+    string = `${string}\n${name}["${key}"] = ${obj[key].__importName ?? "{}"};`;
+    string = `${string}${expand(obj[key], `${name}["${key}"]`)}`;
   }
   return string;
 }
@@ -157,12 +283,12 @@ function refresh() {
   watcher.on("unlink", waitandupdate);
   watcher.on("change", waitandupdate);
 
-  console.info("Watching './drivers/**/*' to trigger refresh");
+  console.info('Watching "./drivers/**/*" to trigger refresh');
 }
 
 exports.fileFromImports = fileFromImports;
 exports.map = map;
 exports.regexp = regexp;
 exports.globPath = globPath;
-exports.filename = filename;
+exports.filename = "./driver.js";
 exports.refresh = refresh;

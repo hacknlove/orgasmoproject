@@ -91,46 +91,28 @@ describe("driver fileFromImport", () => {
         type: "import",
       },
     ];
-    const expected = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { components: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { driver: false })
-  *
-  * @example
-  * // forces the use of an external package as driver 
-  * withOrgasmo(nextConfig, { driver: 'package-name' })
-  *
-  */
+    const expected = `\
+/**
+ * @file This file is created automatically at build time.
+ * more info: https://docs.orgasmo.dev/
+ */
 
-import events from 'orgasmo/events';
-import baz from './drivers/@orgasmo/json/something/bar.event.tsx';
-import './drivers/@orgasmo/json/something/cos.import.tsx';
-import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
-import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
-
+import "./drivers/@orgasmo/json/something/cos.import.tsx";
+import events from "orgasmo/events";
+import baz from "./drivers/@orgasmo/json/something/bar.event.tsx";
+import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
+import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
 const driver = {
-  ['something.bar']: bar,
-  ['something.foo']: foo,
+  ["something.bar"]: bar,
+  ["something.foo"]: foo,
 }
 
-driver['something'] = {};
-driver['something']['bar'] = bar;
-driver['something']['foo'] = foo;
+driver["something"] = {};
+driver["something"]["bar"] = bar;
+driver["something"]["foo"] = foo;
 
-events.on('baz', baz);
+events.on("baz", baz);
 
 export default driver;
 `;
@@ -173,54 +155,33 @@ export default driver;
         type: "event",
       },
     ];
-    const expected = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { components: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { driver: false })
-  *
-  * @example
-  * // forces the use of an external package as driver 
-  * withOrgasmo(nextConfig, { driver: 'package-name' })
-  *
-  */
+    const expected = `\
+/**
+ * @file This file is created automatically at build time.
+ * more info: https://docs.orgasmo.dev/
+ */
 
-import events from 'orgasmo/events';
-import route1ーonSomething from './drivers/@orgasmo/json/something1/onSomething.event.tsx';
-import route2ーonSomething from './drivers/@orgasmo/json/something2/onSomething.event.tsx';
-import external from 'foo-externalPackage';
-
-import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
-import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
-
+import events from "orgasmo/events";
+import route1ーonSomething from "./drivers/@orgasmo/json/something1/onSomething.event.tsx";
+import route2ーonSomething from "./drivers/@orgasmo/json/something2/onSomething.event.tsx";
+import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
+import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
 const driver = {
-  ...external,
-  ['something.bar']: bar,
-  ['something.foo']: foo,
+  ["something.bar"]: bar,
+  ["something.foo"]: foo,
 }
 
-driver['something'] = {};
-driver['something']['bar'] = bar;
-driver['something']['foo'] = foo;
+driver["something"] = {};
+driver["something"]["bar"] = bar;
+driver["something"]["foo"] = foo;
 
-events.on('onSomething', route1ーonSomething);
-events.on('onSomething', route2ーonSomething);
+events.on("onSomething", route1ーonSomething);
+events.on("onSomething", route2ーonSomething);
 
 export default driver;
 `;
-    const actual = fileFromImports(imports, "foo-externalPackage");
+    const actual = fileFromImports(imports);
     expect(actual).toEqual(expected);
   });
 
@@ -260,50 +221,31 @@ export default driver;
         type: "event",
       },
     ];
-    const expected = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {driver: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { components: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { driver: false })
-  *
-  * @example
-  * // forces the use of an external package as driver 
-  * withOrgasmo(nextConfig, { driver: 'package-name' })
-  *
-  */
+    const expected = `\
+/**
+ * @file This file is created automatically at build time.
+ * more info: https://docs.orgasmo.dev/
+ */
 
-import events from 'orgasmo/events';
-import route1ーonSomething from './drivers/@orgasmo/json/something1/onSomething.event.tsx';
-import route2ーonSomething from './drivers/@orgasmo/json/something2/onSomething.event.tsx';
-import external from '@orgasmo/json';
-
-import bar from './drivers/@orgasmo/json/something/bar.export.tsx';
-import foo from './drivers/@orgasmo/json/something/foo.export.tsx';
-
+import ーorgasmoーjson from "@orgasmo/json";
+import events from "orgasmo/events";
+import route1ーonSomething from "./drivers/@orgasmo/json/something1/onSomething.event.tsx";
+import route2ーonSomething from "./drivers/@orgasmo/json/something2/onSomething.event.tsx";
+import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
+import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
 const driver = {
-  ...external,
-  ['something.bar']: bar,
-  ['something.foo']: foo,
+  ...ーorgasmoーjson,
+  ["something.bar"]: bar,
+  ["something.foo"]: foo,
 }
 
-driver['something'] = {};
-driver['something']['bar'] = bar;
-driver['something']['foo'] = foo;
+driver["something"] = {};
+driver["something"]["bar"] = bar;
+driver["something"]["foo"] = foo;
 
-events.on('onSomething', route1ーonSomething);
-events.on('onSomething', route2ーonSomething);
+events.on("onSomething", route1ーonSomething);
+events.on("onSomething", route2ーonSomething);
 
 export default driver;
 `;

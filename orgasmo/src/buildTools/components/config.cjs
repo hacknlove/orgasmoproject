@@ -58,7 +58,7 @@ function fileFromImports(imports, externalPackages) {
     .filter(Boolean);
   externalPackages.push("@orgasmo/admin/Components");
 
-  let string = `\
+  return `\
 /**
 * @file This file is created automatically at build time.
 * more info: https://docs.orgasmo.dev/
@@ -77,8 +77,6 @@ export default function DComponent ({ type, props }) {
   return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
 }
 `;
-
-  return string;
 }
 
 exports.fileFromImports = fileFromImports;
