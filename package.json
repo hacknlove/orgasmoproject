@@ -23,6 +23,7 @@
   "author": "",
   "license": "MIT",
   "workspaces": [
+    "state",
     "orgasmo",
     "drivers/json",
     "drivers/mongo",
@@ -30,7 +31,6 @@
     "examples/infinite",
     "create-orgasmo",
     "drivers/strapi/template",
-    "state",
     "admin"
   ],
   "devDependencies": {
