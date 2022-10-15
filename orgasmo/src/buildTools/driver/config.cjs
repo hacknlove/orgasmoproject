@@ -104,8 +104,8 @@ function expand(obj, name) {
     if (key === "__importName") {
       continue;
     }
-    string = `${string}\n${name}.${key} = ${obj[key].__importName ?? "{}"};`;
-    string = `${string}${expand(obj[key], `${name}.${key}`)}`;
+    string = `${string}\n${name}['${key}'] = ${obj[key].__importName ?? "{}"};`;
+    string = `${string}${expand(obj[key], `${name}['${key}']`)}`;
   }
   return string;
 }
@@ -121,7 +121,7 @@ function map({ route = "", filename, from, type }) {
     route,
     filename,
     type,
-    importName: `${route.replace(/\//g, "ー")}ー${filename}`,
+    importName: `${route.replace(/[/[\].]/g, "ー")}ー${filename}`,
     name: getName(route, filename),
   };
 }
