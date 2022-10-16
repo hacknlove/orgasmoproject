@@ -35,6 +35,11 @@ export default function PageFactory({
 
     const layout = initialState["var://layout"];
 
+    if (props.exposeSharedState && typeof window === "object") {
+      testContextRef = {};
+      (window as any).dynamicState_o = testContextRef;
+    }
+
     useEffect(() => {
       if (lastProps.current === props) {
         return;
@@ -59,7 +64,10 @@ export default function PageFactory({
     }, [props]);
 
     return (
-      <DynamicStateProvider initialState={initialState} testContextRef={testContextRef}>
+      <DynamicStateProvider
+        initialState={initialState}
+        testContextRef={testContextRef}
+      >
         {layout?.meta && <Meta meta={layout?.meta} />}
         {layout?.name ? (
           <DComponent
