@@ -1,6 +1,13 @@
+REPODIR=$PWD
+rm -rf /tmp/orgasmoproject-ci
+set -e
 cd /tmp
-rm -r orgasmoproject-ci
-git clone git@github.com:hacknlove/orgasmoproject.git orgasmoproject-ci
-cd orgasmoproject
+
+git clone $REPODIR orgasmoproject-ci
+cd orgasmoproject-ci
 npm ci
+npm run lint.ci
 CI=true npm test
+
+cd /tmp
+rm -rf orgasmoproject-ci

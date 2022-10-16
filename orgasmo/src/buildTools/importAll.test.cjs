@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
-jest.spyOn(console, "log").mockImplementation(jest.fn());
+jest.spyOn(console, 'info').mockImplementation(() => undefined)
 jest.mock("glob", () =>
   jest.fn((param, callback) => callback(null, ["paths", "from", "glob"]))
 );

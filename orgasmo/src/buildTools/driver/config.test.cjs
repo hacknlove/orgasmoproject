@@ -19,6 +19,8 @@ jest.mock("fs/promises", () => ({
   readFile,
 }));
 
+jest.spyOn(console, 'info').mockImplementation(() => undefined)
+
 const { regexp, globPath, fileFromImports, map, refresh } = require("./config");
 
 test("driver regexp gets the full path and the file name from components starting with capital leter and ending in dynamic.{js,...}", () => {
