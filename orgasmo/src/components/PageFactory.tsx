@@ -4,6 +4,14 @@ import DefaultLayout from "./DefaultLayout/DefaultLayout";
 import Meta from "./Meta/Meta";
 import { DynamicStateProvider } from "@orgasmo/dynamicstate/react";
 
+
+let testContextRef
+
+if (process.env.NODE_ENV === 'development' && typeof window === 'object') {
+  testContextRef = {};
+  (window as any).dynamicState_o = testContextRef
+}
+
 export default function PageFactory({
   DComponent,
 }: PageFactoryParameters): OrgasmoPage {
@@ -51,7 +59,7 @@ export default function PageFactory({
     }, [props]);
 
     return (
-      <DynamicStateProvider initialState={initialState}>
+      <DynamicStateProvider initialState={initialState} testContextRef={testContextRef}>
         {layout?.meta && <Meta meta={layout?.meta} />}
         {layout?.name ? (
           <DComponent
