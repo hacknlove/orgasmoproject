@@ -11,7 +11,8 @@ export default async function getAllPages() {
     .toArray();
   const pages = {};
 
-  for (const { exactPath, patternPath, pageId, ...pageConfig } of pagesArray) {
+  for (const pageConfig of pagesArray) {
+    const { exactPath, patternPath, pageId } = pageConfig;
     const path = exactPath ?? patternPath;
     pages[path] ??= {};
     pages[path][pageId] = pageConfig;
