@@ -3,7 +3,7 @@ import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert.dynamic";
 import { useRouter } from "next/router";
 
-export default function playgroundTitle_o({ component, story }) {
+export default function playgroundTitle_o({ component, path, story, pageId }) {
   const [isDirty] = useDynamicValue(`var://${component}/${story}/isDirty`);
   const router = useRouter();
 
@@ -35,16 +35,20 @@ export default function playgroundTitle_o({ component, story }) {
   }
 
   return (
-    <h1 id="playgroundTitle_h1_o">
-      {component}: {story} {isDirty ? "*" : ""}
+    <div id="playgroundTitle_h1_o">
+      <h2>
+        {component ?? path}
+      </h2>
+      <h1>
+        {story ?? pageId} {isDirty ? "*" : ""}
+      </h1>
       <button
         id="playgroundTitle_button_o"
         className="_oadmin_button"
         onClick={deleteStory}
       >
-        {" "}
-        Delete Story
+        { component ? 'Delete Story' : 'Delete pageConfig' }
       </button>
-    </h1>
+    </div>
   );
 }

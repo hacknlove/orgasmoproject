@@ -37,10 +37,10 @@ export default function addComponentAreas({ areas, ctx, stories }) {
     ],
   };
 
-  areas.storyTitle = {
+  areas.playgroundTitle = {
     items: [
       {
-        type: "playgroundTitle_o",
+        type: "PlaygroundTitle_o",
         props: {
           component: ctx.query.component,
           story: ctx.query.story,

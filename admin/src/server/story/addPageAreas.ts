@@ -35,13 +35,13 @@ export default function addPageAreas({ areas, ctx, pages }) {
     ],
   };
 
-  areas.storyTitle = {
+  areas.playgroundTitle = {
     items: [
       {
-        type: "playgroundTitle_o",
+        type: "PlaygroundTitle_o",
         props: {
-          component: ctx.query.component,
-          story: ctx.query.story,
+          path: ctx.query.path,
+          pageId: ctx.query.pageId,
           isDirty: false,
         },
       },

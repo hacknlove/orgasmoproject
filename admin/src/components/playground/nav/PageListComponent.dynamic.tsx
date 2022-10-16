@@ -34,20 +34,20 @@ export default function PageListComponent({
         <TeenyiconsFolderOutline className="MainLayout_nav_svg" /> {path}
       </summary>
       <ul className="MainLayout_nav_li_ul">
-        {Object.entries(stories).map(([name, { description }]) => (
+        {Object.entries(stories).map(([pageId, { description }]) => (
           <li
-            key={name}
+            key={pageId}
             className={`MainLayout_nav_li_ul_li ${
-              router.query.path === path && router.query.story === name
+              router.query.path === path && router.query.pageId === pageId
                 ? "MainLayout_nav_active_o"
                 : ""
             }`}
           >
-            <Link href={`/playground?path=${path}&story=${name}`}>
+            <Link href={`/playground?path=${path}&pageId=${pageId}`}>
               <a className="MainLayout_nav_li_ul_li_a" title={description}>
                 {" "}
                 <IconoirEmptyPage className="MainLayout_nav_svg" />
-                {name}
+                {pageId}
               </a>
             </Link>
           </li>

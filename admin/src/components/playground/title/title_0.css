@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  column-gap: 2rem;
 }
 
 #playgroundTitle_button_o {

@@ -21,5 +21,5 @@ export default {
   StoryRender: dynamic(() => import("./playground/render/StoryRender.dynamic.js"), { suspense: true, loading: undefined }),
   SiteLayout_o: dynamic(() => import("./playground/SiteLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
   StoryLayout_o: dynamic(() => import("./playground/StoryLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
-  Title_o: dynamic(() => import("./playground/title/Title_o.dynamic.js"), { suspense: true, loading: undefined }),
+  PlaygroundTitle_o: dynamic(() => import("./playground/title/PlaygroundTitle_o.dynamic.js"), { suspense: true, loading: undefined }),
 }

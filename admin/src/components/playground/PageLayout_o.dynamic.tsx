@@ -4,7 +4,7 @@ export default function StoryIndex() {
   return (
     <>
       <div id="playgroundTitle_o">
-        <Area name="storyTitle" />
+        <Area name="playgroundTitle" />
       </div>
       <div id="StoryComponent">
         <Area name="storyComponent" />
