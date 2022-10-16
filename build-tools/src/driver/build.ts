@@ -35,7 +35,7 @@ ${useExportsTree(importsByType.export)}
 export default driver;
 `;
 
-  await writeFile(join(path, 'driver.ts'), string)
+  await writeFile(join(path, "driver.ts"), string);
 }
 
 build(process.argv[2] ?? ".");
