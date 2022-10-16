@@ -19,7 +19,7 @@ jest.mock("fs/promises", () => ({
   readFile,
 }));
 
-jest.spyOn(console, 'info').mockImplementation(() => undefined)
+jest.spyOn(console, "info").mockImplementation(() => undefined);
 
 const { regexp, globPath, fileFromImports, map, refresh } = require("./config");
 
