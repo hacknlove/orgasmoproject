@@ -1,6 +1,6 @@
 import Area from "@orgasmo/orgasmo/Area";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
-import Link from 'next/link'
+import Link from "next/link";
 import MaterialSymbolsSettingsRounded from "../icons/MaterialSymbolsSettingsRounded";
 
 export default function StoryLayout() {

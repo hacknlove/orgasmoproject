@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "prebuild": "mkdir -p dist && node ../build-tools/dist/driver/build.js src/driver && node ../build-tools/dist/scss/build.js components ./dist/style.css",
     "build": "tsc",
     "lint": "eslint . --fix",
     "pretty": "prettier --write .",

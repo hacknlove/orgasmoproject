@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 export default {
   PageLayout_o: dynamic(() => import("./playground/PageLayout_o.js"), {
     suspense: true,
-    loading: undefined
+    loading: undefined,
   }),
   PlayGroundMainLayout_o: dynamic(
     () => import("./playground/PlayGroundMainLayout_o.js"),
@@ -24,7 +24,6 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  
 
   AdminMenuItem: dynamic(() => import("./admin/AdminMenuItem.js"), {
     suspense: true,
