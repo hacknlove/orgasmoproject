@@ -16,9 +16,10 @@ export default function addPageAreas({ areas, ctx, pages }) {
   areas.pageRender = {
     items: [
       {
-        type: "PageRender",
+        type: "PageRender_o",
         props: {
           pageConfig,
+          samplePath: pageConfig.exactPath ?? ctx.query.samplePath ?? "",
         },
       },
     ],
@@ -43,6 +44,8 @@ export default function addPageAreas({ areas, ctx, pages }) {
           path: ctx.query.path,
           pageId: ctx.query.pageId,
           isDirty: false,
+          requiresSamplePath: Boolean(pageConfig.patternPath),
+          samplePaths: pageConfig.samplePaths ?? [],
         },
       },
     ],

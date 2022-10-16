@@ -6,9 +6,7 @@ export default function StoryIndex() {
       <div id="playgroundTitle_o">
         <Area name="playgroundTitle" />
       </div>
-      <div id="StoryComponent">
-        <Area name="storyComponent" />
-      </div>
+      <Area name="pageRender" />
       <div id="StoryPlayground">
         <Area name="storyPlayground" />
       </div>
