@@ -113,7 +113,11 @@ export default function Save() {
             await navigator.clipboard.writeText(
               JSON.stringify(pageConfig, null, 2)
             );
-            asyncit(Alert, { title: "Copied to clipboard" }, "playgroundModal_o");
+            asyncit(
+              Alert,
+              { title: "Copied to clipboard" },
+              "playgroundModal_o"
+            );
           }}
         >
           Copy

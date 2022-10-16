@@ -26,7 +26,8 @@
     "./Components": "./dist/components/Components.js",
     "./adminSSPsFactory": "./dist/server/admin/adminSSPsFactory.js",
     "./storySSPsFactory": "./dist/server/story/storySSPsFactory.js",
-    "./driver": "./dist/driver/driver.js"
+    "./driver": "./dist/driver/driver.js",
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist/",

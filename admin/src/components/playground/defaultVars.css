@@ -1,0 +1,9 @@
+:root {
+    --border-color_o: #0000000d;
+    --border-color-strong_o: #00000020;
+    --color_o: #333;
+    --interface-background_o: #f6f9fc;
+    --font-sans_o: "Nunito Sans", -apple-system, ".SFNSText-Regular",
+      "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
+      Arial, sans-serif;
+}

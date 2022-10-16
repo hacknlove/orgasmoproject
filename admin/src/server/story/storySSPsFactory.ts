@@ -1,145 +1,8 @@
-import AdminComponents from "../../components/Components";
-export async function getStoriesList({ driver, Components }) {
-  const stories =
-    (await driver?.admin?.getAllStories?.().catch(() => ({}))) || {};
-
-  for (const key in Components) {
-    if (AdminComponents[key]) {
-      continue;
-    }
-    if (!stories[key]) {
-      stories[key] = {
-        empty: {
-          itemConfig: {
-            props: {},
-          },
-          description: `Create the first story for the component ${key}`,
-        },
-      };
-    }
-  }
-
-  return stories;
-}
-
-export function getPagesList({ driver }) {
-  return driver?.admin?.getAllPages?.().catch(() => ({})) || {};
-}
-
-export function completeAreasComponent({ areas, ctx, stories }) {
-  const storyConfig = stories[ctx.query.component]?.[ctx.query.story];
-
-  if (!storyConfig) {
-    return;
-  }
-
-  areas.mainArea_o = {
-    items: [{
-      type: 'StoryLayout_o'
-    }]
-  }
-
-  areas.storyComponent = {
-    items: [
-      {
-        type: "StoryRender",
-        props: {
-          itemConfig: storyConfig.itemConfig,
-        },
-      },
-    ],
-  };
-
-  areas.storyPlayground = {
-    items: [
-      {
-        type: "StoryPlayground",
-        props: {
-          story: ctx.query.story,
-          description: storyConfig.description,
-          itemConfig: storyConfig.itemConfig,
-        },
-      },
-    ],
-  };
-
-  areas.storyTitle = {
-    items: [
-      {
-        type: "playgroundTitle_o",
-        props: {
-          component: ctx.query.component,
-          story: ctx.query.story,
-          isDirty: false,
-        },
-      },
-    ],
-  };
-
-  return true
-}
-
-export function completeAreasPage({ areas, ctx, pages }) {
-  const pageConfig = pages[ctx.query.path]?.[ctx.query.pageId];
-
-  if (!pageConfig) {
-    return;
-  }
-
-  areas.mainArea_o = {
-    items: [{
-      type: 'PageLayout'
-    }]
-  }
-
-  areas.pageRender = {
-    items: [
-      {
-        type: "PageRender",
-        props: {
-          pageConfig,
-        },
-      },
-    ],
-  };
-
-  areas.pagePlayground = {
-    items: [
-      {
-        type: "PagePlayground",
-        props: {
-          pageConfig,
-        },
-      },
-    ],
-  };
-
-  areas.storyTitle = {
-    items: [
-      {
-        type: "playgroundTitle_o",
-        props: {
-          component: ctx.query.component,
-          story: ctx.query.story,
-          isDirty: false,
-        },
-      },
-    ],
-  };
-
-  return true;
-}
-
-function completeAreasSite ({ areas }) {
-
-  areas.mainArea_o = {
-    items: [{
-      type: 'PageLayout'
-    }]
-  }
-
-  return true
-}
+import getStoriesList from "./getStoriesList";
+import getPagesList from "./getPagesList";
+import addComponentAreas from "./addComponentAreas";
+import addPageAreas from "./addPageAreas";
+import addSiteAreas from "./addSiteAreas";
 
 export default function storySSPsFactory({ driver, Components, layout }) {
   return async function getServerSideProps(ctx) {
@@ -178,10 +41,9 @@ export default function storySSPsFactory({ driver, Components, layout }) {
       },
     };
 
-
-    completeAreasComponent({ areas: response.props.areas, ctx, stories }) ||
-    completeAreasPage({ areas: response.props.areas, ctx, pages }) ||
-    completeAreasSite({ areas: response.props.areas })
+    addComponentAreas({ areas: response.props.areas, ctx, stories }) ||
+      addPageAreas({ areas: response.props.areas, ctx, pages }) ||
+      addSiteAreas({ areas: response.props.areas });
 
     return response;
   };

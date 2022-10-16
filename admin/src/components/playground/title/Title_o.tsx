@@ -35,10 +35,10 @@ export default function playgroundTitle_o({ component, story }) {
   }
 
   return (
-    <h1 id="StoryTitle_h1">
+    <h1 id="playgroundTitle_h1_o">
       {component}: {story} {isDirty ? "*" : ""}
       <button
-        id="StoryTitle_button"
+        id="playgroundTitle_button_o"
         className="_oadmin_button"
         onClick={deleteStory}
       >

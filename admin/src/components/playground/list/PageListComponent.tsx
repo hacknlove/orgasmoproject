@@ -70,7 +70,7 @@ export default function PageListComponent({
                 : ""
             }`}
           >
-            <Link href={`/story?path=${path}&story=${name}`}>
+            <Link href={`/playground?path=${path}&story=${name}`}>
               <a className="StoryListComponent_a" title={description}>
                 {" "}
                 <IconoirPage className="ClarityBookmarkLine" />

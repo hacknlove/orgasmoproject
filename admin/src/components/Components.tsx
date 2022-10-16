@@ -1,9 +1,20 @@
 import dynamic from "next/dynamic";
 
 export default {
-  PlayGroundMainLayout_o: dynamic(() => import("./playground/PlayGroundMainLayout_o.js"), {
+  PageLayout_o: dynamic(() => import("./playground/PageLayout_o.js"), {
     suspense: true,
     loading: undefined
+  }),
+  PlayGroundMainLayout_o: dynamic(
+    () => import("./playground/PlayGroundMainLayout_o.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
+  playgroundTitle_o: dynamic(() => import("./playground/title/Title_o.js"), {
+    suspense: true,
+    loading: undefined,
   }),
   SiteLayout_o: dynamic(() => import("./playground/SiteLayout_o.js"), {
     suspense: true,
@@ -13,10 +24,7 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  playgroundTitle_o: dynamic(() => import("./playground/title/Title_o.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
+  
 
   AdminMenuItem: dynamic(() => import("./admin/AdminMenuItem.js"), {
     suspense: true,

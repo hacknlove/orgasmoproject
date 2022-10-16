@@ -45,3 +45,20 @@ module.exports = withOrgasmo(nextConfig);
 ## Documentation
 
 [docs.orgasmo.dev](https://docs.orgasmo.dev)
+
+
+To build the styles:
+
+```
+npx nodemon -e css ../build-tools/dist/scss/build.js ./ ./dist/style.css
+```
+
+to build the drivers: 
+
+```
+npx nodemon ../build-tools/dist/driver/build.js --ignore src/driver/driver.ts src/driver/
+```
+
+# TODO
+
+add those to the dev script

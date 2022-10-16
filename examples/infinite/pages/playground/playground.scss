@@ -1,11 +1,12 @@
+@import '../../node_modules/@orgasmo/admin/dist/style.css';
 :root {
   --border-color_o: #0000000d;
   --border-color-strong_o: #00000020;
   --color_o: #333;
   --interface-background_o: #f6f9fc;
   --font-sans_o: "Nunito Sans", -apple-system, ".SFNSText-Regular",
-  "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
-  Arial, sans-serif;
+    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
 }
 
 #playground_o {
@@ -13,6 +14,24 @@
   grid-template-areas: "list title" "list component" "list playground";
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto 1fr;
+}
+
+#playgroundHomeLink_o {
+  font-family: var(--font-sans_o);
+  color: var(--color_o);
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  text-decoration: none;
+  color: inherit;
+  padding: 3px 13px;
+  font-size: 15px;
+  list-style: none;
+  line-height: 1.4;
+}
+#playgroundHomeLink_o>svg {
+  color: #1ea7fd;
+  margin-bottom: 5px;
 }
 
 #playgroundSideNav_o {
@@ -34,9 +53,6 @@
   background: var(--interface-background_o);
   border-bottom: 1px solid var(--border-color_o);
 }
-
-
-
 
 #_oadmin {
   min-width: 2rem;
@@ -279,9 +295,6 @@
   text-align: left;
 }
 
-
-
-
 #StoryComponent {
   grid-area: component;
   display: flex;
@@ -470,18 +483,5 @@
   column-gap: 0.5rem;
 }
 
-#StoryTitle_h1 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-#StoryTitle_button {
-  position: absolute;
-  right: 1rem;
-  --_oadmin_button_color: #fff;
-  font-weight: bold;
-  --_oadmin_button_background: #fd271c;
-  --_oadmin_button_background_hover: hsl(3, 98%, 60%);
-  --_oadmin_button_background_active: #fd271c;
-}
+
+
