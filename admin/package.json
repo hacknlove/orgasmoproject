@@ -25,14 +25,8 @@
     "./AdminFactory": "./dist/components/admin/AdminFactory.js",
     "./Components": "./dist/components/Components.js",
     "./adminSSPsFactory": "./dist/server/admin/adminSSPsFactory.js",
-    "./expandPageConfigApi": "./dist/server/admin/expandPageConfigApi.js",
-    "./updatePageConfigApi": "./dist/server/admin/updatePageConfigApi.js",
-    "./newPageConfigApi": "./dist/server/admin/newPageConfigApi.js",
-    "./deletePageConfigApi": "./dist/server/admin/deletePageConfigApi.js",
     "./storySSPsFactory": "./dist/server/story/storySSPsFactory.js",
-    "./updateStoryConfigApi": "./dist/server/story/updateStoryConfigApi.js",
-    "./newStoryConfigApi": "./dist/server/story/newStoryConfigApi.js",
-    "./deleteStoryConfigApi": "./dist/server/story/deleteStoryConfigApi.js"
+    "./driver": "./dist/driver/driver.js"
   },
   "files": [
     "dist/",
