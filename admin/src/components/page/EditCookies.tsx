@@ -268,7 +268,7 @@ export default function EditCookies() {
                   const newOptions = await asyncit(
                     EditCookieOptions,
                     { serializedOptions: options },
-                    "_oadminModal"
+                    "playgroundModal_o"
                   );
 
                   if (!newOptions) {

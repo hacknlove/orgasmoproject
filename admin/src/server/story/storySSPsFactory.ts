@@ -26,14 +26,20 @@ export function getPagesList({ driver }) {
   return driver?.admin?.getAllPages?.().catch(() => ({})) || {};
 }
 
-export function completeComponent({ response, ctx, stories }) {
+export function completeAreasComponent({ areas, ctx, stories }) {
   const storyConfig = stories[ctx.query.component]?.[ctx.query.story];
 
   if (!storyConfig) {
-    return null;
+    return;
   }
 
-  response.props.areas.storyComponent = {
+  areas.mainArea_o = {
+    items: [{
+      type: 'StoryLayout_o'
+    }]
+  }
+
+  areas.storyComponent = {
     items: [
       {
         type: "StoryRender",
@@ -44,7 +50,7 @@ export function completeComponent({ response, ctx, stories }) {
     ],
   };
 
-  response.props.areas.storyPlayground = {
+  areas.storyPlayground = {
     items: [
       {
         type: "StoryPlayground",
@@ -57,10 +63,10 @@ export function completeComponent({ response, ctx, stories }) {
     ],
   };
 
-  response.props.areas.storyTitle = {
+  areas.storyTitle = {
     items: [
       {
-        type: "StoryTitle",
+        type: "playgroundTitle_o",
         props: {
           component: ctx.query.component,
           story: ctx.query.story,
@@ -69,19 +75,27 @@ export function completeComponent({ response, ctx, stories }) {
       },
     ],
   };
+
+  return true
 }
 
-export function completePage({ response, ctx, pages }) {
+export function completeAreasPage({ areas, ctx, pages }) {
   const pageConfig = pages[ctx.query.path]?.[ctx.query.pageId];
 
   if (!pageConfig) {
-    return null;
+    return;
   }
 
-  response.props.areas.pageRender = {
+  areas.mainArea_o = {
+    items: [{
+      type: 'PageLayout'
+    }]
+  }
+
+  areas.pageRender = {
     items: [
       {
-        type: "PageREnder",
+        type: "PageRender",
         props: {
           pageConfig,
         },
@@ -89,7 +103,7 @@ export function completePage({ response, ctx, pages }) {
     ],
   };
 
-  response.props.areas.pagePlayground = {
+  areas.pagePlayground = {
     items: [
       {
         type: "PagePlayground",
@@ -100,10 +114,10 @@ export function completePage({ response, ctx, pages }) {
     ],
   };
 
-  response.props.areas.storyTitle = {
+  areas.storyTitle = {
     items: [
       {
-        type: "StoryTitle",
+        type: "playgroundTitle_o",
         props: {
           component: ctx.query.component,
           story: ctx.query.story,
@@ -113,7 +127,18 @@ export function completePage({ response, ctx, pages }) {
     ],
   };
 
-  return;
+  return true;
+}
+
+function completeAreasSite ({ areas }) {
+
+  areas.mainArea_o = {
+    items: [{
+      type: 'PageLayout'
+    }]
+  }
+
+  return true
 }
 
 export default function storySSPsFactory({ driver, Components, layout }) {
@@ -126,8 +151,8 @@ export default function storySSPsFactory({ driver, Components, layout }) {
     const response = {
       props: {
         layout: {
-          name: "StoryIndex",
-          meta: [["title", "Orgasmo's stories"]],
+          name: "PlayGroundMainLayout_o",
+          meta: [["title", "Orgasmo's playground"]],
           ...layout,
         },
         areas: {
@@ -153,10 +178,11 @@ export default function storySSPsFactory({ driver, Components, layout }) {
       },
     };
 
-    return (
-      completeComponent({ response, ctx, stories }) ||
-      completePage({ response, ctx, pages }) ||
-      response
-    );
+
+    completeAreasComponent({ areas: response.props.areas, ctx, stories }) ||
+    completeAreasPage({ areas: response.props.areas, ctx, pages }) ||
+    completeAreasSite({ areas: response.props.areas })
+
+    return response;
   };
 }

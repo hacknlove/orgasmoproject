@@ -14,7 +14,7 @@ export default function AdminButton({ label, area, modal }) {
         }
 
         if (Components[modal]) {
-          asyncit(DComponent, { type: modal, props: {} }, "_oadminModal");
+          asyncit(DComponent, { type: modal, props: {} }, "playgroundModal_o");
         }
       }}
     >

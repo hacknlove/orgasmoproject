@@ -3,7 +3,7 @@ import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert";
 import { useRouter } from "next/router";
 
-export default function StoryTitle({ component, story }) {
+export default function playgroundTitle_o({ component, story }) {
   const [isDirty] = useDynamicValue(`var://${component}/${story}/isDirty`);
   const router = useRouter();
 
@@ -22,13 +22,13 @@ export default function StoryTitle({ component, story }) {
       return asyncit(
         Alert,
         { title: "Error", text: response.error },
-        "_oadminModal"
+        "playgroundModal_o"
       );
     }
 
     if (response.error) {
       console.error(response.error);
-      return asyncit(Alert, response.error, "_oadminModal");
+      return asyncit(Alert, response.error, "playgroundModal_o");
     }
 
     router.push("/story");

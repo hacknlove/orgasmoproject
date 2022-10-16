@@ -9,15 +9,15 @@ export default function StoryIndex() {
 
   return (
     <>
-      <AsyncComponents area="_oadminModal" />
-      <div id="storyIndex">
-        <div id="StoryListComponents">
+      <AsyncComponents area="playgroundModal_o" />
+      <div id="playground_o">
+        <nav id="playgroundSideNav_o">
           <h2 id="StortListComponents_h2">Components</h2>
           <Area name="storiesList" />
           <h2 id="StortListComponents_h2">Pages</h2>
           <Area name="pagesList" />
-        </div>
-        <div id="StoryTitle">
+        </nav>
+        <div id="playgroundTitle_o">
           {storyTitleArea ? (
             <Area name="storyTitle" />
           ) : (

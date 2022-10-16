@@ -1,6 +1,23 @@
 import dynamic from "next/dynamic";
 
 export default {
+  PlayGroundMainLayout_o: dynamic(() => import("./playground/PlayGroundMainLayout_o.js"), {
+    suspense: true,
+    loading: undefined
+  }),
+  SiteLayout_o: dynamic(() => import("./playground/SiteLayout_o.js"), {
+    suspense: true,
+    loading: undefined,
+  }),
+  StoryLayout_o: dynamic(() => import("./playground/StoryLayout_o.js"), {
+    suspense: true,
+    loading: undefined,
+  }),
+  playgroundTitle_o: dynamic(() => import("./playground/title/Title_o.js"), {
+    suspense: true,
+    loading: undefined,
+  }),
+
   AdminMenuItem: dynamic(() => import("./admin/AdminMenuItem.js"), {
     suspense: true,
     loading: undefined,
@@ -34,33 +51,26 @@ export default {
     loading: undefined,
   }),
   StoryListComponent: dynamic(
-    () => import("./story/list/StoryListComponent.js"),
+    () => import("./playground/list/StoryListComponent.js"),
     {
       suspense: true,
       loading: undefined,
     }
   ),
-  StoryIndex: dynamic(() => import("./story/StoryIndex.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  StoryRender: dynamic(() => import("./story/render/StoryRender.js"), {
+  StoryRender: dynamic(() => import("./playground/render/StoryRender.js"), {
     suspense: true,
     loading: undefined,
   }),
   StoryPlayground: dynamic(
-    () => import("./story/PlayGround/StoryPlayground.js"),
+    () => import("./playground/PlayGround/StoryPlayground.js"),
     {
       suspense: true,
       loading: undefined,
     }
   ),
-  StoryTitle: dynamic(() => import("./story/title/StoryTitle.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
+
   PageListComponent: dynamic(
-    () => import("./story/list/PageListComponent.js"),
+    () => import("./playground/list/PageListComponent.js"),
     { suspense: true, loading: undefined }
   ),
 };

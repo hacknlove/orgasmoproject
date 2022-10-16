@@ -136,7 +136,7 @@ export function Admin({
           setSelectedPageId,
         }}
       >
-        <AsyncComponents area="_oadminModal" />
+        <AsyncComponents area="playgroundModal_o" />
         <div
           id="_oadmin_menu"
           className={menuIsActive ? "_oadmin_menu_active" : ""}

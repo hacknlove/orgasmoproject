@@ -4,7 +4,7 @@ import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import SaveAsInput from "../../modals/SaveAsInput";
 import Alert from "../../modals/Alert";
 
-const ADMIN_UPSERT_STORY_CONFIG_ENDPOINT = "/api/_oadmin/updateStoryConfig";
+const ADMIN_UPSERT_STORY_CONFIG_ENDPOINT = "/api/_oadmin/story";
 
 export default function useSave({ files, description, itemConfig }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function useSave({ files, description, itemConfig }) {
           label: "Story",
           defaultValue: router.query.story,
         },
-        "_oadminModal"
+        "playgroundModal_o"
       );
 
       if (!storyName) {
@@ -52,11 +52,11 @@ export default function useSave({ files, description, itemConfig }) {
         return asyncit(
           Alert,
           { title: "Error", text: response.error },
-          "_oadminModal"
+          "playgroundModal_o"
         );
       }
       if (response.error) {
-        return asyncit(Alert, response.error, "_oadminModal");
+        return asyncit(Alert, response.error, "playgroundModal_o");
       }
 
       router.push({

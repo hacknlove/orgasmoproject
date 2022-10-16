@@ -34,11 +34,11 @@ export default function Save() {
       return asyncit(
         Alert,
         { title: "Error", text: response.error },
-        "_oadminModal"
+        "playgroundModal_o"
       );
     }
     if (response.error) {
-      return asyncit(Alert, response.error, "_oadminModal");
+      return asyncit(Alert, response.error, "playgroundModal_o");
     }
 
     if (response.ok) {
@@ -50,7 +50,7 @@ export default function Save() {
     const pageId = await asyncit(
       SaveAsInput,
       { label: "pageId" },
-      "_oadminModal"
+      "playgroundModal_o"
     );
 
     if (!pageId) {
@@ -77,11 +77,11 @@ export default function Save() {
       return asyncit(
         Alert,
         { title: "Error", text: response.error },
-        "_oadminModal"
+        "playgroundModal_o"
       );
     }
     if (response.error) {
-      return asyncit(Alert, response.error, "_oadminModal");
+      return asyncit(Alert, response.error, "playgroundModal_o");
     }
 
     asyncit(
@@ -90,7 +90,7 @@ export default function Save() {
         title: "Saved",
         text: `The pageConfig has been save with the pageId ${pageId}`,
       },
-      "_oadminModal"
+      "playgroundModal_o"
     );
   }, [pageConfig]);
 
@@ -113,7 +113,7 @@ export default function Save() {
             await navigator.clipboard.writeText(
               JSON.stringify(pageConfig, null, 2)
             );
-            asyncit(Alert, { title: "Copied to clipboard" }, "_oadminModal");
+            asyncit(Alert, { title: "Copied to clipboard" }, "playgroundModal_o");
           }}
         >
           Copy
