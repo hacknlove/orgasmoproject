@@ -11,11 +11,7 @@ export default async function build(path) {
     cwd: resolve(process.cwd(), path),
   });
 
-  console.log(files);
-
   const imports = parseFiles(files, regexp);
-
-  console.log(imports);
 
   const string = `\
 import dynamic from 'next/dynamic';
