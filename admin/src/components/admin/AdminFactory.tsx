@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 
 import { Admin } from "./Admin";
 
-const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/getPageConfig";
+const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/page/expand";
 
 export default function AdminFactory({ DComponent, Components, Page }) {
   const AdminPage = ({
