@@ -23,6 +23,7 @@
   "author": "",
   "license": "MIT",
   "workspaces": [
+    "build-tools",
     "state",
     "orgasmo",
     "drivers/json",
