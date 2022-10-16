@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/hacknlove/orgasmoproject.git"
   },
+  "scripts": {
+    "test": ""
+  },
   "license": "MIT",
   "author": "Antonio Fernández Porrúa"
 }
