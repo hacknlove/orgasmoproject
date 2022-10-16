@@ -1,83 +1,26 @@
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
 export default {
-  PageLayout_o: dynamic(() => import("./playground/PageLayout_o.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  PlayGroundMainLayout_o: dynamic(
-    () => import("./playground/PlayGroundMainLayout_o.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  playgroundTitle_o: dynamic(() => import("./playground/title/Title_o.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  SiteLayout_o: dynamic(() => import("./playground/SiteLayout_o.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  StoryLayout_o: dynamic(() => import("./playground/StoryLayout_o.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-
-  AdminMenuItem: dynamic(() => import("./admin/AdminMenuItem.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  ChoosePageId: dynamic(() => import("./admin/ChoosePageId.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  EditLayoutName: dynamic(() => import("./page/EditLayoutName.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  EditJSSnippets: dynamic(() => import("./page/EditJSSnippets.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  EditCSSVars: dynamic(() => import("./page/EditCSSvars.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  EditMetaTags: dynamic(() => import("./page/EditMetaTags.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  EditPage: dynamic(() => import("./page/EditPage.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  EditCookies: dynamic(() => import("./page/EditCookies.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  StoryListComponent: dynamic(
-    () => import("./playground/list/StoryListComponent.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  StoryRender: dynamic(() => import("./playground/render/StoryRender.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  StoryPlayground: dynamic(
-    () => import("./playground/PlayGround/StoryPlayground.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-
-  PageListComponent: dynamic(
-    () => import("./playground/list/PageListComponent.js"),
-    { suspense: true, loading: undefined }
-  ),
-};
+  Admin: dynamic(() => import("./admin/Admin.dynamic.js"), { suspense: true, loading: undefined }),
+  AdminContext: dynamic(() => import("./admin/AdminContext.dynamic.js"), { suspense: true, loading: undefined }),
+  AdminDataLists: dynamic(() => import("./admin/AdminDataLists.dynamic.js"), { suspense: true, loading: undefined }),
+  AdminFactory: dynamic(() => import("./admin/AdminFactory.dynamic.js"), { suspense: true, loading: undefined }),
+  ChoosePageId: dynamic(() => import("./admin/ChoosePageId.dynamic.js"), { suspense: true, loading: undefined }),
+  Alert: dynamic(() => import("./modals/Alert.dynamic.js"), { suspense: true, loading: undefined }),
+  SaveAsInput: dynamic(() => import("./modals/SaveAsInput.dynamic.js"), { suspense: true, loading: undefined }),
+  EditCookies: dynamic(() => import("./page/EditCookies.dynamic.js"), { suspense: true, loading: undefined }),
+  EditCSSvars: dynamic(() => import("./page/EditCSSvars.dynamic.js"), { suspense: true, loading: undefined }),
+  EditJSSnippets: dynamic(() => import("./page/EditJSSnippets.dynamic.js"), { suspense: true, loading: undefined }),
+  EditLayoutName: dynamic(() => import("./page/EditLayoutName.dynamic.js"), { suspense: true, loading: undefined }),
+  EditMetaTags: dynamic(() => import("./page/EditMetaTags.dynamic.js"), { suspense: true, loading: undefined }),
+  EditPage: dynamic(() => import("./page/EditPage.dynamic.js"), { suspense: true, loading: undefined }),
+  PageListComponent: dynamic(() => import("./playground/list/PageListComponent.dynamic.js"), { suspense: true, loading: undefined }),
+  StoryListComponent: dynamic(() => import("./playground/list/StoryListComponent.dynamic.js"), { suspense: true, loading: undefined }),
+  PlayGroundMainLayout_o: dynamic(() => import("./playground/MainLayout/PlayGroundMainLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
+  PageLayout_o: dynamic(() => import("./playground/PageLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
+  StoryPlayground: dynamic(() => import("./playground/PlayGround/StoryPlayground.dynamic.js"), { suspense: true, loading: undefined }),
+  StoryRender: dynamic(() => import("./playground/render/StoryRender.dynamic.js"), { suspense: true, loading: undefined }),
+  SiteLayout_o: dynamic(() => import("./playground/SiteLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
+  StoryLayout_o: dynamic(() => import("./playground/StoryLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
+  Title_o: dynamic(() => import("./playground/title/Title_o.dynamic.js"), { suspense: true, loading: undefined }),
+}

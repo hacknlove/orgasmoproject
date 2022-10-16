@@ -1,4 +1,4 @@
-import AdminContext from "../admin/AdminContext";
+import AdminContext from "../admin/AdminContext.dynamic";
 import { useContext, useState, useEffect, useCallback, useMemo } from "react";
 
 function fieldIsDirty({ pageConfig, editValues, field }) {

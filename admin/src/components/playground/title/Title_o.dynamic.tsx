@@ -1,6 +1,6 @@
 import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
-import Alert from "../../modals/Alert";
+import Alert from "../../modals/Alert.dynamic";
 import { useRouter } from "next/router";
 
 export default function playgroundTitle_o({ component, story }) {

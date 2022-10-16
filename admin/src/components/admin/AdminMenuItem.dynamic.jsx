@@ -1,6 +1,6 @@
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import { useContext } from "react";
-import AdminContext from "./AdminContext";
+import AdminContext from "./AdminContext.dynamic";
 export default function AdminButton({ label, area, modal }) {
   const { chooseMenu, DComponent, Components } = useContext(AdminContext);
 

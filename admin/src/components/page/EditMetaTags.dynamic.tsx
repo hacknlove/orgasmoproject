@@ -8,8 +8,8 @@ import {
   useRef,
 } from "react";
 
-import AdminDataList from "../admin/AdminDataLists";
-import AdminContext from "../admin/AdminContext";
+import AdminDataList from "../admin/AdminDataLists.dynamic";
+import AdminContext from "../admin/AdminContext.dynamic";
 import * as metaTagsList from "./metatags.json";
 
 export default function EditMetaTags() {

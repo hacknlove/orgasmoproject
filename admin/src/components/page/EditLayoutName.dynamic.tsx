@@ -1,24 +1,28 @@
-import AdminContext from "../admin/AdminContext";
+import AdminContext from "../admin/AdminContext.dynamic";
 import { useContext, useRef } from "react";
+import { AdminComponentsDataList } from "../admin/AdminDataLists.dynamic";
 
-export default function EditJSSnipplets() {
-  const { updatePageConfig, pageConfig } = useContext(AdminContext) as any;
+export default function EditLayoutName() {
+  const { updatePageConfig, pageConfig, Components } = useContext(
+    AdminContext
+  ) as any;
   const ref: any = useRef();
 
   return (
     <div className="_oadmin_dialog">
-      <label>Edit JS snippets</label>
-      <textarea
+      <AdminComponentsDataList Components={Components} />
+      <label>Edit Layout Name</label>
+      <input
         ref={ref}
-        defaultValue={pageConfig?.layout?.jssnippets}
-        cols={80}
-        rows={20}
+        type="text"
+        list="_oadminComponents"
+        defaultValue={pageConfig?.layout?.name}
       />
       <div>
         <button
           className="_oadmin_button"
           onClick={() => {
-            ref.current.value = pageConfig?.layout?.jssnippets || "";
+            ref.current.value = pageConfig?.layout?.name || "";
           }}
         >
           Reset
@@ -30,7 +34,7 @@ export default function EditJSSnipplets() {
               ...pageConfig,
               layout: {
                 ...pageConfig.layout,
-                jssnippets: ref.current.value,
+                name: ref.current.value,
               },
             });
           }}

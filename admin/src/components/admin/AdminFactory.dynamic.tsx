@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 
-import { Admin } from "./Admin";
+import { Admin } from "./Admin.dynamic";
 
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/page/expand";
 
