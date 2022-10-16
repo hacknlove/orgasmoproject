@@ -1,3 +1,43 @@
+:root {
+  --border-color_o: #0000000d;
+  --border-color-strong_o: #00000020;
+  --color_o: #333;
+  --interface-background_o: #f6f9fc;
+  --font-sans_o: "Nunito Sans", -apple-system, ".SFNSText-Regular",
+  "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
+  Arial, sans-serif;
+}
+
+#playground_o {
+  display: grid;
+  grid-template-areas: "list title" "list component" "list playground";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+#playgroundSideNav_o {
+  grid-area: list;
+  background: var(--interface-background_o);
+  border-right: 1px solid var(--border-color-strong_o);
+  height: 100vh;
+  overflow: auto;
+}
+
+#playgroundTitle_o {
+  grid-area: title;
+  text-align: center;
+  font-family: var(--font-sans_o);
+  letter-spacing: 3.85px;
+  font-weight: 900;
+  color: var(--color_o);
+  font-size: 21px;
+  background: var(--interface-background_o);
+  border-bottom: 1px solid var(--border-color_o);
+}
+
+
+
+
 #_oadmin {
   min-width: 2rem;
   min-height: 2rem;
@@ -239,19 +279,8 @@
   text-align: left;
 }
 
-#storyIndex {
-  display: grid;
-  grid-template-areas: "list title" "list component" "list playground";
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto 1fr;
-}
-#StoryListComponents {
-  grid-area: list;
-  background: #f6f9fc;
-  border-right: 1px solid #00000020;
-  height: 100vh;
-  overflow: auto;
-}
+
+
 
 #StoryComponent {
   grid-area: component;
@@ -441,19 +470,6 @@
   column-gap: 0.5rem;
 }
 
-#StoryTitle {
-  grid-area: title;
-  text-align: center;
-  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
-    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
-  letter-spacing: 3.85px;
-  font-weight: 900;
-  color: #333;
-  font-size: 21px;
-  background: #f6f9fc;
-  border-bottom: 1px solid #0000000d;
-}
 #StoryTitle_h1 {
   display: flex;
   align-items: center;
