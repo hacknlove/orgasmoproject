@@ -44,9 +44,7 @@ function EditCookieOptions({ resolve, serializedOptions }) {
       className="modal_o_wrapper"
       onClick={(event) => {
         event.stopPropagation();
-        if (
-          (event.target as HTMLDivElement).className === "modal_o_wrapper"
-        ) {
+        if ((event.target as HTMLDivElement).className === "modal_o_wrapper") {
           resolve();
         }
       }}

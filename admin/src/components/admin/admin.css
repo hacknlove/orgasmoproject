@@ -1,112 +1,112 @@
 #_oadmin {
-    min-width: 2rem;
-    min-height: 2rem;
-    position: fixed;
-    background: #f6f9fc;
-    bottom: 0;
-    right: 0;
-    z-index: 999999999;
-    color: #333;
-    font-family: sans-serif;
-    border-top: 1px solid #0000001f;
-    border-left: 1px solid #0000001f;
-  }
-  #_oadmin_menu {
-    display: none;
-    flex-direction: column;
-  }
-  #_oadmin_menu._oadmin_menu_active {
-    display: flex;
-  }
-  
-  #_oadmin_menu_pageId {
-    font-weight: bold;
-    padding: 0.25rem 1rem 1rem;
-  }
-  
-  #_oadmin_menu_path {
-    display: flex;
-    justify-content: space-between;
-  }
-  #_oadmin_menu_path > span {
-    font-weight: bold;
-    padding: 1rem 1rem 0.25rem;
-  }
-  
-  ._oadmin_menu_item {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    column-gap: 1rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    background: transparent;
-    font-weight: inherit;
-    font-size: inherit;
-    font-family: inherit;
-  }
-  
-  ._oadmin_menu_item:hover {
-    background: #1ea7fd;
-    color: white;
-  }
+  min-width: 2rem;
+  min-height: 2rem;
+  position: fixed;
+  background: #f6f9fc;
+  bottom: 0;
+  right: 0;
+  z-index: 999999999;
+  color: #333;
+  font-family: sans-serif;
+  border-top: 1px solid #0000001f;
+  border-left: 1px solid #0000001f;
+}
+#_oadmin_menu {
+  display: none;
+  flex-direction: column;
+}
+#_oadmin_menu._oadmin_menu_active {
+  display: flex;
+}
 
-  ._oadmin_dialog {
-    display: flex;
-    flex-direction: column;
-    display: flex;
-    align-items: flex-end;
-    row-gap: 0.25rem;
-    padding: 0.5rem 1rem;
-  }
-  
-  ._oadmin_save_menu {
-    display: flex;
-    flex-direction: column;
-    display: flex;
-    align-items: flex-end;
-    row-gap: 0.25rem;
-    padding: 0.5rem 1rem;
-    border-top: 1px solid #999;
-  }
-  ._oadmin_dialog_grid_3 {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    column-gap: 1rem;
-    row-gap: 0.25rem;
-    align-items: center;
-  }
-  
-  ._oadmin_dialog_grid_2 {
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 1rem;
-    row-gap: 0.25rem;
-    align-items: center;
-  }
-  
-  .input_o_new_item {
-    display: flex;
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-  .input_o_new_item > input {
-    flex-grow: 1;
-    appearance: none;
-    border: 0 none;
-    box-sizing: inherit;
-    display: block;
-    margin: 0;
-    background: #ffffff;
-    padding: 6px 10px;
-    font-size: 13px;
-    position: relative;
-    transition: box-shadow 200ms ease-out, opacity 200ms ease-out;
-    color: #333333;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
-    border-radius: 4px;
-    line-height: 20px;
-    flex: 1;
-    text-align: left;
-  }
+#_oadmin_menu_pageId {
+  font-weight: bold;
+  padding: 0.25rem 1rem 1rem;
+}
+
+#_oadmin_menu_path {
+  display: flex;
+  justify-content: space-between;
+}
+#_oadmin_menu_path > span {
+  font-weight: bold;
+  padding: 1rem 1rem 0.25rem;
+}
+
+._oadmin_menu_item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+._oadmin_menu_item:hover {
+  background: #1ea7fd;
+  color: white;
+}
+
+._oadmin_dialog {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  align-items: flex-end;
+  row-gap: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+
+._oadmin_save_menu {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  align-items: flex-end;
+  row-gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #999;
+}
+._oadmin_dialog_grid_3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+._oadmin_dialog_grid_2 {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+.input_o_new_item {
+  display: flex;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.input_o_new_item > input {
+  flex-grow: 1;
+  appearance: none;
+  border: 0 none;
+  box-sizing: inherit;
+  display: block;
+  margin: 0;
+  background: #ffffff;
+  padding: 6px 10px;
+  font-size: 13px;
+  position: relative;
+  transition: box-shadow 200ms ease-out, opacity 200ms ease-out;
+  color: #333333;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+  border-radius: 4px;
+  line-height: 20px;
+  flex: 1;
+  text-align: left;
+}

@@ -1,81 +1,82 @@
 #MainLayout_nav_home_o {
-    font-family: var(--font-sans_o);
-    color: var(--color_o);
-    display: flex;
-    align-items: center;
-    column-gap: 5px;
-    text-decoration: none;
-    color: inherit;
-    padding: 3px 13px;
-    font-size: 15px;
-    list-style: none;
-    line-height: 1.4;
-  }
-  #MainLayout_nav_home_o > svg.MainLayout_nav_svg {
-    margin-bottom: 5px;
-  }
+  font-family: var(--font-sans_o);
+  color: var(--color_o);
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  text-decoration: none;
+  color: inherit;
+  padding: 3px 13px;
+  font-size: 15px;
+  list-style: none;
+  line-height: 1.4;
+}
+#MainLayout_nav_home_o > svg.MainLayout_nav_svg {
+  margin-bottom: 5px;
+}
 
-  #MainLayout_nav_list_title_o {
-    font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
-      "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
-      Arial, sans-serif;
-    letter-spacing: 3.85px;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #999999;
-    font-size: 11px;
-    padding-right: 34px;
-  }
+#MainLayout_nav_list_title_o {
+  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
+    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  letter-spacing: 3.85px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #999999;
+  font-size: 11px;
+  padding-right: 34px;
+}
 
-  .MainLayout_nav_li {
-    font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
-      "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
-      Arial, sans-serif;
-    color: #333;
-    padding: 3px;
-    cursor: pointer;
-  }
-  .MainLayout_nav_li:hover {
-    background: #0000000d;
-  }
+.MainLayout_nav_li {
+  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
+    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  color: #333;
+  padding: 3px;
+  cursor: pointer;
+}
+.MainLayout_nav_li:hover {
+  background: #0000000d;
+}
 
-  .MainLayout_nav_svg {
-    color: var(--color-element-light);
-  }
+.MainLayout_nav_svg {
+  color: var(--color-element-light);
+}
 
-  .MainLayout_nav_li_sumary {
-    font-family: inherit;
-    font-size: 13px;
-    padding-left: 13px;
-    list-style: none;
-  }
+.MainLayout_nav_li_sumary {
+  font-family: inherit;
+  font-size: 13px;
+  padding-left: 13px;
+  list-style: none;
+}
 
-  .MainLayout_nav_li_ul {
-    padding: 0;
-    margin: 0;
-  }
-  .MainLayout_nav_li_ul_li{
-    padding: 3px 34px 3px 34px;
-    font-size: 13px;
-    list-style: none;
-  }
-  .MainLayout_nav_li_ul_li:hover {
-    background: #0000000d;
-  }
-  .MainLayout_nav_li_ul_li.MainLayout_nav_active_o,
-  #MainLayout_nav_home_o.MainLayout_nav_active_o {
-    background: #1ea7fd;
-    color: white;
-    font-weight: 700;
-  }
-  .MainLayout_nav_li_ul_li.MainLayout_nav_active_o  > .MainLayout_nav_li_ul_li_a > svg.MainLayout_nav_svg,
-  #MainLayout_nav_home_o.MainLayout_nav_active_o > svg.MainLayout_nav_svg
-   {
-    color: white
-  }
-  .MainLayout_nav_li_ul_li_a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-  }
+.MainLayout_nav_li_ul {
+  padding: 0;
+  margin: 0;
+}
+.MainLayout_nav_li_ul_li {
+  padding: 3px 34px 3px 34px;
+  font-size: 13px;
+  list-style: none;
+}
+.MainLayout_nav_li_ul_li:hover {
+  background: #0000000d;
+}
+.MainLayout_nav_li_ul_li.MainLayout_nav_active_o,
+#MainLayout_nav_home_o.MainLayout_nav_active_o {
+  background: #1ea7fd;
+  color: white;
+  font-weight: 700;
+}
+.MainLayout_nav_li_ul_li.MainLayout_nav_active_o
+  > .MainLayout_nav_li_ul_li_a
+  > svg.MainLayout_nav_svg,
+#MainLayout_nav_home_o.MainLayout_nav_active_o > svg.MainLayout_nav_svg {
+  color: white;
+}
+.MainLayout_nav_li_ul_li_a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}

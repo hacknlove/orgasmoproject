@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import RadixIconsComponent2 from "../../icons/RadixIconsComponent2";
 import RadixIconsBookmark from "../../icons/RadixIconsBookmark";
 
-
 const opened = {};
 
 interface StoryListComponentParams {

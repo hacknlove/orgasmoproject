@@ -1,57 +1,56 @@
 .øtabs {
-    display: flex;
-    background: #252526;
-    margin-bottom: 10px;
-  }
-  .øtab {
-    appearance: none;
-    border: none;
-    padding: 10px 20px;
-    background: #2d2d2d;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 10px;
-  }
-  .øtab:hover {
-    box-shadow: inset 0 0 1px #8fd3fda0;
-    background: #000;
-  }
-  .øtab.øactive {
-    background: #1d1d1d;
-    font-weight: bold;
-  }
-  .øtab:hover {
-    box-shadow: inset 0 0 1px #8fd3fda0;
-    background: #000;
-  }
-  .øTabButtons {
-    display: flex;
-    column-gap: 5px;
-    color: #8fd3fd;
-    cursor: pointer;
-    font-size: 115%;
-  }
-  .øTabButtons > svg:hover {
-    color: #1ea7fd;
-  }
-  
-  .øtabs > .øbuttons {
-    appearance: none;
-    border: none;
-    background: #1d1d1d;
-    color: #8fd3fd;
-    margin: 3px;
-    padding: 0 10px;
-    border-radius: 5px;
-    box-shadow: inset 0 0 1px #8fd3fd50;
-    cursor: pointer;
-  }
-  .øtabs > .øbuttons:hover {
-    color: #fff;
-    background: #000;
-    box-shadow: inset 0 0 1px #8fd3fda0;
-  }
-  
+  display: flex;
+  background: #252526;
+  margin-bottom: 10px;
+}
+.øtab {
+  appearance: none;
+  border: none;
+  padding: 10px 20px;
+  background: #2d2d2d;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+.øtab:hover {
+  box-shadow: inset 0 0 1px #8fd3fda0;
+  background: #000;
+}
+.øtab.øactive {
+  background: #1d1d1d;
+  font-weight: bold;
+}
+.øtab:hover {
+  box-shadow: inset 0 0 1px #8fd3fda0;
+  background: #000;
+}
+.øTabButtons {
+  display: flex;
+  column-gap: 5px;
+  color: #8fd3fd;
+  cursor: pointer;
+  font-size: 115%;
+}
+.øTabButtons > svg:hover {
+  color: #1ea7fd;
+}
+
+.øtabs > .øbuttons {
+  appearance: none;
+  border: none;
+  background: #1d1d1d;
+  color: #8fd3fd;
+  margin: 3px;
+  padding: 0 10px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 1px #8fd3fd50;
+  cursor: pointer;
+}
+.øtabs > .øbuttons:hover {
+  color: #fff;
+  background: #000;
+  box-shadow: inset 0 0 1px #8fd3fda0;
+}

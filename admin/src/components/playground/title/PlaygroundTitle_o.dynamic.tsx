@@ -36,9 +36,7 @@ export default function playgroundTitle_o({ component, path, story, pageId }) {
 
   return (
     <div id="playgroundTitle_h1_o">
-      <h2>
-        {component ?? path}
-      </h2>
+      <h2>{component ?? path}</h2>
       <h1>
         {story ?? pageId} {isDirty ? "*" : ""}
       </h1>
@@ -47,7 +45,7 @@ export default function playgroundTitle_o({ component, path, story, pageId }) {
         className="button_o"
         onClick={deleteStory}
       >
-        { component ? 'Delete Story' : 'Delete pageConfig' }
+        {component ? "Delete Story" : "Delete pageConfig"}
       </button>
     </div>
   );

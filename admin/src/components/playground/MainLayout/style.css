@@ -13,7 +13,6 @@
   overflow: auto;
 }
 
-
 #StoryComponent {
   grid-area: component;
   display: flex;
@@ -33,8 +32,6 @@
   display: flex;
   flex-direction: column;
 }
-
-
 
 #StoryPlaygroundEditor {
   flex-grow: 1;
