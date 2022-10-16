@@ -70,10 +70,10 @@ export default class SharedState {
     resource.setValue(value, options);
   }
 
-  deleteReource(url) {
+  deleteResource(url) {
     const resource = this.getResource(url);
 
-    resource.delete();
+    resource?.delete?.();
 
     this.resources.delete(url);
   }

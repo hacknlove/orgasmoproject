@@ -32,6 +32,13 @@ export function DynamicStateProvider({
     clientSide.sharedState = sharedState;
     if (testContextRef) {
       testContextRef.sharedState = sharedState;
+
+      if (typeof window === "object") {
+        (window as Window).dispatchEvent(new Event("sharedContextReady"));
+      }
+      if (typeof parent === "object") {
+        (parent as Window).postMessage("sharedContextReady");
+      }
     }
 
     return sharedState;

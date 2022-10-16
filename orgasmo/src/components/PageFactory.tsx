@@ -4,12 +4,11 @@ import DefaultLayout from "./DefaultLayout/DefaultLayout";
 import Meta from "./Meta/Meta";
 import { DynamicStateProvider } from "@orgasmo/dynamicstate/react";
 
+let testContextRef;
 
-let testContextRef
-
-if (process.env.NODE_ENV === 'development' && typeof window === 'object') {
+if (process.env.NODE_ENV === "development" && typeof window === "object") {
   testContextRef = {};
-  (window as any).dynamicState_o = testContextRef
+  (window as any).dynamicState_o = testContextRef;
 }
 
 export default function PageFactory({

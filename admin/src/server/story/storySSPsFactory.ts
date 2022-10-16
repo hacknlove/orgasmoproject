@@ -6,6 +6,14 @@ import addSiteAreas from "./addSiteAreas";
 
 export default function storySSPsFactory({ driver, Components, layout }) {
   return async function getServerSideProps(ctx) {
+    if (ctx.query.empty) {
+      return {
+        props: {
+          exposeSharedState: true,
+          areas: {},
+        },
+      };
+    }
     const [stories, pages] = await Promise.all([
       getStoriesList({ driver, Components }),
       getPagesList({ driver }),
