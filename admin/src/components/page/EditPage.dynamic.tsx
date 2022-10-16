@@ -157,10 +157,10 @@ export default function EditPage() {
 
       {isDirty && (
         <div>
-          <button className="_oadmin_button" onClick={reset}>
+          <button className="button_o" onClick={reset}>
             Reset
           </button>
-          <button className="_oadmin_button" onClick={apply}>
+          <button className="button_o" onClick={apply}>
             Apply
           </button>
         </div>

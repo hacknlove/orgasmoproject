@@ -20,7 +20,7 @@ export default function EditLayoutName() {
       />
       <div>
         <button
-          className="_oadmin_button"
+          className="button_o"
           onClick={() => {
             ref.current.value = pageConfig?.layout?.name || "";
           }}
@@ -28,7 +28,7 @@ export default function EditLayoutName() {
           Reset
         </button>
         <button
-          className="_oadmin_button"
+          className="button_o"
           onClick={() => {
             updatePageConfig({
               ...pageConfig,

@@ -16,7 +16,7 @@ export default function EditJSSnipplets() {
       />
       <div>
         <button
-          className="_oadmin_button"
+          className="button_o"
           onClick={() => {
             ref.current.value = pageConfig?.layout?.jssnippets || "";
           }}
@@ -24,7 +24,7 @@ export default function EditJSSnipplets() {
           Reset
         </button>
         <button
-          className="_oadmin_button"
+          className="button_o"
           onClick={() => {
             updatePageConfig({
               ...pageConfig,

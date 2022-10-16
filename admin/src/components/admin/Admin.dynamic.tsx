@@ -148,7 +148,7 @@ export function Admin({
             </span>
             {adminArea !== "start" && (
               <button
-                className="_oadmin_button"
+                className="button_o"
                 onClick={() => {
                   chooseMenu("start");
                 }}

@@ -3,28 +3,28 @@ import EpCloseBold from "../icons/EpCloseBold";
 export default function Alert({ title, text, resolve, name, message }) {
   return (
     <div
-      className="_oadmin_modal_wrapper"
+      className="modal_o_wrapper"
       onClick={(event) => {
         event.stopPropagation();
         if (
-          (event.target as HTMLDivElement).className === "_oadmin_modal_wrapper"
+          (event.target as HTMLDivElement).className === "modal_o_wrapper"
         ) {
           resolve();
         }
       }}
     >
-      <div className="_oadmin_modal">
-        <div className="_oadmin_modal_title">
+      <div className="modal_o">
+        <div className="modal_o_title">
           <span>{title || name}</span>
           <EpCloseBold
-            className="_oadmin_modal_close"
+            className="modal_o_close"
             onClick={() => resolve()}
           />
         </div>
-        <div className="_oadmin_modal_body">
+        <div className="modal_o_body">
           <div>{text || message}</div>
-          <div className="_oadmin_modal_buttons">
-            <button className="_oadmin_button" onClick={() => resolve()}>
+          <div className="modal_o_buttons">
+            <button className="button_o" onClick={() => resolve()}>
               Ok
             </button>
           </div>

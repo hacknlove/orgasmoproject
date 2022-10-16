@@ -44,7 +44,7 @@ export default function playgroundTitle_o({ component, path, story, pageId }) {
       </h1>
       <button
         id="playgroundTitle_button_o"
-        className="_oadmin_button"
+        className="button_o"
         onClick={deleteStory}
       >
         { component ? 'Delete Story' : 'Delete pageConfig' }

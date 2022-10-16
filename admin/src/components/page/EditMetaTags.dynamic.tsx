@@ -89,7 +89,7 @@ export default function EditMetaTags() {
               </label>
               <div>
                 <input
-                  className="_oadmin_input_with_x"
+                  className="input_o_with_x"
                   type="text"
                   value={value ?? ""}
                   onChange={(event) =>
@@ -103,7 +103,7 @@ export default function EditMetaTags() {
                   }
                 />
                 <span
-                  className="_oadmin_input_x"
+                  className="input_o_x"
                   onClick={() =>
                     setMetaTags(
                       metaTags.map((e, j) => (i === j ? [e[0], null, e[2]] : e))
@@ -117,25 +117,25 @@ export default function EditMetaTags() {
           )
         )}
       </div>
-      <div className="_oadmin_input_new_item">
+      <div className="input_o_new_item">
         <input
           list="_oadminMeta"
           placeholder="new variable"
           ref={ref}
           onKeyDown={(event) => event.key === "Enter" && addNewMetaTag()}
         />
-        <button className="_oadmin_button" onClick={addNewMetaTag}>
+        <button className="button_o" onClick={addNewMetaTag}>
           new meta tag
         </button>
       </div>
       <div>
         {changed && (
           <>
-            <button className="_oadmin_button" onClick={reset}>
+            <button className="button_o" onClick={reset}>
               Reset
             </button>
             <button
-              className="_oadmin_button"
+              className="button_o"
               onClick={() => {
                 updatePageConfig({
                   ...pageConfig,

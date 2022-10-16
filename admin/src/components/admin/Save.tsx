@@ -102,13 +102,13 @@ export default function Save() {
     <div className="_oadmin_save_menu">
       <div>
         <button
-          className="_oadmin_button"
+          className="button_o"
           onClick={() => updatePageConfig(originalPageConfig)}
         >
           Reset
         </button>
         <button
-          className="_oadmin_button"
+          className="button_o"
           onClick={async () => {
             await navigator.clipboard.writeText(
               JSON.stringify(pageConfig, null, 2)
@@ -122,10 +122,10 @@ export default function Save() {
         >
           Copy
         </button>
-        <button className="_oadmin_button" onClick={save}>
+        <button className="button_o" onClick={save}>
           Save
         </button>
-        <button className="_oadmin_button" onClick={saveAs}>
+        <button className="button_o" onClick={saveAs}>
           Save as...
         </button>
       </div>

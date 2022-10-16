@@ -1,0 +1,48 @@
+.input_o {
+    flex-grow: 1;
+    appearance: none;
+    border: 0 none;
+    box-sizing: inherit;
+    display: block;
+    margin: 0;
+    background: #ffffff;
+    padding: 6px 10px;
+    font-size: 13px;
+    position: relative;
+    transition: box-shadow 200ms ease-out, opacity 200ms ease-out;
+    color: #333333;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+    border-radius: 4px;
+    line-height: 20px;
+    flex: 1;
+    text-align: left;
+  }
+  
+  .input_o_with_x {
+    flex-grow: 1;
+    appearance: none;
+    border: 0 none;
+    box-sizing: inherit;
+    display: block;
+    margin: 0;
+    background: #ffffff;
+    padding: 6px 10px;
+    font-size: 13px;
+    position: relative;
+    transition: box-shadow 200ms ease-out, opacity 200ms ease-out;
+    color: #333333;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+    border-radius: 4px;
+    line-height: 20px;
+    flex: 1;
+    text-align: left;
+    padding-right: 1.5rem;
+  }
+  
+  .input_o_x {
+    position: absolute;
+    margin-left: -1rem;
+    color: #a00;
+    cursor: pointer;
+  }
+  

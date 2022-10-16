@@ -1,3 +1,15 @@
+#playgroundTitle_o {
+  grid-area: title;
+  text-align: center;
+  font-family: var(--font-sans_o);
+  letter-spacing: 3.85px;
+  font-weight: 900;
+  color: var(--color_o);
+  font-size: 21px;
+  background: var(--interface-background_o);
+  border-bottom: 1px solid var(--border-color_o);
+}
+
 #playgroundTitle_h1_o {
   display: flex;
   align-items: center;
@@ -9,9 +21,9 @@
 #playgroundTitle_button_o {
   position: absolute;
   right: 1rem;
-  --_oadmin_button_color: #fff;
+  --button_o_color: #fff;
   font-weight: bold;
-  --_oadmin_button_background: #fd271c;
-  --_oadmin_button_background_hover: hsl(3, 98%, 60%);
-  --_oadmin_button_background_active: #fd271c;
+  --button_o_background: #fd271c;
+  --button_o_background_hover: hsl(3, 98%, 60%);
+  --button_o_background_active: #fd271c;
 }

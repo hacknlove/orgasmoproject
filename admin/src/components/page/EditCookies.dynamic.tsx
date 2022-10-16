@@ -41,24 +41,24 @@ function EditCookieOptions({ resolve, serializedOptions }) {
 
   return (
     <div
-      className="_oadmin_modal_wrapper"
+      className="modal_o_wrapper"
       onClick={(event) => {
         event.stopPropagation();
         if (
-          (event.target as HTMLDivElement).className === "_oadmin_modal_wrapper"
+          (event.target as HTMLDivElement).className === "modal_o_wrapper"
         ) {
           resolve();
         }
       }}
     >
-      <div className="_oadmin_modal">
+      <div className="modal_o">
         <div id="_oadmin_menu_pageId">
           <span>Edit cookie options</span>
-          <button className="_oadmin_button" onClick={() => resolve()}>
+          <button className="button_o" onClick={() => resolve()}>
             ✖
           </button>
         </div>
-        <div className="_oadmin_modal_fields">
+        <div className="modal_o_fields">
           <label>Domain</label>
           <input
             value={editOptions.domain ?? ""}
@@ -116,13 +116,13 @@ function EditCookieOptions({ resolve, serializedOptions }) {
         {isDirty && (
           <div>
             <button
-              className="_oadmin_button"
+              className="button_o"
               onClick={() => setEditOptions(JSON.parse(serializedOptions))}
             >
               Reset
             </button>
             <button
-              className="_oadmin_button"
+              className="button_o"
               onClick={() => resolve(serializeOrdered(editOptions))}
             >
               Apply
@@ -232,7 +232,7 @@ export default function EditCookies() {
               </label>
               <div>
                 <input
-                  className="_oadmin_input_with_x"
+                  className="input_o_with_x"
                   type="text"
                   value={value ?? ""}
                   onChange={(event) =>
@@ -251,7 +251,7 @@ export default function EditCookies() {
                   }
                 />
                 <span
-                  className="_oadmin_input_x"
+                  className="input_o_x"
                   onClick={() =>
                     setCookies(
                       cookies.map((e, j) =>
@@ -295,25 +295,25 @@ export default function EditCookies() {
           )
         )}
       </div>
-      <div className="_oadmin_input_new_item">
+      <div className="input_o_new_item">
         <input
           list="_oadminMeta"
           placeholder="new cookie"
           ref={ref}
           onKeyDown={(event) => event.key === "Enter" && addNewCookie()}
         />
-        <button className="_oadmin_button" onClick={addNewCookie}>
+        <button className="button_o" onClick={addNewCookie}>
           new Cookie
         </button>
       </div>
       <div>
         {changed && (
           <>
-            <button className="_oadmin_button" onClick={reset}>
+            <button className="button_o" onClick={reset}>
               Reset
             </button>
             <button
-              className="_oadmin_button"
+              className="button_o"
               onClick={() => {
                 updatePageConfig({
                   ...pageConfig,

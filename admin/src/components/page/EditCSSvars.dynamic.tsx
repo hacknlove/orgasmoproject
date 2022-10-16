@@ -90,7 +90,7 @@ export default function EditCSSVars() {
               </label>
               <div>
                 <input
-                  className="_oadmin_input_with_x"
+                  className="input_o_with_x"
                   type="text"
                   value={value ?? ""}
                   onChange={(event) =>
@@ -104,7 +104,7 @@ export default function EditCSSVars() {
                   }
                 />
                 <span
-                  className="_oadmin_input_x"
+                  className="input_o_x"
                   onClick={() =>
                     setVars(
                       vars.map((e, j) => (i === j ? [e[0], null, e[2]] : e))
@@ -118,25 +118,25 @@ export default function EditCSSVars() {
           )
         )}
       </div>
-      <div className="_oadmin_input_new_item">
+      <div className="input_o_new_item">
         <input
           list="_oadminCSSVars"
           placeholder="new variable"
           ref={ref}
           onKeyDown={(event) => event.key === "Enter" && addNewCssVar()}
         />
-        <button className="_oadmin_button" onClick={addNewCssVar}>
+        <button className="button_o" onClick={addNewCssVar}>
           new var
         </button>
       </div>
       <div>
         {changed && (
           <>
-            <button className="_oadmin_button" onClick={reset}>
+            <button className="button_o" onClick={reset}>
               Reset
             </button>
             <button
-              className="_oadmin_button"
+              className="button_o"
               onClick={() => {
                 updatePageConfig({
                   ...pageConfig,

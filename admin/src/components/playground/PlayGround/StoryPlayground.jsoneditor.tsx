@@ -78,7 +78,7 @@ export default function StoryPlayground({ description, itemConfig }) {
         {isItemConfigDirty && (
           <>
             <button
-              className="_oadmin_button"
+              className="button_o"
               onClick={() => {
                 setEditItemConfig({ json: itemConfig });
                 setReset({});
@@ -86,8 +86,8 @@ export default function StoryPlayground({ description, itemConfig }) {
             >
               Reset
             </button>
-            <button className="_oadmin_button">Save as</button>
-            <button className="_oadmin_button">Save</button>
+            <button className="button_o">Save as</button>
+            <button className="button_o">Save</button>
           </>
         )}
       </div>
@@ -101,15 +101,15 @@ export default function StoryPlayground({ description, itemConfig }) {
         {isNotesDirty && (
           <div className="øbotonera">
             <button
-              className="_oadmin_button"
+              className="button_o"
               onClick={() => {
                 setEditNotes(description);
               }}
             >
               Reset
             </button>
-            <button className="_oadmin_button">Save as</button>
-            <button className="_oadmin_button">Save</button>
+            <button className="button_o">Save as</button>
+            <button className="button_o">Save</button>
           </div>
         )}
       </div>

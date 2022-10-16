@@ -1,0 +1,27 @@
+.button_o {
+    border: 0;
+    color: var(--button_o_color, #333);
+    font-size: 100%;
+    padding: 0.3rem 0.9rem;
+    background: var(--button_o_background, #fafafa);
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: normal;
+    box-shadow: var(--button_o_shadow, rgba(0, 0, 0, 0.1) 0 0 0 1px inset);
+  }
+  
+  .button_o:hover {
+    background: var(--button_o_background_hover, #f2f2f2);
+  }
+  
+  .button_o:active {
+    background: var(--button_o_background_active, #fff);
+  }
+  
+  .button_o:focus {
+    box-shadow: var(--button_o_shadow_focus, #1ea7fd 0 0 0 1px inset);
+    outline: none;
+  }
+  
