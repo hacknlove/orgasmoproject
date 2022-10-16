@@ -333,58 +333,10 @@
   border-bottom: none;
 }
 
-.StoryListComponent {
-  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
-    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
-  color: #333;
-  padding: 3px;
-  cursor: pointer;
-}
-.StoryListComponent:hover {
-  background: #0000000d;
-}
-.StoryListComponent_summary {
-  font-family: inherit;
-  font-size: 13px;
-  padding-left: 13px;
-  list-style: none;
-}
-
-.ClarityBookmarkLine {
-  color: #1ea7fd;
-  width: 14px;
-  height: 14px;
-}
-
-.StoryListComponent_ul {
-  padding: 0;
-  margin: 0;
-}
-
-.StoryListComponent_li {
-  padding: 3px 34px 3px 34px;
-  font-size: 13px;
-  list-style: none;
-}
-.StoryListComponent_li:hover {
-  background: #0000000d;
-}
 .StoryListComponent_li.StoryListComponent_li_selected {
   background: #1ea7fd;
   color: white;
   font-weight: 700;
-}
-
-.StoryListComponent_a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-}
-
-.RadixIconsComponent2 {
-  color: rgb(30, 167, 253);
 }
 
 #StoryPlayground_description {

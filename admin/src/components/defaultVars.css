@@ -4,6 +4,7 @@
   --color_o: #333;
   --interface-background_o: #f6f9fc;
   --font-sans_o: "Nunito Sans", -apple-system, ".SFNSText-Regular",
-    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
+    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
+  --color-element-light: #1ea7fd;
 }
