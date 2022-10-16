@@ -1,5 +1,5 @@
 {
-  "ignore": ["dist"],
+  "ignore": ["dist", "driver/driver.ts"],
   "watch": ["src", "orgasmo/package.json"],
   "verbose": true,
   "ext": "js,json,mjs,ts,tsx"
