@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "prebuild": "mkdir -p dist && node ../build-tools/dist/driver/build.js src/driver && node ../build-tools/dist/scss/build.js src/components ./dist/style.css && node ../build-tools/dist/components/build.js src/components/",
+    "prebuild": "mkdir -p dist && node ../build-tools/dist/driver/build.js src/driver && node ../build-tools/dist/scss/build.js src/clientSide ./dist/style.css && node ../build-tools/dist/components/build.js src/clientSide/",
     "build": "tsc",
     "lint": "eslint . --fix",
     "pretty": "prettier --write .",
@@ -23,10 +23,10 @@
   },
   "homepage": "https://github.com/hacknlove/orgasmoproject#readme",
   "exports": {
-    "./AdminFactory": "./dist/components/admin/AdminFactory.js",
-    "./Components": "./dist/components/Components.js",
+    "./AdminFactory": "./dist/clientSide/admin/AdminFactory.js",
+    "./Components": "./dist/clientSide/Components.js",
     "./adminSSPsFactory": "./dist/server/admin/adminSSPsFactory.js",
-    "./storySSPsFactory": "./dist/server/story/storySSPsFactory.js",
+    "./storySSPsFactory": "./dist/server/playground/storySSPsFactory.js",
     "./driver": "./dist/driver/driver.js",
     "./style.css": "./dist/style.css"
   },

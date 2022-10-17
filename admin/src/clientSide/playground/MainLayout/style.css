@@ -1,0 +1,87 @@
+#MainLayout_o {
+  display: grid;
+  grid-template-areas: "list title" "list component" "list playground";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+#MainLayout_nav_o {
+  grid-area: list;
+  background: var(--interface-background_o);
+  border-right: 1px solid var(--border-color-strong_o);
+  height: 100vh;
+  overflow: auto;
+}
+
+#StoryComponent_o {
+  grid-area: component;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 3px 0px 5px 0px #00000017;
+  padding: 2rem 0;
+}
+#StoryPlayground_o {
+  grid-area: playground;
+  padding: 1.5rem;
+  background: #1e1e1e;
+  border-top: 1px solid #0000000d;
+  --jse-theme-color: #026eb1;
+  --jse-theme-color-highlight: #1ea7fd;
+  --jse-menu-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+#StoryPlaygroundEditor_o {
+  flex-grow: 1;
+}
+#StoryPlayground_o .svelte-jsoneditor-react .jse-main .jse-contents {
+  border-bottom: none;
+}
+
+.StoryListComponent_li.StoryListComponent_li_selected_o {
+  background: #1ea7fd;
+  color: white;
+  font-weight: 700;
+}
+
+#StoryPlayground_description_o {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
+    "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  color: #333;
+}
+#StoryPlayground_description_o > label {
+  font-weight: bold;
+}
+
+.StoryPlayground_textarea_o {
+  flex-grow: 1;
+  appearance: none;
+  border: 0 none;
+  box-sizing: inherit;
+  display: block;
+  margin: 0;
+  background: #ffffff;
+  padding: 6px 10px;
+  font-size: 13px;
+  position: relative;
+  transition: box-shadow 200ms ease-out, opacity 200ms ease-out;
+  color: #333333;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+  border-radius: 4px;
+  line-height: 20px;
+  flex: 1;
+  text-align: left;
+  min-height: 50px;
+}
+
+.jsoneditor_buttons_o {
+  display: flex;
+  column-gap: 0.5rem;
+}
