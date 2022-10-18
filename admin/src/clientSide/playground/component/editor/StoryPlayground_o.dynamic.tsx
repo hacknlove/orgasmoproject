@@ -99,7 +99,7 @@ export default function StoryPlayground_o({ description, itemConfig }) {
 
   return (
     <>
-      <div className="øtabs">
+      <div className="tabs_o">
         <button
           className={`øtab ${file === "description" ? "øactive" : ""}`}
           onClick={() => setFile("description")}

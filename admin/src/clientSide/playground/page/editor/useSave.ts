@@ -6,7 +6,7 @@ import Alert from "../../../modals/Alert.dynamic";
 
 const ADMIN_UPSERT_STORY_CONFIG_ENDPOINT = "/api/_oadmin/story";
 
-export default function useSave({ files, description, itemConfig }) {
+export default function useSave({ files, pageConfig }) {
   const router = useRouter();
 
   return useCallback(
@@ -36,13 +36,7 @@ export default function useSave({ files, description, itemConfig }) {
         },
         credentials: "include",
         body: JSON.stringify({
-          storyConfig: {
-            component: router.query.component,
-            story: storyName,
-            description,
-            itemConfig,
-            [file.field]: file.edit.prepareToSend(),
-          },
+          pageConfig,
         }),
       })
         .then((r) => r.json())
