@@ -19,6 +19,7 @@ export default {
   PlayGroundMainLayout_o: dynamic(() => import("./playground/MainLayout/PlayGroundMainLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
   PageListComponent: dynamic(() => import("./playground/nav/PageListComponent.dynamic.js"), { suspense: true, loading: undefined }),
   StoryListComponent: dynamic(() => import("./playground/nav/StoryListComponent.dynamic.js"), { suspense: true, loading: undefined }),
+  PagePlayground_o: dynamic(() => import("./playground/page/editor/PagePlayground_o.dynamic.js"), { suspense: true, loading: undefined }),
   PageLayout_o: dynamic(() => import("./playground/page/PageLayout_o.dynamic.js"), { suspense: true, loading: undefined }),
   PageRender_o: dynamic(() => import("./playground/page/render/PageRender_o.dynamic.js"), { suspense: true, loading: undefined }),
   SiteLayout_o: dynamic(() => import("./playground/site/SiteLayout_o.dynamic.js"), { suspense: true, loading: undefined }),

@@ -11,7 +11,7 @@ export default function StoryPlayground({ description, itemConfig }) {
     json: itemConfig,
   });
   const storyComponentAreaResource = useDynamicResource(
-    "var://area/storyComponent"
+    "var://area/storyComponent_o"
   );
 
   const [reset, setReset] = useState({});
