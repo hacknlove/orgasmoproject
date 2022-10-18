@@ -13,7 +13,7 @@
   overflow: auto;
 }
 
-#StoryComponent_o {
+#PlaygroundRender_o {
   grid-area: component;
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@
   box-shadow: inset 3px 0px 5px 0px #00000017;
   padding: 2rem 0;
 }
-#StoryPlayground_o {
+#PlaygroundEditor_o {
   grid-area: playground;
   padding: 1.5rem;
   background: #1e1e1e;
@@ -36,7 +36,7 @@
 #StoryPlaygroundEditor_o {
   flex-grow: 1;
 }
-#StoryPlayground_o .svelte-jsoneditor-react .jse-main .jse-contents {
+#PlaygroundEditor_o .svelte-jsoneditor-react .jse-main .jse-contents {
   border-bottom: none;
 }
 

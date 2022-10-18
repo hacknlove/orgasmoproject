@@ -27,7 +27,7 @@ export default function PagePlayground_o({ pageConfig }) {
   const monaco = useMonaco();
 
   const isDirty = useDynamicResource(
-    `var://${router.query.path}/${router.query.pageId}/isDirty`
+    `var://page/${router.query.path}/${router.query.pageId}/isDirty_o`
   );
 
   const files = useRef({
@@ -60,6 +60,7 @@ export default function PagePlayground_o({ pageConfig }) {
   const [file, setFile] = useState("pageConfig");
 
   useEffect(() => {
+    (window as any).monaco = monaco;
     isDirty.setValue(editPageConfig.isDirty);
   }, [editPageConfig.isDirty]);
 

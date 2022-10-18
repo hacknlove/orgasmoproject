@@ -3,7 +3,7 @@ import { Component, ErrorInfo, ReactNode } from "react";
 import * as equal from "fast-deep-equal";
 import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 
-export default function StoryRender_o({ itemConfig }) {
+export default function PlaygroundRenderComponent_o({ itemConfig }) {
   const router = useRouter();
   const [{ DComponent }] = useDynamicValue("var://DComponent");
 

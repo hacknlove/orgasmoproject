@@ -3,14 +3,14 @@ import Area from "@orgasmo/orgasmo/Area";
 export default function StoryLayout() {
   return (
     <>
-      <div id="playgroundTitle_o">
-        <Area name="playgroundTitle_o" />
+      <div id="PlaygroundTitle_o">
+        <Area name="PlaygroundTitle_o" />
       </div>
-      <div id="StoryComponent_o">
-        <Area name="storyComponent_o" />
+      <div id="PlaygroundRender_o">
+        <Area name="PlaygroundRender_o" />
       </div>
-      <div id="StoryPlayground_o">
-        <Area name="storyPlayground_o" />
+      <div id="PlaygroundEditor_o">
+        <Area name="PlaygroundEditor_o" />
       </div>
     </>
   );

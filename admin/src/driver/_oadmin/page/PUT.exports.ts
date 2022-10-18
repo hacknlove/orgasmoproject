@@ -1,17 +1,17 @@
 import { cleanAwaitJson } from "@orgasmo/orgasmo/cleanJson";
 
-export default async function updatePageConfigApi(ctx) {
-  if (!ctx.driver["admin.updatePageConfig"]) {
+export default async function upsertPageConfigApi(ctx) {
+  if (!ctx.driver["admin.upsertPageConfig"]) {
     ctx.res.json({
       error: {
         title: "method not available",
-        text: 'The active driver has no "admin.updatePageConfig" method.',
+        text: 'The active driver has no "admin.upsertPageConfig" method.',
       },
     });
   }
   const { pageConfig } = ctx.req.body;
 
   return ctx.res.json(
-    await cleanAwaitJson(ctx.driver["admin.updatePageConfig"](ctx, pageConfig))
+    await cleanAwaitJson(ctx.driver["admin.upsertPageConfig"](ctx, pageConfig))
   );
 }

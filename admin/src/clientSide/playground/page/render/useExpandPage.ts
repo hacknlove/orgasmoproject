@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/page/expand";
 
-export default function useExpandPage({ pageConfig, samplePath }) {
+export default function useExpandPage({ pageConfig, pathSample }) {
   const [expandedConfigPage, setExpandedPageConfig] = useState();
 
   useEffect(() => {
@@ -10,7 +10,10 @@ export default function useExpandPage({ pageConfig, samplePath }) {
       return;
     }
 
-    if (pageConfig.patternPath && !samplePath) {
+    if (pageConfig.patternPath && !pathSample) {
+      setExpandedPageConfig({
+        areas: {},
+      } as any);
       return;
     }
 
@@ -22,14 +25,14 @@ export default function useExpandPage({ pageConfig, samplePath }) {
       credentials: "include",
       body: JSON.stringify({
         pageConfig,
-        resolvedUrl: samplePath,
+        resolvedUrl: pathSample,
       }),
     })
       .then((r) => r.json())
       .then((expandedPageConfig) =>
         setExpandedPageConfig(expandedPageConfig.props)
       );
-  }, [pageConfig, samplePath, setExpandedPageConfig]);
+  }, [pageConfig, pathSample, setExpandedPageConfig]);
 
   return expandedConfigPage;
 }

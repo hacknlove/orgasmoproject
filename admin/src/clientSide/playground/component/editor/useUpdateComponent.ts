@@ -3,7 +3,7 @@ import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 
 export default function useUpdateComponent(editItemConfig) {
   const storyComponentAreaResource = useDynamicResource(
-    "var://area/storyComponent_o"
+    "var://area/PlaygroundRender_o"
   );
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function useUpdateComponent(editItemConfig) {
     storyComponentAreaResource.setValue({
       items: [
         {
-          type: "StoryRender_o",
+          type: "PlaygroundRenderComponent_o",
           props: {
             itemConfig: json,
           },

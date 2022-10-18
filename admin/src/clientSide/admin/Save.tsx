@@ -1,9 +1,9 @@
 import AdminContext from "./AdminContext.dynamic";
 import { useContext, useCallback } from "react";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
-import Alert from "../modals/Alert.dynamic";
+import Alert from "../modals/Alert";
 import Router from "next/router";
-import SaveAsInput from "../modals/SaveAsInput.dynamic";
+import SaveAsInput from "../modals/SaveAsInput";
 
 const ADMIN_UPDATE_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/updatePageConfig";
 const ADMIN_NEW_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/newPageConfig";

@@ -19,7 +19,7 @@ function setValues({ sharedState, props }) {
   sharedState.setValue("var://areasNames", areasNames);
 }
 
-export default function PageRender({ pageConfig, samplePath }) {
+export default function PageRender({ pageConfig, pathSample }) {
   const ref = useRef() as any;
   useEffect(() => {
     (window as any).thisIframe = ref;
@@ -27,7 +27,7 @@ export default function PageRender({ pageConfig, samplePath }) {
 
   const sharedState = useRef();
 
-  const props = useExpandPage({ pageConfig, samplePath }) as any;
+  const props = useExpandPage({ pageConfig, pathSample }) as any;
 
   useEffect(() => {
     function processMessage(message) {
@@ -52,7 +52,7 @@ export default function PageRender({ pageConfig, samplePath }) {
   }, [props]);
 
   return (
-    <div id="pageRender_o">
+    <div id="pagePlaygroundRender_o">
       <iframe
         ref={ref}
         id="pageRender_iframe"

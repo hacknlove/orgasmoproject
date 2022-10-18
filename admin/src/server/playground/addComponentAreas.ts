@@ -13,10 +13,10 @@ export default function addComponentAreas({ areas, ctx, stories }) {
     ],
   };
 
-  areas.storyComponent_o = {
+  areas.PlaygroundRender_o = {
     items: [
       {
-        type: "StoryRender_o",
+        type: "PlaygroundRenderComponent_o",
         props: {
           itemConfig: storyConfig.itemConfig,
         },
@@ -24,10 +24,10 @@ export default function addComponentAreas({ areas, ctx, stories }) {
     ],
   };
 
-  areas.storyPlayground_o = {
+  areas.PlaygroundEditor_o = {
     items: [
       {
-        type: "StoryPlayground_o",
+        type: "PlaygroundEditorComponent_o",
         props: {
           story: ctx.query.story,
           description: storyConfig.description,
@@ -37,14 +37,13 @@ export default function addComponentAreas({ areas, ctx, stories }) {
     ],
   };
 
-  areas.playgroundTitle_o = {
+  areas.PlaygroundTitle_o = {
     items: [
       {
-        type: "PlaygroundTitle_o",
+        type: "PlaygroundDeleteItem_o",
         props: {
-          component: ctx.query.component,
-          story: ctx.query.story,
-          isDirty: false,
+          label: "Delete Component",
+          action: `/api/_oadmin/story?component=${ctx.query.component}&story=${ctx.query.story}`,
         },
       },
     ],

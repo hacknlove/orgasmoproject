@@ -1,4 +1,4 @@
-#playgroundTitle_o {
+#PlaygroundTitle_o {
   grid-area: title;
   text-align: center;
   font-family: var(--font-sans_o);
@@ -13,13 +13,13 @@
 #playgroundTitle_h1_o {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   position: relative;
   column-gap: 2rem;
+  padding: 0.25rem 1rem;
 }
 
-#playgroundTitle_button_o {
-  position: absolute;
+#PlaygroundDeleteItem_o {
   right: 1rem;
   --button_o_color: #fff;
   font-weight: bold;

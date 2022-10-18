@@ -11,13 +11,13 @@ export default function StoryPlayground({ description, itemConfig }) {
     json: itemConfig,
   });
   const storyComponentAreaResource = useDynamicResource(
-    "var://area/storyComponent_o"
+    "var://area/PlaygroundRender_o"
   );
 
   const [reset, setReset] = useState({});
   const [editNotes, setEditNotes] = useState(description);
   const isDirty = useDynamicResource(
-    `var://${router.query.component}/${router.query.story}/isDirty`
+    `var://${router.query.component}/${router.query.story}/isDirty_o`
   );
   const isItemConfigDirty = useMemo(() => {
     let json = editItemConfig.json;
@@ -53,7 +53,7 @@ export default function StoryPlayground({ description, itemConfig }) {
     storyComponentAreaResource.setValue({
       items: [
         {
-          type: "StoryRender_o",
+          type: "StoryPlaygroundRender_o",
           props: {
             itemConfig: json,
           },

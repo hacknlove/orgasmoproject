@@ -3,12 +3,37 @@ import { useCallback } from "react";
 import { useRouter } from "next/router";
 import TeenyiconsFolderOutline from "../../icons/TeenyiconsFolderOutline";
 import IconoirEmptyPage from "../../icons/IconoirEmptyPage";
+import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 
 const opened = {};
 
 interface StoryListComponentParams {
   path: string;
   stories: Record<string, any>;
+}
+
+function Item({ path, pageId, description }) {
+  const router = useRouter();
+
+  const [isDirty] = useDynamicValue(`var://page/${path}/${pageId}/isDirty_o`);
+  return (
+    <li
+      key={pageId}
+      className={`MainLayout_nav_li_ul_li ${
+        router.query.path === path && router.query.pageId === pageId
+          ? "MainLayout_nav_active_o"
+          : ""
+      }`}
+    >
+      <Link href={`/playground?path=${path}&pageId=${pageId}`}>
+        <a className="MainLayout_nav_li_ul_li_a" title={description}>
+          {" "}
+          <IconoirEmptyPage className="MainLayout_nav_svg" />
+          {pageId} {isDirty ? "*" : ""}
+        </a>
+      </Link>
+    </li>
+  );
 }
 
 export default function PageListComponent({
@@ -35,22 +60,12 @@ export default function PageListComponent({
       </summary>
       <ul className="MainLayout_nav_li_ul">
         {Object.entries(stories).map(([pageId, { description }]) => (
-          <li
+          <Item
             key={pageId}
-            className={`MainLayout_nav_li_ul_li ${
-              router.query.path === path && router.query.pageId === pageId
-                ? "MainLayout_nav_active_o"
-                : ""
-            }`}
-          >
-            <Link href={`/playground?path=${path}&pageId=${pageId}`}>
-              <a className="MainLayout_nav_li_ul_li_a" title={description}>
-                {" "}
-                <IconoirEmptyPage className="MainLayout_nav_svg" />
-                {pageId}
-              </a>
-            </Link>
-          </li>
+            path={path}
+            pageId={pageId}
+            description={description}
+          />
         ))}
       </ul>
     </details>

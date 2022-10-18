@@ -3,21 +3,19 @@ import { useDynamicResource } from "@orgasmo/dynamicstate/react";
 
 export default function useUpdateComponent(editPageConfig) {
   const storyComponentAreaResource = useDynamicResource(
-    "var://area/pageRender_o"
+    "var://area/pagePlaygroundRender_o"
   );
 
   useEffect(() => {
     const json = JSON.parse(editPageConfig);
 
-    console.log({ json })
-
     storyComponentAreaResource.setValue({
       items: [
         {
-          type: "PageRender_o",
+          type: "PagePlaygroundRender_o",
           props: {
             pageConfig: json,
-            samplePath: json.exactPath,
+            pathSample: json.exactPath,
           },
         },
       ],

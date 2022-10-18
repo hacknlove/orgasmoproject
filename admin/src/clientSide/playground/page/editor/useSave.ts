@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
-import SaveAsInput from "../../../modals/SaveAsInput.dynamic";
-import Alert from "../../../modals/Alert.dynamic";
+import SaveAsInput from "../../../modals/SaveAsInput";
+import Alert from "../../../modals/Alert";
 
 const ADMIN_UPSERT_STORY_CONFIG_ENDPOINT = "/api/_oadmin/story";
 

@@ -1,7 +1,7 @@
 export default function StoryIndex() {
   return (
     <>
-      <div id="playgroundTitle_o">
+      <div id="PlaygroundTitle_o">
         <h1>Global Settings</h1>
       </div>
       <div id="StoryPlayground" style={{ color: "#fff" }}>

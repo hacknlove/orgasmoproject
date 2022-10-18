@@ -3,7 +3,7 @@ import mongoProxy from "../mongoProxy";
 const storyConfigsCollectionName =
   (process.env.ORGASMO_MONGO_STORIES_COLLECTION as string) ?? "storyConfigs";
 
-export default async function updateStoryConfig(
+export default async function upsertStoryConfig(
   ctx,
   { component, story, ...$set }
 ) {

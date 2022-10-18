@@ -1,9 +1,10 @@
 import updatePageConfig from "./admin/updatePageConfig";
+import upsertPageConfig from "./admin/upsertPageConfig";
 import newPageConfig from "./admin/newPageConfig";
 import getPageConfig from "./page/getPageConfig";
 import getPageConfigFromId from "./page/getPageConfigFromId";
 import getAllStories from "./admin/getAllStories";
-import updateStoryConfig from "./admin/updateStoryConfig";
+import upsertStoryConfig from "./admin/upsertStoryConfig";
 import deletePageConfig from "./admin/deletePageConfig";
 import deleteStoryConfig from "./admin/deleteStoryConfig";
 import getAllPages from "./admin/getAllPages";
@@ -15,16 +16,18 @@ const mongoDriver = {
   },
   admin: {
     updatePageConfig,
+    upsertPageConfig,
     newPageConfig,
-    updateStoryConfig,
+    upsertStoryConfig,
     getAllStories,
     deletePageConfig,
     deleteStoryConfig,
     getAllPages,
   },
   "admin.updatePageConfig": updatePageConfig,
+  "admin.upsertPageConfig": upsertPageConfig,
   "admin.newPageConfig": newPageConfig,
-  "admin.updateStoryConfig": updateStoryConfig,
+  "admin.upsertStoryConfig": upsertStoryConfig,
   "admin.getAllStories": getAllStories,
   "admin.deletePageConfig": deletePageConfig,
   "admin.deleteStoryConfig": deleteStoryConfig,

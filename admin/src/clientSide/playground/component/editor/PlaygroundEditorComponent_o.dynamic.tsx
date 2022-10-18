@@ -23,12 +23,15 @@ function IsDirtyButtons({ save, file }) {
   );
 }
 
-export default function StoryPlayground_o({ description, itemConfig }) {
+export default function PlaygroundEditorComponent_o({
+  description,
+  itemConfig,
+}) {
   const router = useRouter();
   const monaco = useMonaco();
 
   const isDirty = useDynamicResource(
-    `var://${router.query.component}/${router.query.story}/isDirty`
+    `var://${router.query.component}/${router.query.story}/isDirty_o`
   );
 
   const files = useRef({
@@ -79,6 +82,7 @@ export default function StoryPlayground_o({ description, itemConfig }) {
   const [file, setFile] = useState("itemConfig");
 
   useEffect(() => {
+    (window as any).monaco = monaco;
     isDirty.setValue(editItemConfig.isDirty || editDescription.isDirty);
   }, [editDescription.isDirty, editItemConfig.isDirty]);
 

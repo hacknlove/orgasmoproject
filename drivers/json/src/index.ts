@@ -27,7 +27,7 @@ const filesystemDriver = {
   admin: {
     updatePageConfig: notPossible,
     newPageConfig: notPossible,
-    updateStoryConfig: notPossible,
+    upsertStoryConfig: notPossible,
     newStoryConfig: notPossible,
     deletePageConfig: notPossible,
     deleteStoryConfig: notPossible,
@@ -37,7 +37,7 @@ const filesystemDriver = {
   "page.getPageConfigFromId": getPageConfigFromId,
   "admin.updatePageConfig": notPossible,
   "admin.newPageConfig": notPossible,
-  "admin.updateStoryConfig": notPossible,
+  "admin.upsertStoryConfig": notPossible,
   "admin.newStoryConfig": notPossible,
   "admin.getAllStories": getAllStories,
   "admin.deletePageConfig": notPossible,

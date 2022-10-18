@@ -3,10 +3,12 @@ import Area from "@orgasmo/orgasmo/Area";
 export default function StoryIndex() {
   return (
     <>
-      <div id="playgroundTitle_o">
-        <Area name="playgroundTitle_o" />
+      <div id="PlaygroundTitle_o">
+        <div id="playgroundTitle_h1_o">
+          <Area name="PlaygroundTitle_o" />
+        </div>
       </div>
-      <Area name="pageRender_o" />
+      <Area name="pagePlaygroundRender_o" />
       <div id="pagePlayground_o">
         <Area name="pagePlayground_o" />
       </div>

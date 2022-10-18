@@ -13,13 +13,13 @@ export default function addPageAreas({ areas, ctx, pages }) {
     ],
   };
 
-  areas.pageRender_o = {
+  areas.pagePlaygroundRender_o = {
     items: [
       {
-        type: "PageRender_o",
+        type: "PagePlaygroundRender_o",
         props: {
           pageConfig,
-          samplePath: pageConfig.exactPath ?? ctx.query.samplePath ?? "",
+          pathSample: pageConfig.exactPath ?? ctx.query.pathSample ?? "",
         },
       },
     ],
@@ -36,20 +36,36 @@ export default function addPageAreas({ areas, ctx, pages }) {
     ],
   };
 
-  areas.playgroundTitle_o = {
+  areas.PlaygroundTitle_o = {
     items: [
       {
-        type: "PlaygroundTitle_o",
+        type: "PlaygroundDeleteItem_o",
         props: {
-          path: ctx.query.path,
-          pageId: ctx.query.pageId,
-          isDirty: false,
-          requiresSamplePath: Boolean(pageConfig.patternPath),
-          samplePaths: pageConfig.samplePaths ?? [],
+          label: "Delete Page",
+          action: `/api/_oadmin/page?pageId=${ctx.query.pageId}`,
         },
       },
     ],
   };
+
+  const pathSamplesSet = new Set();
+  for (const { pathSamples } of Object.values(pages[ctx.query.path]) as any) {
+    if (!pathSamples) {
+      continue;
+    }
+    for (const pathSample of pathSamples) {
+      pathSamplesSet.add(pathSample);
+    }
+  }
+  const pathSamples = Array.from(pathSamplesSet);
+  if (pathSamples.length) {
+    areas.PlaygroundTitle_o.items.unshift({
+      type: "PlaygroundSelectPathSample_o",
+      props: {
+        pathSamples,
+      },
+    });
+  }
 
   return true;
 }
