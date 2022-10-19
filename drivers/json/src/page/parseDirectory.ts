@@ -4,6 +4,7 @@ import { match } from "path-to-regexp";
 import { readJson } from "fs-extra";
 import { join } from "path";
 import * as Ajv from "ajv";
+import { watch } from "chokidar";
 
 import * as pageConfigSchema from "./pageConfigSchema.json";
 
@@ -13,6 +14,11 @@ const ajv = new Ajv();
 
 const validate = ajv.compile(pageConfigSchema);
 
+const dataPath =
+  process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
+
+const pagesPath = `${dataPath}/pages`;
+
 export const dynamicPaths = new Map();
 export const staticPaths = new Map();
 export const ids = new Map();
@@ -20,14 +26,14 @@ export const ids = new Map();
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
 
-export default async function parseDirectory(pathToJsonDirectory) {
+export default async function parseDirectory() {
   const tempStaticPaths = new Map();
   const tempDynamicPaths = new Map();
 
   const oldIds = new Set(ids.keys());
 
   const files = await glob(
-    join(process.cwd(), pathToJsonDirectory, "/**/*.json")
+    join(process.cwd(), pagesPath, "/**/*.json")
   );
 
   for (const pagePath of files) {
@@ -118,4 +124,15 @@ export default async function parseDirectory(pathToJsonDirectory) {
   }
 
   resolve();
+}
+
+if (process.env.NODE_ENV === "development") {
+  const watcher = watch(pagesPath, {
+    ignoreInitial: true,
+    awaitWriteFinish: true,
+  });
+
+  watcher.on("add", parseDirectory);
+  watcher.on("unlink", parseDirectory);
+  watcher.on("change", parseDirectory);
 }

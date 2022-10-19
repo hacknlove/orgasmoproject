@@ -1,5 +1,5 @@
 import { dynamicPaths, staticPaths } from "./parseDirectory";
-import getPageConfig from "./getPageConfig";
+import getPageConfig from "./getPageConfig.export";
 
 jest.mock("./parseDirectory", () => ({
   __esModule: true,

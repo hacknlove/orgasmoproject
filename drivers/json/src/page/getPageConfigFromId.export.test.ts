@@ -1,4 +1,4 @@
-import getPageConfigFromId from "./getPageConfigFromId";
+import getPageConfigFromId from "./getPageConfigFromId.export";
 import { ids } from "./parseDirectory";
 
 jest.mock("./parseDirectory", () => ({
