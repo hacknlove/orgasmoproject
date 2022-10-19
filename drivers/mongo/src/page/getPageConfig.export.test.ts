@@ -1,5 +1,5 @@
 import mongoProxy from "../mongoProxy";
-import getPageConfig from "./getPageConfig";
+import getPageConfig from "./getPageConfig.export";
 
 jest.mock("../mongoProxy", () => ({
   __esModule: true,

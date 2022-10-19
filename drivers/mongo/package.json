@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "prebuild": "node ../../build-tools/dist/driver/build.js src/",
     "build": "tsc",
     "dev": "nodemon --exec \"npm run build\""
   },
@@ -29,8 +30,6 @@
     "./dist"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./getPageConfig": "./dist/getPageConfig.js",
-    "./getPageConfigFromId": "./dist/getPageConfigFromId.js"
+    ".": "./dist/driver.js"
   }
 }
