@@ -105,6 +105,8 @@ import baz from "./drivers/@orgasmo/json/something/bar.event.tsx";
 import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
 import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
+const drivers = ["@orgasmo/json"];
+
 const driver = {
   ["something.bar"]: bar,
   ["something.foo"]: foo,
@@ -117,6 +119,13 @@ driver["something"]["foo"] = foo;
 events.on("baz", baz);
 
 export default driver;
+
+for (const driverName of drivers) {
+  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+  if (driver[startMethodName]) {
+    driver[startMethodName](driver, drivers);
+  }
+}
 `;
     const actual = fileFromImports(imports);
     expect(actual).toEqual(expected);
@@ -169,6 +178,8 @@ import route2ーonSomething from "./drivers/@orgasmo/json/something2/onSomething
 import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
 import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
+const drivers = ["@orgasmo/json"];
+
 const driver = {
   ["something.bar"]: bar,
   ["something.foo"]: foo,
@@ -182,6 +193,13 @@ events.on("onSomething", route1ーonSomething);
 events.on("onSomething", route2ーonSomething);
 
 export default driver;
+
+for (const driverName of drivers) {
+  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+  if (driver[startMethodName]) {
+    driver[startMethodName](driver, drivers);
+  }
+}
 `;
     const actual = fileFromImports(imports);
     expect(actual).toEqual(expected);
@@ -236,6 +254,8 @@ import route2ーonSomething from "./drivers/@orgasmo/json/something2/onSomething
 import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
 import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
+const drivers = ["@orgasmo/json"];
+
 const driver = {
   ...ーorgasmoーjson,
   ["something.bar"]: bar,
@@ -250,6 +270,13 @@ events.on("onSomething", route1ーonSomething);
 events.on("onSomething", route2ーonSomething);
 
 export default driver;
+
+for (const driverName of drivers) {
+  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+  if (driver[startMethodName]) {
+    driver[startMethodName](driver, drivers);
+  }
+}
 `;
 
     const actual = fileFromImports(imports);

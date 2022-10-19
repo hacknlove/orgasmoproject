@@ -213,6 +213,8 @@ ${justImports(importsByType.import)}\
 ${importEvents(importsByType.event)}\
 ${importExports(importsByType.export)}
 
+const drivers = ${JSON.stringify(driverArray)};
+
 const driver = {${useExternals(driverArray)}${useExportsStrings(
     importsByType.export
   )}
@@ -221,6 +223,13 @@ ${useExportsTree(importsByType.export)}
 
 ${useEvents(importsByType.event)}
 export default driver;
+
+for (const driverName of drivers) {
+  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+  if (driver[startMethodName]) {
+    driver[startMethodName](driver, drivers);
+  }
+}
 `;
 }
 
