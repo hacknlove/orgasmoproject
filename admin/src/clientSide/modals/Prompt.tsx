@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import EpCloseBold from "../icons/EpCloseBold";
 
 export default function SaveAsInput({
@@ -6,8 +6,11 @@ export default function SaveAsInput({
   defaultValue = "",
   label = "",
   title = "Save as...",
+  pattern,
 }) {
-  const [value, setValue] = useState<string>(defaultValue);
+  pattern = pattern?.replace(/^\/(.*)\/$/, "$1");
+
+  const ref = useRef() as any;
   return (
     <div
       className="modal_o_wrapper"
@@ -27,22 +30,28 @@ export default function SaveAsInput({
           <div className="modal_o_fields">
             <label>{label}</label>
             <input
+              pattern={pattern}
               autoFocus
               className="input_o"
-              value={value}
-              onChange={(event) => setValue(event.target.value)}
+              ref={ref}
+              defaultValue={defaultValue}
             />
           </div>
-          {value && (
-            <div className="modal_o_buttons">
-              <button className="button_o" onClick={() => resolve()}>
-                Cancel
-              </button>
-              <button className="button_o" onClick={() => resolve(value)}>
-                Ok
-              </button>
-            </div>
-          )}
+          <div className="modal_o_buttons">
+            <button className="button_o" onClick={() => resolve()}>
+              Cancel
+            </button>
+            <button
+              className="button_o"
+              onClick={() => {
+                resolve(
+                  ref.current.validity.patternMismatch || ref.current.value
+                );
+              }}
+            >
+              Ok
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/page/expand";
 
-export default function useExpandPage({ pageConfig, pathSample }) {
+export default function useExpandPage({ pageConfig, pathSample, parsedPath }) {
   const [expandedConfigPage, setExpandedPageConfig] = useState();
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export default function useExpandPage({ pageConfig, pathSample }) {
       body: JSON.stringify({
         pageConfig,
         resolvedUrl: pathSample,
+        parsedPath,
       }),
     })
       .then((r) => r.json())

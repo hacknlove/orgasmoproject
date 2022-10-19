@@ -13,7 +13,6 @@ const dataPath =
 
 const storiesPath = `${dataPath}/stories`;
 
-
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
 
@@ -22,9 +21,7 @@ export default async function parseDirectory() {
     delete Components[key];
   }
 
-  const files = await glob(
-    join(process.cwd(), storiesPath, "/**/*.json")
-  );
+  const files = await glob(join(process.cwd(), storiesPath, "/**/*.json"));
 
   for (const storyPath of files) {
     const storyConfig = await readJson(storyPath, { throws: false });

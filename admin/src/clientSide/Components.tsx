@@ -117,8 +117,8 @@ export default {
       loading: undefined,
     }
   ),
-  PageRender_o: dynamic(
-    () => import("./playground/page/render/PageRender_o.dynamic.js"),
+  PagePlaygroundRender_o: dynamic(
+    () => import("./playground/page/render/PagePlaygroundRender_o.dynamic.js"),
     {
       suspense: true,
       loading: undefined,

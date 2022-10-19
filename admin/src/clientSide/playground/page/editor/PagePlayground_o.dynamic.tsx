@@ -55,7 +55,7 @@ export default function PagePlayground_o({ pageConfig }) {
 
   useUpdateComponent(editPageConfig.value);
 
-  const save = useSave({ files, pageConfig });
+  const save = useSave({ files, editPageConfig });
 
   const [file, setFile] = useState("pageConfig");
 

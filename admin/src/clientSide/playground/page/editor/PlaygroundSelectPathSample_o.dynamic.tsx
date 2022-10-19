@@ -1,10 +1,21 @@
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import Prompt from "../../../modals/Prompt";
+import { match, pathToRegexp } from "path-to-regexp";
+import Alert from "../../../modals/Alert";
+import { cencode } from "cencode";
 
-export default function PlaygroundSelectPathSample_o({ pathSamples }) {
+export default function PlaygroundSelectPathSample_o({
+  pathSamples,
+  patternPath,
+}) {
   const router = useRouter();
+
+  const [regexpPath, matchPath] = useMemo(
+    () => [pathToRegexp(patternPath), match(patternPath)],
+    [patternPath]
+  );
 
   const [customPaths, setCustomPaths] = useState<any[]>([]);
 
@@ -14,13 +25,30 @@ export default function PlaygroundSelectPathSample_o({ pathSamples }) {
     if (value === "custom_o") {
       value = await asyncit(
         Prompt,
-        { title: "New sample path" },
+        { title: "New sample path", pattern: regexpPath.toString() },
         "playgroundModal_o"
       );
       if (!value) {
         return;
       }
-      setCustomPaths([...customPaths, value]);
+      if (regexpPath.test(value)) {
+        setCustomPaths([...customPaths, value]);
+      }
+    }
+
+    const parsedPath = matchPath(value);
+
+    (window as any).testthis = {
+      parsedPath,
+      value,
+    };
+
+    if (!parsedPath) {
+      return asyncit(
+        Alert,
+        { title: "Error", text: "The path does not match the pattern" },
+        "playgroundModal_o"
+      );
     }
 
     router.push({
@@ -28,6 +56,7 @@ export default function PlaygroundSelectPathSample_o({ pathSamples }) {
       query: {
         ...router.query,
         pathSample: value,
+        parsedPath: cencode(parsedPath.params),
       },
     });
   }

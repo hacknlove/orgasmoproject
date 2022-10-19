@@ -1,12 +1,11 @@
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
-import SaveAsInput from "../../../modals/SaveAsInput";
 import Alert from "../../../modals/Alert";
 
-const ADMIN_UPSERT_STORY_CONFIG_ENDPOINT = "/api/_oadmin/story";
+const ADMIN_UPSERT_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/page";
 
-export default function useSave({ files, pageConfig }) {
+export default function useSave({ files, editPageConfig }) {
   const router = useRouter();
 
   return useCallback(
@@ -15,29 +14,15 @@ export default function useSave({ files, pageConfig }) {
         return;
       }
 
-      const storyName = await asyncit(
-        SaveAsInput,
-        {
-          title: `Save ${file.label}`,
-          label: "Story",
-          defaultValue: router.query.story,
-        },
-        "playgroundModal_o"
-      );
+      const pageConfig = editPageConfig.prepareToSend();
 
-      if (!storyName) {
-        return;
-      }
-
-      const response = await fetch(ADMIN_UPSERT_STORY_CONFIG_ENDPOINT, {
-        method: "POST",
+      const response = await fetch(ADMIN_UPSERT_PAGE_CONFIG_ENDPOINT, {
+        method: "PUT",
         headers: {
           "content-type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({
-          pageConfig,
-        }),
+        body: JSON.stringify({ pageConfig }),
       })
         .then((r) => r.json())
         .catch((error) => ({ error }));
@@ -57,10 +42,10 @@ export default function useSave({ files, pageConfig }) {
         pathname: router.pathname,
         query: {
           ...router.query,
-          story: storyName,
+          pageId: pageConfig.pageId,
         },
       });
     },
-    [files.current, router.query.component, router.query.story]
+    [files.current, router.query.component, router.query.story, editPageConfig]
   );
 }

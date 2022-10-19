@@ -6,7 +6,7 @@ function setValues({ sharedState, props }) {
     if (key === "var://DComponent") {
       continue;
     }
-    //    sharedState.setValue(key, null)
+    sharedState.setValue(key, null);
   }
 
   sharedState.setValue("var://layout", props.layout);
@@ -19,7 +19,7 @@ function setValues({ sharedState, props }) {
   sharedState.setValue("var://areasNames", areasNames);
 }
 
-export default function PageRender({ pageConfig, pathSample }) {
+export default function PageRender({ pageConfig, pathSample, parsedPath }) {
   const ref = useRef() as any;
   useEffect(() => {
     (window as any).thisIframe = ref;
@@ -27,7 +27,7 @@ export default function PageRender({ pageConfig, pathSample }) {
 
   const sharedState = useRef();
 
-  const props = useExpandPage({ pageConfig, pathSample }) as any;
+  const props = useExpandPage({ pageConfig, pathSample, parsedPath }) as any;
 
   useEffect(() => {
     function processMessage(message) {

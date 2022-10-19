@@ -6,11 +6,11 @@ type pageParams = Record<string, any>;
 export default async function expandPageConfigApi(ctx) {
   ctx.req.user = { roles: [] };
 
-  const { pageConfig, resolvedUrl } = ctx.req.body;
+  const { pageConfig, resolvedUrl, parsedPath } = ctx.req.body;
 
   let params: pageParams = {
     params: ctx.params,
-    parsedPath: ctx.parsedPath,
+    parsedPath: parsedPath ?? {},
     path: resolvedUrl.replace(/\?.*$/, ""),
   };
 

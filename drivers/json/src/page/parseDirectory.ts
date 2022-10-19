@@ -32,9 +32,7 @@ export default async function parseDirectory() {
 
   const oldIds = new Set(ids.keys());
 
-  const files = await glob(
-    join(process.cwd(), pagesPath, "/**/*.json")
-  );
+  const files = await glob(join(process.cwd(), pagesPath, "/**/*.json"));
 
   for (const pagePath of files) {
     const pageConfig = await readJson(pagePath, { throws: false });

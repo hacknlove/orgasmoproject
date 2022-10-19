@@ -1,3 +1,4 @@
+import { decencode } from "cencode";
 export default function addPageAreas({ areas, ctx, pages }) {
   const pageConfig = pages[ctx.query.path]?.[ctx.query.pageId];
 
@@ -20,6 +21,9 @@ export default function addPageAreas({ areas, ctx, pages }) {
         props: {
           pageConfig,
           pathSample: pageConfig.exactPath ?? ctx.query.pathSample ?? "",
+          parsedPath: ctx.query.parsedPath
+            ? decencode(ctx.query.parsedPath)
+            : null,
         },
       },
     ],
@@ -63,6 +67,7 @@ export default function addPageAreas({ areas, ctx, pages }) {
       type: "PlaygroundSelectPathSample_o",
       props: {
         pathSamples,
+        patternPath: pageConfig.patternPath,
       },
     });
   }
