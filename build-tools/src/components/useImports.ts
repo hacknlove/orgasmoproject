@@ -4,7 +4,11 @@ export default function useImports(imports) {
   }
   let string = "";
   for (const { filename, from } of imports) {
-    string = `${string}\n  ${filename}: dynamic(() => import("${from}.js"), { suspense: true, loading: undefined }),`;
+    string = `${string}
+  ${filename}: dynamic(() => import("${from}.js"), {
+    suspense: true,
+    loading: undefined,
+  }),`;
   }
 
   return string;

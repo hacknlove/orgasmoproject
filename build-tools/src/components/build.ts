@@ -14,7 +14,7 @@ export default async function build(path) {
   const imports = parseFiles(files, regexp);
 
   const string = `\
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 export default {${useImports(imports)}
 }
