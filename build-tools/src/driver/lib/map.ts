@@ -6,7 +6,7 @@ export default function map({ route = "", filename, from, type }) {
     route,
     filename,
     type,
-    importName: `${route.replace(/[/[\].]/g, "ー")}ー${filename}`,
+    importName: `${route.replace(/[^a-z0-9_]/g, "ー")}ー${filename}`,
     name: getName(route, filename),
   };
 }
