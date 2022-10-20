@@ -24,6 +24,7 @@ async function main() {
 
   const promises = [];
 
+  pack.workspaces.shift();
   pack.workspaces.push("create-orgasmo/empty");
 
   for (const workspace of pack.workspaces) {
