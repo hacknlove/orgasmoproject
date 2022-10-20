@@ -17,7 +17,8 @@
     "glob": "^8.0.3",
     "nookies": "^2.5.2",
     "sass": "^1.54.4",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "@orgasmo/dynamicstate": "1.11.2"
   },
   "exports": {
     "./api": "./dist/server/api/factory.js",
