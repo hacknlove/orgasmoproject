@@ -1,4 +1,4 @@
-import AdminContext from "./AdminContext.dynamic";
+import AdminContext from "./AdminContext";
 import { useContext, useCallback } from "react";
 
 export default function ChoosePageId() {

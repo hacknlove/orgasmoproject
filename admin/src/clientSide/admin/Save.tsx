@@ -1,4 +1,4 @@
-import AdminContext from "./AdminContext.dynamic";
+import AdminContext from "./AdminContext";
 import { useContext, useCallback } from "react";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../modals/Alert";

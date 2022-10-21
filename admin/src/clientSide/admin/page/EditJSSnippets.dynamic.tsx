@@ -1,4 +1,4 @@
-import AdminContext from "../AdminContext.dynamic";
+import AdminContext from "../AdminContext";
 import { useContext, useRef } from "react";
 
 export default function EditJSSnipplets() {

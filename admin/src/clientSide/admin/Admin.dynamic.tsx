@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { RenderArea } from "@orgasmo/orgasmo/Area";
 
-import AdminContext from "./AdminContext.dynamic";
+import AdminContext from "./AdminContext";
 import * as equal from "fast-deep-equal";
 
 import Router from "next/router";

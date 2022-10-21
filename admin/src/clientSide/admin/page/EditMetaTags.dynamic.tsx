@@ -9,7 +9,7 @@ import {
 } from "react";
 
 import AdminDataList from "../AdminDataLists.dynamic";
-import AdminContext from "../AdminContext.dynamic";
+import AdminContext from "../AdminContext";
 import * as metaTagsList from "./metatags.json";
 
 export default function EditMetaTags() {
