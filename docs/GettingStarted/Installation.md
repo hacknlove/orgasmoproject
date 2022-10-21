@@ -16,24 +16,19 @@ npm run dev
 
 In the folder `/components` you can see some components whose filename ends with `dynamic.jsx`
 
-Orgasmo takes those components and compiles the file `/DComponent.ts`, open it and take a look.
+Those are the components that can be used dynamically.
 
-As you can see, this file imports every dynamic component and returns a Component that renders one or the other depending on the prop `type`
-
-This component `DComponent` is used by orgasmo to render
-You can use this `<DComponent type="SomeComponent" props={someProps} />` in your regular pages, and your regular components, if you need to.
+In short, if the API gives something like `{ type: "SomeComponent", "props": {"some": "props"} }` orgasmo will render `<SomeComponent some="props" />` assuming there is a `SomeComponent.dynamic.jsx` file exporting a React component.
 
 ### Drivers
 
 A driver is a set of known methods that deals with the data sources.
 
-In the folder `/drivers` you can see just a file `@orgasmo/json/data/pages/index.json` file.
+The scaffolding app uses the driver `@orgasmo/json`, meant for quick prototyping on the development environment`.
 
-The scaffolding app uses the driver `@orgasmo/json`, meant for quick prototyping on the development environment`. This driver's data-source is a folder with JSON files.
+This driver's data-source is a folder with JSON files.
 
-You can edit this file, refresh the browser, and you will see that the page has changed.
-
-Orgasmo compiles the file `/driver.js` from the contents of the `/drivers` folder and the value of the environmental variable `ORGASMO_DRIVER`
+In the folder `/drivers` you can see the file `@orgasmo/json/data/pages/index.json` defining the `pageConfig` for the path `/`
 
 ## Catch-all route
 
@@ -50,3 +45,4 @@ at `/pages/api/[...o].js` you can see the catch-all API route, that orgasmo uses
 Now let's do the [Tutorial](GettingStarted/Tutorial.md).
 
 ?> If you want to add orgasmo to an existent Next.js web application, take a look at [Manual installation](Advanced/ManualInstallation.md)
+

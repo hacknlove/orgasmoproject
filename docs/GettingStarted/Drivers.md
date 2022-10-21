@@ -2,35 +2,56 @@
 
 The drivers are the abstraction and anti-corruption layer that sits between your data sources and orgasmo.
 
-There are two kind of drivers:
+## Set the driver to be used
 
-- External: The driver is a npm package
-- Internal: The driver lives in a directory in the `/drivers` tree
+You need to use the environmental variable `ORGASMO_DRIVER` to the name of the driver you want to use.
 
-Use the environmental variable `ORGASMO_DRIVER` to set the name of the driver you want to use, being the driver name the npm package name, or the path inside drivers. For instace `test/e2e` is the name of an internal driver that could live at `/drivers/test/e2e`
+The driver's name indicates where to find the it.
+
+If the variable is not set, it defaults to `@orgasmo/json`
+
+You can use a comma separated set of drivers' names, to use driver composition, for instance:
+
+```sh
+ORGASMO_DRIVER=@orgasmo/admin/driver,@orgasmo/mongo
+```
+
+
+## Kind of drivers:
+
+We can classify the drivers in two, according to where the driver is loaded from:
+
+- External: The driver is loaded from a NPM package.
+- Internal: The driver is loaded from your source code.
+
+Use the environmental variable `ORGASMO_DRIVER` to set the name of the drivers you want to use, being the driver name the string for an import, or a path inside drivers (or both).
+
+For instance, `test/e2e` is the name of an internal driver that could live at `/drivers/test/e2e`, and `@orgasmo/json` a driver that is imported from `@orgasmo/json`
 
 ## External Drivers
 
-Currently, Orgasmo includes 3 external drivers:
+Currently, Orgasmo includes 4 external drivers:
 
-- [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo): The data comes from a mongo database
-- [`@orgasmo/strapi`](https://www.npmjs.com/package/@orgasmo/strapi): The data comes from a strapi server
+- [`@orgasmo/json']https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a collection of JSON files.
+- [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a MongoDB database.
+- [`@orgasmo/strapi`](https://www.npmjs.com/package/@orgasmo/strapi): gets the pageConfigs from a  strapi server.
+- [`@orgasmo/admin/driver`](https://www.npmjs.com/package/@orgasmo/admin): adds methods used by orgasmo's playground and orgasmo's admin panel.
 
 ### JSON files
 
-This driver uses json files, and is meant to be used in the development environment and UI testing.
+This driver uses JSON files, and is meant to be used in the development environment and UI testing.
 
-It can be used in production, but you would need to redeploy to make changes to your app.
+It can be used in production, but you would need to redeploy to introduce changes to your app.
 
-Drop your json files with the [pageConfig](GettingStarted/pageConfig.md)s into the folder `/drivers/@orgasmo/json/data/pages`
+Drop your JSON files with the [pageConfig](GettingStarted/pageConfig.md)s into the folder `/drivers/@orgasmo/json/data/pages`
 
 More info: [`@orgasmo/json`](https://www.npmjs.com/package/@orgasmo/json)
 
-### Mongo database
+### MongoDB database
 
-This driver gets the [pageConfig](GettingStarted/pageConfig.md) documents from a mongo Collection
+This driver gets the [pageConfig](GettingStarted/pageConfig.md) documents from a MongoDB Collection
 
-Use the environmental variable `ORGASMO_MONGO_URL` to set the mongo connection url. It defaults to `mongodb://localhost:27017/orgasmo`
+Use the environmental variable `ORGASMO_MONGO_URL` to set the MongoDB connection URL. It defaults to `mongodb://localhost:27017/orgasmo`
 
 More info: [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo)
 
@@ -38,15 +59,21 @@ More info: [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo)
 
 This driver gets the pageConfigs from a strapi server using the template `@orgasmo/strapi-template`
 
-Use the environmental variables `STRAPI_API_URL` and `STRAPI_API_TOKEN` to set the strapi url and the strapi access token.
+Use the environmental variables `STRAPI_API_URL` and `STRAPI_API_TOKEN` to set the strapi URL and the strapi access token.
 
 More info: [`@orgasmo/strapi`](https://www.npmjs.com/package/@orgasmo/strapi)
 
-### Create your own
+### Admin
 
-If you want to use the same kind of datasource or behaviour in more than one orgasmo's webapp, it makes sense to create a package to share confortably the driver.
+This driver is not meant to be used isolated because it does not get pageConfigs thus orgasmo would only show 404s.
 
-In a nutshell your driver needs to default-export an object with all the methods exported in two ways:
+This driver is meant for driver composition, adding the methods required by the admin panel and the playground.
+
+### Create your external driver own
+
+If you want to use the same kind of data source or behavior in more than one orgasmo's web app, it makes sense to create a package to share comfortably the driver.
+
+In a nutshell, your driver needs to default-export an object with all the methods exported in two ways:
 
 - in a tree, like `driver.method.path`
 - by path, like `driver['method.path]`
@@ -55,60 +82,41 @@ In a nutshell your driver needs to default-export an object with all the methods
 
 If you want to create an internal driver, create a folder in the `/drivers` tree, _for instance `/drivers/my-driver`_
 
-Then create a file for each driver's method you want to define.
+Then create a file for each driver's method you intend to define.
 
-The file name must end with `.export.{js,tx}`, and the path of the method on the driver will match the path+filename of the file on the driver's folder.
+The file name must end with `.export.{js,tx}`.
+
+The path of the method on the driver matches the full path+filename of the file on the driver's folder.
 
 _`/drivers/my-driver/page/getPageConfig.export.ts` will define the method `page.getPageConfig` for the driver `my-driver`_
 
-## Driver Overriding
+## Driver composition
 
-Driver overriding is the mechanism by which the methods of the overriging driver replace the methods of the overrided driver.
+Driver composition is the mechanism by which the actual driver takes methods from many drivers.
 
-There are two kinds of Driver Overriding:
 
-- Implicit: You set one driver name, and use the implicit overriding methods.
-- Explicit: You set a comma separated list of drivers, that will combine into one.
+### Common directory
 
-### Implicit Overriding
+No matter what driver(s) do you set, all the methods defined inside the `/drivers/common` directory will be loaded into the actual driver.
 
-#### Common directory
+### Internal driver named after an External driver
 
-All the methods that you define in the `/drivers/common` folder will automatically overload the same methods of the driver in use.
+When the same driver name can identify both an external driver and an internal driver, methods from both drivers will be loaded into the actual driver.
 
-#### Internal driver named after an External driver
+This is very convenient for override an external driver.
 
-If you create an internal driver with the same name as an external driver, the internal driver will override the external driver.
+_For instance the file `/drivers/@orgasmo/mongo/page/getPageConfig.export.js` would override the method `page.getPageConfig` of the driver `@orgasmo/mongo`_
 
-_For instance the file `/drivers/@orgasmo/mongo/page/getPageConfig.export.js` will override the method `page.getPageConfig` of the driver `@orgasmo/mongo`_
+### Overriding order
 
-#### Overriding order
+When more than one driver defines the same method, one of those definitions will be used.
 
-The order of the overriding is:
 
-1. common
-2. internal
-3. external
+The overriding cascades from left to right, external to internal, being common the last one.
 
-### Explicit Overriding
 
-If you set a list of comma separated drivers like `ORGASMO_DRIVER=driver1,driver2,driver3` the drivers will override each other from right to left, so considering the previous example `driver3` will override `driver2` and these two will override `driver1`
+The method used is the one from the last driver that defines it, because it overrides all the previous definitions.
 
-#### Overriding Order
-
-The implicit overriding still works with the same order. Just expand internal and external with the list.
-
-In the previous example the Overriding order is:
-
-1. common
-2. internal driver3
-3. internal driver2
-4. internal driver1
-5. external driver 3
-6. external driver 2
-7. external driver 1
-
-This means that when calling a method, the method used will be the one for the first driver (in that order) that defines it.
 
 ## Required Methods
 
@@ -116,3 +124,5 @@ Orgasmo needs these two driver's method to be defined:
 
 - `pages.getPageConfig`: receives a getServerProps context and returns a pageConfig or an array of pageConfigs
 - `page.getPageConfigFromId`: receives a pageId and returns a pageConfig
+
+

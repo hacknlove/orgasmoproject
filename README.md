@@ -2,9 +2,15 @@
 
 A Next.js plugin that gives you the best UX, the best DX and the best MX (marketeer experience).
 
+## Tutorials
+
+* [Basic tutorial](https://docs.orgasmo.dev/#/GettingStarted/Tutorial)
+
+
 ## Documentation
 
 [Quick Start](https://docs.orgasmo.dev/)
+
 
 ## Why using orgasmo.
 
