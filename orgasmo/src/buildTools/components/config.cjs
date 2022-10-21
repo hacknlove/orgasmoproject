@@ -44,6 +44,9 @@ function useImports(imports) {
   }
   let string = "";
   for (const { filename, from } of imports) {
+    if (/node_modules/.test(from)) {
+      continue;
+    }
     string = `${string}\n  ${filename}: dynamic(() => import('${from}'), { suspense: true, loading: undefined }),`;
   }
 
