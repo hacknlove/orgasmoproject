@@ -45,4 +45,3 @@ at `/pages/api/[...o].js` you can see the catch-all API route, that orgasmo uses
 Now let's do the [Tutorial](GettingStarted/Tutorial.md).
 
 ?> If you want to add orgasmo to an existent Next.js web application, take a look at [Manual installation](Advanced/ManualInstallation.md)
-

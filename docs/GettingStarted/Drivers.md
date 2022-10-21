@@ -16,7 +16,6 @@ You can use a comma separated set of drivers' names, to use driver composition, 
 ORGASMO_DRIVER=@orgasmo/admin/driver,@orgasmo/mongo
 ```
 
-
 ## Kind of drivers:
 
 We can classify the drivers in two, according to where the driver is loaded from:
@@ -34,7 +33,7 @@ Currently, Orgasmo includes 4 external drivers:
 
 - [`@orgasmo/json']https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a collection of JSON files.
 - [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a MongoDB database.
-- [`@orgasmo/strapi`](https://www.npmjs.com/package/@orgasmo/strapi): gets the pageConfigs from a  strapi server.
+- [`@orgasmo/strapi`](https://www.npmjs.com/package/@orgasmo/strapi): gets the pageConfigs from a strapi server.
 - [`@orgasmo/admin/driver`](https://www.npmjs.com/package/@orgasmo/admin): adds methods used by orgasmo's playground and orgasmo's admin panel.
 
 ### JSON files
@@ -94,7 +93,6 @@ _`/drivers/my-driver/page/getPageConfig.export.ts` will define the method `page.
 
 Driver composition is the mechanism by which the actual driver takes methods from many drivers.
 
-
 ### Common directory
 
 No matter what driver(s) do you set, all the methods defined inside the `/drivers/common` directory will be loaded into the actual driver.
@@ -111,12 +109,9 @@ _For instance the file `/drivers/@orgasmo/mongo/page/getPageConfig.export.js` wo
 
 When more than one driver defines the same method, one of those definitions will be used.
 
-
 The overriding cascades from left to right, external to internal, being common the last one.
 
-
 The method used is the one from the last driver that defines it, because it overrides all the previous definitions.
-
 
 ## Required Methods
 
@@ -124,5 +119,3 @@ Orgasmo needs these two driver's method to be defined:
 
 - `pages.getPageConfig`: receives a getServerProps context and returns a pageConfig or an array of pageConfigs
 - `page.getPageConfigFromId`: receives a pageId and returns a pageConfig
-
-

@@ -1,6 +1,6 @@
 # Dynamic Components
 
-If you open the directory `components` of your new orgasmo application, you will see many  filenames end with `.dynamic.jsx`.
+If you open the directory `components` of your new orgasmo application, you will see many filenames end with `.dynamic.jsx`.
 
 This is the method we use to tell orgasmo that we want those components to be used dynamically.
 
@@ -22,13 +22,14 @@ As you can see, there is nothing special about this React component.
 
 But because its name matches the pattern `.dynamic.{jsx,tsx}`, orgasmo will consider it dynamic and will render **Component** from a JSON like **itemConfig**:
 
-
 **Component**
+
 ```jsx
 <Description text="Take a look at" "source"= "drivers/@orgasmo/json/data/pages/index.json" />
 ```
 
 **itemConfig**
+
 ```json
 {
   "type": "Description",
@@ -52,7 +53,6 @@ To create Dynamic components, you need to follow these 1 rules:
 The Area component renders all the dynamic components of an area.
 
 The usual place for an `Area` component is the layout of the page, but `Area` components can be used anywhere.
-
 
 Take a look at [`components/Layout.dynamic.jsx`](https://github.com/hacknlove/orgasmoproject/blob/main/create-orgasmo/empty/components/Layout.dynamic.jsx#L12)
 
@@ -82,11 +82,8 @@ export default function Layout() {
 }
 ```
 
-
 ---
 
 This is all you need to know to start creating your dynamic frontend side.
 
 Let's not take a look at the [drivers](GettingStarted/Drivers.md)
-
-
