@@ -1,5 +1,5 @@
 const regexp =
-  /(?<from>.*\b(?<filename>[A-Z][A-Za-z0-9]*)\.dynamic\.(.{2,3}))$/;
+  /(?<from>.*\b(?<filename>[A-Z][A-Za-z0-9_]*)\.dynamic\.(.{2,3}))$/;
 const globPath = "./**/*.dynamic.{jsx,tsx,js,ts,cjs,mjs}";
 const filename = "./DComponent.jsx";
 const isAModule = require("../isAModule");

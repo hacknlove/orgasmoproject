@@ -1,12 +1,9 @@
-
 import _oadminーpageーDELETE from "./_oadmin/page/DELETE.export";
 import _oadminーpageーexpandーPOST from "./_oadmin/page/expand/POST.export";
 import _oadminーpageーPOST from "./_oadmin/page/POST.export";
 import _oadminーpageーPUT from "./_oadmin/page/PUT.export";
 import _oadminーstoryーDELETE from "./_oadmin/story/DELETE.export";
 import _oadminーstoryーPOST from "./_oadmin/story/POST.export";
-
-
 
 const driver = {
   ["_oadmin.page.DELETE"]: _oadminーpageーDELETE,
@@ -15,7 +12,7 @@ const driver = {
   ["_oadmin.page.PUT"]: _oadminーpageーPUT,
   ["_oadmin.story.DELETE"]: _oadminーstoryーDELETE,
   ["_oadmin.story.POST"]: _oadminーstoryーPOST,
-}
+};
 
 driver["_oadmin"] = {};
 driver["_oadmin"]["page"] = {};
