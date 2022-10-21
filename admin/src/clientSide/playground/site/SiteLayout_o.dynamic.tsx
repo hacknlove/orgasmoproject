@@ -1,4 +1,4 @@
-export default function StoryIndex() {
+export default function SiteLayout() {
   return (
     <>
       <div id="PlaygroundTitle_o">

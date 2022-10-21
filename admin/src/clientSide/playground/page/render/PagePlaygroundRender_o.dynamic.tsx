@@ -19,7 +19,11 @@ function setValues({ sharedState, props }) {
   sharedState.setValue("var://areasNames", areasNames);
 }
 
-export default function PageRender({ pageConfig, pathSample, parsedPath }) {
+export default function PagePlaygroundRender({
+  pageConfig,
+  pathSample,
+  parsedPath,
+}) {
   const ref = useRef() as any;
   useEffect(() => {
     (window as any).thisIframe = ref;

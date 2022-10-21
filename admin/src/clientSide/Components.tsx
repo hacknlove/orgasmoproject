@@ -5,10 +5,6 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  AdminContext: dynamic(() => import("./admin/AdminContext.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
   AdminDataLists: dynamic(() => import("./admin/AdminDataLists.dynamic.js"), {
     suspense: true,
     loading: undefined,

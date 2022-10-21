@@ -2,7 +2,7 @@ import Area from "@orgasmo/orgasmo/Area";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 import GlobalSettingsItem from "../nav/GlobalSettingsItem";
 
-export default function StoryLayout() {
+export default function PlayGroundMainLayout_o() {
   return (
     <>
       <AsyncComponents area="playgroundModal_o" />

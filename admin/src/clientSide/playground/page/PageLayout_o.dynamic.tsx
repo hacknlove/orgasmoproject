@@ -1,6 +1,6 @@
 import Area from "@orgasmo/orgasmo/Area";
 
-export default function StoryIndex() {
+export default function PageLAyout_o() {
   return (
     <>
       <div id="PlaygroundTitle_o">
