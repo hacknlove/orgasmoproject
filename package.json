@@ -1,6 +1,6 @@
 {
   "name": "orgasmoproject",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps. Its goal is to make it easy for you to improve your users' experience, by giving you the best developer experience, the best marketeer experience, and a complete set of over-the-top features.",
   "main": "index.js",
   "engines": {
@@ -17,7 +17,7 @@
     "pretty": "prettier --write .",
     "prettylint": "npm run lint && npm run pretty",
     "dev": "nodemon --exec \"npm run build && npm run dev -w\" $1",
-    "preversion": "npm test",
+    "preversion": "./scripts/localcitest.sh",
     "postversion": "node scripts/publish.cjs"
   },
   "author": "",
