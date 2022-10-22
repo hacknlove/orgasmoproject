@@ -1,6 +1,6 @@
 {
   "name": "@orgasmo/strapi-template",
-  "version": "1.11.8",
+  "version": "1.11.9",
   "description": "A Strapi template to manage an orgasmo webapp",
   "homepage": "https://github.com/hacknlove/orgasmoproject",
   "bugs": {

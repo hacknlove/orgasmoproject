@@ -1,6 +1,6 @@
 {
   "name": "@orgasmo/strapi",
-  "version": "1.11.8",
+  "version": "1.11.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "path-to-regexp": "^6.2.1"
   },
   "peerDependencies": {
-    "@orgasmo/orgasmo": "1.11.8"
+    "@orgasmo/orgasmo": "1.11.9"
   },
   "files": [
     "./dist"
