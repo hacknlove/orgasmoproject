@@ -9,6 +9,7 @@ import adminーupdatePageConfig from "./admin/updatePageConfig.export";
 import adminーupsertStoryConfig from "./admin/upsertStoryConfig.export";
 import pageーgetPageConfig from "./page/getPageConfig.export";
 import pageーgetPageConfigFromId from "./page/getPageConfigFromId.export";
+import siteーgetConfig from "./site/getConfig.export";
 
 const driver = {
   ["@orgasmo.json.start"]: ーorgasmoーjsonーstart,
@@ -22,6 +23,7 @@ const driver = {
   ["admin.upsertStoryConfig"]: adminーupsertStoryConfig,
   ["page.getPageConfig"]: pageーgetPageConfig,
   ["page.getPageConfigFromId"]: pageーgetPageConfigFromId,
+  ["site.getConfig"]: siteーgetConfig,
 };
 
 driver["@orgasmo"] = {};
@@ -39,5 +41,7 @@ driver["admin"]["upsertStoryConfig"] = adminーupsertStoryConfig;
 driver["page"] = {};
 driver["page"]["getPageConfig"] = pageーgetPageConfig;
 driver["page"]["getPageConfigFromId"] = pageーgetPageConfigFromId;
+driver["site"] = {};
+driver["site"]["getConfig"] = siteーgetConfig;
 
 export default driver;
