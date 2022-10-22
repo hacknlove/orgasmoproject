@@ -7,8 +7,15 @@ export default function PageLi({ pageId, description }) {
     "var://activeFilepath_o"
   );
 
-  const isDirty = false;
-
+  const [isDirty] = useDynamicValue(`com://file/${filePath}?isDirty`, {
+    computation(state) {
+      return (
+        state[`var://file/${filePath}?content`] !==
+        state[`var://file/${filePath}?original`]
+      );
+    },
+    urls: [`var://file/${filePath}?content`, `var://file/${filePath}?original`],
+  });
   const selected = activeFilepath == filePath;
 
   return (

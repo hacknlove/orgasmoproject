@@ -11,6 +11,7 @@
   font-size: 15px;
   list-style: none;
   line-height: 1.4;
+  cursor: pointer;
 }
 #MainLayout_nav_home_o > svg.MainLayout_nav_svg {
   margin-bottom: 5px;
@@ -60,6 +61,7 @@
   font-size: 13px;
   list-style: none;
 }
+#MainLayout_nav_home_o:hover,
 .MainLayout_nav_li_ul_li:hover {
   background: #0000000d;
 }

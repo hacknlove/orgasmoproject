@@ -25,7 +25,7 @@ export class ComResource extends VarResource {
     this.crossSubcriptions.forEach((subscription) => subscription());
 
     this.crossSubcriptions = this.urls.map((url) =>
-      this.sharedContext.onChange(url, this.recompute)
+      this.sharedContext.onChange(url, this.recompute.bind(this))
     );
   }
 

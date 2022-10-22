@@ -6,8 +6,18 @@ export default function NavComponentLi({ storyName, description, component }) {
   const [activeFilepath, setActiveFilepath] = useDynamicValue(
     "var://activeFilepath_o"
   );
-
   const selected = activeFilepath == filePath;
+
+  const [isDirty] = useDynamicValue(`com://file/${filePath}?isDirty`, {
+    computation(state) {
+      console.log("computing is dirty for", filePath);
+      return (
+        state[`var://file/${filePath}?content`] !==
+        state[`var://file/${filePath}?original`]
+      );
+    },
+    urls: [`var://file/${filePath}?content`, `var://file/${filePath}?original`],
+  });
 
   return (
     <li
@@ -17,7 +27,8 @@ export default function NavComponentLi({ storyName, description, component }) {
       onClick={() => setActiveFilepath(filePath)}
     >
       <a className="MainLayout_nav_li_ul_li_a" title={description}>
-        <RadixIconsBookmark className="MainLayout_nav_svg" /> {storyName}
+        <RadixIconsBookmark className="MainLayout_nav_svg" /> {storyName}{" "}
+        {isDirty ? "*" : ""}
       </a>
     </li>
   );
