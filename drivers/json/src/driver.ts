@@ -3,6 +3,7 @@ import adminーdeletePageConfig from "./admin/deletePageConfig.export";
 import adminーdeleteStoryConfig from "./admin/deleteStoryConfig.export";
 import adminーgetAllPages from "./admin/getAllPages.export";
 import adminーgetAllStories from "./admin/getAllStories.export";
+import adminーgetComponentStory from "./admin/getComponentStory.export";
 import adminーnewPageConfig from "./admin/newPageConfig.export";
 import adminーnewStoryConfig from "./admin/newStoryConfig.export";
 import adminーupdatePageConfig from "./admin/updatePageConfig.export";
@@ -17,6 +18,7 @@ const driver = {
   ["admin.deleteStoryConfig"]: adminーdeleteStoryConfig,
   ["admin.getAllPages"]: adminーgetAllPages,
   ["admin.getAllStories"]: adminーgetAllStories,
+  ["admin.getComponentStory"]: adminーgetComponentStory,
   ["admin.newPageConfig"]: adminーnewPageConfig,
   ["admin.newStoryConfig"]: adminーnewStoryConfig,
   ["admin.updatePageConfig"]: adminーupdatePageConfig,
@@ -34,6 +36,7 @@ driver["admin"]["deletePageConfig"] = adminーdeletePageConfig;
 driver["admin"]["deleteStoryConfig"] = adminーdeleteStoryConfig;
 driver["admin"]["getAllPages"] = adminーgetAllPages;
 driver["admin"]["getAllStories"] = adminーgetAllStories;
+driver["admin"]["getComponentStory"] = adminーgetComponentStory;
 driver["admin"]["newPageConfig"] = adminーnewPageConfig;
 driver["admin"]["newStoryConfig"] = adminーnewStoryConfig;
 driver["admin"]["updatePageConfig"] = adminーupdatePageConfig;

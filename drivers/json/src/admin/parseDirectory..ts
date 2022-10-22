@@ -31,10 +31,11 @@ export default async function parseDirectory() {
       continue;
     }
 
-    const { component, story, ...config } = storyConfig;
+    const component = storyConfig.itemConfig.component;
+    const story = storyConfig.story;
 
     Components[component] ??= {};
-    Components[component][story] = config;
+    Components[component][story] = storyConfig;
   }
   resolve();
 }

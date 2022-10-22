@@ -1,10 +1,11 @@
 {
-  "component": "Header",
-  "story": "helloguys",
-  "description": "A hello guys story",
+  "story": "With Home",
+  "description": "Create the first story for the component Item",
   "itemConfig": {
+    "component": "Header",
     "props": {
-      "text": "helloguys"
+      "home": true,
+      "text": "this has the home icon, yeah baby"
     }
   }
 }

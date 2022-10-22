@@ -41,6 +41,10 @@ export default function Monaco() {
     monaco?.editor?.getModels?.()?.[0]?.setValue?.(fileContent);
   }, [fileContent, monaco?.editor]);
 
+  if (!filePath) {
+    return null;
+  }
+
   return (
     <Editor
       theme="vs-dark"
@@ -54,7 +58,7 @@ export default function Monaco() {
           enabled: false,
         },
       }}
-      defaultLanguage="JSON"
+      defaultLanguage="json"
       onChange={onChange}
     />
   );

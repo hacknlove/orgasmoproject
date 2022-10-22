@@ -24,7 +24,7 @@ function IsDirtyButtons({ filePath }) {
       tabsResource.value.filter((path) => path !== filePath)
     );
     if (activeFilepathResource.value === filePath) {
-      activeFilepathResource.setValue(null);
+      activeFilepathResource.setValue(tabsResource.value[0]);
     }
   }
 
