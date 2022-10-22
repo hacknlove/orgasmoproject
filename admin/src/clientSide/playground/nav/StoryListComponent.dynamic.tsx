@@ -10,7 +10,6 @@ interface StoryListComponentParams {
   stories: Record<string, any>;
 }
 
-
 export default function StoryListComponent({
   component,
   stories,
@@ -33,7 +32,12 @@ export default function StoryListComponent({
       </summary>
       <ul className="MainLayout_nav_li_ul">
         {Object.entries(stories).map(([name, { description }]) => (
-          <NavComponentLi key={name} storyName={name} description={description} component={component} />
+          <NavComponentLi
+            key={name}
+            storyName={name}
+            description={description}
+            component={component}
+          />
         ))}
       </ul>
     </details>

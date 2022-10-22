@@ -81,6 +81,10 @@ export function useDynamicValue(
 
   const [value, set] = useState(resource.value);
 
+  useEffect(() => {
+    set(resource.value);
+  }, [resource]);
+
   useDynamicChange(resource.url, (value) => set(value), null);
 
   const setValue = useCallback(
@@ -113,6 +117,6 @@ export function useDynamicChange(url, callback, options?) {
   );
 }
 
-export function useDynamicState() {
-  return useContext(ContextState);
+export function useDynamicState(): SharedState {
+  return useContext(ContextState) as SharedState;
 }

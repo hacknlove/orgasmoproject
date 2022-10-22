@@ -4,7 +4,9 @@ import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 const filePath = "/site/config";
 
 export default function GlobalSettingsItem() {
-  const [activeFilepath, setActiveFilepath] = useDynamicValue("var://activeFilepath_o");
+  const [activeFilepath, setActiveFilepath] = useDynamicValue(
+    "var://activeFilepath_o"
+  );
 
   const selected = activeFilepath == filePath;
 
