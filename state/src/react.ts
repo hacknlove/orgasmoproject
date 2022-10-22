@@ -104,7 +104,7 @@ export function useDynamicResource(url: string, options?: any) {
   return sharedState.getResource(url, options);
 }
 
-export function useDynamicChange(url, callback, options) {
+export function useDynamicChange(url, callback, options?) {
   const sharedState: Record<string, any> = useContext(ContextState);
 
   useEffect(
