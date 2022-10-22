@@ -24,7 +24,7 @@ export interface PageParameters {
   meta: Record<string, any>;
 }
 
-export type OrgasmoPage = { (PageParameters): JSX.Element };
+export type OrgasmoPage = { (PageParameters): JSX.Element | null };
 
 export interface RowProps {
   type: string;

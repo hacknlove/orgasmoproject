@@ -21,6 +21,7 @@ export default function storySSPsFactory({ driver, Components, layout }) {
 
     const response = {
       props: {
+        clientSideOnly: true,
         layout: {
           name: "PlayGroundMainLayout_o",
           meta: [["title", "Orgasmo's playground"]],

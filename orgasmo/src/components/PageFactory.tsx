@@ -15,6 +15,8 @@ export default function PageFactory({
   DComponent,
 }: PageFactoryParameters): OrgasmoPage {
   const Page = (props) => {
+    const [clientSideOnly, setClientSideOnly] = useState(props.clientSideOnly);
+
     const [initialState, setInitialState] = useState(() => {
       const response = {
         "var://layout": props.layout,
@@ -61,6 +63,13 @@ export default function PageFactory({
       lastProps.current = props;
       setInitialState(newInitialState);
     }, [props]);
+
+    useEffect(() => {
+      setClientSideOnly(false);
+    }, [setClientSideOnly]);
+    if (clientSideOnly) {
+      return null;
+    }
 
     return (
       <DynamicStateProvider

@@ -197,6 +197,10 @@
     "getCookies": {
       "description": "Driver method that overrides the pageConfig.cookies",
       "type": "string"
+    },
+    "clientSideOnly": {
+      "type": "boolean",
+      "description": "Prevents SSR"
     }
   },
   "oneOf": [
