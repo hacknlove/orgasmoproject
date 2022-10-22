@@ -78,7 +78,7 @@ export default function PagePlayground_o({ pageConfig }) {
     <>
       <div className="tabs_o">
         <button
-          className={`øtab ${file === "pageConfig" ? "øactive" : ""}`}
+          className={`tab_o ${file === "pageConfig" ? "active_o" : ""}`}
           onClick={() => setFile("pageConfig")}
         >
           Config

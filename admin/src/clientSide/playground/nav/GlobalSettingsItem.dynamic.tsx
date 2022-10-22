@@ -1,14 +1,15 @@
-import Link from "next/link";
 import MaterialSymbolsSettingsRounded from "../../icons/MaterialSymbolsSettingsRounded";
-import { useRouter } from "next/router";
+import { useDynamicValue } from "@orgasmo/dynamicstate/react";
+
+const filePath = "/site/config";
 
 export default function GlobalSettingsItem() {
-  const router = useRouter();
+  const [activeFilepath, setActiveFilepath] = useDynamicValue("var://activeFilepath_o");
 
-  const selected = !router.query.component && !router.query.path;
+  const selected = activeFilepath == filePath;
 
   return (
-    <Link href="/playground">
+    <div onClick={() => setActiveFilepath(filePath)}>
       <a
         id="MainLayout_nav_home_o"
         className={selected ? "MainLayout_nav_active_o" : ""}
@@ -16,6 +17,6 @@ export default function GlobalSettingsItem() {
         <MaterialSymbolsSettingsRounded className="MainLayout_nav_svg" />{" "}
         <span>Global settings</span>
       </a>
-    </Link>
+    </div>
   );
 }
