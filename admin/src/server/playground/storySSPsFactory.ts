@@ -28,23 +28,50 @@ export default function storySSPsFactory({ driver, Components, layout }) {
           ...layout,
         },
         areas: {
-          storiesList_o: {
-            items: Object.entries(stories).map(([component, stories]) => ({
-              type: "StoryListComponent",
-              props: {
-                component,
-                stories,
+          MainLayout_nav_o: {
+            items: [
+              {
+                type: "GlobalSettingsItem",
               },
-            })),
+              {
+                type: "h2",
+                props: {
+                  className: "MainLayout_nav_list_title_o",
+                  children: ["Components"],
+                },
+              },
+              ...Object.entries(stories).map(([component, stories]) => ({
+                type: "StoryListComponent",
+                props: {
+                  component,
+                  stories,
+                },
+              })),
+              {
+                type: "h2",
+                props: {
+                  className: "MainLayout_nav_list_title_o",
+                  children: ["Pages"],
+                },
+              },
+              ...Object.entries(pages).map(([path, stories]) => ({
+                type: "PageListComponent",
+                props: {
+                  path,
+                  stories,
+                },
+              })),
+            ],
           },
-          pagesList_o: {
-            items: Object.entries(pages).map(([path, stories]) => ({
-              type: "PageListComponent",
-              props: {
-                path,
-                stories,
+          PlaygroundTitle_o: {
+            items: [
+              {
+                type: "h1",
+                props: {
+                  children: ["Orgasmo's Playground"],
+                },
               },
-            })),
+            ],
           },
         } as Record<string, any>,
       },

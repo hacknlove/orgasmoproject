@@ -105,14 +105,14 @@ export default function PlaygroundEditorComponent_o({
     <>
       <div className="tabs_o">
         <button
-          className={`øtab ${file === "description" ? "øactive" : ""}`}
+          className={`tab_o ${file === "description" ? "active_o" : ""}`}
           onClick={() => setFile("description")}
         >
           Description
           <IsDirtyButtons save={save} file={files.current.description} />
         </button>
         <button
-          className={`øtab ${file === "itemConfig" ? "øactive" : ""}`}
+          className={`tab_o ${file === "itemConfig" ? "active_o" : ""}`}
           onClick={() => setFile("itemConfig")}
         >
           Config
