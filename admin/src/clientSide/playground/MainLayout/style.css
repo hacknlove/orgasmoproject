@@ -23,7 +23,6 @@
 }
 #PlaygroundEditor_o {
   grid-area: playground;
-  padding: 1.5rem;
   background: #1e1e1e;
   border-top: 1px solid #0000000d;
   --jse-theme-color: #026eb1;

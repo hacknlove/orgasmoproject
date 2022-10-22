@@ -1,5 +1,8 @@
 import Area from "@orgasmo/orgasmo/Area";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
+import Editor from "../Editor/Editor";
+import Render from "../Render/Render";
+import Title from "../Title/Title";
 
 export default function PlayGroundMainLayout_o() {
   return (
@@ -9,7 +12,9 @@ export default function PlayGroundMainLayout_o() {
         <nav id="MainLayout_nav_o">
           <Area name="MainLayout_nav_o" />
         </nav>
-        <Area name="mainArea_o" />
+        <Title />
+        <Render />
+        <Editor />
       </div>
     </>
   );

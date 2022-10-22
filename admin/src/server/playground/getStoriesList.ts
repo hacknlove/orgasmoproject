@@ -11,9 +11,6 @@ export default async function getStoriesList({ driver, Components }) {
     if (!stories[key]) {
       stories[key] = {
         empty: {
-          itemConfig: {
-            props: {},
-          },
           description: `Create the first story for the component ${key}`,
         },
       };

@@ -1,8 +1,5 @@
 import getStoriesList from "./getStoriesList";
 import getPagesList from "./getPagesList";
-import addComponentAreas from "./addComponentAreas";
-import addPageAreas from "./addPageAreas";
-import addSiteAreas from "./addSiteAreas";
 
 export default function storySSPsFactory({ driver, Components, layout }) {
   return async function getServerSideProps(ctx) {
@@ -55,7 +52,7 @@ export default function storySSPsFactory({ driver, Components, layout }) {
                 },
               },
               ...Object.entries(pages).map(([path, stories]) => ({
-                type: "PageListComponent",
+                type: "PageList_o",
                 props: {
                   path,
                   stories,
@@ -76,10 +73,6 @@ export default function storySSPsFactory({ driver, Components, layout }) {
         } as Record<string, any>,
       },
     };
-
-    addComponentAreas({ areas: response.props.areas, ctx, stories }) ||
-      addPageAreas({ areas: response.props.areas, ctx, pages }) ||
-      addSiteAreas({ areas: response.props.areas });
 
     return response;
   };
