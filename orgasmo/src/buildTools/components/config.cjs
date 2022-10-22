@@ -77,10 +77,13 @@ export const Components = {${useExternalPackages(externalPackages)}${useImports(
 
 export default function DComponent ({ type, props }) {
   const Component = Components[type]
-  if (!Component) {
-    return <div data-component-name={type}/>
+  if (Component) {
+    return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
   }
-  return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
+  if (type.match(/^[a-z]/)) {
+    return React.createElement(type, props)
+  }
+  return <div data-component-name={type} />
 }
 `;
 }
