@@ -8,7 +8,7 @@ export default function PageLAyout_o() {
           <Area name="PlaygroundTitle_o" />
         </div>
       </div>
-      <Area name="pagePlaygroundRender_o" />
+      <Area name="PlaygroundRender_o" />
       <div id="pagePlayground_o">
         <Area name="pagePlayground_o" />
       </div>
