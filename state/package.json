@@ -28,6 +28,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./react": "./dist/react.js",
-    "./plugins/var": "./dist/plugins/var.js"
+    "./plugins/var": "./dist/plugins/var.js",
+    "./plugins/com": "./dist/plugins/com.js"
   }
 }

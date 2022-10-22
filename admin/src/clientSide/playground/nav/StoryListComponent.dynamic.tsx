@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import RadixIconsComponent2 from "../../icons/RadixIconsComponent2";
-import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 import NavComponentLi from "./NavComponentLi";
 
 const opened = {};
