@@ -43,31 +43,6 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  PlaygroundEditorComponent_o: dynamic(
-    () =>
-      import(
-        "./playground/component/editor/PlaygroundEditorComponent_o.dynamic.js"
-      ),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  PlaygroundRenderComponent_o: dynamic(
-    () =>
-      import("./playground/component/PlaygroundRenderComponent_o.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  StoryLayout_o: dynamic(
-    () => import("./playground/component/StoryLayout_o.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
   PlayGroundMainLayout_o: dynamic(
     () => import("./playground/MainLayout/PlayGroundMainLayout_o.dynamic.js"),
     {
@@ -119,13 +94,6 @@ export default {
   ),
   PagePlaygroundRender_o: dynamic(
     () => import("./playground/page/render/PagePlaygroundRender_o.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  SiteLayout_o: dynamic(
-    () => import("./playground/site/SiteLayout_o.dynamic.js"),
     {
       suspense: true,
       loading: undefined,

@@ -1,16 +1,30 @@
 #MainLayout_o {
   display: grid;
-  grid-template-areas: "list title" "list component" "list playground";
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "list horizontalSize title"
+    "list horizontalSize component"
+    "list horizontalSize verticalSize"
+    "list horizontalSize playground";
+  grid-template-columns: auto 5px 1fr;
+  grid-template-rows: auto auto 5px 1fr;
 }
 
 #MainLayout_nav_o {
   grid-area: list;
   background: var(--interface-background_o);
-  border-right: 1px solid var(--border-color-strong_o);
   height: 100vh;
   overflow: auto;
+}
+
+#horizontalSize {
+  grid-area: horizontalSize;
+  border-right: 1px solid var(--border-color-strong_o);
+  cursor: ew-resize;
+}
+
+#verticalSize {
+  grid-area: verticalSize;
+  cursor: ns-resize;
 }
 
 #PlaygroundRender_o {

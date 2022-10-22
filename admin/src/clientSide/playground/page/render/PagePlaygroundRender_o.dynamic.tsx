@@ -56,7 +56,7 @@ export default function PagePlaygroundRender({
   }, [props]);
 
   return (
-    <div id="pagePlaygroundRender_o">
+    <div id="PlaygroundRender_o">
       <iframe
         ref={ref}
         id="pageRender_iframe"

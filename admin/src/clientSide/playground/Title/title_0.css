@@ -1,22 +1,16 @@
 #PlaygroundTitle_o {
   grid-area: title;
-  text-align: center;
   font-family: var(--font-sans_o);
-  letter-spacing: 3.85px;
+  letter-spacing: 1px;
   font-weight: 900;
   color: var(--color_o);
-  font-size: 21px;
   background: var(--interface-background_o);
   border-bottom: 1px solid var(--border-color_o);
-}
-
-#playgroundTitle_h1_o {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: flex-end;
-  position: relative;
   column-gap: 2rem;
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 #PlaygroundDeleteItem_o {

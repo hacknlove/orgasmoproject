@@ -4,7 +4,8 @@ export default function Title() {
   const [activeFilepath] = useDynamicValue("var://activeFilepath_o");
   return (
     <div id="PlaygroundTitle_o">
-      <h1>{activeFilepath || "Orgasmo's Playground"}</h1>
+      <label>{activeFilepath || "Orgasmo's Playground"}</label>
+      <div style={{ flexGrow: 1 }} />
     </div>
   );
 }
