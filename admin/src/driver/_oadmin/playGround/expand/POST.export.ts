@@ -3,10 +3,26 @@ import events from "@orgasmo/orgasmo/events";
 
 type pageParams = Record<string, any>;
 
+function wrapComponent(fileContent) {
+  return {
+    areas: {
+      renderComponent: {
+        items: [fileContent.itemConfig],
+      },
+    },
+  };
+}
+
 export default async function expandPageConfigApi(ctx) {
   ctx.req.user = { roles: [] };
 
-  const { fileContent, pathParams } = ctx.req.body;
+  const { pathParams, filePath } = ctx.req.body;
+
+  let fileContent = ctx.req.body.fileContent;
+
+  if (filePath.startsWith("/component/")) {
+    fileContent = wrapComponent(fileContent);
+  }
 
   let params: pageParams = {
     params: { _o: pathParams?.path?.substr(1)?.split("/") ?? [] },

@@ -18,6 +18,17 @@ export default function Render() {
   });
 
   useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    setSharedState(null);
+    ref.current.contentWindow.location.reload();
+  }, [filePath]);
+
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     function processMessage(message) {
       if (message.data !== "sharedStateReady") {
         return;

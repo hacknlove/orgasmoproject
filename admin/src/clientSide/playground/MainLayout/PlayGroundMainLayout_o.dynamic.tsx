@@ -1,6 +1,7 @@
 import Area from "@orgasmo/orgasmo/Area";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 import Editor from "../Editor/Editor";
+import Tabs from "../Editor/Tabs";
 import Render from "../Render/Render";
 import Title from "../Title/Title";
 import HorizontalSize from "./HorizontalSize";
@@ -18,6 +19,7 @@ export default function PlayGroundMainLayout_o() {
         <Title />
         <Render />
         <VerticalSize />
+        <Tabs />
         <Editor />
       </div>
     </>
