@@ -31,7 +31,7 @@ export default async function parseDirectory() {
       continue;
     }
 
-    const component = storyConfig.itemConfig.component;
+    const component = storyConfig.itemConfig.type;
     const story = storyConfig.story;
 
     Components[component] ??= {};

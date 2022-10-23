@@ -36,7 +36,7 @@ function IsDirtyButtons({ filePath }) {
   }
 
   return (
-    <div className="øTabButtons" onClick={(event) => event.stopPropagation()}>
+    <div className="TabButtons_o" onClick={(event) => event.stopPropagation()}>
       {isFileDirty && <CarbonReset onClick={reset} />}
       {isFileDirty && <CodiconSave onClick={save} />}
       <EpCloseBold onClick={closeFilePath} />

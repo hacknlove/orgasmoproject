@@ -4,9 +4,10 @@
     "list horizontalSize title"
     "list horizontalSize component"
     "list horizontalSize verticalSize"
+    "list horizontalSize tabs"
     "list horizontalSize playground";
   grid-template-columns: auto 5px 1fr;
-  grid-template-rows: auto auto 5px 1fr;
+  grid-template-rows: auto auto 5px auto 1fr;
 }
 
 #MainLayout_nav_o {
@@ -47,6 +48,16 @@
   --jse-menu-color: #fafafa;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+#monaco-wrapper_o {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
 }
 

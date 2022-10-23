@@ -46,20 +46,21 @@ export default function Monaco() {
   }
 
   return (
-    <Editor
-      theme="vs-dark"
-      className="overflow-hidden"
-      options={{
-        padding: {
-          bottom: 0,
-        },
-        scrollBeyondLastLine: false,
-        minimap: {
-          enabled: false,
-        },
-      }}
-      defaultLanguage="json"
-      onChange={onChange}
-    />
+    <div id="monaco-wrapper_o">
+      <Editor
+        theme="vs-dark"
+        options={{
+          padding: {
+            bottom: 50,
+          },
+          scrollBeyondLastLine: false,
+          minimap: {
+            enabled: false,
+          },
+        }}
+        defaultLanguage="json"
+        onChange={onChange}
+      />
+    </div>
   );
 }
