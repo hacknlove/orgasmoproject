@@ -11,7 +11,7 @@ export default function useFile() {
           return;
         }
         let originalContent = sharedState.getValue(
-          `var://file/${filePath}?original`
+          `var://file${filePath}?original`
         );
         if (!originalContent) {
           originalContent = await fetch(`/api/_oadmin/playGround/getFile`, {
@@ -29,18 +29,16 @@ export default function useFile() {
             .then((json) => JSON.stringify(json, null, 4));
 
           sharedState.setValue(
-            `var://file/${filePath}?original`,
+            `var://file${filePath}?original`,
             originalContent
           );
         }
 
-        let fileContent = sharedState.getValue(
-          `var://file/${filePath}?content`
-        );
+        let fileContent = sharedState.getValue(`var://file${filePath}?content`);
         if (!fileContent) {
           fileContent = originalContent;
           sharedState.setValue(
-            `var://file/${filePath}?content`,
+            `var://file${filePath}?content`,
             originalContent
           );
         }

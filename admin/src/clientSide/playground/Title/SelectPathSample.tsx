@@ -38,11 +38,6 @@ function Select({ data, setContent, filePath }) {
       if (!value) {
         return;
       }
-      console.log({
-        value,
-        regexpPath,
-        patternPath: data.patternPath,
-      });
       if (regexpPath.test(value)) {
         data.pathSamples ??= [];
         setContent(
@@ -93,7 +88,7 @@ function Select({ data, setContent, filePath }) {
 
 export default function SelectPathSample({ filePath }) {
   const [content, setContent] = useDynamicValue(
-    `var://file/${filePath}?content`
+    `var://file${filePath}?content`
   );
 
   const data = useMemo(() => {

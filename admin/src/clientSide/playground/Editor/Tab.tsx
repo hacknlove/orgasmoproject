@@ -8,10 +8,10 @@ import CodiconSave from "../../icons/CodiconSave";
 
 function IsDirtyButtons({ filePath }) {
   const [fileContent, setFileContent] = useDynamicValue(
-    `var://file/${filePath}?content`
+    `var://file${filePath}?content`
   );
   const [originalContent, setOriginalContent] = useDynamicValue(
-    `var://file/${filePath}?original`
+    `var://file${filePath}?original`
   );
 
   const isFileDirty = fileContent !== originalContent;

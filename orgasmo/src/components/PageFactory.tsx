@@ -7,12 +7,7 @@ import ComPlugin from "@orgasmo/dynamicstate/plugins/com";
 
 const DynamicStatePlugins = [ComPlugin];
 
-let testContextRef;
-
-if (process.env.NODE_ENV === "development" && typeof window === "object") {
-  testContextRef = {};
-  (window as any).dynamicState_o = testContextRef;
-}
+let exposeSharedState = process.env.NODE_ENV === "development";
 
 export default function PageFactory({
   DComponent,
@@ -39,10 +34,7 @@ export default function PageFactory({
 
     const layout = initialState["var://layout"];
 
-    if (props.exposeSharedState && typeof window === "object") {
-      testContextRef = {};
-      (window as any).dynamicState_o = testContextRef;
-    }
+    exposeSharedState ||= props.exposeSharedState;
 
     useEffect(() => {
       if (lastProps.current === props) {
@@ -77,7 +69,9 @@ export default function PageFactory({
     return (
       <DynamicStateProvider
         initialState={initialState}
-        testContextRef={testContextRef}
+        testContextRef={
+          exposeSharedState && typeof window === "object" && window
+        }
         plugins={DynamicStatePlugins}
       >
         {layout?.meta && <Meta meta={layout?.meta} />}
