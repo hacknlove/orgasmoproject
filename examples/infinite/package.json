@@ -1,6 +1,6 @@
 {
   "name": "infinite",
-  "version": "1.11.9",
+  "version": "1.11.10",
   "private": true,
   "scripts": {
     "dev": "next dev",
