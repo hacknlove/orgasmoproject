@@ -38,7 +38,7 @@ export default function PagePlaygroundRender({
       if (message.data !== "sharedStateReady") {
         return;
       }
-      const current = ref.current.contentWindow.dynamicState_o.sharedState;
+      const current = ref.current.contentWindow.sharedState;
       sharedState.current = current;
       setTimeout(() => {
         setValues({ props, sharedState: current });

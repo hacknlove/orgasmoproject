@@ -13,9 +13,7 @@ export default function SaveAsInput({
 
   const ref = useRef() as any;
 
-  function onSubmit(event) {
-    console.log(event);
-    console.log(ref.current.value);
+  function onSubmit() {
     resolve(ref.current.value);
   }
 
@@ -31,7 +29,6 @@ export default function SaveAsInput({
           <EpCloseBold
             className="modal_o_close"
             onClick={() => {
-              console.log("puto");
               resolve();
             }}
           />

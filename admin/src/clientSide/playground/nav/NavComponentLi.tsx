@@ -8,14 +8,14 @@ export default function NavComponentLi({ storyName, description, component }) {
   );
   const selected = activeFilepath == filePath;
 
-  const [isDirty] = useDynamicValue(`com://file/${filePath}?isDirty`, {
+  const [isDirty] = useDynamicValue(`com://file${filePath}?isDirty`, {
     computation(state) {
       return (
-        state[`var://file/${filePath}?content`] !==
-        state[`var://file/${filePath}?original`]
+        state[`var://file${filePath}?content`] !==
+        state[`var://file${filePath}?original`]
       );
     },
-    urls: [`var://file/${filePath}?content`, `var://file/${filePath}?original`],
+    urls: [`var://file${filePath}?content`, `var://file${filePath}?original`],
   });
 
   return (

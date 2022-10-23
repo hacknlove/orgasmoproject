@@ -8,7 +8,7 @@ export default function Monaco() {
 
   const [filePath] = useDynamicValue("var://activeFilepath_o");
   const [fileContent, setFileContent] = useDynamicValue(
-    `var://file/${filePath}?content`
+    `var://file${filePath}?content`
   );
 
   const monaco = useMonaco();
