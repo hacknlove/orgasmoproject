@@ -10,7 +10,6 @@ export default function NavComponentLi({ storyName, description, component }) {
 
   const [isDirty] = useDynamicValue(`com://file/${filePath}?isDirty`, {
     computation(state) {
-      console.log("computing is dirty for", filePath);
       return (
         state[`var://file/${filePath}?content`] !==
         state[`var://file/${filePath}?original`]

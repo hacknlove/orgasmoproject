@@ -4,6 +4,10 @@ import { useRef } from "react";
 export default function Render() {
   const ref = useRef() as any;
   const [renderProps] = useDynamicValue("var://renderPropsResource");
+  const [activeFilepath] = useDynamicValue("var://activeFilepath_o");
+  if (!activeFilepath || activeFilepath === "/site/config") {
+    return null;
+  }
 
   return (
     <div id="PlaygroundRender_o">

@@ -11,23 +11,25 @@ export default function HorizontalSize() {
 
     function mouseDown() {
       window.addEventListener("mousemove", mouseMove);
-      (
-        document.getElementById("pageRender_iframe") as HTMLIFrameElement
-      ).style.pointerEvents = "none";
+      window.addEventListener("mouseup", mouseUp);
+
+      const iframe = document.getElementById("pageRender_iframe");
+      if (iframe) {
+        iframe.style.pointerEvents = "none";
+      }
     }
     function mouseUp() {
-      console.log("mouse UP");
       window.removeEventListener("mousemove", mouseMove);
-      (
-        document.getElementById("pageRender_iframe") as HTMLIFrameElement
-      ).style.pointerEvents = "";
+      const iframe = document.getElementById("pageRender_iframe");
+      if (iframe) {
+        iframe.style.pointerEvents = "";
+      }
     }
     function mouseMove(event) {
       nav.style.width = `${event.clientX - 2}px`;
     }
 
     ref.current.addEventListener("mousedown", mouseDown);
-    window.addEventListener("mouseup", mouseUp);
 
     return () => {
       window.removeEventListener("mouseout", mouseUp);

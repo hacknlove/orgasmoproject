@@ -2,6 +2,8 @@ import { useReducer } from "react";
 
 const children = new Set();
 
+let i = 0;
+
 export default function asyncit(Component, props = {}, area) {
   let resolve, reject;
   const promise = new Promise((res, rej) => {
@@ -14,6 +16,7 @@ export default function asyncit(Component, props = {}, area) {
   promise.props = props;
   promise.area = area;
   promise.Component = Component;
+  promise.key = i++;
 
   children.add(promise);
 
@@ -40,7 +43,7 @@ export function AsyncComponents({ area }) {
         (promise: any) =>
           area === promise.area && (
             <promise.Component
-              key={promise}
+              key={promise.key}
               {...promise.props}
               resolve={promise.resolve}
               reject={promise.reject}

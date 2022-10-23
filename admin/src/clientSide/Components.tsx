@@ -68,39 +68,8 @@ export default {
       loading: undefined,
     }
   ),
-  PagePlayground_o: dynamic(
-    () => import("./playground/page/editor/PagePlayground_o.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  PlaygroundSelectPathSample_o: dynamic(
-    () =>
-      import(
-        "./playground/page/editor/PlaygroundSelectPathSample_o.dynamic.js"
-      ),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  PageLayout_o: dynamic(
-    () => import("./playground/page/PageLayout_o.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
   PagePlaygroundRender_o: dynamic(
     () => import("./playground/page/render/PagePlaygroundRender_o.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
-  PlaygroundDeleteItem_o: dynamic(
-    () => import("./playground/Title/PlaygroundDeleteItem_o.dynamic.js"),
     {
       suspense: true,
       loading: undefined,

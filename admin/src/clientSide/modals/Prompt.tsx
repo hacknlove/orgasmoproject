@@ -7,24 +7,34 @@ export default function SaveAsInput({
   label = "",
   title = "Save as...",
   pattern,
+  ...more
 }) {
-  pattern = pattern?.replace(/^\/(.*)\/$/, "$1");
+  pattern = pattern?.toString()?.replace?.(/^\/(.*)\/[igm]?$/, "$1");
 
   const ref = useRef() as any;
+
+  function onSubmit(event) {
+    console.log(event);
+    console.log(ref.current.value);
+    resolve(ref.current.value);
+  }
+
   return (
-    <div
-      className="modal_o_wrapper"
-      onClick={(event) => {
-        event.stopPropagation();
-        if ((event.target as HTMLDivElement).className === "modal_o_wrapper") {
-          resolve();
-        }
-      }}
-    >
-      <div className="modal_o">
+    <div className="modal_o_wrapper">
+      <form
+        className="modal_o"
+        onSubmit={onSubmit}
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="modal_o_title">
           <span>{title}</span>
-          <EpCloseBold className="modal_o_close" onClick={() => resolve()} />
+          <EpCloseBold
+            className="modal_o_close"
+            onClick={() => {
+              console.log("puto");
+              resolve();
+            }}
+          />
         </div>
         <div className="modal_o_body">
           <div className="modal_o_fields">
@@ -35,25 +45,23 @@ export default function SaveAsInput({
               className="input_o"
               ref={ref}
               defaultValue={defaultValue}
+              {...more}
             />
           </div>
           <div className="modal_o_buttons">
-            <button className="button_o" onClick={() => resolve()}>
+            <button
+              type="button"
+              className="button_o"
+              onClick={() => resolve()}
+            >
               Cancel
             </button>
-            <button
-              className="button_o"
-              onClick={() => {
-                resolve(
-                  ref.current.validity.patternMismatch || ref.current.value
-                );
-              }}
-            >
+            <button type="submit" className="button_o">
               Ok
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

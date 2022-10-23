@@ -1,14 +1,15 @@
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert";
-import { useRouter } from "next/router";
 
-export default function PlaygroundDeleteItem_o({ label, action }) {
-  const router = useRouter();
-
+export default function DeleteItem({ filePath }) {
   async function deleteStory() {
-    const response = await fetch(action, {
-      method: "DELETE",
+    const response = await fetch(`/api/_oadmin/playGround/deleteFile`, {
+      method: "POST",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ filePath }),
     })
       .then((r) => r.json())
       .catch((error) => ({ error }));
@@ -25,8 +26,14 @@ export default function PlaygroundDeleteItem_o({ label, action }) {
       console.error(response.error);
       return asyncit(Alert, response.error, "playgroundModal_o");
     }
+  }
 
-    router.push("/playground");
+  if (!filePath) {
+    return null;
+  }
+
+  if (filePath === "/site/config") {
+    return null;
   }
 
   return (
@@ -35,7 +42,7 @@ export default function PlaygroundDeleteItem_o({ label, action }) {
       className="button_o"
       onClick={deleteStory}
     >
-      {label}
+      Delete
     </button>
   );
 }

@@ -22,6 +22,9 @@
   cursor: ew-resize;
 }
 
+#PlaygroundTitle_o + #verticalSize {
+  display: none;
+}
 #verticalSize {
   grid-area: verticalSize;
   cursor: ns-resize;
@@ -44,6 +47,7 @@
   --jse-menu-color: #fafafa;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 #StoryPlaygroundEditor_o {

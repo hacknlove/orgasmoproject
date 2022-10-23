@@ -7,27 +7,30 @@ export default function VerticalSize() {
     if (!ref.current) {
       return;
     }
-    const iframe = ref.current.previousElementSibling;
 
     function mouseDown() {
+      if (!document.getElementById("pageRender_iframe")) {
+        return;
+      }
       window.addEventListener("mousemove", mouseMove);
+      window.addEventListener("mouseup", mouseUp);
       (
         document.getElementById("pageRender_iframe") as HTMLIFrameElement
       ).style.pointerEvents = "none";
     }
     function mouseUp() {
-      console.log("mouse UP");
       window.removeEventListener("mousemove", mouseMove);
       (
         document.getElementById("pageRender_iframe") as HTMLIFrameElement
       ).style.pointerEvents = "";
     }
     function mouseMove(event) {
-      iframe.style.height = `${event.clientY - 70}px`;
+      const iframe = ref.current.previousElementSibling;
+
+      iframe.style.height = `${event.clientY - 85}px`;
     }
 
     ref.current.addEventListener("mousedown", mouseDown);
-    window.addEventListener("mouseup", mouseUp);
 
     return () => {
       window.removeEventListener("mouseout", mouseUp);
