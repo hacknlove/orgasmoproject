@@ -20,6 +20,9 @@
   border-radius: 5px;
   box-shadow: #1ea7fd 0 0 0 1px inset;
 }
+.modal_o:invalid {
+  box-shadow: #fd1e1e 0 0 0 1px inset;
+}
 .modal_o_title {
   padding: 0.5rem 0.5rem 0.5rem 1rem;
   display: flex;
