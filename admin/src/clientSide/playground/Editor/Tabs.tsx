@@ -6,6 +6,20 @@ import {
 import Tab from "./Tab";
 import { useEffect } from "react";
 
+function FullPath () {
+  const [activeFilepath] = useDynamicValue(
+    "var://activeFilepath_o"
+  );
+
+  if (!activeFilepath) {
+    return null
+  }
+
+  return <div className="monaco-editor" style={{ width: '100%', background: '#1e1e1e', color:'#ddd', padding: '0.5rem 1rem', fontSize: '90%' }}>{activeFilepath.substr(1).replace(/\//g, ' › ')}</div>
+
+
+}
+
 export default function Tabs() {
   const [tabs, setTabs] = useDynamicValue("var://tabs_o");
   const dynamicstate = useDynamicState() as any;
@@ -48,11 +62,14 @@ export default function Tabs() {
   }, []);
 
   return (
-    <div className="tabs_o">
-      {tabs?.map((filePath) => (
-        <Tab key={filePath} filePath={filePath} />
-      ))}
-      <div style={{ flexGrow: 1 }}></div>
-    </div>
+    <>
+      <div className="tabs_o">
+        {tabs?.map((filePath) => (
+          <Tab key={filePath} filePath={filePath} />
+        ))}
+        <div style={{ flexGrow: 1 }}></div>
+        <FullPath />
+      </div>
+    </>
   );
 }
