@@ -1,7 +1,7 @@
 import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 import RadixIconsBookmark from "../../icons/RadixIconsBookmark";
 
-export default function NavComponentLi({ storyName, description, component }) {
+export default function StoryLi({ storyName, description, component }) {
   const filePath = `/component/${component}/${storyName}`;
   const [activeFilepath, setActiveFilepath] = useDynamicValue(
     "var://activeFilepath_o"
