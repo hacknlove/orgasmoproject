@@ -4,7 +4,6 @@ const storyConfigsCollectionName =
   (process.env.ORGASMO_MONGO_STORIES_COLLECTION as string) ?? "storyConfigs";
 
 export default async function getComponentStory({ component, story }) {
-  console.log({ component, story });
   await mongoProxy.connect();
 
   return mongoProxy[storyConfigsCollectionName].findOne({

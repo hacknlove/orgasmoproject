@@ -13,7 +13,8 @@ export default function useFile() {
         let originalContent = sharedState.getValue(
           `var://file${filePath}?original`
         );
-        if (!originalContent) {
+        const force = originalContent === ' "reset" ';
+        if (!originalContent || force) {
           originalContent = await fetch(`/api/_oadmin/playGround/getFile`, {
             method: "POST",
             headers: {
@@ -35,7 +36,7 @@ export default function useFile() {
         }
 
         let fileContent = sharedState.getValue(`var://file${filePath}?content`);
-        if (!fileContent) {
+        if (!fileContent || force) {
           fileContent = originalContent;
           sharedState.setValue(
             `var://file${filePath}?content`,

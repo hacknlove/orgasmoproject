@@ -10,6 +10,4 @@ export default async function deleteStoryConfig(ctx, { component, story }) {
     component,
     story,
   });
-
-  return { ok: true };
 }

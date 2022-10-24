@@ -8,11 +8,11 @@ import CodiconSave from "../../icons/CodiconSave";
 import IconoirEmptyPage from "../../icons/IconoirEmptyPage";
 import RadixIconsBookmark from "../../icons/RadixIconsBookmark";
 import MaterialSymbolsSettingsRounded from "../../icons/MaterialSymbolsSettingsRounded";
+import asyncit from "@orgasmo/orgasmo/AsyncComponents";
+import Alert from "../../modals/Alert";
 
 function TabButtons({ filePath }) {
-  const [fileContent, setFileContent] = useDynamicValue(
-    `var://file${filePath}?content`
-  );
+  const [fileContent] = useDynamicValue(`var://file${filePath}?content`);
   const [originalContent, setOriginalContent] = useDynamicValue(
     `var://file${filePath}?original`
   );
@@ -32,10 +32,30 @@ function TabButtons({ filePath }) {
   }
 
   function reset() {
-    setFileContent(originalContent);
+    setOriginalContent(' "reset" ');
+    activeFilepathResource.triggerSubscriptions();
   }
-  function save() {
-    setOriginalContent(fileContent);
+  async function save() {
+    const response = await fetch("/api/_oadmin/playGround/saveFile", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: fileContent,
+    })
+      .then((r) => r.json())
+      .catch((error) => ({ error }));
+
+    if (response.error) {
+      return asyncit(Alert, response.error, "playgroundModal_o");
+    }
+
+    if (activeFilepathResource.value === response.filePath) {
+      setOriginalContent(fileContent);
+    } else {
+      activeFilepathResource.setValue(response.filePath);
+    }
   }
 
   return (

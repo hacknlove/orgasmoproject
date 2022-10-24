@@ -9,6 +9,4 @@ export default async function deletePageConfig(ctx, pageId) {
   await mongoProxy[pageConfigsCollectionName].deleteOne({
     pageId,
   });
-
-  return { ok: true };
 }

@@ -3,19 +3,18 @@ import mongoProxy from "../mongoProxy";
 const storyConfigsCollectionName =
   (process.env.ORGASMO_MONGO_STORIES_COLLECTION as string) ?? "storyConfigs";
 
-export default async function upsertStoryConfig(
-  ctx,
-  { component, story, ...$set }
-) {
+export default async function upsertStoryConfig(ctx, storyConfig) {
   await mongoProxy.connect();
+
+  delete storyConfig._id;
 
   await mongoProxy[storyConfigsCollectionName].updateOne(
     {
-      component,
-      story,
+      "itemConfig.type": storyConfig.itemConfig.type,
+      story: storyConfig.story,
     },
     {
-      $set,
+      $set: storyConfig,
     },
     {
       upsert: true,
