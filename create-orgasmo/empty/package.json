@@ -1,6 +1,6 @@
 {
   "name": "empty-orgasmo",
-  "version": "1.11.11",
+  "version": "1.11.12",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "next": "12.2.5",
-    "@orgasmo/orgasmo": "1.11.11",
-    "@orgasmo/json": "1.11.11",
+    "@orgasmo/orgasmo": "1.11.12",
+    "@orgasmo/json": "1.11.12",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
