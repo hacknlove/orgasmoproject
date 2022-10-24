@@ -1,0 +1,68 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.withCleanJson = exports.cleanAwaitJson = void 0;
+function cleanJson(obj) {
+    if (obj === null || obj === undefined) {
+        return null;
+    }
+    if (Array.isArray(obj)) {
+        return obj.map(cleanJson);
+    }
+    if (obj instanceof Date) {
+        return obj.toISOString();
+    }
+    if (obj.toHexString instanceof Function) {
+        return obj.toHexString();
+    }
+    if (typeof obj === "object") {
+        for (const key in obj) {
+            obj[key] = cleanJson(obj[key]);
+        }
+    }
+    return obj;
+}
+exports.default = cleanJson;
+async function cleanAwaitJson(obj) {
+    if (obj === null || obj === undefined) {
+        return null;
+    }
+    if (obj instanceof Promise) {
+        return cleanAwaitJson(await obj);
+    }
+    if (Array.isArray(obj)) {
+        return Promise.all(obj.map((o) => cleanAwaitJson(o)));
+    }
+    if (obj instanceof Date) {
+        return obj.toISOString();
+    }
+    if (obj.toHexString instanceof Function) {
+        return obj.toHexString();
+    }
+    if (typeof obj === "object") {
+        for (const key in obj) {
+            if (obj[key] === undefined) {
+                delete obj[key];
+                continue;
+            }
+            obj[key] = await cleanAwaitJson(obj[key]);
+        }
+    }
+    return obj;
+}
+exports.cleanAwaitJson = cleanAwaitJson;
+function withCleanJson(callback) {
+    return async function getServerSideProps(ctx) {
+        ctx.waitFor = [];
+        const response = await callback(ctx);
+        if (response.props && !ctx.jsonCleaned) {
+            response.props = await cleanAwaitJson(response.props);
+            ctx.jsonCleaned = true;
+        }
+        if (ctx.waitFor.length) {
+            await Promise.all(ctx.waitFor);
+        }
+        return response;
+    };
+}
+exports.withCleanJson = withCleanJson;
+//# sourceMappingURL=cleanJson.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"getPageConfigFromId.js","sourceRoot":"","sources":["../../src/page/getPageConfigFromId.ts"],"names":[],"mappings":";;AAAA,8CAAuC;AAEvC,MAAM,yBAAyB,GAC5B,OAAO,CAAC,GAAG,CAAC,8BAAyC,IAAI,aAAa,CAAC;AAE3D,KAAK,UAAU,mBAAmB,CAAC,MAAM;IACtD,OAAO,oBAAU,CAAC,yBAAyB,CAAC,CAAC,OAAO,CAAC,EAAE,MAAM,EAAE,CAAC,CAAC;AACnE,CAAC;AAFD,sCAEC"}

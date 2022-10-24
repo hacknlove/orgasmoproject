@@ -1,0 +1,210 @@
+{
+    "title": "pageConfig",
+    "description": "Tells orgasmo how to render a page",
+    "type": "object",
+    "properties": {
+        "pageId": {
+            "description": "This id must identify uniquely the pageConfig whithin the data source",
+            "type": "string"
+        },
+        "exactPath": {
+            "description": "Use it for path exact matching. The page config must have or exactPath or patternPath, but not both or none",
+            "type": "string"
+        },
+        "patternPath": {
+            "description": "Use it for path pattern matching (see path-to-regexp). The page config must have or exactPath or patternPath, but not both or none",
+            "type": "string"
+        },
+        "notes": {
+            "type": "string"
+        },
+        "ration": {
+            "description": "Used for progressive delivery and AB testing, Changes the probability of a pageConfig to be shown.",
+            "type": "number",
+            "minimum": 0
+        },
+        "layout": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The name of the dynamic component that will render the page",
+                    "type": "string"
+                },
+                "meta": {
+                    "description": "The html meta properties, (including title)",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "array",
+                            "contains": {
+                                "type": "string"
+                            },
+                            "minItems": 2,
+                            "maxItems": 3
+                        }
+                    ]
+                },
+                "getMeta": {
+                    "description": "Driver method to override the meta",
+                    "type": "string"
+                },
+                "cssVars": {
+                    "description": "css variables",
+                    "type": "object"
+                },
+                "getCssVars": {
+                    "description": "Driver method to override the cssVars",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "areas": {
+            "description": "The content blocks",
+            "type": "object",
+            "patternProperties": {
+                "^[A-Za-z0-9_]+$": {
+                    "description": "one content block",
+                    "type": "object",
+                    "properties": {
+                        "mode": {
+                            "description": "The rendering mode: \"static\" means that all the items will be SSR-ed. \"grow\" means that only the first ssrSize items will be SSR-ed, and then more items will be mounted as the user scrolls, \"bubble\" means that only the ssrSize will be SSR-ed and as the user scrolls items will be mounted and unmounted to keep in the DOM only those in the viewport.",
+                            "type": "string",
+                            "enum": ["static", "bubble", "grow"]
+                        },
+                        "ssrSize": {
+                            "description": "The amount of items server-side rendered (SSR-ed)",
+                            "type": "integer"
+                        },
+                        "threshold": {
+                            "description": "The extra pixels above and under the viewport to trigger the mounting and unmounting of components.",
+                            "type": "integer"
+                        },
+                        "items": {
+                            "description": "The list of items to be mounted in the block.",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "props": {
+                                            "type": "object"
+                                        },
+                                        "getProps": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        "getItem": {
+                            "description": "The driver method for getting extra items. It's not for overriding the items. If the array has 10 items, this method is used to get the item 11th, 12th, etc.",
+                            "type": "string"
+                        }
+                    },
+                    "anyOf": [
+                        {
+                            "required": ["items"]
+                        },
+                        {
+                            "required": ["getItem"]
+                        }
+                    ],
+                    "additionalProperties": false
+                }
+            }
+        },
+        "cache": {
+            "description": "Controls the cache and revalidation",
+            "type": "object",
+            "properties": {
+                "expiration": {
+                    "description": "Amount of miliseconds that a cache is valid, after that period it will be flushed.",
+                    "type": "integer"
+                },
+                "revalidation": {
+                    "description": "A request after this period will return the cached value, and trigger a revalidation to update the value",
+                    "type": "integer"
+                },
+                "autorefresh": {
+                    "description": "Refresh the cached value when it's time to revalidate",
+                    "type": "boolean"
+                }
+            }
+        },
+        "roles": {
+            "description": "Controls the access based on user roles",
+            "type": "object",
+            "properties": {
+                "cannot": {
+                    "description": "Users with any of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "must": {
+                    "description": "Users without all of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "flowControl": {
+            "description": "Allows redirections and rewrites",
+            "type": "object",
+            "properties": {
+                "rewrite": {
+                    "type": "string"
+                },
+                "redirect": {
+                    "type": "string"
+                }
+            }
+        },
+        "getFlowControl": {
+            "description": "Driver method that overrides the pageConfig.flowControl",
+            "type": "string"
+        },
+        "cookies": {
+            "description": "Cookies to be set when the pageConfig is used",
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "description": "will be used to call nookies.set(ctx, name, value, options). https://github.com/maticzav/nookies",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "value": {
+                            "type": "string"
+                        },
+                        "options": {
+                            "type": "object"
+                        }
+                    },
+                    "required": ["name", "value"],
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "getCookies": {
+            "description": "Driver method that overrides the pageConfig.cookies",
+            "type": "string"
+        }
+    },
+    "oneOf": [
+        {
+            "required": ["exactPath", "pageId"]
+        },
+        {
+            "required": ["patternPath", "pageId"]
+        }
+    ]
+}

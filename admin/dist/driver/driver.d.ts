@@ -1,0 +1,23 @@
+import _oadminーpageーDELETE from "./_oadmin/page/DELETE.export";
+import _oadminーpageーexpandーPOST from "./_oadmin/page/expand/POST.export";
+import _oadminーpageーPOST from "./_oadmin/page/POST.export";
+import _oadminーpageーPUT from "./_oadmin/page/PUT.export";
+import _oadminーplayーroundーdeleteーileーPOST from "./_oadmin/playGround/deleteFile/POST.export";
+import _oadminーplayーroundーexpandーPOST from "./_oadmin/playGround/expand/POST.export";
+import _oadminーplayーroundーgetーileーPOST from "./_oadmin/playGround/getFile/POST.export";
+import _oadminーplayーroundーsaveーileーPOST from "./_oadmin/playGround/saveFile/POST.export";
+import _oadminーstoryーDELETE from "./_oadmin/story/DELETE.export";
+import _oadminーstoryーPOST from "./_oadmin/story/POST.export";
+declare const driver: {
+    "_oadmin.page.DELETE": typeof _oadminーpageーDELETE;
+    "_oadmin.page.expand.POST": typeof _oadminーpageーexpandーPOST;
+    "_oadmin.page.POST": typeof _oadminーpageーPOST;
+    "_oadmin.page.PUT": typeof _oadminーpageーPUT;
+    "_oadmin.playGround.deleteFile.POST": typeof _oadminーplayーroundーdeleteーileーPOST;
+    "_oadmin.playGround.expand.POST": typeof _oadminーplayーroundーexpandーPOST;
+    "_oadmin.playGround.getFile.POST": typeof _oadminーplayーroundーgetーileーPOST;
+    "_oadmin.playGround.saveFile.POST": typeof _oadminーplayーroundーsaveーileーPOST;
+    "_oadmin.story.DELETE": typeof _oadminーstoryーDELETE;
+    "_oadmin.story.POST": typeof _oadminーstoryーPOST;
+};
+export default driver;

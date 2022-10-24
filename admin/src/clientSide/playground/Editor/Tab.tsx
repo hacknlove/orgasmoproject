@@ -1,5 +1,6 @@
 import {
   useDynamicResource,
+  useDynamicState,
   useDynamicValue,
 } from "@orgasmo/dynamicstate/react";
 import EpCloseBold from "../../icons/EpCloseBold";
@@ -12,6 +13,7 @@ import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert";
 
 function TabButtons({ filePath }) {
+  const dynamicState = useDynamicState();
   const [fileContent] = useDynamicValue(`var://file${filePath}?content`);
   const [originalContent, setOriginalContent] = useDynamicValue(
     `var://file${filePath}?original`
@@ -54,6 +56,10 @@ function TabButtons({ filePath }) {
     if (activeFilepathResource.value === response.filePath) {
       setOriginalContent(fileContent);
     } else {
+      dynamicState.setValue(
+        `var://file${response.filePath}?original`,
+        fileContent
+      );
       activeFilepathResource.setValue(response.filePath);
     }
   }

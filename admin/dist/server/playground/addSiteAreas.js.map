@@ -1,0 +1,1 @@
+{"version":3,"file":"addSiteAreas.js","sourceRoot":"","sources":["../../../src/server/playground/addSiteAreas.ts"],"names":[],"mappings":";;AAAA,SAAwB,YAAY,CAAC,EAAE,KAAK,EAAE;IAC5C,KAAK,CAAC,UAAU,GAAG;QACjB,KAAK,EAAE;YACL;gBACE,IAAI,EAAE,cAAc;aACrB;SACF;KACF,CAAC;IAEF,OAAO,IAAI,CAAC;AACd,CAAC;AAVD,+BAUC"}

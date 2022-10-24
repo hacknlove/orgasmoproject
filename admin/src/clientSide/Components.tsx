@@ -57,12 +57,15 @@ export default {
       loading: undefined,
     }
   ),
-  PageList_o: dynamic(() => import("./playground/nav/PageList_o.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  StoryListComponent: dynamic(
-    () => import("./playground/nav/StoryListComponent.dynamic.js"),
+  PagesList_o: dynamic(
+    () => import("./playground/nav/PagesList_o.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
+  Storieslist_o: dynamic(
+    () => import("./playground/nav/Storieslist_o.dynamic.js"),
     {
       suspense: true,
       loading: undefined,

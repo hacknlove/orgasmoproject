@@ -31,33 +31,17 @@ export default function storySSPsFactory({ driver, Components, layout }) {
                 type: "GlobalSettingsItem",
               },
               {
-                type: "h2",
+                type: "PagesList_o",
                 props: {
-                  className: "MainLayout_nav_list_title_o",
-                  children: ["Components"],
+                  pages,
                 },
               },
-              ...Object.entries(stories).map(([component, stories]) => ({
-                type: "StoryListComponent",
-                props: {
-                  component,
-                  stories,
-                },
-              })),
               {
-                type: "h2",
+                type: "Storieslist_o",
                 props: {
-                  className: "MainLayout_nav_list_title_o",
-                  children: ["Pages"],
-                },
-              },
-              ...Object.entries(pages).map(([path, stories]) => ({
-                type: "PageList_o",
-                props: {
-                  path,
                   stories,
                 },
-              })),
+              },
             ],
           },
           PlaygroundTitle_o: {

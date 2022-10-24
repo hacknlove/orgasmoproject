@@ -1,0 +1,1 @@
+{"version":3,"file":"deleteSiteConfig.export.js","sourceRoot":"","sources":["../../src/admin/deleteSiteConfig.export.ts"],"names":[],"mappings":";;AAAA,8CAAuC;AAEvC,MAAM,kBAAkB,GACrB,OAAO,CAAC,GAAG,CAAC,6BAAwC,IAAI,MAAM,CAAC;AAEnD,KAAK,UAAU,iBAAiB;IAC7C,MAAM,oBAAU,CAAC,OAAO,EAAE,CAAC;IAE3B,MAAM,oBAAU,CAAC,kBAAkB,CAAC,CAAC,SAAS,CAAC,EAAE,CAAC,CAAC;AACrD,CAAC;AAJD,oCAIC"}

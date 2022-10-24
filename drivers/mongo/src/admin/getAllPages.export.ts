@@ -15,7 +15,7 @@ export default async function getAllPages() {
     const { exactPath, patternPath, pageId } = pageConfig;
     const path = exactPath ?? patternPath;
     pages[path] ??= {};
-    pages[path][pageId] = pageConfig;
+    pages[path][pageId] = pageConfig.description ?? "";
   }
 
   return pages;
