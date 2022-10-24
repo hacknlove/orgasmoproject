@@ -6,18 +6,27 @@ import {
 import Tab from "./Tab";
 import { useEffect } from "react";
 
-function FullPath () {
-  const [activeFilepath] = useDynamicValue(
-    "var://activeFilepath_o"
-  );
+function FullPath() {
+  const [activeFilepath] = useDynamicValue("var://activeFilepath_o");
 
   if (!activeFilepath) {
-    return null
+    return null;
   }
 
-  return <div className="monaco-editor" style={{ width: '100%', background: '#1e1e1e', color:'#ddd', padding: '0.5rem 1rem', fontSize: '90%' }}>{activeFilepath.substr(1).replace(/\//g, ' › ')}</div>
-
-
+  return (
+    <div
+      className="monaco-editor"
+      style={{
+        width: "100%",
+        background: "#1e1e1e",
+        color: "#ddd",
+        padding: "0.5rem 1rem",
+        fontSize: "90%",
+      }}
+    >
+      {activeFilepath.substr(1).replace(/\//g, " › ")}
+    </div>
+  );
 }
 
 export default function Tabs() {

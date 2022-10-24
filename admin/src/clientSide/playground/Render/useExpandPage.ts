@@ -15,7 +15,7 @@ async function updateProps({ filePath, fileContent, pathParams, setProps }) {
   }
 
   if (fileContent.error) {
-    return
+    return;
   }
 
   const props = await fetch("/api/_oadmin/playGround/expand", {
