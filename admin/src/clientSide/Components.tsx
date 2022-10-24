@@ -68,11 +68,4 @@ export default {
       loading: undefined,
     }
   ),
-  PagePlaygroundRender_o: dynamic(
-    () => import("./playground/page/render/PagePlaygroundRender_o.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
 };

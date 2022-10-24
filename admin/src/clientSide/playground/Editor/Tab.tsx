@@ -50,26 +50,23 @@ function TabButtons({ filePath }) {
 const Icons = {
   page: IconoirEmptyPage,
   component: RadixIconsBookmark,
-  site: MaterialSymbolsSettingsRounded
-}
-
+  site: MaterialSymbolsSettingsRounded,
+};
 
 export default function Tab({ filePath }) {
   const [activeFilepath, setActiveFilePath] = useDynamicValue(
     "var://activeFilepath_o"
   );
 
-  console.log(filePath)
-
   const parsed = filePath.match(/^\/(?<type>[^/]+).*?(?<label>[^/]+)$/).groups;
 
-  const Icon = Icons[parsed.type]
+  const Icon = Icons[parsed.type];
 
   return (
     <button
       className={`tab_o ${activeFilepath === filePath ? "active_o" : ""}`}
       onClick={() => setActiveFilePath(filePath)}
-    > 
+    >
       <Icon />
       {parsed.label}
       <TabButtons filePath={filePath} />

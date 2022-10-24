@@ -1,4 +1,3 @@
-
 import adminーdeletePageConfig from "./admin/deletePageConfig.export";
 import adminーdeleteStoryConfig from "./admin/deleteStoryConfig.export";
 import adminーgetAllPages from "./admin/getAllPages.export";
@@ -11,8 +10,6 @@ import adminーupsertStoryConfig from "./admin/upsertStoryConfig.export";
 import pageーgetPageConfig from "./page/getPageConfig.export";
 import pageーgetPageConfigFromId from "./page/getPageConfigFromId.export";
 import siteーgetConfig from "./site/getConfig.export";
-
-
 
 const driver = {
   ["admin.deletePageConfig"]: adminーdeletePageConfig,
@@ -27,7 +24,7 @@ const driver = {
   ["page.getPageConfig"]: pageーgetPageConfig,
   ["page.getPageConfigFromId"]: pageーgetPageConfigFromId,
   ["site.getConfig"]: siteーgetConfig,
-}
+};
 
 driver["admin"] = {};
 driver["admin"]["deletePageConfig"] = adminーdeletePageConfig;

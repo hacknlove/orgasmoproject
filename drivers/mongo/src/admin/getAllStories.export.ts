@@ -11,9 +11,9 @@ export default async function getAllStories() {
     .toArray();
   const stories = {};
 
-  for (const storyConfig  of storiesArray) {
-    const component = storyConfig.itemConfig.type
-    const story = storyConfig.story
+  for (const storyConfig of storiesArray) {
+    const component = storyConfig.itemConfig.type;
+    const story = storyConfig.story;
     stories[component] ??= {};
     stories[component][story] = storyConfig;
   }
