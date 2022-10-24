@@ -1,32 +1,46 @@
+const configs = {
+  site: {
+    method: 'site.getConfig',
+    getParams: () => [],
+  }, 
+  component: {
+    method: 'admin.getComponentStory',
+    getParams: (splitedPath) => [{
+      component: splitedPath[2],
+      story: splitedPath[3],
+    }],
+    getDefault: (splitedPath) => ({
+      component: splitedPath[2],
+      story: splitedPath[3],
+      description: "Create a new story",
+      itemConfig: {
+        type: splitedPath[2],
+        props: {},
+      },
+    })
+  },
+  page: {
+    method: 'page.getPageConfigFromId',
+    getParams: (splitedPath) => [splitedPath[2]]
+  }
+}
+
 export default async function getFile(ctx) {
   const splitedPath = ctx.req.body.filePath.split("/");
 
-  let content = {};
 
-  switch (splitedPath[1]) {
-    case "site":
-      content = await ctx.driver["site.getConfig"]();
-      break;
-    case "component": {
-      content = (await ctx.driver.admin?.getComponentStory({
-        component: splitedPath[2],
-        story: splitedPath[3],
-      })) ?? {
-        component: splitedPath[2],
-        story: splitedPath[3],
-        description: "Create a new story",
-        itemConfig: {
-          type: splitedPath[2],
-          props: {},
-        },
-      };
-      break;
-    }
-    case "page": {
-      content = await ctx.driver.page.getPageConfigFromId(splitedPath[2]);
-      break;
-    }
+  const config = configs[splitedPath[1]]
+
+  if (!ctx.driver[config.method]) {
+    return ctx.res.json({
+      error: {
+        name: 'Missing Method',
+        message: `The driver has no ${config.method} method`
+      }
+    })
   }
+
+  const content = (await ctx.driver[config.method](...config.getParams(splitedPath))) ?? config.getDefault(splitedPath)
 
   ctx.res.json(content);
 }
