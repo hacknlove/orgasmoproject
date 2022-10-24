@@ -6,7 +6,7 @@ import { join } from "path";
 import * as Ajv from "ajv";
 import { watch } from "chokidar";
 
-import * as pageConfigSchema from "./pageConfigSchema.json";
+import * as pageConfigSchema from "../schemas/pageConfigSchema.json";
 
 const glob = promisify(g);
 
