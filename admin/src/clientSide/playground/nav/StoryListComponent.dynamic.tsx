@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import RadixIconsComponent2 from "../../icons/RadixIconsComponent2";
-import NavComponentLi from "./NavComponentLi";
+import NavComponentLi from "./StoryLi";
 
 const opened = {};
 

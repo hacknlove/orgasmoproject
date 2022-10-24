@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useRouter } from "next/router";
 import TeenyiconsFolderOutline from "../../icons/TeenyiconsFolderOutline";
-import PageLi from "./PageListLi";
+import PageLi from "./PageLi";
 
 const opened = {};
 
