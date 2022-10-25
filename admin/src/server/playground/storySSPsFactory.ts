@@ -28,9 +28,6 @@ export default function storySSPsFactory({ driver, Components, layout }) {
           MainLayout_nav_o: {
             items: [
               {
-                type: "GlobalSettingsItem",
-              },
-              {
                 type: "PagesList_o",
                 props: {
                   pages,

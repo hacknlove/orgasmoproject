@@ -2,6 +2,8 @@ import Area from "@orgasmo/orgasmo/Area";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 import Editor from "../Editor/Editor";
 import Tabs from "../Editor/Tabs";
+import GlobalSettingsItem from "../nav/GlobalSettingsItem";
+import NewFile from "../nav/NewFile";
 import Render from "../Render/Render";
 import Title from "../Title/Title";
 import HorizontalSize from "./HorizontalSize";
@@ -13,6 +15,9 @@ export default function PlayGroundMainLayout_o() {
       <AsyncComponents area="playgroundModal_o" />
       <div id="MainLayout_o">
         <nav id="MainLayout_nav_o">
+          <h2 className="MainLayout_nav_list_title_o">Playground</h2>
+          <NewFile />
+          <GlobalSettingsItem />
           <Area name="MainLayout_nav_o" />
         </nav>
         <HorizontalSize />

@@ -1,4 +1,32 @@
-import { cleanAwaitJson } from "@orgasmo/orgasmo/cleanJson";
+const configs = {
+  site: {
+    method: "admin.deleteSiteConfig",
+    getParams: () => [],
+    getResponse: () => ({}),
+  },
+  component: {
+    method: "admin.deleteStoryConfig",
+    getParams: (splitedPath) => [
+      {
+        component: splitedPath[2],
+        story: splitedPath[3],
+      },
+    ],
+    getResponse: (splitedPath) => ({
+      type: "component",
+      component: splitedPath[2],
+      story: splitedPath[3],
+    }),
+  },
+  page: {
+    method: "admin.deletePageConfig",
+    getParams: (splitedPath) => [splitedPath[2]],
+    getResponse: (splitedPath) => ({
+      type: "page",
+      pageId: splitedPath[2],
+    }),
+  },
+};
 
 export default async function deleteFileApi(ctx) {
   const filePath = ctx.req.body.filePath;
@@ -12,24 +40,32 @@ export default async function deleteFileApi(ctx) {
     });
   }
 
-  const type = filePath.match(/^\/(?<type>.*?)\//)?.groups?.type;
+  const splitedPath = ctx.req.body.filePath.split("/");
 
-  let params;
-  let method;
+  const config = configs[splitedPath[1]];
 
-  switch (type) {
-    case "content": {
-      method = "admin.deleteStoryConfig";
-      params = filePath.match(
-        /^\/component\/(?<component>.+)\/(?<story>.+)$/
-      ).groups;
-      break;
-    }
-    case "page": {
-      method = "admin.deletePageConfig";
-      params = filePath.match(/^\/page\/(?<pageId>.+)$/).groups;
-    }
+  if (!ctx.driver[config.method]) {
+    return ctx.res.json({
+      error: {
+        name: "Missing Method",
+        message: `The driver has no ${config.method} method`,
+      },
+    });
   }
 
-  return ctx.res.json(await cleanAwaitJson(ctx.driver[method](ctx, params)));
+  const isDeleted = await ctx.driver[config.method](
+    ctx,
+    ...config.getParams(splitedPath)
+  );
+
+  if (!isDeleted) {
+    return ctx.res.json({
+      error: {
+        name: "Error",
+        message: `File ${filePath} could not be deleted`,
+      },
+    });
+  }
+
+  return ctx.res.json(config.getResponse(splitedPath));
 }

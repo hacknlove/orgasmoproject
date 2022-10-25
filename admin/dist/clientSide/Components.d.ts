@@ -9,7 +9,6 @@ declare const _default: {
     EditMetaTags: React.ComponentType<P>;
     EditPage: React.ComponentType<P>;
     PlayGroundMainLayout_o: React.ComponentType<P>;
-    GlobalSettingsItem: React.ComponentType<P>;
     PagesList_o: React.ComponentType<P>;
     Storieslist_o: React.ComponentType<P>;
 };

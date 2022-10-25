@@ -1,9 +1,13 @@
+import { useDynamicState } from "@orgasmo/dynamicstate/react";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert";
+import updateNavDelete from "./updateNavDelete";
 
 export default function DeleteItem({ filePath }) {
+  const dynamicState = useDynamicState();
+
   async function deleteStory() {
-    const response = await fetch(`/api/_oadmin/playGround/deleteFile`, {
+    const fileDescriptor = await fetch(`/api/_oadmin/playGround/deleteFile`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -14,18 +18,31 @@ export default function DeleteItem({ filePath }) {
       .then((r) => r.json())
       .catch((error) => ({ error }));
 
-    if (typeof response.error === "string") {
+    if (typeof fileDescriptor.error === "string") {
       return asyncit(
         Alert,
-        { title: "Error", text: response.error },
+        { title: "Error", text: fileDescriptor.error },
         "playgroundModal_o"
       );
     }
 
-    if (response.error) {
-      console.error(response.error);
-      return asyncit(Alert, response.error, "playgroundModal_o");
+    if (fileDescriptor.error) {
+      console.error(fileDescriptor.error);
+      return asyncit(Alert, fileDescriptor.error, "playgroundModal_o");
     }
+
+    updateNavDelete({ dynamicState, fileDescriptor });
+    const tabs = dynamicState.getValue("var://tabs_o");
+    dynamicState.setValue(
+      "var://tabs_o",
+      tabs.filter((path) => path !== filePath)
+    );
+
+    if (tabs.length > 1) {
+      dynamicState.setValue("var://activeFilepath_o", tabs[0]);
+    }
+    dynamicState.setValue(`var://file${filePath}?content`, "");
+    dynamicState.setValue(`var://file${filePath}?original`, "");
   }
 
   if (!filePath) {

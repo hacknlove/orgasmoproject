@@ -13,8 +13,7 @@ export default function GlobalSettingsItem() {
   return (
     <div onClick={() => setActiveFilepath(filePath)}>
       <a
-        id="MainLayout_nav_home_o"
-        className={selected ? "MainLayout_nav_active_o" : ""}
+        className={`nav_header_li ${selected ? "MainLayout_nav_active_o" : ""}`}
       >
         <MaterialSymbolsSettingsRounded className="MainLayout_nav_svg" />{" "}
         <span>Global settings</span>

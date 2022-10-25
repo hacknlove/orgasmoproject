@@ -1,0 +1,11 @@
+{
+  "story": "With Home",
+  "description": "Create the first story for the component Item    ",
+  "itemConfig": {
+    "type": "Header",
+    "props": {
+      "home": true,
+      "text": "With home icon"
+    }
+  }
+}

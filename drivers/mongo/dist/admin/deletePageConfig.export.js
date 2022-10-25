@@ -7,6 +7,7 @@ async function deletePageConfig(ctx, pageId) {
     await mongoProxy_1.default[pageConfigsCollectionName].deleteOne({
         pageId,
     });
+    return true;
 }
 exports.default = deletePageConfig;
 //# sourceMappingURL=deletePageConfig.export.js.map

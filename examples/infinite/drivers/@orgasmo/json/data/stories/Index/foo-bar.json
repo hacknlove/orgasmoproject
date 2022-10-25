@@ -1,0 +1,13 @@
+{
+  "story": "foo-bar",
+  "description": "Create a new story",
+  "itemConfig": {
+    "type": "Index",
+    "props": {
+      "links": {
+        "/foo": "foo",
+        "/bar": "bar"
+      }
+    }
+  }
+}

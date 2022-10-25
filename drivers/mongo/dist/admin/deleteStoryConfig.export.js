@@ -5,9 +5,10 @@ const storyConfigsCollectionName = process.env.ORGASMO_MONGO_STORIES_COLLECTION 
 async function deleteStoryConfig(ctx, { component, story }) {
     await mongoProxy_1.default.connect();
     await mongoProxy_1.default[storyConfigsCollectionName].deleteOne({
-        component,
+        "itemConfig.type": component,
         story,
     });
+    return true;
 }
 exports.default = deleteStoryConfig;
 //# sourceMappingURL=deleteStoryConfig.export.js.map

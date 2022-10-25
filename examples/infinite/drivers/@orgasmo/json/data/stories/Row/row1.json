@@ -1,0 +1,12 @@
+{
+  "story": "row1",
+  "description": "Create a new story",
+  "itemConfig": {
+    "type": "Row",
+    "props": {
+      "title": "Row #1"
+    },
+    "getProps": "random.rows",
+    "seed": "first"
+  }
+}

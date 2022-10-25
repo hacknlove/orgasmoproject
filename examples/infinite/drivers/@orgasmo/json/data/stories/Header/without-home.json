@@ -1,0 +1,12 @@
+{
+  "_id": "6356def75196ade4b82c08d9",
+  "itemConfig": {
+    "type": "Header",
+    "props": {
+      "home": false,
+      "text": "Without home icon"
+    }
+  },
+  "story": "Without Home",
+  "description": "Create the first story for the component Item"
+}

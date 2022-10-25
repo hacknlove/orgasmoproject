@@ -1,0 +1,8 @@
+{
+  "story": "Default",
+  "description": "Footer has no parameters",
+  "itemConfig": {
+    "type": "Footer",
+    "props": {}
+  }
+}

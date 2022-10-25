@@ -1,9 +1,4 @@
 {
-  "pageId": "item",
-  "patternPath": "/item/:string/:number",
-  "layout": {
-    "getMeta": "item.title"
-  },
   "areas": {
     "header": {
       "items": [
@@ -51,5 +46,8 @@
         }
       ]
     }
-  }
+  },
+  "pageId": "item",
+  "patternPath": "/item/:string/:number",
+  "pathSamples": ["/item/hello-world/42"]
 }

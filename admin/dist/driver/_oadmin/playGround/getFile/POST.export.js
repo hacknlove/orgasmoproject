@@ -40,7 +40,9 @@ async function getFile(ctx) {
         });
     }
     const content = (await ctx.driver[config.method](...config.getParams(splitedPath))) ??
-        config.getDefault(splitedPath);
+        config.getDefault?.(splitedPath) ?? {
+        error: `${ctx.req.body.filePath} not found`,
+    };
     ctx.res.json(content);
 }
 exports.default = getFile;

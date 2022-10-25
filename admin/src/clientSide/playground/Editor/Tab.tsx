@@ -12,10 +12,13 @@ import MaterialSymbolsSettingsRounded from "../../icons/MaterialSymbolsSettingsR
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert";
 import updateNav from "./updateNav";
+import MaterialSymbolsAdd from "../../icons/MaterialSymbolsAdd";
 
 function TabButtons({ filePath }) {
   const dynamicState = useDynamicState();
-  const [fileContent] = useDynamicValue(`var://file${filePath}?content`);
+  const [fileContent, setFileContent] = useDynamicValue(
+    `var://file${filePath}?content`
+  );
   const [originalContent, setOriginalContent] = useDynamicValue(
     `var://file${filePath}?original`
   );
@@ -35,6 +38,7 @@ function TabButtons({ filePath }) {
   }
 
   function reset() {
+    setFileContent(originalContent);
     setOriginalContent(' "reset" ');
     activeFilepathResource.triggerSubscriptions();
   }
@@ -68,7 +72,9 @@ function TabButtons({ filePath }) {
 
   return (
     <div className="TabButtons_o" onClick={(event) => event.stopPropagation()}>
-      {isFileDirty && <CarbonReset onClick={reset} />}
+      {isFileDirty && !filePath.startsWith("/new/") && (
+        <CarbonReset onClick={reset} />
+      )}
       {isFileDirty && <CodiconSave onClick={save} />}
       <EpCloseBold onClick={closeFilePath} />
     </div>
@@ -79,6 +85,7 @@ const Icons = {
   page: IconoirEmptyPage,
   component: RadixIconsBookmark,
   site: MaterialSymbolsSettingsRounded,
+  new: MaterialSymbolsAdd,
 };
 
 export default function Tab({ filePath }) {

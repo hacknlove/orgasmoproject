@@ -1,0 +1,11 @@
+{
+  "itemConfig": {
+    "type": "Item",
+    "props": {
+      "string": "abstract",
+      "number": 123
+    }
+  },
+  "story": "abstract 123",
+  "description": "These colors are really sad :(..."
+}

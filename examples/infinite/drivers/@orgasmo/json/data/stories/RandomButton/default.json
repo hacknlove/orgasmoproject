@@ -1,0 +1,10 @@
+{
+  "story": "Default",
+  "description": "Create the first story for the component Item",
+  "itemConfig": {
+    "type": "RandomButton",
+    "props": {
+      "text": "Random Button"
+    }
+  }
+}

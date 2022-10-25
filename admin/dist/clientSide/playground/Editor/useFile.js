@@ -8,6 +8,9 @@ function useFile() {
         if (!filePath) {
             return;
         }
+        if (filePath.startsWith("/new/")) {
+            return;
+        }
         let originalContent = sharedState.getValue(`var://file${filePath}?original`);
         const force = originalContent === ' "reset" ';
         if (!originalContent || force) {

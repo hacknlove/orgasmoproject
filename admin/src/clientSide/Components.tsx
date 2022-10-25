@@ -50,13 +50,6 @@ export default {
       loading: undefined,
     }
   ),
-  GlobalSettingsItem: dynamic(
-    () => import("./playground/nav/GlobalSettingsItem.dynamic.js"),
-    {
-      suspense: true,
-      loading: undefined,
-    }
-  ),
   PagesList_o: dynamic(
     () => import("./playground/nav/PagesList_o.dynamic.js"),
     {

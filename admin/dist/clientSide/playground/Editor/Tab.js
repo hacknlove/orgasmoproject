@@ -11,9 +11,10 @@ const MaterialSymbolsSettingsRounded_1 = require("../../icons/MaterialSymbolsSet
 const AsyncComponents_1 = require("@orgasmo/orgasmo/AsyncComponents");
 const Alert_1 = require("../../modals/Alert");
 const updateNav_1 = require("./updateNav");
+const MaterialSymbolsAdd_1 = require("../../icons/MaterialSymbolsAdd");
 function TabButtons({ filePath }) {
     const dynamicState = (0, react_1.useDynamicState)();
-    const [fileContent] = (0, react_1.useDynamicValue)(`var://file${filePath}?content`);
+    const [fileContent, setFileContent] = (0, react_1.useDynamicValue)(`var://file${filePath}?content`);
     const [originalContent, setOriginalContent] = (0, react_1.useDynamicValue)(`var://file${filePath}?original`);
     const isFileDirty = fileContent !== originalContent;
     const tabsResource = (0, react_1.useDynamicResource)("var://tabs_o");
@@ -25,6 +26,7 @@ function TabButtons({ filePath }) {
         }
     }
     function reset() {
+        setFileContent(originalContent);
         setOriginalContent(' "reset" ');
         activeFilepathResource.triggerSubscriptions();
     }
@@ -51,12 +53,13 @@ function TabButtons({ filePath }) {
             (0, updateNav_1.default)({ dynamicState, fileDescriptor });
         }
     }
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "TabButtons_o", onClick: (event) => event.stopPropagation(), children: [isFileDirty && (0, jsx_runtime_1.jsx)(CarbonReset_1.default, { onClick: reset }), isFileDirty && (0, jsx_runtime_1.jsx)(CodiconSave_1.default, { onClick: save }), (0, jsx_runtime_1.jsx)(EpCloseBold_1.default, { onClick: closeFilePath })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "TabButtons_o", onClick: (event) => event.stopPropagation(), children: [isFileDirty && !filePath.startsWith("/new/") && ((0, jsx_runtime_1.jsx)(CarbonReset_1.default, { onClick: reset })), isFileDirty && (0, jsx_runtime_1.jsx)(CodiconSave_1.default, { onClick: save }), (0, jsx_runtime_1.jsx)(EpCloseBold_1.default, { onClick: closeFilePath })] }));
 }
 const Icons = {
     page: IconoirEmptyPage_1.default,
     component: RadixIconsBookmark_1.default,
     site: MaterialSymbolsSettingsRounded_1.default,
+    new: MaterialSymbolsAdd_1.default,
 };
 function Tab({ filePath }) {
     const [activeFilepath, setActiveFilePath] = (0, react_1.useDynamicValue)("var://activeFilepath_o");
