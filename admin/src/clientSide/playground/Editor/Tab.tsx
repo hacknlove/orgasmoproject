@@ -11,6 +11,7 @@ import RadixIconsBookmark from "../../icons/RadixIconsBookmark";
 import MaterialSymbolsSettingsRounded from "../../icons/MaterialSymbolsSettingsRounded";
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert";
+import updateNav from "./updateNav";
 
 function TabButtons({ filePath }) {
   const dynamicState = useDynamicState();
@@ -38,7 +39,7 @@ function TabButtons({ filePath }) {
     activeFilepathResource.triggerSubscriptions();
   }
   async function save() {
-    const response = await fetch("/api/_oadmin/playGround/saveFile", {
+    const fileDescriptor = await fetch("/api/_oadmin/playGround/saveFile", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -49,18 +50,19 @@ function TabButtons({ filePath }) {
       .then((r) => r.json())
       .catch((error) => ({ error }));
 
-    if (response.error) {
-      return asyncit(Alert, response.error, "playgroundModal_o");
+    if (fileDescriptor.error) {
+      return asyncit(Alert, fileDescriptor.error, "playgroundModal_o");
     }
 
-    if (activeFilepathResource.value === response.filePath) {
+    if (activeFilepathResource.value === fileDescriptor.filePath) {
       setOriginalContent(fileContent);
     } else {
       dynamicState.setValue(
-        `var://file${response.filePath}?original`,
+        `var://file${fileDescriptor.filePath}?original`,
         fileContent
       );
-      activeFilepathResource.setValue(response.filePath);
+      activeFilepathResource.setValue(fileDescriptor.filePath);
+      updateNav({ dynamicState, fileDescriptor });
     }
   }
 

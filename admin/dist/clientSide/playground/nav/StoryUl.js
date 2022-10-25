@@ -5,7 +5,7 @@ const react_1 = require("react");
 const RadixIconsComponent2_1 = require("../../icons/RadixIconsComponent2");
 const StoryLi_1 = require("./StoryLi");
 const opened = {};
-function StoryUl({ component, stories, }) {
+function StoryUl({ component, stories }) {
     const keepOpened = (0, react_1.useCallback)((event) => {
         opened[component] = !event.currentTarget.open;
     }, [component]);

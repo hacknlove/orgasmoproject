@@ -1,1 +1,1 @@
-export default function deleteFileApi(ctx: any): Promise<any>;
+export default function saveFileApi(ctx: any): Promise<any>;

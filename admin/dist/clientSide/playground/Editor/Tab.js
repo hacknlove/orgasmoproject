@@ -10,6 +10,7 @@ const RadixIconsBookmark_1 = require("../../icons/RadixIconsBookmark");
 const MaterialSymbolsSettingsRounded_1 = require("../../icons/MaterialSymbolsSettingsRounded");
 const AsyncComponents_1 = require("@orgasmo/orgasmo/AsyncComponents");
 const Alert_1 = require("../../modals/Alert");
+const updateNav_1 = require("./updateNav");
 function TabButtons({ filePath }) {
     const dynamicState = (0, react_1.useDynamicState)();
     const [fileContent] = (0, react_1.useDynamicValue)(`var://file${filePath}?content`);
@@ -28,7 +29,7 @@ function TabButtons({ filePath }) {
         activeFilepathResource.triggerSubscriptions();
     }
     async function save() {
-        const response = await fetch("/api/_oadmin/playGround/saveFile", {
+        const fileDescriptor = await fetch("/api/_oadmin/playGround/saveFile", {
             method: "POST",
             credentials: "include",
             headers: {
@@ -38,15 +39,16 @@ function TabButtons({ filePath }) {
         })
             .then((r) => r.json())
             .catch((error) => ({ error }));
-        if (response.error) {
-            return (0, AsyncComponents_1.default)(Alert_1.default, response.error, "playgroundModal_o");
+        if (fileDescriptor.error) {
+            return (0, AsyncComponents_1.default)(Alert_1.default, fileDescriptor.error, "playgroundModal_o");
         }
-        if (activeFilepathResource.value === response.filePath) {
+        if (activeFilepathResource.value === fileDescriptor.filePath) {
             setOriginalContent(fileContent);
         }
         else {
-            dynamicState.setValue(`var://file${response.filePath}?original`, fileContent);
-            activeFilepathResource.setValue(response.filePath);
+            dynamicState.setValue(`var://file${fileDescriptor.filePath}?original`, fileContent);
+            activeFilepathResource.setValue(fileDescriptor.filePath);
+            (0, updateNav_1.default)({ dynamicState, fileDescriptor });
         }
     }
     return ((0, jsx_runtime_1.jsxs)("div", { className: "TabButtons_o", onClick: (event) => event.stopPropagation(), children: [isFileDirty && (0, jsx_runtime_1.jsx)(CarbonReset_1.default, { onClick: reset }), isFileDirty && (0, jsx_runtime_1.jsx)(CodiconSave_1.default, { onClick: save }), (0, jsx_runtime_1.jsx)(EpCloseBold_1.default, { onClick: closeFilePath })] }));

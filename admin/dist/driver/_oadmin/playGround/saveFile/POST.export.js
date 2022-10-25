@@ -5,20 +5,36 @@ const configs = {
     page: {
         method: "admin.savePageConfig",
         schema: pageConfigSchema,
-        getFilePath: (content) => `/page/${content.pageId}`,
+        getResponse: (content) => ({
+            type: "page",
+            filePath: `/page/${content.pageId}`,
+            path: content.exactPath ?? content.patternPath,
+            pageId: content.pageId,
+            description: content.description ?? "",
+        }),
     },
     component: {
         method: "admin.saveStoryConfig",
         schema: null,
-        getFilePath: (content) => `/component/${content.itemConfig.type}/${content.story}`,
+        getResponse: (content) => ({
+            type: "component",
+            filePath: `/component/${content.itemConfig.type}/${content.story}`,
+            component: content.itemConfig.type,
+            story: content.story,
+            description: content.description ?? "",
+        }),
     },
     site: {
         method: "admin.saveSiteConfig",
         schema: null,
-        getFilePath: () => `/site/config`,
+        getResponse: (content) => ({
+            type: "site",
+            filePath: `/site/config`,
+            description: content.description ?? "",
+        }),
     },
 };
-async function deleteFileApi(ctx) {
+async function saveFileApi(ctx) {
     const content = ctx.req.body;
     let config;
     if (content.pageId) {
@@ -40,11 +56,11 @@ async function deleteFileApi(ctx) {
     }
     try {
         await ctx.driver[config.method](ctx, content);
-        ctx.res.json({ filePath: config.getFilePath(content) });
+        ctx.res.json(config.getResponse(content));
     }
     catch (error) {
         ctx.res.json({ error });
     }
 }
-exports.default = deleteFileApi;
+exports.default = saveFileApi;
 //# sourceMappingURL=POST.export.js.map

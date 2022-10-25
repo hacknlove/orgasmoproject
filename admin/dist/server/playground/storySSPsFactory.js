@@ -33,15 +33,15 @@ function storySSPsFactory({ driver, Components, layout }) {
                             {
                                 type: "PagesList_o",
                                 props: {
-                                    pages
-                                }
+                                    pages,
+                                },
                             },
                             {
                                 type: "Storieslist_o",
                                 props: {
-                                    stories
-                                }
-                            }
+                                    stories,
+                                },
+                            },
                         ],
                     },
                     PlaygroundTitle_o: {
