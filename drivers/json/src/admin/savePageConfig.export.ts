@@ -11,6 +11,4 @@ export default async function SavePageConfig(ctx, pageConfig) {
   await writeJson(filePath, pageConfig);
 
   await parseDirectory();
-
-  return;
 }

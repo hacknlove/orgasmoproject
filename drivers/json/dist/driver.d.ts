@@ -1,5 +1,6 @@
 import ーorgasmoーjsonーstart from "./@orgasmo/json/start.export";
 import adminーdeletePageConfig from "./admin/deletePageConfig.export";
+import adminーdeleteSiteConfig from "./admin/deleteSiteConfig.export";
 import adminーgetAllPages from "./admin/getAllPages.export";
 import adminーgetAllStories from "./admin/getAllStories.export";
 import adminーgetComponentStory from "./admin/getComponentStory.export";
@@ -10,14 +11,14 @@ import siteーgetConfig from "./site/getConfig.export";
 declare const driver: {
     "@orgasmo.json.start": typeof ーorgasmoーjsonーstart;
     "admin.deletePageConfig": typeof adminーdeletePageConfig;
-    "admin.deleteSiteConfig": typeof adminーdeletePageConfig;
-    "admin.deleteStoryConfig": typeof adminーdeletePageConfig;
+    "admin.deleteSiteConfig": typeof adminーdeleteSiteConfig;
+    "admin.deleteStoryConfig": typeof adminーdeleteSiteConfig;
     "admin.getAllPages": typeof adminーgetAllPages;
     "admin.getAllStories": typeof adminーgetAllStories;
     "admin.getComponentStory": typeof adminーgetComponentStory;
     "admin.savePageConfig": typeof adminーsavePageConfig;
-    "admin.saveSiteConfig": typeof adminーdeletePageConfig;
-    "admin.saveStoryConfig": typeof adminーdeletePageConfig;
+    "admin.saveSiteConfig": typeof adminーdeleteSiteConfig;
+    "admin.saveStoryConfig": typeof adminーdeleteSiteConfig;
     "page.getPageConfig": typeof pageーgetPageConfig;
     "page.getPageConfigFromId": typeof pageーgetPageConfigFromId;
     "site.getConfig": typeof siteーgetConfig;

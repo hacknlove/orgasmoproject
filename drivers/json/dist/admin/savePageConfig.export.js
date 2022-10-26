@@ -9,7 +9,6 @@ async function SavePageConfig(ctx, pageConfig) {
         (0, path_1.join)(process.cwd(), consts_1.pagesPath, `${pageConfig.pageId}.json`);
     await (0, fs_extra_1.writeJson)(filePath, pageConfig);
     await (0, parseDirectory_1.default)();
-    return;
 }
 exports.default = SavePageConfig;
 //# sourceMappingURL=savePageConfig.export.js.map
