@@ -1,6 +1,6 @@
 {
   "name": "create-orgasmo",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "description": "Creates the empty scaffolding for a nextjs+orgasmo site.",
   "main": "index.js",
   "author": "Antonio Fernández Porrúa",
