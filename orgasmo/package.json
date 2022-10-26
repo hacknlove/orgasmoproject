@@ -1,6 +1,6 @@
 {
   "name": "@orgasmo/orgasmo",
-  "version": "1.11.13",
+  "version": "1.12.0",
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps",
   "scripts": {
     "test": "jest",
@@ -18,7 +18,7 @@
     "nookies": "^2.5.2",
     "sass": "^1.54.4",
     "seedrandom": "^3.0.5",
-    "@orgasmo/dynamicstate": "1.11.13"
+    "@orgasmo/dynamicstate": "1.12.0"
   },
   "exports": {
     "./api": "./dist/server/api/factory.js",
