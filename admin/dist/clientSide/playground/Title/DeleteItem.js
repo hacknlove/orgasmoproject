@@ -28,9 +28,7 @@ function DeleteItem({ filePath }) {
         (0, updateNavDelete_1.default)({ dynamicState, fileDescriptor });
         const tabs = dynamicState.getValue("var://tabs_o");
         dynamicState.setValue("var://tabs_o", tabs.filter((path) => path !== filePath));
-        if (tabs.length > 1) {
-            dynamicState.setValue("var://activeFilepath_o", tabs[0]);
-        }
+        dynamicState.setValue("var://activeFilepath_o", tabs[tabs.length - 2] ?? null);
         dynamicState.setValue(`var://file${filePath}?content`, "");
         dynamicState.setValue(`var://file${filePath}?original`, "");
     }
