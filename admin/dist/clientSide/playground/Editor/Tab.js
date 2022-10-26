@@ -16,7 +16,7 @@ function TabButtons({ filePath }) {
     const dynamicState = (0, react_1.useDynamicState)();
     const [fileContent, setFileContent] = (0, react_1.useDynamicValue)(`var://file${filePath}?content`);
     const [originalContent, setOriginalContent] = (0, react_1.useDynamicValue)(`var://file${filePath}?original`);
-    const isFileDirty = fileContent !== originalContent;
+    const isFileDirty = fileContent !== originalContent && originalContent !== ' "reset" ';
     const tabsResource = (0, react_1.useDynamicResource)("var://tabs_o");
     const activeFilepathResource = (0, react_1.useDynamicResource)("var://activeFilepath_o");
     function closeFilePath() {
