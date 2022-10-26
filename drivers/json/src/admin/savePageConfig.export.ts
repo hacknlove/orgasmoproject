@@ -8,7 +8,7 @@ export default async function SavePageConfig(ctx, pageConfig) {
     idsToFilePath.get(pageConfig.pageId) ??
     join(process.cwd(), pagesPath, `${pageConfig.pageId}.json`);
 
-  await writeJson(filePath, pageConfig);
+  await writeJson(filePath, pageConfig, { spaces: 2 });
 
   await parseDirectory();
 }

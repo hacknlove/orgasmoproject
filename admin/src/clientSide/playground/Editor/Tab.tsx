@@ -23,7 +23,8 @@ function TabButtons({ filePath }) {
     `var://file${filePath}?original`
   );
 
-  const isFileDirty = fileContent !== originalContent && originalContent !== ' "reset" ';
+  const isFileDirty =
+    fileContent !== originalContent && originalContent !== ' "reset" ';
 
   const tabsResource = useDynamicResource("var://tabs_o");
   const activeFilepathResource = useDynamicResource("var://activeFilepath_o");

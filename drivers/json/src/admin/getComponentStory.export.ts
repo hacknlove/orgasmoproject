@@ -1,4 +1,4 @@
-import { Components, waitForIt } from "./parseDirectory.";
+import { Components, waitForIt } from "./parseDirectory";
 
 export default async function getComponentStory({ component, story }) {
   await waitForIt;

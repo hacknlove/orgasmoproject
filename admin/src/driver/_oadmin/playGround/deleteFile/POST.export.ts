@@ -55,21 +55,18 @@ export default async function deleteFileApi(ctx) {
   }
 
   try {
-    await ctx.driver[config.method](
-      ctx,
-      ...config.getParams(splitedPath)
-    );
-    
+    await ctx.driver[config.method](ctx, ...config.getParams(splitedPath));
+
     ctx.res.json(config.getResponse(splitedPath));
     return;
   } catch (error) {
-    console.error(error)
-    
+    console.error(error);
+
     ctx.res.json({
       error: {
         name: "Error",
         message: `File ${filePath} could not be deleted`,
-        error
+        error,
       },
     });
     return;

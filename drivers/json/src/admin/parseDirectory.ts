@@ -3,15 +3,12 @@ import { glob as g } from "glob";
 import { readJson } from "fs-extra";
 import { join } from "path";
 import { watch } from "chokidar";
+import { storiesPath } from "../consts";
 
 const glob = promisify(g);
 
 export const Components = {};
-
-const dataPath =
-  process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
-
-const storiesPath = `${dataPath}/stories`;
+export const storiesPaths = {};
 
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
@@ -19,6 +16,7 @@ export const waitForIt = new Promise((r) => (resolve = r));
 export default async function parseDirectory() {
   for (const key in Components) {
     delete Components[key];
+    delete storiesPaths[key];
   }
 
   const files = await glob(join(process.cwd(), storiesPath, "/**/*.json"));
@@ -36,6 +34,9 @@ export default async function parseDirectory() {
 
     Components[component] ??= {};
     Components[component][story] = storyConfig;
+
+    storiesPaths[component] ??= {};
+    storiesPaths[component][story] = storyPath;
   }
   resolve();
 }

@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_extra_1 = require("fs-extra");
-const dataPath = process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
+const consts_1 = require("../consts");
 async function siteGetConfig() {
-    const siteConfig = await (0, fs_extra_1.readJson)(`${dataPath}/site.json`, { throws: false });
+    const siteConfig = await (0, fs_extra_1.readJson)(consts_1.sitePath, { throws: false });
     if (!siteConfig) {
         return {};
     }

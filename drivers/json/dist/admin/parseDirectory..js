@@ -1,22 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.waitForIt = exports.Components = void 0;
+exports.waitForIt = exports.storyPaths = exports.Components = void 0;
 const util_1 = require("util");
 const glob_1 = require("glob");
 const fs_extra_1 = require("fs-extra");
 const path_1 = require("path");
 const chokidar_1 = require("chokidar");
+const consts_1 = require("../consts");
 const glob = (0, util_1.promisify)(glob_1.glob);
 exports.Components = {};
-const dataPath = process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
-const storiesPath = `${dataPath}/stories`;
+exports.storyPaths = {};
 let resolve;
 exports.waitForIt = new Promise((r) => (resolve = r));
 async function parseDirectory() {
     for (const key in exports.Components) {
         delete exports.Components[key];
+        delete consts_1.storiesPath[key];
     }
-    const files = await glob((0, path_1.join)(process.cwd(), storiesPath, "/**/*.json"));
+    const files = await glob((0, path_1.join)(process.cwd(), consts_1.storiesPath, "/**/*.json"));
     for (const storyPath of files) {
         const storyConfig = await (0, fs_extra_1.readJson)(storyPath, { throws: false });
         if (!storyConfig) {
@@ -27,12 +28,14 @@ async function parseDirectory() {
         const story = storyConfig.story;
         exports.Components[component] ?? (exports.Components[component] = {});
         exports.Components[component][story] = storyConfig;
+        exports.Components[component] ?? (exports.Components[component] = {});
+        exports.Components[component][story] = storyPath;
     }
     resolve();
 }
 exports.default = parseDirectory;
 if (process.env.NODE_ENV === "development") {
-    const watcher = (0, chokidar_1.watch)(storiesPath, {
+    const watcher = (0, chokidar_1.watch)(consts_1.storiesPath, {
         ignoreInitial: true,
         awaitWriteFinish: true,
     });

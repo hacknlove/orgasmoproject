@@ -1,10 +1,8 @@
 import { readJson } from "fs-extra";
-
-const dataPath =
-  process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
+import { sitePath } from "../consts";
 
 export default async function siteGetConfig() {
-  const siteConfig = await readJson(`${dataPath}/site.json`, { throws: false });
+  const siteConfig = await readJson(sitePath, { throws: false });
 
   if (!siteConfig) {
     return {};

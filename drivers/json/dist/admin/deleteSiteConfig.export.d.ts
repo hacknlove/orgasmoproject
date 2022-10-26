@@ -1,1 +1,1 @@
-export { default } from "./notPossible";
+export default function SavePageConfig(): Promise<void>;

@@ -38,7 +38,10 @@ export default function DeleteItem({ filePath }) {
       tabs.filter((path) => path !== filePath)
     );
 
-    dynamicState.setValue("var://activeFilepath_o", tabs[tabs.length - 2] ?? null);
+    dynamicState.setValue(
+      "var://activeFilepath_o",
+      tabs[tabs.length - 2] ?? null
+    );
     dynamicState.setValue(`var://file${filePath}?content`, "");
     dynamicState.setValue(`var://file${filePath}?original`, "");
   }

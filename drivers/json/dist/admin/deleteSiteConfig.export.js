@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = void 0;
-var notPossible_1 = require("./notPossible");
-Object.defineProperty(exports, "default", { enumerable: true, get: function () { return notPossible_1.default; } });
+const consts_1 = require("../consts");
+const fs_extra_1 = require("fs-extra");
+async function SavePageConfig() {
+    await (0, fs_extra_1.remove)(consts_1.sitePath);
+}
+exports.default = SavePageConfig;
 //# sourceMappingURL=deleteSiteConfig.export.js.map

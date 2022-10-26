@@ -1,1 +1,1 @@
-{"version":3,"file":"deleteSiteConfig.export.js","sourceRoot":"","sources":["../../src/admin/deleteSiteConfig.export.ts"],"names":[],"mappings":";;;AAAA,6CAAwC;AAA/B,sGAAA,OAAO,OAAA"}
+{"version":3,"file":"deleteSiteConfig.export.js","sourceRoot":"","sources":["../../src/admin/deleteSiteConfig.export.ts"],"names":[],"mappings":";;AAAA,sCAAqC;AACrC,uCAAiC;AAElB,KAAK,UAAU,cAAc;IAC1C,MAAM,IAAA,iBAAM,EAAC,iBAAQ,CAAC,CAAC;AACzB,CAAC;AAFD,iCAEC"}
