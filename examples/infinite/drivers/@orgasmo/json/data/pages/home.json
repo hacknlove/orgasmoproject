@@ -3,20 +3,12 @@
   "exactPath": "/",
   "layout": {
     "meta": [["title", "Index"]],
-    "cssVars": {
-      "margin": "5px",
-      "background-color": "#fff"
-    }
+    "cssVars": { "margin": "5px", "background-color": "#fff" }
   },
   "areas": {
     "header": {
       "items": [
-        {
-          "type": "Header",
-          "props": {
-            "text": "Index"
-          }
-        },
+        { "type": "Header", "props": { "text": "Index" } },
         {
           "type": "Index",
           "props": {
@@ -39,12 +31,7 @@
             "className": "fullWidth"
           }
         },
-        {
-          "type": "RandomButton",
-          "props": {
-            "text": "Random 🗘"
-          }
-        }
+        { "type": "RandomButton", "props": { "text": "Random 🗘" } }
       ]
     },
     "footer": {

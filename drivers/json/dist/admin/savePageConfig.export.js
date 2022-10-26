@@ -1,6 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = void 0;
-var notPossible_1 = require("./notPossible");
-Object.defineProperty(exports, "default", { enumerable: true, get: function () { return notPossible_1.default; } });
+const fs_extra_1 = require("fs-extra");
+const path_1 = require("path");
+const consts_1 = require("../consts");
+const parseDirectory_1 = require("../page/parseDirectory");
+async function SavePageConfig(ctx, pageConfig) {
+    const filePath = parseDirectory_1.idsToFilePath.get(pageConfig.pageId) ??
+        (0, path_1.join)(process.cwd(), consts_1.pagesPath, `${pageConfig.pageId}.json`);
+    await (0, fs_extra_1.writeJson)(filePath, pageConfig);
+    await (0, parseDirectory_1.default)();
+    return;
+}
+exports.default = SavePageConfig;
 //# sourceMappingURL=savePageConfig.export.js.map

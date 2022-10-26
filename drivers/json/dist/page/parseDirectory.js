@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.waitForIt = exports.ids = exports.staticPaths = exports.dynamicPaths = void 0;
+exports.waitForIt = exports.idsToFilePath = exports.ids = exports.staticPaths = exports.dynamicPaths = void 0;
 const util_1 = require("util");
 const glob_1 = require("glob");
 const path_to_regexp_1 = require("path-to-regexp");
@@ -8,36 +8,37 @@ const fs_extra_1 = require("fs-extra");
 const path_1 = require("path");
 const Ajv = require("ajv");
 const chokidar_1 = require("chokidar");
+const consts_1 = require("../consts");
 const pageConfigSchema = require("../schemas/pageConfigSchema.json");
 const glob = (0, util_1.promisify)(glob_1.glob);
 const ajv = new Ajv();
 const validate = ajv.compile(pageConfigSchema);
-const dataPath = process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
-const pagesPath = `${dataPath}/pages`;
 exports.dynamicPaths = new Map();
 exports.staticPaths = new Map();
 exports.ids = new Map();
+exports.idsToFilePath = new Map();
 let resolve;
 exports.waitForIt = new Promise((r) => (resolve = r));
 async function parseDirectory() {
     const tempStaticPaths = new Map();
     const tempDynamicPaths = new Map();
     const oldIds = new Set(exports.ids.keys());
-    const files = await glob((0, path_1.join)(process.cwd(), pagesPath, "/**/*.json"));
-    for (const pagePath of files) {
-        const pageConfig = await (0, fs_extra_1.readJson)(pagePath, { throws: false });
+    const files = await glob((0, path_1.join)(process.cwd(), consts_1.pagesPath, "/**/*.json"));
+    for (const filePath of files) {
+        const pageConfig = await (0, fs_extra_1.readJson)(filePath, { throws: false });
         if (!pageConfig) {
-            console.error(`Something wrong with ${pagePath}`);
+            console.error(`Something wrong with ${filePath}`);
             continue;
         }
         const valid = validate(pageConfig);
         if (!valid) {
-            console.error(`${pagePath}:\n${JSON.stringify(validate.errors, null, 4)}`);
+            console.error(`${filePath}:\n${JSON.stringify(validate.errors, null, 4)}`);
             continue;
         }
         if (exports.ids.has(pageConfig.pageId) && !oldIds.has(pageConfig.pageId)) {
             console.error(`There is already a pageConfig with the pageId "${pageConfig.pageId}"`);
         }
+        exports.idsToFilePath.set(pageConfig.pageId, filePath);
         exports.ids.set(pageConfig.pageId, pageConfig);
         oldIds.delete(pageConfig.pageId);
         let bucket;
@@ -88,12 +89,13 @@ async function parseDirectory() {
     }
     for (const oldId of oldIds) {
         exports.ids.delete(oldId);
+        exports.idsToFilePath.delete(oldId);
     }
     resolve();
 }
 exports.default = parseDirectory;
 if (process.env.NODE_ENV === "development") {
-    const watcher = (0, chokidar_1.watch)(pagesPath, {
+    const watcher = (0, chokidar_1.watch)(consts_1.pagesPath, {
         ignoreInitial: true,
         awaitWriteFinish: true,
     });

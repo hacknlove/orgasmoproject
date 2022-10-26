@@ -7,9 +7,7 @@ export default function Header({ text, home }) {
       <h1 className="Header">
         {home ? (
           <Link href="/">
-            <a>
-              <IcBaselineHome />
-            </a>
+            <IcBaselineHome />
           </Link>
         ) : (
           <span></span>

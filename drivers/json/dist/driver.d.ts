@@ -3,6 +3,7 @@ import adminーdeletePageConfig from "./admin/deletePageConfig.export";
 import adminーgetAllPages from "./admin/getAllPages.export";
 import adminーgetAllStories from "./admin/getAllStories.export";
 import adminーgetComponentStory from "./admin/getComponentStory.export";
+import adminーsavePageConfig from "./admin/savePageConfig.export";
 import pageーgetPageConfig from "./page/getPageConfig.export";
 import pageーgetPageConfigFromId from "./page/getPageConfigFromId.export";
 import siteーgetConfig from "./site/getConfig.export";
@@ -14,7 +15,7 @@ declare const driver: {
     "admin.getAllPages": typeof adminーgetAllPages;
     "admin.getAllStories": typeof adminーgetAllStories;
     "admin.getComponentStory": typeof adminーgetComponentStory;
-    "admin.savePageConfig": typeof adminーdeletePageConfig;
+    "admin.savePageConfig": typeof adminーsavePageConfig;
     "admin.saveSiteConfig": typeof adminーdeletePageConfig;
     "admin.saveStoryConfig": typeof adminーdeletePageConfig;
     "page.getPageConfig": typeof pageーgetPageConfig;

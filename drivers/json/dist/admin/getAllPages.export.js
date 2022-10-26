@@ -9,7 +9,7 @@ async function getAllPages() {
         const { exactPath, patternPath, pageId } = pageConfig;
         const path = exactPath ?? patternPath;
         pages[path] ?? (pages[path] = {});
-        pages[path][pageId] = pageConfig.description;
+        pages[path][pageId] = pageConfig.description ?? "";
     }
     return pages;
 }

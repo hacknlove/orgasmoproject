@@ -1,3 +1,3 @@
-export default function upsertPageConfig(ctx: any, pageConfig: any): Promise<{
+export default function SavePageConfig(ctx: any, pageConfig: any): Promise<{
     ok: boolean;
 }>;

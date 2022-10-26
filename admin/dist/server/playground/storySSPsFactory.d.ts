@@ -1,16 +1,22 @@
-export default function storySSPsFactory({ driver, Components, layout }: {
+export default function storySSPsFactory({ driver, Components }: {
     driver: any;
     Components: any;
-    layout: any;
 }): (ctx: any) => Promise<{
     props: {
         clientSideOnly: boolean;
-        layout: any;
+        layout: {
+            name: string;
+            meta: string[][];
+        };
         areas: Record<string, any>;
     };
+} | {
+    notFound: boolean;
+    props?: undefined;
 } | {
     props: {
         exposeSharedState: boolean;
         areas: {};
     };
+    notFound?: undefined;
 }>;

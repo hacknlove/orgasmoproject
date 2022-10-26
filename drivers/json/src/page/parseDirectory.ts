@@ -5,7 +5,7 @@ import { readJson } from "fs-extra";
 import { join } from "path";
 import * as Ajv from "ajv";
 import { watch } from "chokidar";
-
+import { pagesPath } from "../consts";
 import * as pageConfigSchema from "../schemas/pageConfigSchema.json";
 
 const glob = promisify(g);
@@ -14,14 +14,10 @@ const ajv = new Ajv();
 
 const validate = ajv.compile(pageConfigSchema);
 
-const dataPath =
-  process.env.FILESYSTEM_DATA_PATH ?? "drivers/@orgasmo/json/data";
-
-const pagesPath = `${dataPath}/pages`;
-
 export const dynamicPaths = new Map();
 export const staticPaths = new Map();
 export const ids = new Map();
+export const idsToFilePath = new Map();
 
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
@@ -34,11 +30,11 @@ export default async function parseDirectory() {
 
   const files = await glob(join(process.cwd(), pagesPath, "/**/*.json"));
 
-  for (const pagePath of files) {
-    const pageConfig = await readJson(pagePath, { throws: false });
+  for (const filePath of files) {
+    const pageConfig = await readJson(filePath, { throws: false });
 
     if (!pageConfig) {
-      console.error(`Something wrong with ${pagePath}`);
+      console.error(`Something wrong with ${filePath}`);
       continue;
     }
 
@@ -46,7 +42,7 @@ export default async function parseDirectory() {
 
     if (!valid) {
       console.error(
-        `${pagePath}:\n${JSON.stringify(validate.errors, null, 4)}`
+        `${filePath}:\n${JSON.stringify(validate.errors, null, 4)}`
       );
       continue;
     }
@@ -56,6 +52,8 @@ export default async function parseDirectory() {
         `There is already a pageConfig with the pageId "${pageConfig.pageId}"`
       );
     }
+
+    idsToFilePath.set(pageConfig.pageId, filePath);
 
     ids.set(pageConfig.pageId, pageConfig);
     oldIds.delete(pageConfig.pageId);
@@ -119,6 +117,7 @@ export default async function parseDirectory() {
 
   for (const oldId of oldIds) {
     ids.delete(oldId);
+    idsToFilePath.delete(oldId);
   }
 
   resolve();

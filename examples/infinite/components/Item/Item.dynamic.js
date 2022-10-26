@@ -11,33 +11,31 @@ export default function Item({ string, number, className }) {
         width: "fit-content",
       }}
     >
-      <Link href={`/item/${string}/${number - 15}`}>
-        <a className="ItemLink">
-          <div className="Item">
-            <div>
-              {letters.split("").map((char, index) => {
-                return (
-                  <span
-                    key={char + index}
-                    style={{
-                      transform: `translate(-50%, -50%) rotate(${
-                        number * string.charCodeAt(index + 3)
-                      }rad)`,
-                      color: `rgb(${
-                        (number * string.charCodeAt(index + 4)) % 255
-                      }, ${(number * string.charCodeAt(index + 5)) % 255}, ${
-                        (number * string.charCodeAt(index + 6)) % 255
-                      })`,
-                    }}
-                  >
-                    {char}
-                  </span>
-                );
-              })}
-            </div>
+      <Link className="ItemLink" href={`/item/${string}/${number - 15}`}>
+        <div className="Item">
+          <div>
+            {letters.split("").map((char, index) => {
+              return (
+                <span
+                  key={char + index}
+                  style={{
+                    transform: `translate(-50%, -50%) rotate(${
+                      number * string.charCodeAt(index + 3)
+                    }rad)`,
+                    color: `rgb(${
+                      (number * string.charCodeAt(index + 4)) % 255
+                    }, ${(number * string.charCodeAt(index + 5)) % 255}, ${
+                      (number * string.charCodeAt(index + 6)) % 255
+                    })`,
+                  }}
+                >
+                  {char}
+                </span>
+              );
+            })}
           </div>
-          <div style={{ textAlign: "center" }}>[{letters}]</div>
-        </a>
+        </div>
+        <div style={{ textAlign: "center" }}>[{letters}]</div>
       </Link>
     </div>
   );

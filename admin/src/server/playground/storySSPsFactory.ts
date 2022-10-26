@@ -1,8 +1,13 @@
 import getStoriesList from "./getStoriesList";
 import getPagesList from "./getPagesList";
 
-export default function storySSPsFactory({ driver, Components, layout }) {
+export default function storySSPsFactory({ driver, Components }) {
   return async function getServerSideProps(ctx) {
+    if (!driver._oadmin) {
+      return {
+        notFound: true,
+      };
+    }
     if (ctx.query.empty) {
       return {
         props: {
@@ -22,7 +27,6 @@ export default function storySSPsFactory({ driver, Components, layout }) {
         layout: {
           name: "PlayGroundMainLayout_o",
           meta: [["title", "Orgasmo's playground"]],
-          ...layout,
         },
         areas: {
           MainLayout_nav_o: {

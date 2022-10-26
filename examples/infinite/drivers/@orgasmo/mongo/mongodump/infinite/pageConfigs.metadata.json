@@ -1,1 +1,30 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"exactPath":{"$numberInt":"1"}},"name":"exactPath_1","sparse":true},{"v":{"$numberInt":"2"},"key":{"pageId":{"$numberInt":"1"}},"name":"pageId_1","unique":true},{"v":{"$numberInt":"2"},"key":{"patternPath":{"$numberInt":"1"}},"name":"patternPath_1","sparse":true}],"uuid":"850ae16eb1364178b2841a24ea0b39a7","collectionName":"pageConfigs","type":"collection"}
+{
+  "indexes": [
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "_id": { "$numberInt": "1" } },
+      "name": "_id_"
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "exactPath": { "$numberInt": "1" } },
+      "name": "exactPath_1",
+      "sparse": true
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "pageId": { "$numberInt": "1" } },
+      "name": "pageId_1",
+      "unique": true
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "patternPath": { "$numberInt": "1" } },
+      "name": "patternPath_1",
+      "sparse": true
+    }
+  ],
+  "uuid": "850ae16eb1364178b2841a24ea0b39a7",
+  "collectionName": "pageConfigs",
+  "type": "collection"
+}
