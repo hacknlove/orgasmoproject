@@ -61,7 +61,7 @@ async function deleteFileApi(ctx) {
             error: {
                 name: "Error",
                 message: `File ${filePath} could not be deleted`,
-                error
+                error,
             },
         });
         return;

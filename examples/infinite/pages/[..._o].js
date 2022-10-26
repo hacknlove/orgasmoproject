@@ -1,4 +1,4 @@
-import DComponent from "../DComponent";
+import DComponent, { Components } from "../DComponent";
 import driver from "../driver";
 
 import PageFactory from "@orgasmo/orgasmo/PageFactory";
@@ -6,4 +6,7 @@ import getServerSidePropsFactory from "@orgasmo/orgasmo/getServerSidePropsFactor
 
 export default PageFactory({ DComponent });
 
-export const getServerSideProps = getServerSidePropsFactory({ driver });
+export const getServerSideProps = getServerSidePropsFactory({
+  driver,
+  Components,
+});

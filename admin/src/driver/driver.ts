@@ -2,6 +2,7 @@ import _oadminーplayーroundーdeleteーileーPOST from "./_oadmin/playGround/d
 import _oadminーplayーroundーexpandーPOST from "./_oadmin/playGround/expand/POST.export";
 import _oadminーplayーroundーgetーileーPOST from "./_oadmin/playGround/getFile/POST.export";
 import _oadminーplayーroundーsaveーileーPOST from "./_oadmin/playGround/saveFile/POST.export";
+import playgroundーgetServerSideProps from "./playground/getServerSideProps.export";
 
 const driver = {
   ["_oadmin.playGround.deleteFile.POST"]:
@@ -9,6 +10,7 @@ const driver = {
   ["_oadmin.playGround.expand.POST"]: _oadminーplayーroundーexpandーPOST,
   ["_oadmin.playGround.getFile.POST"]: _oadminーplayーroundーgetーileーPOST,
   ["_oadmin.playGround.saveFile.POST"]: _oadminーplayーroundーsaveーileーPOST,
+  ["playground.getServerSideProps"]: playgroundーgetServerSideProps,
 };
 
 driver["_oadmin"] = {};
@@ -25,5 +27,7 @@ driver["_oadmin"]["playGround"]["getFile"]["POST"] =
 driver["_oadmin"]["playGround"]["saveFile"] = {};
 driver["_oadmin"]["playGround"]["saveFile"]["POST"] =
   _oadminーplayーroundーsaveーileーPOST;
+driver["playground"] = {};
+driver["playground"]["getServerSideProps"] = playgroundーgetServerSideProps;
 
 export default driver;
