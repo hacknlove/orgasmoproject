@@ -14,6 +14,7 @@ describe("getServerSidePropsFactory", () => {
     const driver = {};
     const ctx = {
       req: {},
+      resolvedUrl: "",
     };
 
     const result = await getServerSidePropsFactory({ driver })(ctx);
