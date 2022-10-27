@@ -34,7 +34,11 @@ function TabButtons({ filePath }) {
     async function save() {
         const preFileDescriptor = (0, getFileDescriptorFromFileContent_1.default)(JSON.parse(fileContent));
         if (preFileDescriptor.filePath !== filePath) {
-            const confirm = await (0, AsyncComponents_1.default)(Alert_1.default, { title: "Save as...", text: `the new filePath is ${preFileDescriptor.filePath}`, cancel: true }, "playgroundModal_o");
+            const confirm = await (0, AsyncComponents_1.default)(Alert_1.default, {
+                title: "Save as...",
+                text: `the new filePath is ${preFileDescriptor.filePath}`,
+                cancel: true,
+            }, "playgroundModal_o");
             if (!confirm) {
                 return;
             }

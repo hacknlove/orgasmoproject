@@ -1,5 +1,5 @@
 {
-  "pageId": "/",
+  "pageId": "home",
   "exactPath": "/",
   "layout": {
     "name": "Layout",

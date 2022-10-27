@@ -61,6 +61,7 @@ export default async function saveFileApi(ctx) {
     ctx.res.json(config.getResponse(content));
     return;
   } catch (error) {
+    console.error(error);
     ctx.res.json({ error });
     return;
   }

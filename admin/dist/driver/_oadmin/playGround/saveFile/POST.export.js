@@ -61,6 +61,7 @@ async function saveFileApi(ctx) {
         return;
     }
     catch (error) {
+        console.error(error);
         ctx.res.json({ error });
         return;
     }

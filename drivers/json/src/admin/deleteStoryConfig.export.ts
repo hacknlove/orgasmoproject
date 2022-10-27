@@ -5,7 +5,7 @@ import { remove } from "fs-extra";
 
 export default async function SavePageConfig(ctx, { component, story }) {
   const filePath =
-    storiesPaths[component][story] ??
+    storiesPaths[component]?.[story] ??
     join(process.cwd(), storiesPath, `${component}/${story}.json`);
 
   await remove(filePath);

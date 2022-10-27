@@ -7,7 +7,7 @@ export default async function SavePageConfig(ctx, storyConfig) {
   const component = storyConfig.itemConfig.type;
   const story = storyConfig.story;
   const filePath =
-    storiesPaths[component][story] ??
+    storiesPaths[component]?.[story] ??
     join(process.cwd(), storiesPath, `${component}/${story}.json`);
 
   await outputJson(filePath, storyConfig, { spaces: 2 });
