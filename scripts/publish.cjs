@@ -1,5 +1,5 @@
 const { join } = require("path");
-const { writeJSON } = require("fs-extra");
+const { outputJson } = require("fs-extra");
 const { exec } = require("child_process");
 const { promisify } = require("util");
 
@@ -49,7 +49,7 @@ async function main() {
       }
     }
 
-    promises.push(writeJSON(path, workspacePackage, { spaces: 2 }));
+    promises.push(outputJson(path, workspacePackage, { spaces: 2 }));
   }
 
   promises.length = 0;

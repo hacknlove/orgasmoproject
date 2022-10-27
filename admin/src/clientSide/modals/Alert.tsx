@@ -1,6 +1,6 @@
 import EpCloseBold from "../icons/EpCloseBold";
 
-export default function Alert({ title, text, resolve, name, message }) {
+export default function Alert({ title, text, resolve, name, message, cancel }) {
   return (
     <div
       className="modal_o_wrapper"
@@ -19,9 +19,14 @@ export default function Alert({ title, text, resolve, name, message }) {
         <div className="modal_o_body">
           <div>{text || message}</div>
           <div className="modal_o_buttons">
-            <button className="button_o" onClick={() => resolve()}>
+            <button className="button_o" onClick={() => resolve(true)}>
               Ok
             </button>
+            {cancel && (
+              <button className="button_o" onClick={() => resolve(false)}>
+                Cancel
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import Alert from "../../modals/Alert";
 import updateNav from "./updateNav";
 import MaterialSymbolsAdd from "../../icons/MaterialSymbolsAdd";
+import getFileDescriptorFromFileContent from "./getFileDescriptorFromFileContent";
 
 function TabButtons({ filePath }) {
   const dynamicState = useDynamicState();
@@ -44,6 +45,26 @@ function TabButtons({ filePath }) {
     activeFilepathResource.triggerSubscriptions();
   }
   async function save() {
+    const preFileDescriptor = getFileDescriptorFromFileContent(
+      JSON.parse(fileContent)
+    );
+
+    if (preFileDescriptor.filePath !== filePath) {
+      const confirm = await asyncit(
+        Alert,
+        {
+          title: "Save as...",
+          text: `the new filePath is ${preFileDescriptor.filePath}`,
+          cancel: true,
+        },
+        "playgroundModal_o"
+      );
+
+      if (!confirm) {
+        return;
+      }
+    }
+
     const fileDescriptor = await fetch("/api/_oadmin/playGround/saveFile", {
       method: "POST",
       credentials: "include",
