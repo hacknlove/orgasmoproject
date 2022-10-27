@@ -2,12 +2,23 @@
   display: grid;
   grid-template-areas:
     "list horizontalSize title"
-    "list horizontalSize component"
-    "list horizontalSize verticalSize"
-    "list horizontalSize tabs"
-    "list horizontalSize playground";
+    "list horizontalSize layout"
+    "list horizontalSize layout"
+    "list horizontalSize layout"
+    "list horizontalSize layout";
   grid-template-columns: auto 5px 1fr;
   grid-template-rows: auto auto 5px auto 1fr;
+}
+
+#MainLayout_mode_rows_o {
+  display: flex;
+  flex-direction: column;
+  grid-area: layout;
+}
+#MainLayout_mode_columns_o {
+  display: flex;
+  flex-direction: row;
+  grid-area: layout;
 }
 
 #MainLayout_nav_o {
@@ -27,7 +38,7 @@
   display: none;
 }
 #verticalSize {
-  grid-area: verticalSize;
+  height: 5px;
   cursor: ns-resize;
 }
 
@@ -49,6 +60,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  flex-grow: 1;
 }
 #monaco-wrapper_o {
   position: absolute;

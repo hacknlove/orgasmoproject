@@ -2,6 +2,7 @@
   display: flex;
   background: #252526;
   flex-wrap: wrap;
+  grid-area: tabs;
 }
 .tab_o {
   appearance: none;

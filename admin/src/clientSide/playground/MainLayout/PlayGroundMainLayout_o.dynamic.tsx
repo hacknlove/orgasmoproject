@@ -1,3 +1,4 @@
+import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 import Area from "@orgasmo/orgasmo/Area";
 import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 import Editor from "../Editor/Editor";
@@ -10,6 +11,10 @@ import HorizontalSize from "./HorizontalSize";
 import VerticalSize from "./VerticalSize";
 
 export default function PlayGroundMainLayout_o() {
+  const [layoutMode] = useDynamicValue("var://layoutMode", {
+    defaultValue: "rows",
+  });
+
   return (
     <>
       <AsyncComponents area="playgroundModal_o" />
@@ -22,10 +27,16 @@ export default function PlayGroundMainLayout_o() {
         </nav>
         <HorizontalSize />
         <Title />
-        <Render />
-        <VerticalSize />
-        <Tabs />
-        <Editor />
+        <div id={`MainLayout_mode_${layoutMode}_o`}>
+          <Render />
+          <VerticalSize />
+          <div
+            style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+          >
+            <Tabs />
+            <Editor />
+          </div>
+        </div>
       </div>
     </>
   );

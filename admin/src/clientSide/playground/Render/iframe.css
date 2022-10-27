@@ -1,8 +1,8 @@
 #PlaygroundRender_o {
   grid-area: component;
-  height: 50vh;
   padding: 1rem;
   background: var(--background-void);
+  flex-grow: 1;
 }
 
 #pageRender_iframe {
