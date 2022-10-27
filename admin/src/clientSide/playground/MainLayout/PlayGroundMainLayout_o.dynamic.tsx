@@ -29,7 +29,7 @@ export default function PlayGroundMainLayout_o() {
         <Title />
         <div id={`MainLayout_mode_${layoutMode}_o`}>
           <Render />
-          <VerticalSize />
+          <VerticalSize mode={layoutMode} target="PlaygroundRender_o" />
           <div
             style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
           >

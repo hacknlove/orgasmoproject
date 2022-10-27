@@ -9,11 +9,11 @@ const com_1 = require("@orgasmo/dynamicstate/plugins/com");
 const DynamicStatePlugins = [com_1.default];
 let exposeSharedState = process.env.NODE_ENV === "development";
 function Layout() {
-    const [layout] = (0, react_2.useDynamicValue)('var://layout');
-    const [{ DComponent }] = (0, react_2.useDynamicValue)('var://DComponent');
-    return (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [layout?.meta && (0, jsx_runtime_1.jsx)(Meta_1.default, { meta: layout?.meta }), layout?.name ? ((0, jsx_runtime_1.jsx)(DComponent, { type: layout.name, props: {
+    const [layout] = (0, react_2.useDynamicValue)("var://layout");
+    const [{ DComponent }] = (0, react_2.useDynamicValue)("var://DComponent");
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [layout?.meta && (0, jsx_runtime_1.jsx)(Meta_1.default, { meta: layout?.meta }), layout?.name ? ((0, jsx_runtime_1.jsx)(DComponent, { type: layout.name, props: {
                     cssVars: layout?.cssVars,
-                } })) : ((0, jsx_runtime_1.jsx)(DefaultLayout_1.default, { cssVars: layout?.cssVars }))] });
+                } })) : ((0, jsx_runtime_1.jsx)(DefaultLayout_1.default, { cssVars: layout?.cssVars }))] }));
 }
 function PageFactory({ DComponent, }) {
     const Page = (props) => {

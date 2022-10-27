@@ -37,8 +37,6 @@ export default function SelectLayoutMode() {
     const PlaygroundRender_o = document.getElementById("PlaygroundRender_o");
     const config = toggleConfig[newLayoutMode];
 
-    console.log({ PlaygroundRender_o });
-
     if (!PlaygroundRender_o) {
       return;
     }
@@ -51,7 +49,6 @@ export default function SelectLayoutMode() {
     }
     savedValue = PlaygroundRender_o.style[config.clean];
     PlaygroundRender_o.style[config.clean] = "";
-    console.log({ savedValue });
   }
 
   return <Icon className="icon_o" onClick={toggleLayoutMode} />;

@@ -34,12 +34,13 @@
   cursor: ew-resize;
 }
 
-#PlaygroundTitle_o + #verticalSize {
-  display: none;
-}
-#verticalSize {
+#verticalSize.verticalSize_rows_o {
   height: 5px;
   cursor: ns-resize;
+}
+#verticalSize.verticalSize_columns_o {
+  width: 5px;
+  cursor: ew-resize;
 }
 
 #PlaygroundRender_o {
@@ -49,6 +50,7 @@
   align-items: center;
   box-shadow: inset 3px 0px 5px 0px #00000017;
   padding: 2rem 0;
+  box-sizing: border-box;
 }
 #PlaygroundEditor_o {
   grid-area: playground;

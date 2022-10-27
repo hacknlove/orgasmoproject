@@ -2,7 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
-function VerticalSize() {
+const configurationModes = {
+    rows: {
+        dimenstion: "height",
+        coordinate: "clientY",
+        substract: "top",
+    },
+    columns: {
+        dimenstion: "width",
+        coordinate: "clientX",
+        substract: "left",
+    },
+};
+function VerticalSize({ mode, target }) {
     const ref = (0, react_1.useRef)();
     (0, react_1.useEffect)(() => {
         if (!ref.current) {
@@ -26,12 +38,14 @@ function VerticalSize() {
             }
         }
         function mouseMove(event) {
-            const PlaygroundRender_o = document.getElementById('PlaygroundRender_o');
+            const PlaygroundRender_o = document.getElementById(target);
             if (!PlaygroundRender_o) {
                 return;
             }
-            PlaygroundRender_o.style.flexGrow = '0';
-            PlaygroundRender_o.style.height = `${event.clientY - 85}px`;
+            const bounding = PlaygroundRender_o.getBoundingClientRect();
+            const config = configurationModes[mode];
+            PlaygroundRender_o.style.flexGrow = "0";
+            PlaygroundRender_o.style[config.dimenstion] = `${event[config.coordinate] - bounding[config.substract]}px`;
         }
         ref.current.addEventListener("mousedown", mouseDown);
         return () => {
@@ -44,8 +58,8 @@ function VerticalSize() {
             }
             ref.current.removeEventListener("mousedown", mouseDown);
         };
-    }, [ref.current]);
-    return (0, jsx_runtime_1.jsx)("div", { ref: ref, id: "verticalSize" });
+    }, [ref.current, mode]);
+    return ((0, jsx_runtime_1.jsx)("div", { ref: ref, id: "verticalSize", className: `verticalSize_${mode}_o` }));
 }
 exports.default = VerticalSize;
 //# sourceMappingURL=VerticalSize.js.map

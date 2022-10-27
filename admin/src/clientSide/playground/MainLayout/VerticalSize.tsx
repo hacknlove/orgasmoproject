@@ -1,6 +1,19 @@
 import { useRef, useEffect } from "react";
 
-export default function VerticalSize() {
+const configurationModes = {
+  rows: {
+    dimenstion: "height",
+    coordinate: "clientY",
+    substract: "top",
+  },
+  columns: {
+    dimenstion: "width",
+    coordinate: "clientX",
+    substract: "left",
+  },
+};
+
+export default function VerticalSize({ mode, target }) {
   const ref = useRef() as any;
 
   useEffect(() => {
@@ -28,13 +41,18 @@ export default function VerticalSize() {
     }
 
     function mouseMove(event) {
-      const PlaygroundRender_o = document.getElementById("PlaygroundRender_o");
+      const PlaygroundRender_o = document.getElementById(target);
 
       if (!PlaygroundRender_o) {
         return;
       }
+      const bounding = PlaygroundRender_o.getBoundingClientRect();
+      const config = configurationModes[mode];
+
       PlaygroundRender_o.style.flexGrow = "0";
-      PlaygroundRender_o.style.height = `${event.clientY - 85}px`;
+      PlaygroundRender_o.style[config.dimenstion] = `${
+        event[config.coordinate] - bounding[config.substract]
+      }px`;
     }
 
     ref.current.addEventListener("mousedown", mouseDown);
@@ -50,7 +68,9 @@ export default function VerticalSize() {
       }
       ref.current.removeEventListener("mousedown", mouseDown);
     };
-  }, [ref.current]);
+  }, [ref.current, mode]);
 
-  return <div ref={ref} id="verticalSize" />;
+  return (
+    <div ref={ref} id="verticalSize" className={`verticalSize_${mode}_o`} />
+  );
 }
