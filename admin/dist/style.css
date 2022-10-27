@@ -281,12 +281,23 @@
   display: grid;
   grid-template-areas:
     "list horizontalSize title"
-    "list horizontalSize component"
-    "list horizontalSize verticalSize"
-    "list horizontalSize tabs"
-    "list horizontalSize playground";
+    "list horizontalSize layout"
+    "list horizontalSize layout"
+    "list horizontalSize layout"
+    "list horizontalSize layout";
   grid-template-columns: auto 5px 1fr;
   grid-template-rows: auto auto 5px auto 1fr;
+}
+
+#MainLayout_mode_rows_o {
+  display: flex;
+  flex-direction: column;
+  grid-area: layout;
+}
+#MainLayout_mode_columns_o {
+  display: flex;
+  flex-direction: row;
+  grid-area: layout;
 }
 
 #MainLayout_nav_o {
@@ -306,7 +317,7 @@
   display: none;
 }
 #verticalSize {
-  grid-area: verticalSize;
+  height: 5px;
   cursor: ns-resize;
 }
 
@@ -328,6 +339,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  flex-grow: 1;
 }
 #monaco-wrapper_o {
   position: absolute;
@@ -489,9 +501,9 @@
 /* start file: ./playground/Render/iframe.css */
 #PlaygroundRender_o {
   grid-area: component;
-  height: 50vh;
   padding: 1rem;
   background: var(--background-void);
+  flex-grow: 1;
 }
 
 #pageRender_iframe {
@@ -520,6 +532,8 @@
   align-items: center;
   column-gap: 2rem;
   padding: 0.5rem 1rem;
+  height: 50px;
+  box-sizing: border-box;
 }
 
 #PlaygroundDeleteItem_o {
@@ -539,6 +553,7 @@
   display: flex;
   background: #252526;
   flex-wrap: wrap;
+  grid-area: tabs;
 }
 .tab_o {
   appearance: none;

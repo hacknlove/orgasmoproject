@@ -8,6 +8,13 @@ const react_2 = require("@orgasmo/dynamicstate/react");
 const com_1 = require("@orgasmo/dynamicstate/plugins/com");
 const DynamicStatePlugins = [com_1.default];
 let exposeSharedState = process.env.NODE_ENV === "development";
+function Layout() {
+    const [layout] = (0, react_2.useDynamicValue)('var://layout');
+    const [{ DComponent }] = (0, react_2.useDynamicValue)('var://DComponent');
+    return (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [layout?.meta && (0, jsx_runtime_1.jsx)(Meta_1.default, { meta: layout?.meta }), layout?.name ? ((0, jsx_runtime_1.jsx)(DComponent, { type: layout.name, props: {
+                    cssVars: layout?.cssVars,
+                } })) : ((0, jsx_runtime_1.jsx)(DefaultLayout_1.default, { cssVars: layout?.cssVars }))] });
+}
 function PageFactory({ DComponent, }) {
     const Page = (props) => {
         const [clientSideOnly, setClientSideOnly] = (0, react_1.useState)(props.clientSideOnly);
@@ -24,7 +31,6 @@ function PageFactory({ DComponent, }) {
             return response;
         });
         const lastProps = (0, react_1.useRef)(props);
-        const layout = initialState["var://layout"];
         exposeSharedState || (exposeSharedState = props.exposeSharedState);
         (0, react_1.useEffect)(() => {
             if (lastProps.current === props) {
@@ -50,9 +56,7 @@ function PageFactory({ DComponent, }) {
         if (clientSideOnly) {
             return null;
         }
-        return ((0, jsx_runtime_1.jsxs)(react_2.DynamicStateProvider, { initialState: initialState, testContextRef: exposeSharedState && typeof window === "object" && window, plugins: DynamicStatePlugins, children: [layout?.meta && (0, jsx_runtime_1.jsx)(Meta_1.default, { meta: layout?.meta }), layout?.name ? ((0, jsx_runtime_1.jsx)(DComponent, { type: layout.name, props: {
-                        cssVars: layout?.cssVars,
-                    } })) : ((0, jsx_runtime_1.jsx)(DefaultLayout_1.default, { cssVars: layout?.cssVars }))] }));
+        return ((0, jsx_runtime_1.jsx)(react_2.DynamicStateProvider, { initialState: initialState, testContextRef: exposeSharedState && typeof window === "object" && window, plugins: DynamicStatePlugins, children: (0, jsx_runtime_1.jsx)(Layout, {}) }));
     };
     return Page;
 }

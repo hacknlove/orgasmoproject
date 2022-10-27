@@ -9,20 +9,29 @@ function VerticalSize() {
             return;
         }
         function mouseDown() {
-            if (!document.getElementById("pageRender_iframe")) {
+            const iframe = document.getElementById("pageRender_iframe");
+            if (!iframe) {
                 return;
             }
             window.addEventListener("mousemove", mouseMove);
             window.addEventListener("mouseup", mouseUp);
-            document.getElementById("pageRender_iframe").style.pointerEvents = "none";
+            iframe.style.pointerEvents = "none";
         }
         function mouseUp() {
             window.removeEventListener("mousemove", mouseMove);
-            document.getElementById("pageRender_iframe").style.pointerEvents = "";
+            window.removeEventListener("mouseup", mouseUp);
+            const iframe = document.getElementById("pageRender_iframe");
+            if (iframe) {
+                iframe.style.pointerEvents = "";
+            }
         }
         function mouseMove(event) {
-            const iframe = ref.current.previousElementSibling;
-            iframe.style.height = `${event.clientY - 85}px`;
+            const PlaygroundRender_o = document.getElementById('PlaygroundRender_o');
+            if (!PlaygroundRender_o) {
+                return;
+            }
+            PlaygroundRender_o.style.flexGrow = '0';
+            PlaygroundRender_o.style.height = `${event.clientY - 85}px`;
         }
         ref.current.addEventListener("mousedown", mouseDown);
         return () => {

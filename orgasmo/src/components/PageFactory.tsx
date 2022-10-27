@@ -2,12 +2,36 @@ import { useState, useEffect, useRef } from "react";
 import { OrgasmoPage, PageFactoryParameters } from "~/types";
 import DefaultLayout from "./DefaultLayout/DefaultLayout";
 import Meta from "./Meta/Meta";
-import { DynamicStateProvider } from "@orgasmo/dynamicstate/react";
+import {
+  DynamicStateProvider,
+  useDynamicValue,
+} from "@orgasmo/dynamicstate/react";
 import ComPlugin from "@orgasmo/dynamicstate/plugins/com";
 
 const DynamicStatePlugins = [ComPlugin];
 
 let exposeSharedState = process.env.NODE_ENV === "development";
+
+function Layout() {
+  const [layout] = useDynamicValue("var://layout");
+  const [{ DComponent }] = useDynamicValue("var://DComponent");
+
+  return (
+    <>
+      {layout?.meta && <Meta meta={layout?.meta} />}
+      {layout?.name ? (
+        <DComponent
+          type={layout.name}
+          props={{
+            cssVars: layout?.cssVars,
+          }}
+        />
+      ) : (
+        <DefaultLayout cssVars={layout?.cssVars} />
+      )}
+    </>
+  );
+}
 
 export default function PageFactory({
   DComponent,
@@ -31,8 +55,6 @@ export default function PageFactory({
     });
 
     const lastProps = useRef(props);
-
-    const layout = initialState["var://layout"];
 
     exposeSharedState ||= props.exposeSharedState;
 
@@ -74,17 +96,7 @@ export default function PageFactory({
         }
         plugins={DynamicStatePlugins}
       >
-        {layout?.meta && <Meta meta={layout?.meta} />}
-        {layout?.name ? (
-          <DComponent
-            type={layout.name}
-            props={{
-              cssVars: layout?.cssVars,
-            }}
-          />
-        ) : (
-          <DefaultLayout cssVars={layout?.cssVars} />
-        )}
+        <Layout />
       </DynamicStateProvider>
     );
   };

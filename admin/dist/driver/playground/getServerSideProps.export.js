@@ -11,7 +11,6 @@ async function getServerSideProps(ctx) {
             },
         };
     }
-    console.log("THIS");
     const Components = ctx.Components;
     const driver = ctx.driver;
     const [stories, pages] = await Promise.all([
