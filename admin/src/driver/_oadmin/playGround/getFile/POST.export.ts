@@ -12,7 +12,6 @@ const configs = {
       },
     ],
     getDefault: (splitedPath) => ({
-      component: splitedPath[2],
       story: splitedPath[3],
       description: "Create a new story",
       itemConfig: {
