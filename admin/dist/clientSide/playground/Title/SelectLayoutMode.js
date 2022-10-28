@@ -5,8 +5,8 @@ const react_1 = require("@orgasmo/dynamicstate/react");
 const PhColumns_1 = require("../../icons/PhColumns");
 const PhRows_1 = require("../../icons/PhRows");
 const Icons = {
-    columns: PhRows_1.default,
-    rows: PhColumns_1.default,
+    rows: PhRows_1.default,
+    columns: PhColumns_1.default,
 };
 const layouts = ["rows", "columns"];
 let i = 0;

@@ -3,8 +3,8 @@ import PhColumns from "../../icons/PhColumns";
 import PhRows from "../../icons/PhRows";
 
 const Icons = {
-  columns: PhRows,
-  rows: PhColumns,
+  rows: PhRows,
+  columns: PhColumns,
 };
 
 const layouts = ["rows", "columns"];

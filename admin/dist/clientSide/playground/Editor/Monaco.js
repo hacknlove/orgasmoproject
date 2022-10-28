@@ -8,9 +8,11 @@ const react_3 = require("@orgasmo/dynamicstate/react");
 function Monaco() {
     (0, useFile_1.default)();
     const [filePath] = (0, react_3.useDynamicValue)("var://activeFilepath_o");
-    const [fileContent, setFileContent] = (0, react_3.useDynamicValue)(`var://file${filePath}?content`);
+    const [, setFileContent] = (0, react_3.useDynamicValue)(`var://file${filePath}?content`);
+    const [rawFileContent, setRawFileContent] = (0, react_3.useDynamicValue)(`var://file${filePath}?raw`);
     const monaco = (0, react_1.useMonaco)();
     function onChange(value) {
+        setRawFileContent(value);
         try {
             JSON.parse(value);
             setFileContent(value || "");
@@ -24,15 +26,15 @@ function Monaco() {
         }
     }, [filePath, monaco?.editor]);
     (0, react_2.useEffect)(() => {
-        if (fileContent === undefined) {
+        if (rawFileContent === undefined) {
             return;
         }
         const model = monaco?.editor?.getModels?.()?.[0];
-        if (model?.getValue() === fileContent) {
+        if (model?.getValue() === rawFileContent) {
             return;
         }
-        monaco?.editor?.getModels?.()?.[0]?.setValue?.(fileContent);
-    }, [fileContent, monaco?.editor]);
+        monaco?.editor?.getModels?.()?.[0]?.setValue?.(rawFileContent);
+    }, [rawFileContent, monaco?.editor]);
     if (!filePath) {
         return null;
     }

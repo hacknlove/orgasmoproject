@@ -29,10 +29,10 @@ function useFile() {
                 .then((json) => JSON.stringify(json, null, 4));
             sharedState.setValue(`var://file${filePath}?original`, originalContent);
         }
-        let fileContent = sharedState.getValue(`var://file${filePath}?content`);
-        if (!fileContent || force) {
-            fileContent = originalContent;
+        const rawFileContent = sharedState.getValue(`var://file${filePath}?raw`);
+        if (!rawFileContent || force) {
             sharedState.setValue(`var://file${filePath}?content`, originalContent);
+            sharedState.setValue(`var://file${filePath}?raw`, originalContent);
         }
     }), []);
 }

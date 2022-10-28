@@ -7,13 +7,15 @@ export default function Monaco() {
   useFile();
 
   const [filePath] = useDynamicValue("var://activeFilepath_o");
-  const [fileContent, setFileContent] = useDynamicValue(
-    `var://file${filePath}?content`
+  const [, setFileContent] = useDynamicValue(`var://file${filePath}?content`);
+  const [rawFileContent, setRawFileContent] = useDynamicValue(
+    `var://file${filePath}?raw`
   );
 
   const monaco = useMonaco();
 
   function onChange(value) {
+    setRawFileContent(value);
     try {
       JSON.parse(value);
       setFileContent(value || "");
@@ -29,17 +31,17 @@ export default function Monaco() {
   }, [filePath, monaco?.editor]);
 
   useEffect(() => {
-    if (fileContent === undefined) {
+    if (rawFileContent === undefined) {
       return;
     }
     const model = monaco?.editor?.getModels?.()?.[0];
 
-    if (model?.getValue() === fileContent) {
+    if (model?.getValue() === rawFileContent) {
       return;
     }
 
-    monaco?.editor?.getModels?.()?.[0]?.setValue?.(fileContent);
-  }, [fileContent, monaco?.editor]);
+    monaco?.editor?.getModels?.()?.[0]?.setValue?.(rawFileContent);
+  }, [rawFileContent, monaco?.editor]);
 
   if (!filePath) {
     return null;

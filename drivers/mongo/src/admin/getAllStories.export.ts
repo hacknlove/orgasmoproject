@@ -15,7 +15,7 @@ export default async function getAllStories() {
     const component = storyConfig.itemConfig.type;
     const story = storyConfig.story;
     stories[component] ??= {};
-    stories[component][story] = storyConfig.description;
+    stories[component][story] = storyConfig.description ?? "";
   }
 
   return stories;

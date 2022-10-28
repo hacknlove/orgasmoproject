@@ -5,7 +5,7 @@ async function getAllStories() {
     await parseDirectory_1.waitForIt;
     return Object.fromEntries(Object.entries(parseDirectory_1.Components).map(([key, component]) => [
         key,
-        Object.fromEntries(Object.entries(component).map(([story, storyConfig]) => [story, storyConfig.description])),
+        Object.fromEntries(Object.entries(component).map(([story, storyConfig]) => [story, storyConfig.description ?? ""])),
     ]));
 }
 exports.default = getAllStories;

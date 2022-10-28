@@ -9,7 +9,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  column-gap: 2rem;
+  column-gap: 0.5rem;
   padding: 0.5rem 1rem;
   height: 50px;
   box-sizing: border-box;
@@ -22,4 +22,9 @@
   --button_o_background: #fd271c;
   --button_o_background_hover: hsl(3, 98%, 60%);
   --button_o_background_active: #fd271c;
+}
+
+.icon_o {
+  cursor: pointer;
+  font-size: 200%;
 }

@@ -8,7 +8,7 @@ export default async function getAllStories() {
       key,
       Object.fromEntries(
         Object.entries(component as Record<string, any>).map(
-          ([story, storyConfig]) => [story, storyConfig.description]
+          ([story, storyConfig]) => [story, storyConfig.description ?? ""]
         )
       ),
     ])
