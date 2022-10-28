@@ -3,6 +3,7 @@
 const { readFile, writeFile } = require("fs/promises");
 const chokidar = require("chokidar");
 const isAModule = require("../isAModule");
+const { existsSync } = require("fs");
 
 const driver = process.env.ORGASMO_DRIVER || "@orgasmo/json";
 const driverArray = driver.split(",");
@@ -55,6 +56,11 @@ function importExternals(driverArray) {
   for (const driver of driverArray) {
     if (isAModule(driver)) {
       string = `${string}\nimport ${getExternalName(driver)} from "${driver}";`;
+    } else {
+      if (!existsSync(`./drivers/${driver}`)) {
+        console.error(`CRITICAL: the driver "${driver}" cannot be found:`);
+        process.exit(1);
+      }
     }
   }
   return string;
