@@ -7,6 +7,7 @@ const fs_extra_1 = require("fs-extra");
 const path_1 = require("path");
 const chokidar_1 = require("chokidar");
 const consts_1 = require("../consts");
+const logger_1 = require("@orgasmo/orgasmo/logger");
 const glob = (0, util_1.promisify)(glob_1.glob);
 exports.Components = {};
 exports.storiesPaths = {};
@@ -21,7 +22,7 @@ async function parseDirectory() {
     for (const storyPath of files) {
         const storyConfig = await (0, fs_extra_1.readJson)(storyPath, { throws: false });
         if (!storyConfig) {
-            console.error(`Something wrong with ${storyPath}`);
+            logger_1.default.error({ storyPath }, `Error reading %s`, consts_1.storiesPath);
             continue;
         }
         const component = storyConfig.itemConfig.type;

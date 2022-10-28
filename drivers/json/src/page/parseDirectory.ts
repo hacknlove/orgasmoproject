@@ -7,6 +7,7 @@ import * as Ajv from "ajv";
 import { watch } from "chokidar";
 import { pagesPath } from "../consts";
 import * as pageConfigSchema from "../schemas/pageConfigSchema.json";
+import logger from "@orgasmo/orgasmo/logger";
 
 const glob = promisify(g);
 
@@ -34,22 +35,28 @@ export default async function parseDirectory() {
     const pageConfig = await readJson(filePath, { throws: false });
 
     if (!pageConfig) {
-      console.error(`Something wrong with ${filePath}`);
+      logger.error({ filePath }, `Error reading %s`, filePath);
       continue;
     }
 
     const valid = validate(pageConfig);
 
     if (!valid) {
-      console.error(
-        `${filePath}:\n${JSON.stringify(validate.errors, null, 4)}`
+      logger.error(
+        { ...validate.errors, filePath },
+        "Schema error for %s",
+        filePath
       );
       continue;
     }
 
     if (ids.has(pageConfig.pageId) && !oldIds.has(pageConfig.pageId)) {
-      console.error(
-        `There is already a pageConfig with the pageId "${pageConfig.pageId}"`
+      logger.error(
+        {
+          pageId: pageConfig.pageId,
+          filePath
+        },
+        `There is already a pageConfig with the pageId "%s"`, pageConfig.pageId
       );
     }
 

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
+const logger_1 = require("@orgasmo/orgasmo/logger");
 const mongoURL = process.env.ORGASMO_MONGO_URL ??
     "mongodb://localhost:27017/orgasmo";
 const mongo = {
@@ -51,7 +52,7 @@ async function mongoConnect() {
         if (maxTries--) {
             return mongoConnect();
         }
-        console.error(err);
+        logger_1.default.error(err, 'Error connecting with mongo');
         return process.exit(1);
     }
     mongo.client = client;

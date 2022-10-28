@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const logger_1 = require("@orgasmo/orgasmo/logger");
 const configs = {
     site: {
         method: "admin.deleteSiteConfig",
@@ -56,7 +57,7 @@ async function deleteFileApi(ctx) {
         return;
     }
     catch (error) {
-        console.error(error);
+        logger_1.default.error(error, "File %s could not be deleted", filePath);
         ctx.res.json({
             error: {
                 name: "Error",

@@ -1,4 +1,5 @@
 import * as pageConfigSchema from "../../../../schemas/pageConfigSchema.json";
+import logger from "@orgasmo/orgasmo/logger";
 
 const configs = {
   page: {
@@ -61,7 +62,7 @@ export default async function saveFileApi(ctx) {
     ctx.res.json(config.getResponse(content));
     return;
   } catch (error) {
-    console.error(error);
+    logger.error(error, "Missing method");
     ctx.res.json({ error });
     return;
   }

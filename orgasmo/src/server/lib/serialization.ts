@@ -1,5 +1,6 @@
 import { sign, verify } from "cencode";
 import { createHash } from "crypto";
+import logger from "../logger";
 const secret = process.env.ORGASMO_SECRET;
 
 import { ErrorObject } from "../../types";
@@ -18,7 +19,7 @@ export function parse(data: string): any | ErrorObject {
   try {
     return verify(data, verifyit);
   } catch (e) {
-    console.error(e);
+    logger.error(e, "Error parsing string");
     return { error: "Signature is invalid" };
   }
 }

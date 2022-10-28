@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const pageConfigSchema = require("../../../../schemas/pageConfigSchema.json");
+const logger_1 = require("@orgasmo/orgasmo/logger");
 const configs = {
     page: {
         method: "admin.savePageConfig",
@@ -61,7 +62,7 @@ async function saveFileApi(ctx) {
         return;
     }
     catch (error) {
-        console.error(error);
+        logger_1.default.error(error, "Missing method");
         ctx.res.json({ error });
         return;
     }

@@ -1,3 +1,5 @@
+import logger from "@orgasmo/orgasmo/logger";
+
 const configs = {
   site: {
     method: "admin.deleteSiteConfig",
@@ -60,7 +62,7 @@ export default async function deleteFileApi(ctx) {
     ctx.res.json(config.getResponse(splitedPath));
     return;
   } catch (error) {
-    console.error(error);
+    logger.error(error, "File %s could not be deleted", filePath);
 
     ctx.res.json({
       error: {

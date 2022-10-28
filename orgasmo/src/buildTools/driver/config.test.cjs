@@ -127,6 +127,7 @@ for (const driverName of drivers) {
   }
 }
 `;
+    jest.spyOn(process, "exit").mockImplementation(() => undefined);
     const actual = fileFromImports(imports);
     expect(actual).toEqual(expected);
   });

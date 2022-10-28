@@ -4,6 +4,7 @@ import { readJson } from "fs-extra";
 import { join } from "path";
 import { watch } from "chokidar";
 import { storiesPath } from "../consts";
+import logger from "@orgasmo/orgasmo/logger";
 
 const glob = promisify(g);
 
@@ -25,7 +26,7 @@ export default async function parseDirectory() {
     const storyConfig = await readJson(storyPath, { throws: false });
 
     if (!storyConfig) {
-      console.error(`Something wrong with ${storyPath}`);
+      logger.error({ storyPath }, `Error reading %s`, storiesPath);
       continue;
     }
 

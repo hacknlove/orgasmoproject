@@ -9,13 +9,20 @@ import parseDirectory, {
 } from "./parseDirectory";
 import { glob } from "glob";
 import { readJson } from "fs-extra";
+import logger from '@orgasmo/orgasmo/logger';
 
 jest.mock("glob", () => ({
   __esModule: true,
   glob: jest.fn((path, cb) => cb(null, [])),
 }));
 
-jest.spyOn(console, "error").mockImplementation(() => undefined);
+jest.mock('@orgasmo/orgasmo/logger', () => ({
+  __esModule: true,
+  default: {
+    error: jest.fn()
+  }
+}));
+
 
 jest.mock("fs-extra", () => ({
   __esModule: true,
@@ -57,7 +64,7 @@ describe("common", () => {
 
     await parseDirectory("someDirectory");
 
-    expect(console.error).toBeCalledWith("Something wrong with some/test/Path");
+    expect(logger.error).toBeCalled();
   });
 
   it("shows an error if the pageConfig has no path", async () => {
@@ -65,7 +72,7 @@ describe("common", () => {
 
     await parseDirectory("someDirectory");
 
-    expect(console.error).toBeCalled();
+    expect(logger.error).toBeCalled();
   });
 
   it("shows an error if the pageConfig has no pageId", async () => {
@@ -75,7 +82,7 @@ describe("common", () => {
 
     await parseDirectory("someDirectory");
 
-    expect(console.error).toBeCalled();
+    expect(logger.error).toBeCalled();
   });
   it("shows an error if there are two pages with the same pageId", async () => {
     glob.mockImplementation((path, cb) =>
@@ -89,9 +96,7 @@ describe("common", () => {
 
     await parseDirectory("someDirectory");
 
-    expect(console.error).toBeCalledWith(
-      'There is already a pageConfig with the pageId "someId"'
-    );
+    expect(logger.error).toBeCalled();
   });
   it("removes old ids", async () => {
     ids.set("someOldId", {});

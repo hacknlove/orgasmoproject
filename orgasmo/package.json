@@ -11,14 +11,15 @@
     "dev": "nodemon --exec \"npm run build\""
   },
   "dependencies": {
+    "@orgasmo/dynamicstate": "1.13.3",
     "ajv": "^8.11.0",
     "cencode": "^1.1.0",
     "chokidar": "^3.5.3",
     "glob": "^8.0.3",
     "nookies": "^2.5.2",
+    "pino": "^8.7.0",
     "sass": "^1.54.4",
-    "seedrandom": "^3.0.5",
-    "@orgasmo/dynamicstate": "1.13.3"
+    "seedrandom": "^3.0.5"
   },
   "exports": {
     "./api": "./dist/server/api/factory.js",
@@ -34,7 +35,8 @@
     "./Area": "./dist/components/Area.js",
     "./withOrgasmo": "./src/buildTools/withOrgasmo.cjs",
     "./expandPageConfig": "./dist/server/getServerSideProps/expand/pageConfig.js",
-    "./AsyncComponents": "./dist/components/AsyncComponents.js"
+    "./AsyncComponents": "./dist/components/AsyncComponents.js",
+    "./logger": "./dist/server/logger.js"
   },
   "files": [
     "dist/",

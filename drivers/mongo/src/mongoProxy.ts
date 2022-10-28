@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import logger from "@orgasmo/orgasmo/logger";
 
 const mongoURL =
   (process.env.ORGASMO_MONGO_URL as string) ??
@@ -60,7 +61,7 @@ async function mongoConnect() {
     if (maxTries--) {
       return mongoConnect();
     }
-    console.error(err);
+    logger.error(err, "Error connecting with mongo");
     return process.exit(1);
   }
 

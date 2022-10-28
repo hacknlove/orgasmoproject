@@ -10,6 +10,7 @@ const Ajv = require("ajv");
 const chokidar_1 = require("chokidar");
 const consts_1 = require("../consts");
 const pageConfigSchema = require("../schemas/pageConfigSchema.json");
+const logger_1 = require("@orgasmo/orgasmo/logger");
 const glob = (0, util_1.promisify)(glob_1.glob);
 const ajv = new Ajv();
 const validate = ajv.compile(pageConfigSchema);
@@ -27,16 +28,19 @@ async function parseDirectory() {
     for (const filePath of files) {
         const pageConfig = await (0, fs_extra_1.readJson)(filePath, { throws: false });
         if (!pageConfig) {
-            console.error(`Something wrong with ${filePath}`);
+            logger_1.default.error({ filePath }, `Error reading %s`, filePath);
             continue;
         }
         const valid = validate(pageConfig);
         if (!valid) {
-            console.error(`${filePath}:\n${JSON.stringify(validate.errors, null, 4)}`);
+            logger_1.default.error({ ...validate.errors, filePath }, "Schema error for %s", filePath);
             continue;
         }
         if (exports.ids.has(pageConfig.pageId) && !oldIds.has(pageConfig.pageId)) {
-            console.error(`There is already a pageConfig with the pageId "${pageConfig.pageId}"`);
+            logger_1.default.error({
+                pageId: pageConfig.pageId,
+                filePath
+            }, `There is already a pageConfig with the pageId "%s"`, pageConfig.pageId);
         }
         exports.idsToFilePath.set(pageConfig.pageId, filePath);
         exports.ids.set(pageConfig.pageId, pageConfig);
