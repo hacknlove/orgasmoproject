@@ -1,4 +1,3 @@
-
 import ーorgasmoーjsonーstart from "./@orgasmo/json/start.export";
 import adminーdeletePageConfig from "./admin/deletePageConfig.export";
 import adminーdeleteSiteConfig from "./admin/deleteSiteConfig.export";
@@ -12,8 +11,6 @@ import adminーsaveStoryConfig from "./admin/saveStoryConfig.export";
 import pageーgetPageConfig from "./page/getPageConfig.export";
 import pageーgetPageConfigFromId from "./page/getPageConfigFromId.export";
 import siteーgetConfig from "./site/getConfig.export";
-
-
 
 const driver = {
   ["@orgasmo.json.start"]: ーorgasmoーjsonーstart,
@@ -29,7 +26,7 @@ const driver = {
   ["page.getPageConfig"]: pageーgetPageConfig,
   ["page.getPageConfigFromId"]: pageーgetPageConfigFromId,
   ["site.getConfig"]: siteーgetConfig,
-}
+};
 
 driver["@orgasmo"] = {};
 driver["@orgasmo"]["json"] = {};

@@ -39,7 +39,7 @@ async function parseDirectory() {
         if (exports.ids.has(pageConfig.pageId) && !oldIds.has(pageConfig.pageId)) {
             logger_1.default.error({
                 pageId: pageConfig.pageId,
-                filePath
+                filePath,
             }, `There is already a pageConfig with the pageId "%s"`, pageConfig.pageId);
         }
         exports.idsToFilePath.set(pageConfig.pageId, filePath);

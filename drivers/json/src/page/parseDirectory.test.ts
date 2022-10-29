@@ -9,20 +9,19 @@ import parseDirectory, {
 } from "./parseDirectory";
 import { glob } from "glob";
 import { readJson } from "fs-extra";
-import logger from '@orgasmo/orgasmo/logger';
+import logger from "@orgasmo/orgasmo/logger";
 
 jest.mock("glob", () => ({
   __esModule: true,
   glob: jest.fn((path, cb) => cb(null, [])),
 }));
 
-jest.mock('@orgasmo/orgasmo/logger', () => ({
+jest.mock("@orgasmo/orgasmo/logger", () => ({
   __esModule: true,
   default: {
-    error: jest.fn()
-  }
+    error: jest.fn(),
+  },
 }));
-
 
 jest.mock("fs-extra", () => ({
   __esModule: true,

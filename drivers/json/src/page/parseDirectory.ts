@@ -54,9 +54,10 @@ export default async function parseDirectory() {
       logger.error(
         {
           pageId: pageConfig.pageId,
-          filePath
+          filePath,
         },
-        `There is already a pageConfig with the pageId "%s"`, pageConfig.pageId
+        `There is already a pageConfig with the pageId "%s"`,
+        pageConfig.pageId
       );
     }
 

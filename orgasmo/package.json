@@ -60,6 +60,6 @@
     "url": "https://github.com/hacknlove/orgasmoproject.git"
   },
   "peerDependencies": {
-    "next": "12.x"
+    "next": "13.x"
   }
 }

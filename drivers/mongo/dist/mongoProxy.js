@@ -52,7 +52,7 @@ async function mongoConnect() {
         if (maxTries--) {
             return mongoConnect();
         }
-        logger_1.default.error(err, 'Error connecting with mongo');
+        logger_1.default.error(err, "Error connecting with mongo");
         return process.exit(1);
     }
     mongo.client = client;
