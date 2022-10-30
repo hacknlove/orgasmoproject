@@ -1,10 +1,9 @@
 import updatePageConfig from "./admin/updatePageConfig";
 import newPageConfig from "./admin/newPageConfig";
-import getPageConfig from "./pages/getPageConfig";
 import getPageConfigFromId from "./pages/getPageConfigFromId";
 declare const filesystemDriver: {
     page: {
-        getPageConfig: typeof getPageConfig;
+        getPageConfig: any;
         getPageConfigFromId: typeof getPageConfigFromId;
     };
     admin: {
@@ -13,7 +12,7 @@ declare const filesystemDriver: {
     };
     "admin.updatePageConfig": typeof updatePageConfig;
     "admin.newPageConfig": typeof newPageConfig;
-    "page.getPageConfig": typeof getPageConfig;
+    "page.getPageConfig": any;
     "page.getPageConfigFromId": typeof getPageConfigFromId;
 };
 export default filesystemDriver;

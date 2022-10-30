@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import getPageConfig from "./getPageConfig";
+import getPageConfig from "./getPageConfig.export";
 import strapiFetch from "../strapiFetch";
 import mapStrapiToOrgasmo from "../mapStrapiToOrgasmo";
 
