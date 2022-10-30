@@ -21,7 +21,15 @@ jest.mock("fs/promises", () => ({
 
 jest.spyOn(console, "info").mockImplementation(() => undefined);
 
-const { regexp, globPath, fileFromImports, map, refresh } = require("./config");
+const {
+  regexp,
+  globPath,
+  fileFromImports,
+  map,
+  refresh,
+  empyStringTest,
+  sort,
+} = require("./config");
 
 test("driver regexp gets the full path and the file name from components starting with capital leter and ending in dynamic.{js,...}", () => {
   const files = [
@@ -345,5 +353,42 @@ describe("refresh", () => {
     await watcher.on.mock.calls[0][1]();
 
     expect(writeFile).toBeCalled();
+  });
+});
+
+describe("skip when imports is falsy", () => {
+  it("returns empty string if no imports", () => {
+    for (const fn of Object.values(empyStringTest)) {
+      expect(fn()).toBe("");
+    }
+  });
+});
+
+describe("sort", () => {
+  it("sorts", () => {
+    const imports = [
+      { from: "a" },
+      { from: "b" },
+      { from: "y" },
+      { from: "c" },
+      { from: "z" },
+      { from: "x" },
+      { from: "c" },
+      { from: "y" },
+    ];
+    const sorted = [
+      { from: "a" },
+      { from: "b" },
+      { from: "c" },
+      { from: "c" },
+      { from: "x" },
+      { from: "y" },
+      { from: "y" },
+      { from: "z" },
+    ];
+
+    sort(imports);
+
+    expect(imports).toEqual(sorted);
   });
 });

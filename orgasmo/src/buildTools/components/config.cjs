@@ -92,3 +92,9 @@ exports.fileFromImports = fileFromImports;
 exports.regexp = regexp;
 exports.globPath = globPath;
 exports.filename = filename;
+
+if (process.env.NODE_ENV === "test") {
+  exports.test = {
+    useImports,
+  };
+}

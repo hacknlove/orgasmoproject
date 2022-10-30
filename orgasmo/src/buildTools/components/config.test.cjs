@@ -1,4 +1,9 @@
-const { regexp, globPath, fileFromImports } = require("./config");
+const {
+  regexp,
+  globPath,
+  fileFromImports,
+  test: { useImports },
+} = require("./config");
 const glob = require("glob");
 
 test("components regexp gets the full path and the file name from components starting with capital leter and ending in dynamic.{js,...}", () => {
@@ -110,5 +115,23 @@ export default function DComponent ({ type, props }) {
       "module not found:",
       "foo-externalPackage"
     );
+  });
+});
+
+describe("useImports", () => {
+  it("returns empty string if there is no imports", () => {
+    expect(useImports()).toEqual("");
+  });
+
+  it("skips components from node modules", () => {
+    expect(
+      useImports([
+        { from: "path", filename: "Component" },
+        { from: "node_modules/path", filename: "Component2" },
+        { from: "other/path", filename: "Component3" },
+      ])
+    ).toEqual(`
+  Component: dynamic(() => import('path'), { suspense: true, loading: undefined }),
+  Component3: dynamic(() => import('other/path'), { suspense: true, loading: undefined }),`);
   });
 });

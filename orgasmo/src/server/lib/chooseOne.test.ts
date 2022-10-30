@@ -48,6 +48,6 @@ describe("choseOne", () => {
   it("some edge cases", () => {
     ctx.req.user.staticRandom = NaN;
     choseOne({ array: [], ctx });
-    choseOne({ array: [{ ratio: 1 }], ctx });
+    choseOne({ array: [{ ratio: 1 }, {}], ctx });
   });
 });

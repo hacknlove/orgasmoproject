@@ -30,7 +30,7 @@ function sort(imports) {
     if (commonFirstA < commonFirstB) {
       return -1;
     }
-    if (commonFirstA < commonFirstB) {
+    if (commonFirstA > commonFirstB) {
       return 1;
     }
     return 0;
@@ -310,3 +310,14 @@ exports.regexp = regexp;
 exports.globPath = globPath;
 exports.filename = "./driver.js";
 exports.refresh = refresh;
+
+if (process.env.NODE_ENV === "test") {
+  (exports.sort = sort),
+    (exports.empyStringTest = {
+      importEvents,
+      importExports,
+      useEvents,
+      useExportsStrings,
+      useExportsTree,
+    });
+}

@@ -22,4 +22,21 @@ describe("getServerSidePropsFactory", () => {
     expect(result).toBe("result");
     expect(getPage).toHaveBeenCalledWith(ctx);
   });
+
+  it("allows the driver to override getProps", async () => {
+    const driver = {
+      "some.url.getServerSideProps": jest.fn(() => "other result"),
+    };
+    const ctx = {
+      req: {},
+      resolvedUrl: "/some/url",
+    };
+
+    const result = await getServerSidePropsFactory({ driver })(ctx);
+
+    expect(result).toBe("other result");
+
+    expect(getPage).not.toHaveBeenCalled();
+    expect(driver["some.url.getServerSideProps"]).toHaveBeenCalledWith(ctx);
+  });
 });
