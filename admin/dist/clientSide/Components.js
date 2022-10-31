@@ -42,6 +42,10 @@ exports.default = {
         suspense: true,
         loading: undefined,
     }),
+    KVStorageList_o: (0, dynamic_1.default)(() => import("./playground/nav/KVStorageList_o.dynamic.js"), {
+        suspense: true,
+        loading: undefined,
+    }),
     PagesList_o: (0, dynamic_1.default)(() => import("./playground/nav/PagesList_o.dynamic.js"), {
         suspense: true,
         loading: undefined,

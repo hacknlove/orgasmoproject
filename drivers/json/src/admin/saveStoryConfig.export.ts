@@ -1,9 +1,11 @@
 import { outputJson } from "fs-extra";
 import { join } from "path";
 import { storiesPath } from "../consts";
-import parseDirectory, { storiesPaths } from "./parseDirectory";
+import parseDirectory, { storiesPaths, waitForIt } from "./parseDirectory";
 
 export default async function SavePageConfig(ctx, storyConfig) {
+  await waitForIt;
+
   const component = storyConfig.itemConfig.type;
   const story = storyConfig.story;
   const filePath =

@@ -22,6 +22,8 @@
 }
 
 #MainLayout_nav_o {
+  padding-left: 15px;
+  padding-top: 15px;
   grid-area: list;
   background: var(--interface-background_o);
   height: 100vh;

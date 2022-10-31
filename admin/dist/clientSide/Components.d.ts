@@ -9,6 +9,7 @@ declare const _default: {
     EditMetaTags: React.ComponentType<P>;
     EditPage: React.ComponentType<P>;
     PlayGroundMainLayout_o: React.ComponentType<P>;
+    KVStorageList_o: React.ComponentType<P>;
     PagesList_o: React.ComponentType<P>;
     Storieslist_o: React.ComponentType<P>;
 };

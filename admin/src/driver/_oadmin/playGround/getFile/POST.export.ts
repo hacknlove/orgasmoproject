@@ -1,11 +1,11 @@
 const configs = {
-  site: {
-    method: "site.getConfig",
-    getParams: () => [],
+  value: {
+    method: "kvStorage.getValue",
+    getParams: (ctx, splitedPath) => [ctx, splitedPath[2]],
   },
   component: {
     method: "admin.getComponentStory",
-    getParams: (splitedPath) => [
+    getParams: (ctx, splitedPath) => [
       {
         component: splitedPath[2],
         story: splitedPath[3],
@@ -22,7 +22,7 @@ const configs = {
   },
   page: {
     method: "page.getPageConfigFromId",
-    getParams: (splitedPath) => [splitedPath[2]],
+    getParams: (ctx, splitedPath) => [splitedPath[2]],
   },
 };
 
@@ -41,7 +41,7 @@ export default async function getFile(ctx) {
   }
 
   const content = (await ctx.driver[config.method](
-    ...config.getParams(splitedPath)
+    ...config.getParams(ctx, splitedPath)
   )) ??
     config.getDefault?.(splitedPath) ?? {
       error: `${ctx.req.body.filePath} not found`,

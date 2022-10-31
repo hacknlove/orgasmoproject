@@ -1,1 +1,0 @@
-{"version":3,"file":"getConfig.export.js","sourceRoot":"","sources":["../../src/site/getConfig.export.ts"],"names":[],"mappings":";;AAAA,8CAAuC;AAEvC,MAAM,kBAAkB,GACrB,OAAO,CAAC,GAAG,CAAC,6BAAwC,IAAI,MAAM,CAAC;AAEnD,KAAK,UAAU,SAAS;IACrC,MAAM,oBAAU,CAAC,OAAO,EAAE,CAAC;IAE3B,OAAO,CAAC,MAAM,oBAAU,CAAC,kBAAkB,CAAC,CAAC,OAAO,CAAC,EAAE,CAAC,CAAC,IAAI,EAAE,CAAC;AAClE,CAAC;AAJD,4BAIC"}

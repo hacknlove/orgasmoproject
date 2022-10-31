@@ -1,5 +1,6 @@
 import getStoriesList from "./getStoriesList";
 import getPagesList from "../../driver/playground/getPagesList";
+import getKVStorageList from "./getKVStorageList";
 
 export default async function getServerSideProps(ctx) {
   if (ctx.query.empty) {
@@ -14,9 +15,10 @@ export default async function getServerSideProps(ctx) {
   const Components = ctx.Components;
   const driver = ctx.driver;
 
-  const [stories, pages] = await Promise.all([
+  const [stories, pages, KVStorages] = await Promise.all([
     getStoriesList({ driver, Components }),
     getPagesList({ driver }),
+    getKVStorageList({ driver }),
   ]);
 
   const response = {
@@ -29,6 +31,12 @@ export default async function getServerSideProps(ctx) {
       areas: {
         MainLayout_nav_o: {
           items: [
+            {
+              type: "KVStorageList_o",
+              props: {
+                KVStorages,
+              },
+            },
             {
               type: "PagesList_o",
               props: {

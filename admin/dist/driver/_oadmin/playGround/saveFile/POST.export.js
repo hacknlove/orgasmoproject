@@ -25,12 +25,12 @@ const configs = {
             description: content.description ?? "",
         }),
     },
-    site: {
-        method: "admin.saveSiteConfig",
+    kvStorage: {
+        method: "admin.saveKVStorage",
         schema: null,
         getResponse: (content) => ({
-            type: "site",
-            filePath: `/site/config`,
+            type: "kvStorage",
+            filePath: `/value/${content.key}`,
             description: content.description ?? "",
         }),
     },
@@ -44,8 +44,16 @@ async function saveFileApi(ctx) {
     else if (content.story) {
         config = configs.component;
     }
+    else if (content.key) {
+        config = configs.kvStorage;
+    }
     else {
-        config = configs.site;
+        ctx.res.json({
+            error: {
+                name: "Unknown file format",
+                message: "The file is not a page, a story or a key-value storage entry",
+            },
+        });
     }
     if (!ctx.driver[config.method]) {
         ctx.res.json({

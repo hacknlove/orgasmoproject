@@ -53,7 +53,11 @@ describe("processRow", () => {
       },
     });
 
-    expect(driver.getFooBar).toHaveBeenCalledWith({ rowConfig, params: {} });
+    expect(driver.getFooBar).toHaveBeenCalledWith({
+      ctx: { driver },
+      rowConfig,
+      params: {},
+    });
   });
   it("defaults props to empty object", async () => {
     const rowConfig = {

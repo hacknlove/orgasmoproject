@@ -301,6 +301,8 @@
 }
 
 #MainLayout_nav_o {
+  padding-left: 15px;
+  padding-top: 15px;
   grid-area: list;
   background: var(--interface-background_o);
   height: 100vh;
@@ -440,6 +442,7 @@
   color: #999999;
   font-size: 11px;
   padding-right: 34px;
+  padding-top: 1rem;
 }
 
 .MainLayout_nav_li {

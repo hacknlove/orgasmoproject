@@ -5,6 +5,7 @@ const path_1 = require("path");
 const consts_1 = require("../consts");
 const parseDirectory_1 = require("./parseDirectory");
 async function SavePageConfig(ctx, storyConfig) {
+    await parseDirectory_1.waitForIt;
     const component = storyConfig.itemConfig.type;
     const story = storyConfig.story;
     const filePath = parseDirectory_1.storiesPaths[component]?.[story] ??

@@ -13,6 +13,7 @@ const Alert_1 = require("../../modals/Alert");
 const updateNav_1 = require("./updateNav");
 const MaterialSymbolsAdd_1 = require("../../icons/MaterialSymbolsAdd");
 const getFileDescriptorFromFileContent_1 = require("./getFileDescriptorFromFileContent");
+const GrommetIconsStorage_1 = require("../../icons/GrommetIconsStorage");
 function TabButtons({ filePath }) {
     const dynamicState = (0, react_1.useDynamicState)();
     const [fileContent, setFileContent] = (0, react_1.useDynamicValue)(`var://file${filePath}?content`);
@@ -33,6 +34,13 @@ function TabButtons({ filePath }) {
     }
     async function save() {
         const preFileDescriptor = (0, getFileDescriptorFromFileContent_1.default)(JSON.parse(fileContent));
+        if (!preFileDescriptor) {
+            (0, AsyncComponents_1.default)(Alert_1.default, {
+                title: "Unknown schema",
+                text: `The file is not a page, a story or a KVStorage`,
+            }, "playgroundModal_o");
+            return;
+        }
         if (preFileDescriptor.filePath !== filePath) {
             const confirm = await (0, AsyncComponents_1.default)(Alert_1.default, {
                 title: "Save as...",
@@ -71,6 +79,7 @@ const Icons = {
     page: IconoirEmptyPage_1.default,
     component: RadixIconsBookmark_1.default,
     site: MaterialSymbolsSettingsRounded_1.default,
+    value: GrommetIconsStorage_1.default,
     new: MaterialSymbolsAdd_1.default,
 };
 function Tab({ filePath }) {

@@ -13,9 +13,9 @@ const configs = {
     story: content.story,
     description: content.description ?? "",
   }),
-  site: (content) => ({
-    type: "site",
-    filePath: `/site/config`,
+  KVStorage: (content) => ({
+    type: "KVstorage",
+    filePath: `/value/${content.key}`,
     description: content.description ?? "",
   }),
 };
@@ -25,7 +25,7 @@ export default function getFileDescriptorFromFileContent(fileContent) {
     return configs.page(fileContent);
   } else if (fileContent.story) {
     return configs.component(fileContent);
-  } else {
-    return configs.site(fileContent);
+  } else if (fileContent.key) {
+    return configs.KVStorage(fileContent);
   }
 }

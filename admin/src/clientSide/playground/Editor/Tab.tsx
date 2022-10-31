@@ -14,6 +14,7 @@ import Alert from "../../modals/Alert";
 import updateNav from "./updateNav";
 import MaterialSymbolsAdd from "../../icons/MaterialSymbolsAdd";
 import getFileDescriptorFromFileContent from "./getFileDescriptorFromFileContent";
+import GrommetIconsStorage from "../../icons/GrommetIconsStorage";
 
 function TabButtons({ filePath }) {
   const dynamicState = useDynamicState();
@@ -48,6 +49,18 @@ function TabButtons({ filePath }) {
     const preFileDescriptor = getFileDescriptorFromFileContent(
       JSON.parse(fileContent)
     );
+
+    if (!preFileDescriptor) {
+      asyncit(
+        Alert,
+        {
+          title: "Unknown schema",
+          text: `The file is not a page, a story or a KVStorage`,
+        },
+        "playgroundModal_o"
+      );
+      return;
+    }
 
     if (preFileDescriptor.filePath !== filePath) {
       const confirm = await asyncit(
@@ -107,6 +120,7 @@ const Icons = {
   page: IconoirEmptyPage,
   component: RadixIconsBookmark,
   site: MaterialSymbolsSettingsRounded,
+  value: GrommetIconsStorage,
   new: MaterialSymbolsAdd,
 };
 

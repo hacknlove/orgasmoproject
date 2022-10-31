@@ -16,10 +16,12 @@ async function newStoryConfig(storyConfig) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: {
+        body: JSON.stringify({
+            data: {
                 filePath: `${storyConfig.itemConfig.type}/${storyConfig.story}`,
-                storyConfig
-            } }),
+                storyConfig,
+            },
+        }),
     });
 }
 async function upsertStoryConfig(ctx, storyConfig) {

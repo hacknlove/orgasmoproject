@@ -10,6 +10,7 @@ export default async function processRow({ rowConfig, params, ctx }) {
       ...(await ctx.driver[rowConfig.getProps]({
         rowConfig,
         params,
+        ctx,
       })),
     };
   }

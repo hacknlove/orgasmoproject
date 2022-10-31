@@ -4,3 +4,4 @@ playwright-report
 .cache
 test-report.html
 node_modules
+workshop

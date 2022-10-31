@@ -50,6 +50,13 @@ export default {
       loading: undefined,
     }
   ),
+  KVStorageList_o: dynamic(
+    () => import("./playground/nav/KVStorageList_o.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
   PagesList_o: dynamic(
     () => import("./playground/nav/PagesList_o.dynamic.js"),
     {

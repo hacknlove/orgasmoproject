@@ -4,3 +4,4 @@ const dataPath =
 export const pagesPath = `${dataPath}/pages`;
 export const sitePath = `${dataPath}/site.json`;
 export const storiesPath = `${dataPath}/stories`;
+export const kvStoragePath = `${dataPath}/values`;
