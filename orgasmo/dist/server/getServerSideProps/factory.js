@@ -4,6 +4,7 @@ const getPage_1 = require("./getPage");
 const getUser_1 = require("../lib/getUser");
 const cacheFactory_1 = require("../cache/cacheFactory");
 const events_1 = require("../events");
+const getLabels_1 = require("../lib/getLabels");
 function getServerSidePropsFactory({ driver, noCache, Components, }) {
     return async function GetServerSideProps(ctx) {
         ctx.noCache = noCache;
@@ -12,7 +13,7 @@ function getServerSidePropsFactory({ driver, noCache, Components, }) {
         ctx.setCookies = [];
         ctx.rewrites = 0;
         ctx.events = events_1.default;
-        await Promise.all([(0, getUser_1.default)(ctx), noCache || (0, cacheFactory_1.default)(ctx)]);
+        await Promise.all([(0, getUser_1.default)(ctx), noCache || (0, cacheFactory_1.default)(ctx), (0, getLabels_1.default)(ctx)]);
         const methodPath = ctx.resolvedUrl
             .substring(1)
             .replace(/\?.*$/, "")

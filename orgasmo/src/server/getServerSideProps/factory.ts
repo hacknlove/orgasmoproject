@@ -5,6 +5,7 @@ import getPage from "./getPage";
 import getUser from "../lib/getUser";
 import getCache from "../cache/cacheFactory";
 import events from "../events";
+import getLabels from "../lib/getLabels";
 
 export default function getServerSidePropsFactory({
   driver,
@@ -19,7 +20,7 @@ export default function getServerSidePropsFactory({
     ctx.rewrites = 0;
     ctx.events = events;
 
-    await Promise.all([getUser(ctx), noCache || getCache(ctx)]);
+    await Promise.all([getUser(ctx), noCache || getCache(ctx), getLabels(ctx)]);
 
     const methodPath =
       ctx.resolvedUrl

@@ -19,7 +19,11 @@ async function* getPageCacheKeys(ctx) {
             error,
         });
     }
-    yield (0, cencode_1.cencode)({ params: ctx.params, roles: ctx.req.user.roles });
+    yield (0, cencode_1.cencode)({
+        params: ctx.params,
+        roles: ctx.req.user.roles,
+        labels: ctx.req.labels,
+    });
 }
 exports.default = getPageCacheKeys;
 //# sourceMappingURL=getPageCacheKeys.js.map

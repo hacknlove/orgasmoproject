@@ -4,6 +4,7 @@ import events from "../events";
 import chooseOne from "../lib/chooseOne";
 import cacheNewItem from "../cache/cacheNewItem";
 import sendFullPage from "./sendFullPage";
+import filterCriteria from "../lib/filterCriteria";
 
 type pageParams = Record<string, any>;
 
@@ -20,18 +21,30 @@ export default async function getPageFromConfig(ctx) {
     });
   }
 
-  if (!pageConfig) {
+  if (!pageConfig || pageConfig.length === 0) {
     return {
       notFound: true,
     };
   }
 
-  const pageIds =
-    Array.isArray(pageConfig) && pageConfig.map((page) => page.pageId);
-
-  if (pageIds) {
-    pageConfig = chooseOne({ array: pageConfig, ctx });
+  if (!Array.isArray(pageConfig)) {
+    pageConfig = [pageConfig];
   }
+
+  pageConfig = filterCriteria(pageConfig, "roles", ctx.req.user.roles);
+  pageConfig = filterCriteria(pageConfig, "labels", ctx.req.labels);
+
+  if (!pageConfig || pageConfig.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const pageIds = pageConfig.map((page) => page.pageId);
+
+  pageConfig = pageConfig[1]
+    ? chooseOne({ array: pageConfig, ctx })
+    : pageConfig[0];
 
   let params: pageParams = {
     params: ctx.params,
@@ -79,10 +92,11 @@ export default async function getPageFromConfig(ctx) {
     timeChunk: pageConfig.timeChunk,
     revalidate: pageConfig.revalidate,
     autoRefresh: pageConfig.autoRefresh,
+    private: pageConfig.private,
     response,
   };
 
-  if (pageIds) {
+  if (pageIds.length > 1) {
     pageConfig.private = true;
   }
 

@@ -1,0 +1,23 @@
+{
+  "exactPath": "/roles",
+  "pageId": "guest",
+  "roles": {
+    "cannot": ["admin", "member"],
+    "must": ["guest"]
+  },
+  "areas": {
+    "main": {
+      "items": [
+        {
+          "type": "h1",
+          "props": {
+            "content": ["Guest"],
+            "style": {
+              "textAlign": "center"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

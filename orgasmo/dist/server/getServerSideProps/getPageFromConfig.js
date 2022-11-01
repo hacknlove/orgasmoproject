@@ -6,6 +6,7 @@ const events_1 = require("../events");
 const chooseOne_1 = require("../lib/chooseOne");
 const cacheNewItem_1 = require("../cache/cacheNewItem");
 const sendFullPage_1 = require("./sendFullPage");
+const filterCriteria_1 = require("../lib/filterCriteria");
 async function getPageFromConfig(ctx) {
     let pageConfig;
     try {
@@ -19,15 +20,25 @@ async function getPageFromConfig(ctx) {
             error,
         });
     }
-    if (!pageConfig) {
+    if (!pageConfig || pageConfig.length === 0) {
         return {
             notFound: true,
         };
     }
-    const pageIds = Array.isArray(pageConfig) && pageConfig.map((page) => page.pageId);
-    if (pageIds) {
-        pageConfig = (0, chooseOne_1.default)({ array: pageConfig, ctx });
+    if (!Array.isArray(pageConfig)) {
+        pageConfig = [pageConfig];
     }
+    pageConfig = (0, filterCriteria_1.default)(pageConfig, "roles", ctx.req.user.roles);
+    pageConfig = (0, filterCriteria_1.default)(pageConfig, "labels", ctx.req.labels);
+    if (!pageConfig || pageConfig.length === 0) {
+        return {
+            notFound: true,
+        };
+    }
+    const pageIds = pageConfig.map((page) => page.pageId);
+    pageConfig = pageConfig[1]
+        ? (0, chooseOne_1.default)({ array: pageConfig, ctx })
+        : pageConfig[0];
     let params = {
         params: ctx.params,
         parsedPath: ctx.parsedPath,
@@ -69,9 +80,10 @@ async function getPageFromConfig(ctx) {
         timeChunk: pageConfig.timeChunk,
         revalidate: pageConfig.revalidate,
         autoRefresh: pageConfig.autoRefresh,
+        private: pageConfig.private,
         response,
     };
-    if (pageIds) {
+    if (pageIds.length > 1) {
         pageConfig.private = true;
     }
     if (!ctx.noCache && pageConfig.timeChunk && !pageConfig.private) {

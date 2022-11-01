@@ -1,27 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const events_1 = require("../events");
-async function getUser(ctx) {
-    if (ctx.req.user) {
+async function getLabels(ctx) {
+    if (ctx.req.labels) {
         return;
     }
-    ctx.req.user = {
-        roles: [],
-    };
-    if (!ctx.driver.user?.getUser) {
+    ctx.req.labels = [];
+    if (!ctx.driver.labels?.getLabels) {
         return;
     }
     try {
-        Object.assign(ctx.req.user, await ctx.driver.user.getUser(ctx));
+        ctx.req.labels = (await ctx.driver.labels.getLabels(ctx)) ?? [];
     }
     catch (error) {
         events_1.default.emit("error", {
             type: "driver",
-            method: "user.getUser",
+            method: "labels.getLabels",
             params: [ctx],
             error,
         });
     }
 }
-exports.default = getUser;
-//# sourceMappingURL=getUser.js.map
+exports.default = getLabels;
+//# sourceMappingURL=getLabels.js.map

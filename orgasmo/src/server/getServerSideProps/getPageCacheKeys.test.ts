@@ -44,7 +44,7 @@ describe("getPageCacheKeys", () => {
     const expected = [
       "(Hp_Jfoo",
       "(Hr_Ptest-role",
-      "(Mparams_Jfoo.Lroles_Ptest-role",
+      "(Mparams_Jfoo.Lroles_Ptest-role.Mlabels5",
     ];
 
     for await (const key of getPageCacheKeys(ctx)) {
@@ -55,7 +55,7 @@ describe("getPageCacheKeys", () => {
   it("emits an error if the driver rejects", async () => {
     ctx.driver.page.allParameterMethods.mockRejectedValue("Some Error");
 
-    const expected = ["(Mparams_Jfoo.Lroles_Ptest-role"];
+    const expected = ["(Mparams_Jfoo.Lroles_Ptest-role.Mlabels5"];
 
     for await (const key of getPageCacheKeys(ctx)) {
       expect(key).toBe(expected.shift());

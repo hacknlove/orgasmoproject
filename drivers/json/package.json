@@ -32,6 +32,8 @@
     "./dist"
   ],
   "exports": {
-    ".": "./dist/driver.js"
+    ".": "./dist/driver.js",
+    "./mockRoles": "./dist/mockRoles.js",
+    "./mockLabels": "./dist/mockLabels.js"
   }
 }

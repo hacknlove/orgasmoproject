@@ -19,5 +19,9 @@ export default async function* getPageCacheKeys(ctx) {
     });
   }
 
-  yield cencode({ params: ctx.params, roles: ctx.req.user.roles });
+  yield cencode({
+    params: ctx.params,
+    roles: ctx.req.user.roles,
+    labels: ctx.req.labels,
+  });
 }
