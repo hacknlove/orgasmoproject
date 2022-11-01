@@ -49,28 +49,19 @@ describe("components fileImports", () => {
 * @file This file is created automatically at build time.
 * more info: https://docs.orgasmo.dev/
 */
-import React from 'react';
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import Area from "@orgasmo/orgasmo/Area";
 import ーorgasmoーadminーComponents from "@orgasmo/admin/Components"
 
+const Components = {
+  Area,
+  ...ーorgasmoーadminーComponents,
 
-export const Components = {
-...ーorgasmoーadminーComponents,
-
-  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true, loading: undefined }),
-  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true, loading: undefined }),
+  Foo: dynamic(() => import("./components/Foo.dynamic.tsx"), { suspense: true, loading: undefined }),
+  Bar: dynamic(() => import("./components/Bar.dynamic.tsx"), { suspense: true, loading: undefined }),
 }
 
-export default function DComponent ({ type, props }) {
-  const Component = Components[type]
-  if (Component) {
-    return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
-  }
-  if (type.match(/^[a-z]/)) {
-    return React.createElement(type, props)
-  }
-  return <div data-component-name={type} />
-}
+export default Components;
 `;
     const actual = fileFromImports(imports);
 
@@ -85,28 +76,19 @@ export default function DComponent ({ type, props }) {
 * @file This file is created automatically at build time.
 * more info: https://docs.orgasmo.dev/
 */
-import React from 'react';
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import Area from "@orgasmo/orgasmo/Area";
 import ーorgasmoーadminーComponents from "@orgasmo/admin/Components"
 
+const Components = {
+  Area,
+  ...ーorgasmoーadminーComponents,
 
-export const Components = {
-...ーorgasmoーadminーComponents,
-
-  Foo: dynamic(() => import('./components/Foo.dynamic.tsx'), { suspense: true, loading: undefined }),
-  Bar: dynamic(() => import('./components/Bar.dynamic.tsx'), { suspense: true, loading: undefined }),
+  Foo: dynamic(() => import("./components/Foo.dynamic.tsx"), { suspense: true, loading: undefined }),
+  Bar: dynamic(() => import("./components/Bar.dynamic.tsx"), { suspense: true, loading: undefined }),
 }
 
-export default function DComponent ({ type, props }) {
-  const Component = Components[type]
-  if (Component) {
-    return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
-  }
-  if (type.match(/^[a-z]/)) {
-    return React.createElement(type, props)
-  }
-  return <div data-component-name={type} />
-}
+export default Components;
 `;
     jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const actual = fileFromImports(imports, "foo-externalPackage");
@@ -131,7 +113,7 @@ describe("useImports", () => {
         { from: "other/path", filename: "Component3" },
       ])
     ).toEqual(`
-  Component: dynamic(() => import('path'), { suspense: true, loading: undefined }),
-  Component3: dynamic(() => import('other/path'), { suspense: true, loading: undefined }),`);
+  Component: dynamic(() => import("path"), { suspense: true, loading: undefined }),
+  Component3: dynamic(() => import("other/path"), { suspense: true, loading: undefined }),`);
   });
 });

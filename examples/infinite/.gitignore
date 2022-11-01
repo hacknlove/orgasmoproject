@@ -35,7 +35,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/DComponent.jsx
+/Components.jsx
 /driver.js
 /style.scss
 /test-results/

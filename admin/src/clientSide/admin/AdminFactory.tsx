@@ -1,10 +1,11 @@
+import DComponent from "@orgasmo/orgasmo/DComponent";
 import { useEffect, useState, useMemo } from "react";
 
 import { Admin } from "./Admin.dynamic";
 
 const ADMIN_GET_PAGE_CONFIG_ENDPOINT = "/api/_oadmin/page/expand";
 
-export default function AdminFactory({ DComponent, Components, Page }) {
+export default function AdminFactory({ Components, Page }) {
   const AdminPage = ({
     pageConfigs,
     resolvedUrl,
@@ -52,7 +53,6 @@ export default function AdminFactory({ DComponent, Components, Page }) {
       () => (
         <Admin
           adminAreas={adminPageConfig.areas}
-          DComponent={DComponent}
           Components={Components}
           originalPageConfig={pageConfigs[selectedPageId]}
           pageConfig={editablePageConfig}
@@ -75,8 +75,11 @@ export default function AdminFactory({ DComponent, Components, Page }) {
         return (
           <DComponent
             type={adminPageConfig.layout?.name}
-            admin={adminRendered}
-            page={pageRendered}
+            props={{
+              admin: adminRendered,
+              page: pageRendered,
+            }}
+            Components={Components}
           />
         );
       }

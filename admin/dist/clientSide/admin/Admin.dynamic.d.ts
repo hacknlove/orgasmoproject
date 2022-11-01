@@ -1,7 +1,6 @@
 /// <reference types="react" />
-export declare function Admin({ adminAreas, DComponent, Components, pageConfig, setPageConfig, driverMethods, originalPageConfig, pageConfigIds, setSelectedPageId, }: {
+export declare function Admin({ adminAreas, Components, pageConfig, setPageConfig, driverMethods, originalPageConfig, pageConfigIds, setSelectedPageId, }: {
     adminAreas: any;
-    DComponent: any;
     Components: any;
     pageConfig: any;
     setPageConfig: any;

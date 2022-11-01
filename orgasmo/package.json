@@ -36,7 +36,8 @@
     "./withOrgasmo": "./src/buildTools/withOrgasmo.cjs",
     "./expandPageConfig": "./dist/server/getServerSideProps/expand/pageConfig.js",
     "./AsyncComponents": "./dist/components/AsyncComponents.js",
-    "./logger": "./dist/server/logger.js"
+    "./logger": "./dist/server/logger.js",
+    "./DComponent": "./dist/components/DComponent.js"
   },
   "files": [
     "dist/",

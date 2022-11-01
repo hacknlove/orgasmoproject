@@ -1,8 +1,10 @@
 import asyncit from "@orgasmo/orgasmo/AsyncComponents";
 import { useContext } from "react";
 import AdminContext from "./AdminContext";
+import DComponent from "@orgasmo/orgasmo/DComponent";
+
 export default function AdminButton({ label, area, modal }) {
-  const { chooseMenu, DComponent, Components } = useContext(AdminContext);
+  const { chooseMenu, Components } = useContext(AdminContext);
 
   return (
     <div
@@ -14,7 +16,11 @@ export default function AdminButton({ label, area, modal }) {
         }
 
         if (Components[modal]) {
-          asyncit(DComponent, { type: modal, props: {} }, "playgroundModal_o");
+          asyncit(
+            DComponent,
+            { type: modal, props: {}, Components },
+            "playgroundModal_o"
+          );
         }
       }}
     >

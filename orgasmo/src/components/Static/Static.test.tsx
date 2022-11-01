@@ -5,6 +5,11 @@
 import Static from "./Static";
 import { render, screen } from "@testing-library/react";
 
+jest.mock("../DComponent", () => ({
+  _esModule: true,
+  default: ({ type, props }) => <div className={props.className}>{type}</div>,
+}));
+
 describe("Static", () => {
   it("Renders all the components", () => {
     const rows = [
@@ -13,11 +18,7 @@ describe("Static", () => {
       { type: "Baz", props: { className: "test-Baz" } },
     ];
 
-    const DComponent = ({ type, props }) => (
-      <div className={props.className}>{type}</div>
-    );
-
-    render(<Static items={rows} DComponent={DComponent} />);
+    render(<Static items={rows} Components={{}} />);
 
     expect(screen.getByText("Foo")).toHaveClass("test-Foo");
     expect(screen.getByText("Bar")).toHaveClass("test-Bar");

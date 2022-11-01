@@ -1,0 +1,9 @@
+{
+  "story": "test children",
+  "itemConfig": {
+    "type": "div",
+    "props": {
+      "content": "hola"
+    }
+  }
+}

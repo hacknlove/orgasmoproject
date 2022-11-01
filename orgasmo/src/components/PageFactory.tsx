@@ -7,6 +7,7 @@ import {
   useDynamicValue,
 } from "@orgasmo/dynamicstate/react";
 import ComPlugin from "@orgasmo/dynamicstate/plugins/com";
+import DComponent from "./DComponent";
 
 const DynamicStatePlugins = [ComPlugin];
 
@@ -14,7 +15,7 @@ let exposeSharedState = process.env.NODE_ENV === "development";
 
 function Layout() {
   const [layout] = useDynamicValue("var://layout");
-  const [{ DComponent }] = useDynamicValue("var://DComponent");
+  const [{ Components }] = useDynamicValue("var://Components");
 
   return (
     <>
@@ -25,6 +26,7 @@ function Layout() {
           props={{
             cssVars: layout?.cssVars,
           }}
+          Components={Components}
         />
       ) : (
         <DefaultLayout cssVars={layout?.cssVars} />
@@ -34,7 +36,7 @@ function Layout() {
 }
 
 export default function PageFactory({
-  DComponent,
+  Components,
 }: PageFactoryParameters): OrgasmoPage {
   const Page = (props) => {
     const [clientSideOnly, setClientSideOnly] = useState(props.clientSideOnly);
@@ -43,7 +45,7 @@ export default function PageFactory({
       const response = {
         "var://layout": props.layout,
         "var://areasNames": [] as string[],
-        "var://DComponent": { DComponent },
+        "var://Components": { Components },
       };
 
       for (const areaName in props.areas) {

@@ -42,22 +42,8 @@ test("scss fileFromImports returns a scss source from imports", () => {
     { path: undefined },
   ];
   const expected = `/**
-  * @file This file is created automatically at build time, there is no need to commit it, but you can.
-  *
-  * To configure the it, pass {scss: boolean|string, ...} to withOrgasmo
-  *
-  * @example
-  * // enables creation (the default)
-  * withOrgasmo(nextConfig)
-  *
-  * @example
-  * // explicity enables creation
-  * withOrgasmo(nextConfig, { scss: true })
-  *
-  * @example
-  * // disable creation
-  * withOrgasmo(nextConfig, { scss: false })
-  *
+  * @file This file is created automatically at build time.
+  * more info: https://docs.orgasmo.dev/
   */
 
 @import './some/path.scss';

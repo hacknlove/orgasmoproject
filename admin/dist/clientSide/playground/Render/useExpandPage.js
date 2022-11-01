@@ -38,7 +38,7 @@ async function updateProps({ filePath, fileContent, pathParams, setProps }) {
 }
 function setValues({ sharedState, props }) {
     for (const key of Array.from(sharedState.resources.keys())) {
-        if (key === "var://DComponent") {
+        if (key === "var://Components") {
             continue;
         }
         sharedState.setValue(key, null);
@@ -54,7 +54,7 @@ function setValues({ sharedState, props }) {
 function resetState(sharedState) {
     sharedState.setValue("var://areasNames", []);
     for (const key of Array.from(sharedState.resources.keys())) {
-        if (key === "var://DComponent") {
+        if (key === "var://Components") {
             continue;
         }
         if (key === "var://areasNames") {

@@ -1,0 +1,14 @@
+{
+  "story": "empty",
+  "description": "Create a new story",
+  "itemConfig": {
+    "type": "Div",
+    "props": {
+      "content": [
+        {
+          "Type": "Footer"
+        }
+      ]
+    }
+  }
+}

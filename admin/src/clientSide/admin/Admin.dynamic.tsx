@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { RenderArea } from "@orgasmo/orgasmo/Area";
+import DComponent from "@orgasmo/orgasmo/DComponent";
 
 import AdminContext from "./AdminContext";
 import * as equal from "fast-deep-equal";
@@ -10,7 +11,6 @@ import Save from "./Save";
 
 export function Admin({
   adminAreas,
-  DComponent,
   Components,
   pageConfig,
   setPageConfig,
@@ -129,7 +129,6 @@ export function Admin({
           isDirty,
           updatePageConfig,
           chooseMenu,
-          DComponent,
           Components,
           driverMethods,
           pageConfigIds,
@@ -158,9 +157,9 @@ export function Admin({
             )}
           </div>
           {Components[adminArea] ? (
-            <DComponent type={adminArea} props={{}} />
+            <DComponent type={adminArea} props={{}} Components={Components} />
           ) : (
-            <RenderArea area={adminAreas[adminArea]} DComponent={DComponent} />
+            <RenderArea area={adminAreas[adminArea]} Components={Components} />
           )}
           <Save />
         </div>

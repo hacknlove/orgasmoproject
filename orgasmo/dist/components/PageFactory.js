@@ -6,23 +6,24 @@ const DefaultLayout_1 = require("./DefaultLayout/DefaultLayout");
 const Meta_1 = require("./Meta/Meta");
 const react_2 = require("@orgasmo/dynamicstate/react");
 const com_1 = require("@orgasmo/dynamicstate/plugins/com");
+const DComponent_1 = require("./DComponent");
 const DynamicStatePlugins = [com_1.default];
 let exposeSharedState = process.env.NODE_ENV === "development";
 function Layout() {
     const [layout] = (0, react_2.useDynamicValue)("var://layout");
-    const [{ DComponent }] = (0, react_2.useDynamicValue)("var://DComponent");
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [layout?.meta && (0, jsx_runtime_1.jsx)(Meta_1.default, { meta: layout?.meta }), layout?.name ? ((0, jsx_runtime_1.jsx)(DComponent, { type: layout.name, props: {
+    const [{ Components }] = (0, react_2.useDynamicValue)("var://Components");
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [layout?.meta && (0, jsx_runtime_1.jsx)(Meta_1.default, { meta: layout?.meta }), layout?.name ? ((0, jsx_runtime_1.jsx)(DComponent_1.default, { type: layout.name, props: {
                     cssVars: layout?.cssVars,
-                } })) : ((0, jsx_runtime_1.jsx)(DefaultLayout_1.default, { cssVars: layout?.cssVars }))] }));
+                }, Components: Components })) : ((0, jsx_runtime_1.jsx)(DefaultLayout_1.default, { cssVars: layout?.cssVars }))] }));
 }
-function PageFactory({ DComponent, }) {
+function PageFactory({ Components, }) {
     const Page = (props) => {
         const [clientSideOnly, setClientSideOnly] = (0, react_1.useState)(props.clientSideOnly);
         const [initialState, setInitialState] = (0, react_1.useState)(() => {
             const response = {
                 "var://layout": props.layout,
                 "var://areasNames": [],
-                "var://DComponent": { DComponent },
+                "var://Components": { Components },
             };
             for (const areaName in props.areas) {
                 response["var://areasNames"].push(areaName);

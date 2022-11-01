@@ -1,4 +1,5 @@
 import { DynamicProps } from "~/types";
+import DComponent from "../DComponent";
 import useItems from "./useItems";
 
 export default function Dynamic({
@@ -6,7 +7,7 @@ export default function Dynamic({
   items: itemsProp,
   mode,
   threshold,
-  DComponent,
+  Components,
 }: DynamicProps) {
   const { items, ref, overTheTop, keyOffset, underTheBottom } = useItems({
     src,
@@ -23,6 +24,7 @@ export default function Dynamic({
           (props: any, i) =>
             props && (
               <DComponent
+                Components={Components}
                 key={i + keyOffset}
                 type={props.type}
                 props={props.props}

@@ -279,14 +279,14 @@ function refresh() {
   });
 
   async function updateComponentsToForceRefresh() {
-    const componentFile = await readFile("./DComponent.jsx", {
+    const componentFile = await readFile("./Components.jsx", {
       encoding: "utf-8",
     }).catch(() => false);
     if (!componentFile) {
       return;
     }
     await writeFile(
-      "./DComponent.jsx",
+      "./Components.jsx",
       componentFile.replace(/^\/\/ Refreshed at .*/gm, "") +
         `// Refreshed at ${new Date().toISOString()}`
     );

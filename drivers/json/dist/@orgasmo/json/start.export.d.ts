@@ -1,1 +1,1 @@
-export default function start(): Promise<[void, void]>;
+export default function start(): Promise<[void, void, void]>;

@@ -1,7 +1,7 @@
 /// <reference types="react" />
-export declare function RenderArea({ area, DComponent }: {
+export declare function RenderArea({ area, Components }: {
     area: any;
-    DComponent: any;
+    Components: any;
 }): JSX.Element | null;
 export default function Area({ name }: {
     name: any;

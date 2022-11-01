@@ -1,6 +1,5 @@
 /// <reference types="react" />
-export default function AdminFactory({ DComponent, Components, Page }: {
-    DComponent: any;
+export default function AdminFactory({ Components, Page }: {
     Components: any;
     Page: any;
 }): ({ pageConfigs, resolvedUrl, adminPageConfig, driverMethods, }: {

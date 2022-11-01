@@ -4,12 +4,13 @@ exports.Admin = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const Area_1 = require("@orgasmo/orgasmo/Area");
+const DComponent_1 = require("@orgasmo/orgasmo/DComponent");
 const AdminContext_1 = require("./AdminContext");
 const equal = require("fast-deep-equal");
 const router_1 = require("next/router");
 const AsyncComponents_1 = require("@orgasmo/orgasmo/AsyncComponents");
 const Save_1 = require("./Save");
-function Admin({ adminAreas, DComponent, Components, pageConfig, setPageConfig, driverMethods, originalPageConfig, pageConfigIds, setSelectedPageId, }) {
+function Admin({ adminAreas, Components, pageConfig, setPageConfig, driverMethods, originalPageConfig, pageConfigIds, setSelectedPageId, }) {
     const isDirty = (0, react_1.useMemo)(() => !equal(pageConfig, originalPageConfig), [pageConfig, originalPageConfig]);
     const [menuIsActive, setMenuIsActive] = (0, react_1.useState)(true);
     const [adminArea, setAdminArea] = (0, react_1.useState)("start");
@@ -80,14 +81,13 @@ function Admin({ adminAreas, DComponent, Components, pageConfig, setPageConfig, 
                 isDirty,
                 updatePageConfig,
                 chooseMenu,
-                DComponent,
                 Components,
                 driverMethods,
                 pageConfigIds,
                 setSelectedPageId,
             }, children: [(0, jsx_runtime_1.jsx)(AsyncComponents_1.AsyncComponents, { area: "playgroundModal_o" }), (0, jsx_runtime_1.jsxs)("div", { id: "_oadmin_menu", className: menuIsActive ? "_oadmin_menu_active" : "", children: [(0, jsx_runtime_1.jsxs)("div", { id: "_oadmin_menu_path", children: [(0, jsx_runtime_1.jsxs)("span", { children: [pageConfig?.exactPath ?? pageConfig?.patternPath, " ", isDirty && "*"] }), adminArea !== "start" && ((0, jsx_runtime_1.jsx)("button", { className: "button_o", onClick: () => {
                                         chooseMenu("start");
-                                    }, children: "\uD83E\uDC04" }))] }), Components[adminArea] ? ((0, jsx_runtime_1.jsx)(DComponent, { type: adminArea, props: {} })) : ((0, jsx_runtime_1.jsx)(Area_1.RenderArea, { area: adminAreas[adminArea], DComponent: DComponent })), (0, jsx_runtime_1.jsx)(Save_1.default, {})] })] }) }));
+                                    }, children: "\uD83E\uDC04" }))] }), Components[adminArea] ? ((0, jsx_runtime_1.jsx)(DComponent_1.default, { type: adminArea, props: {}, Components: Components })) : ((0, jsx_runtime_1.jsx)(Area_1.RenderArea, { area: adminAreas[adminArea], Components: Components })), (0, jsx_runtime_1.jsx)(Save_1.default, {})] })] }) }));
 }
 exports.Admin = Admin;
 //# sourceMappingURL=Admin.dynamic.js.map

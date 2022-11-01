@@ -1,7 +1,7 @@
 const regexp =
   /(?<from>.*\b(?<filename>[A-Z][A-Za-z0-9_]*)\.dynamic\.(.{2,3}))$/;
 const globPath = "./**/*.dynamic.{jsx,tsx,js,ts,cjs,mjs}";
-const filename = "./DComponent.jsx";
+const filename = "./Components.jsx";
 const isAModule = require("../isAModule");
 
 function getName(externalPackage) {
@@ -32,7 +32,7 @@ function useExternalPackages(externalPackages) {
       console.warn("module not found:", externalPackage);
       continue;
     }
-    string = `\n...${getName(externalPackage)},${string}`;
+    string = `\n  ...${getName(externalPackage)},${string}`;
   }
 
   return string;
@@ -47,7 +47,7 @@ function useImports(imports) {
     if (/node_modules/.test(from)) {
       continue;
     }
-    string = `${string}\n  ${filename}: dynamic(() => import('${from}'), { suspense: true, loading: undefined }),`;
+    string = `${string}\n  ${filename}: dynamic(() => import("${from}"), { suspense: true, loading: undefined }),`;
   }
 
   return string;
@@ -66,25 +66,15 @@ function fileFromImports(imports, externalPackages) {
 * @file This file is created automatically at build time.
 * more info: https://docs.orgasmo.dev/
 */
-import React from 'react';\nimport dynamic from 'next/dynamic';${importExternalPackages(
+import dynamic from "next/dynamic";
+import Area from "@orgasmo/orgasmo/Area";${importExternalPackages(
     externalPackages
   )}
-
-export const Components = {${useExternalPackages(externalPackages)}${useImports(
-    imports
-  )}
+const Components = {
+  Area,${useExternalPackages(externalPackages)}${useImports(imports)}
 }
 
-export default function DComponent ({ type, props }) {
-  const Component = Components[type]
-  if (Component) {
-    return <React.Suspense fallback={null}><Component {...props} /></React.Suspense>;
-  }
-  if (type.match(/^[a-z]/)) {
-    return React.createElement(type, props)
-  }
-  return <div data-component-name={type} />
-}
+export default Components;
 `;
 }
 

@@ -1,6 +1,6 @@
 # orgasmo's build tools
 
-The build tools that "compile" `driver.js`, `style.scss` and `DComponent.js`.
+The build tools that "compile" `driver.js`, `style.scss` and `Components.js`.
 
 ## Documentation
 

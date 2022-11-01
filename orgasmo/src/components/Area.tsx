@@ -2,7 +2,7 @@ import Dynamic from "./Dynamic/Dynamic";
 import Static from "./Static/Static";
 import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 
-export function RenderArea({ area, DComponent }) {
+export function RenderArea({ area, Components }) {
   if (!area) {
     return null;
   }
@@ -14,16 +14,16 @@ export function RenderArea({ area, DComponent }) {
         src={area.src}
         mode={area.mode}
         threshold={area.threshold}
-        DComponent={DComponent}
+        Components={Components}
       />
     );
   }
-  return <Static items={area.items} DComponent={DComponent} />;
+  return <Static items={area.items} Components={Components} />;
 }
 
 export default function Area({ name }) {
   const [area] = useDynamicValue(`var://area/${name}`);
-  const [{ DComponent }] = useDynamicValue(`var://DComponent`);
+  const [{ Components }] = useDynamicValue(`var://Components`);
 
-  return <RenderArea area={area} DComponent={DComponent} />;
+  return <RenderArea area={area} Components={Components} />;
 }
