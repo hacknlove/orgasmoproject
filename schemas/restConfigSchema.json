@@ -1,67 +1,79 @@
 {
-  "title": "pageConfig",
-  "description": "Tells orgasmo how to render a page",
+  "title": "restConfig",
+  "description": "Tells orgasmo how to respond to a REST request",
   "type": "object",
   "properties": {
-    "pageId": {
-      "description": "This id must identify uniquely the pageConfig whithin the data source",
+    "restId": {
+      "description": "This id must identify uniquely the restConfig whithin the data source",
       "type": "string"
     },
     "exactPath": {
-      "description": "Use it for path exact matching. The page config must have or exactPath or patternPath, but not both or none",
+      "description": "Use it for path exact matching. The rest config must have or exactPath or patternPath, but not both or none",
       "type": "string"
     },
     "patternPath": {
-      "description": "Use it for path pattern matching (see path-to-regexp). The page config must have or exactPath or patternPath, but not both or none",
+      "description": "Use it for path pattern matching (see path-to-regexp). The rest config must have or exactPath or patternPath, but not both or none",
       "type": "string"
     },
     "description": {
       "type": "string"
     },
     "ration": {
-      "description": "Used for progressive delivery and AB testing, Changes the probability of a pageConfig to be shown.",
+      "description": "Used for progressive delivery and AB testing, Changes the probability of a restConfig to be shown.",
       "type": "number",
       "minimum": 0
     },
-    "layout": {
+    "response": {
       "type": "object",
       "properties": {
-        "name": {
-          "description": "The name of the dynamic component that will render the page",
-          "type": "string"
-        },
-        "meta": {
-          "description": "The html meta properties, (including title)",
-          "type": "array",
-          "items": [
-            {
-              "type": "array",
-              "contains": {
-                "type": "string"
-              },
-              "minItems": 2,
-              "maxItems": 3
-            }
-          ]
-        },
-        "getMeta": {
-          "description": "Driver method to override the meta",
-          "type": "string"
-        },
-        "cssVars": {
-          "description": "css variables",
+        "data": {
           "type": "object"
         },
-        "getCssVars": {
-          "description": "Driver method to override the cssVars",
-          "type": "string"
+        "items": {
+          "type": "object",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object"
+                },
+                "transform": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "pagination": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "number"
+            },
+            "paginationSize": {
+              "type": "number"
+            },
+            "pages": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
         }
       },
+      "anyOf": [
+        {
+          "required": ["items", "pagination"]
+        },
+        {
+          "required": ["data"]
+        }
+      ],
       "additionalProperties": false
     },
     "areas": {
       "description": "The content blocks",
-      "type": "object",
       "patternProperties": {
         "^[A-Za-z0-9_]+$": {
           "description": "one content block",
@@ -140,14 +152,14 @@
       "type": "object",
       "properties": {
         "cannot": {
-          "description": "Users with any of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
+          "description": "Users with any of these roles cannot get this restConfig, they might still get another restConfig for the same path.",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "must": {
-          "description": "Users without all of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
+          "description": "Users without all of these roles cannot get this restConfig, they might still get another restConfig for the same path.",
           "type": "array",
           "items": {
             "type": "string"
@@ -168,11 +180,11 @@
       }
     },
     "getFlowControl": {
-      "description": "Driver method that overrides the pageConfig.flowControl",
+      "description": "Driver method that overrides the restConfig.flowControl",
       "type": "string"
     },
     "cookies": {
-      "description": "Cookies to be set when the pageConfig is used",
+      "description": "Cookies to be set when the restConfig is used",
       "type": "array",
       "items": [
         {
@@ -195,20 +207,16 @@
       ]
     },
     "getCookies": {
-      "description": "Driver method that overrides the pageConfig.cookies",
+      "description": "Driver method that overrides the restConfig.cookies",
       "type": "string"
-    },
-    "clientSideOnly": {
-      "type": "boolean",
-      "description": "Prevents SSR"
     }
   },
   "oneOf": [
     {
-      "required": ["exactPath", "pageId"]
+      "required": ["exactPath", "restId", "response"]
     },
     {
-      "required": ["patternPath", "pageId"]
+      "required": ["patternPath", "restId", "response"]
     }
   ]
 }

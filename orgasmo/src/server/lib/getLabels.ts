@@ -1,4 +1,4 @@
-import events from "../events";
+import logger from "../logger";
 
 export default async function getLabels(ctx) {
   if (ctx.req.labels) {
@@ -11,13 +11,8 @@ export default async function getLabels(ctx) {
     return;
   }
   try {
-    ctx.req.labels = (await ctx.driver.labels.getLabels(ctx)) ?? [];
+    ctx.req.labels = (await ctx.driver.labels.getLabels(ctx)) || [];
   } catch (error) {
-    events.emit("error", {
-      type: "driver",
-      method: "labels.getLabels",
-      params: [ctx],
-      error,
-    });
+    logger.error({ error, ctx }, "Error calling labels.getLabels");
   }
 }

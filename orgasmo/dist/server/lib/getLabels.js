@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const events_1 = require("../events");
+const logger_1 = require("../logger");
 async function getLabels(ctx) {
     if (ctx.req.labels) {
         return;
@@ -10,15 +10,10 @@ async function getLabels(ctx) {
         return;
     }
     try {
-        ctx.req.labels = (await ctx.driver.labels.getLabels(ctx)) ?? [];
+        ctx.req.labels = (await ctx.driver.labels.getLabels(ctx)) || [];
     }
     catch (error) {
-        events_1.default.emit("error", {
-            type: "driver",
-            method: "labels.getLabels",
-            params: [ctx],
-            error,
-        });
+        logger_1.default.error({ error, ctx }, 'Error calling labels.getLabels');
     }
 }
 exports.default = getLabels;

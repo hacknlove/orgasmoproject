@@ -2,7 +2,7 @@
 
 const { readFile, writeFile } = require("fs/promises");
 const chokidar = require("chokidar");
-const isAModule = require("../isAModule");
+const isAModule = require("../isAModule.cjs");
 const { existsSync } = require("fs");
 
 const driver = process.env.ORGASMO_DRIVER || "@orgasmo/json";

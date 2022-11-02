@@ -85,4 +85,16 @@ describe("getPageFromConfig", () => {
     ctx.driver.someGetParams.mockResolvedValue(false);
     await getPageFromConfig(ctx);
   });
+
+  it("returns 40not found if no page left after filtering by roles or labels", async () => {
+    ctx.driver.page.getPageConfig.mockResolvedValue({
+      roles: {
+        must: ["Something"],
+      },
+    });
+
+    const response = await getPageFromConfig(ctx);
+
+    expect(response).toEqual({ notFound: true });
+  });
 });

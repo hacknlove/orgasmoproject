@@ -15,7 +15,7 @@
             "description": "Use it for path pattern matching (see path-to-regexp). The page config must have or exactPath or patternPath, but not both or none",
             "type": "string"
         },
-        "notes": {
+        "description": {
             "type": "string"
         },
         "ration": {
