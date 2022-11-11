@@ -5,6 +5,7 @@ import chooseOne from "../lib/chooseOne";
 import cacheNewItem from "../cache/cacheNewItem";
 import sendFullPage from "./sendFullPage";
 import filterCriteria from "../lib/filterCriteria";
+import logger from "../logger";
 
 type pageParams = Record<string, any>;
 
@@ -13,12 +14,13 @@ export default async function getPageFromConfig(ctx) {
   try {
     pageConfig = await ctx.driver.page.getPageConfig(ctx);
   } catch (error) {
-    events.emit("error", {
-      type: "driver",
-      method: "page.getPageConfig",
-      params: [ctx],
-      error,
-    });
+    logger.error(
+      {
+        error,
+        ctx,
+      },
+      "Driver error at page.getPageConfig"
+    );
   }
 
   if (!pageConfig || pageConfig.length === 0) {

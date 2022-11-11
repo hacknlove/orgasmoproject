@@ -7,18 +7,17 @@ const chooseOne_1 = require("../lib/chooseOne");
 const cacheNewItem_1 = require("../cache/cacheNewItem");
 const sendFullPage_1 = require("./sendFullPage");
 const filterCriteria_1 = require("../lib/filterCriteria");
+const logger_1 = require("../logger");
 async function getPageFromConfig(ctx) {
     let pageConfig;
     try {
         pageConfig = await ctx.driver.page.getPageConfig(ctx);
     }
     catch (error) {
-        events_1.default.emit("error", {
-            type: "driver",
-            method: "page.getPageConfig",
-            params: [ctx],
+        logger_1.default.error({
             error,
-        });
+            ctx,
+        }, "Driver error at page.getPageConfig");
     }
     if (!pageConfig || pageConfig.length === 0) {
         return {

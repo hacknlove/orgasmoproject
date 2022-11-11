@@ -263,7 +263,7 @@ function map({ route = "", filename, from, type }) {
     filename,
     type,
     importName: `${route.replace(/[/[\].]/g, "ー")}ー${filename.replace(
-      /[^a-z0-9_]/g,
+      /[^a-z0-9_]/gi,
       "ー"
     )}`,
     name: getName(route, filename),

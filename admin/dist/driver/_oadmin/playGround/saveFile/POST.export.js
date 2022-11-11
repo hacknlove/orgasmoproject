@@ -6,6 +6,13 @@ const configs = {
     page: {
         method: "admin.savePageConfig",
         schema: pageConfigSchema,
+        hook: (content) => ({
+            hook: "hook://admin.savePageConfig",
+            body: {
+                path: content.exactPath ?? content.patternPath,
+                pageId: content.pageId,
+            },
+        }),
         getResponse: (content) => ({
             type: "page",
             filePath: `/page/${content.pageId}`,
@@ -26,8 +33,14 @@ const configs = {
         }),
     },
     kvStorage: {
-        method: "admin.saveKVStorage",
+        method: "hook://admin.saveKVStorage",
         schema: null,
+        hook: (content) => ({
+            hook: "admin.saveKVStorage",
+            body: {
+                key: content.key,
+            },
+        }),
         getResponse: (content) => ({
             type: "kvStorage",
             filePath: `/value/${content.key}`,
@@ -67,6 +80,16 @@ async function saveFileApi(ctx) {
     try {
         await ctx.driver[config.method](ctx, content);
         ctx.res.json(config.getResponse(content));
+        const hookConfig = config.hook(content);
+        const hook = ctx.driver.kvStorage.getValue(ctx, hookConfig.hook);
+        await fetch(hook.value.url, {
+            ...hook.value.options,
+            headers: {
+                "Content-Type": "application/json",
+                ...hook.value.options?.headers,
+            },
+            body: JSON.stringify(hookConfig.body),
+        });
         return;
     }
     catch (error) {

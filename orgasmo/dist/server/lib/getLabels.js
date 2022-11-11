@@ -13,7 +13,7 @@ async function getLabels(ctx) {
         ctx.req.labels = (await ctx.driver.labels.getLabels(ctx)) || [];
     }
     catch (error) {
-        logger_1.default.error({ error, ctx }, 'Error calling labels.getLabels');
+        logger_1.default.error({ error, ctx }, "Error calling labels.getLabels");
     }
 }
 exports.default = getLabels;
