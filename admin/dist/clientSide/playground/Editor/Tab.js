@@ -38,7 +38,7 @@ function TabButtons({ filePath }) {
             (0, AsyncComponents_1.default)(Alert_1.default, {
                 title: "Unknown schema",
                 text: `The file is not a page, a story or a KVStorage`,
-            }, "playgroundModal_o");
+            }, "modals");
             return;
         }
         if (preFileDescriptor.filePath !== filePath) {
@@ -46,7 +46,7 @@ function TabButtons({ filePath }) {
                 title: "Save as...",
                 text: `the new filePath is ${preFileDescriptor.filePath}`,
                 cancel: true,
-            }, "playgroundModal_o");
+            }, "modals");
             if (!confirm) {
                 return;
             }
@@ -62,7 +62,7 @@ function TabButtons({ filePath }) {
             .then((r) => r.json())
             .catch((error) => ({ error }));
         if (fileDescriptor.error) {
-            return (0, AsyncComponents_1.default)(Alert_1.default, fileDescriptor.error, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, fileDescriptor.error, "modals");
         }
         if (activeFilepathResource.value === fileDescriptor.filePath) {
             setOriginalContent(fileContent);

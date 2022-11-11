@@ -22,13 +22,13 @@ export default function DeleteItem({ filePath }) {
       return asyncit(
         Alert,
         { title: "Error", text: fileDescriptor.error },
-        "playgroundModal_o"
+        "modals"
       );
     }
 
     if (fileDescriptor.error) {
       console.error(fileDescriptor.error);
-      return asyncit(Alert, fileDescriptor.error, "playgroundModal_o");
+      return asyncit(Alert, fileDescriptor.error, "modals");
     }
 
     updateNavDelete({ dynamicState, fileDescriptor });

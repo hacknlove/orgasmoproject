@@ -33,7 +33,7 @@ function Select({ data, setContent, filePath }) {
           label: data.patternPath,
           required: true,
         },
-        "playgroundModal_o"
+        "modals"
       );
       if (!value) {
         return;
@@ -63,7 +63,7 @@ function Select({ data, setContent, filePath }) {
       return asyncit(
         Alert,
         { title: "Error", text: "The path does not match the pattern" },
-        "playgroundModal_o"
+        "modals"
       );
     }
 

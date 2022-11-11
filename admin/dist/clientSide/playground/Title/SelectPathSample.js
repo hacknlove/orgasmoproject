@@ -23,7 +23,7 @@ function Select({ data, setContent, filePath }) {
                 pattern: regexpPath.toString(),
                 label: data.patternPath,
                 required: true,
-            }, "playgroundModal_o");
+            }, "modals");
             if (!value) {
                 return;
             }
@@ -40,7 +40,7 @@ function Select({ data, setContent, filePath }) {
         }
         const parsedPath = matchPath(value);
         if (!parsedPath) {
-            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: "The path does not match the pattern" }, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: "The path does not match the pattern" }, "modals");
         }
         setPathParams({
             path: value,

@@ -13,7 +13,7 @@ function AdminButton({ label, area, modal }) {
                 chooseMenu(area);
             }
             if (Components[modal]) {
-                (0, AsyncComponents_1.default)(DComponent_1.default, { type: modal, props: {}, Components }, "playgroundModal_o");
+                (0, AsyncComponents_1.default)(DComponent_1.default, { type: modal, props: {}, Components }, "modals");
             }
         }, children: label }));
 }

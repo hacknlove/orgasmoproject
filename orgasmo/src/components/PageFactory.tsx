@@ -8,6 +8,7 @@ import {
 } from "@orgasmo/dynamicstate/react";
 import ComPlugin from "@orgasmo/dynamicstate/plugins/com";
 import DComponent from "./DComponent";
+import { AsyncComponents } from "./AsyncComponents";
 
 const DynamicStatePlugins = [ComPlugin];
 
@@ -98,6 +99,7 @@ export default function PageFactory({
         }
         plugins={DynamicStatePlugins}
       >
+        <AsyncComponents area="modals" />
         <Layout />
       </DynamicStateProvider>
     );

@@ -1,6 +1,5 @@
 import { useDynamicValue } from "@orgasmo/dynamicstate/react";
 import Area from "@orgasmo/orgasmo/Area";
-import { AsyncComponents } from "@orgasmo/orgasmo/AsyncComponents";
 import Editor from "../Editor/Editor";
 import Tabs from "../Editor/Tabs";
 import NewFile from "../nav/NewFile";
@@ -16,7 +15,6 @@ export default function PlayGroundMainLayout_o() {
 
   return (
     <>
-      <AsyncComponents area="playgroundModal_o" />
       <div id="MainLayout_o">
         <nav id="MainLayout_nav_o">
           <NewFile />

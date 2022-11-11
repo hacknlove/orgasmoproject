@@ -57,7 +57,7 @@ function TabButtons({ filePath }) {
           title: "Unknown schema",
           text: `The file is not a page, a story or a KVStorage`,
         },
-        "playgroundModal_o"
+        "modals"
       );
       return;
     }
@@ -70,7 +70,7 @@ function TabButtons({ filePath }) {
           text: `the new filePath is ${preFileDescriptor.filePath}`,
           cancel: true,
         },
-        "playgroundModal_o"
+        "modals"
       );
 
       if (!confirm) {
@@ -90,7 +90,7 @@ function TabButtons({ filePath }) {
       .catch((error) => ({ error }));
 
     if (fileDescriptor.error) {
-      return asyncit(Alert, fileDescriptor.error, "playgroundModal_o");
+      return asyncit(Alert, fileDescriptor.error, "modals");
     }
 
     if (activeFilepathResource.value === fileDescriptor.filePath) {

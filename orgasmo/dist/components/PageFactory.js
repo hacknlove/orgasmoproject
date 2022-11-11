@@ -7,6 +7,7 @@ const Meta_1 = require("./Meta/Meta");
 const react_2 = require("@orgasmo/dynamicstate/react");
 const com_1 = require("@orgasmo/dynamicstate/plugins/com");
 const DComponent_1 = require("./DComponent");
+const AsyncComponents_1 = require("./AsyncComponents");
 const DynamicStatePlugins = [com_1.default];
 let exposeSharedState = process.env.NODE_ENV === "development";
 function Layout() {
@@ -57,7 +58,7 @@ function PageFactory({ Components, }) {
         if (clientSideOnly) {
             return null;
         }
-        return ((0, jsx_runtime_1.jsx)(react_2.DynamicStateProvider, { initialState: initialState, testContextRef: exposeSharedState && typeof window === "object" && window, plugins: DynamicStatePlugins, children: (0, jsx_runtime_1.jsx)(Layout, {}) }));
+        return ((0, jsx_runtime_1.jsxs)(react_2.DynamicStateProvider, { initialState: initialState, testContextRef: exposeSharedState && typeof window === "object" && window, plugins: DynamicStatePlugins, children: [(0, jsx_runtime_1.jsx)(AsyncComponents_1.AsyncComponents, { area: "modals" }), (0, jsx_runtime_1.jsx)(Layout, {})] }));
     };
     return Page;
 }

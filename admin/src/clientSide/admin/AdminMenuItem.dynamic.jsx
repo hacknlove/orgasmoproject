@@ -16,11 +16,7 @@ export default function AdminButton({ label, area, modal }) {
         }
 
         if (Components[modal]) {
-          asyncit(
-            DComponent,
-            { type: modal, props: {}, Components },
-            "playgroundModal_o"
-          );
+          asyncit(DComponent, { type: modal, props: {}, Components }, "modals");
         }
       }}
     >

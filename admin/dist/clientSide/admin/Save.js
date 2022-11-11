@@ -28,17 +28,17 @@ function Save() {
             .then((r) => r.json())
             .catch((error) => ({ error }));
         if (typeof response.error === "string") {
-            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: response.error }, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: response.error }, "modals");
         }
         if (response.error) {
-            return (0, AsyncComponents_1.default)(Alert_1.default, response.error, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, response.error, "modals");
         }
         if (response.ok) {
             forceReload();
         }
     }, [pageConfig]);
     const saveAs = (0, react_1.useCallback)(async () => {
-        const pageId = await (0, AsyncComponents_1.default)(SaveAsInput_1.default, { label: "pageId" }, "playgroundModal_o");
+        const pageId = await (0, AsyncComponents_1.default)(SaveAsInput_1.default, { label: "pageId" }, "modals");
         if (!pageId) {
             return;
         }
@@ -58,22 +58,22 @@ function Save() {
             .then((r) => r.json())
             .catch((error) => ({ error }));
         if (typeof response.error === "string") {
-            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: response.error }, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: response.error }, "modals");
         }
         if (response.error) {
-            return (0, AsyncComponents_1.default)(Alert_1.default, response.error, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, response.error, "modals");
         }
         (0, AsyncComponents_1.default)(Alert_1.default, {
             title: "Saved",
             text: `The pageConfig has been save with the pageId ${pageId}`,
-        }, "playgroundModal_o");
+        }, "modals");
     }, [pageConfig]);
     if (!isDirty) {
         return null;
     }
     return ((0, jsx_runtime_1.jsx)("div", { className: "_oadmin_save_menu", children: (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("button", { className: "button_o", onClick: () => updatePageConfig(originalPageConfig), children: "Reset" }), (0, jsx_runtime_1.jsx)("button", { className: "button_o", onClick: async () => {
                         await navigator.clipboard.writeText(JSON.stringify(pageConfig, null, 2));
-                        (0, AsyncComponents_1.default)(Alert_1.default, { title: "Copied to clipboard" }, "playgroundModal_o");
+                        (0, AsyncComponents_1.default)(Alert_1.default, { title: "Copied to clipboard" }, "modals");
                     }, children: "Copy" }), (0, jsx_runtime_1.jsx)("button", { className: "button_o", onClick: save, children: "Save" }), (0, jsx_runtime_1.jsx)("button", { className: "button_o", onClick: saveAs, children: "Save as..." })] }) }));
 }
 exports.default = Save;

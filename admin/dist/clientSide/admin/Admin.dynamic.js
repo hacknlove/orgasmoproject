@@ -85,7 +85,7 @@ function Admin({ adminAreas, Components, pageConfig, setPageConfig, driverMethod
                 driverMethods,
                 pageConfigIds,
                 setSelectedPageId,
-            }, children: [(0, jsx_runtime_1.jsx)(AsyncComponents_1.AsyncComponents, { area: "playgroundModal_o" }), (0, jsx_runtime_1.jsxs)("div", { id: "_oadmin_menu", className: menuIsActive ? "_oadmin_menu_active" : "", children: [(0, jsx_runtime_1.jsxs)("div", { id: "_oadmin_menu_path", children: [(0, jsx_runtime_1.jsxs)("span", { children: [pageConfig?.exactPath ?? pageConfig?.patternPath, " ", isDirty && "*"] }), adminArea !== "start" && ((0, jsx_runtime_1.jsx)("button", { className: "button_o", onClick: () => {
+            }, children: [(0, jsx_runtime_1.jsx)(AsyncComponents_1.AsyncComponents, { area: "modals" }), (0, jsx_runtime_1.jsxs)("div", { id: "_oadmin_menu", className: menuIsActive ? "_oadmin_menu_active" : "", children: [(0, jsx_runtime_1.jsxs)("div", { id: "_oadmin_menu_path", children: [(0, jsx_runtime_1.jsxs)("span", { children: [pageConfig?.exactPath ?? pageConfig?.patternPath, " ", isDirty && "*"] }), adminArea !== "start" && ((0, jsx_runtime_1.jsx)("button", { className: "button_o", onClick: () => {
                                         chooseMenu("start");
                                     }, children: "\uD83E\uDC04" }))] }), Components[adminArea] ? ((0, jsx_runtime_1.jsx)(DComponent_1.default, { type: adminArea, props: {}, Components: Components })) : ((0, jsx_runtime_1.jsx)(Area_1.RenderArea, { area: adminAreas[adminArea], Components: Components })), (0, jsx_runtime_1.jsx)(Save_1.default, {})] })] }) }));
 }

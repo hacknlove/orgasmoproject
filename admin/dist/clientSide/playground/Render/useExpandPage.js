@@ -30,7 +30,7 @@ async function updateProps({ filePath, fileContent, pathParams, setProps }) {
         .then((r) => r.json())
         .catch((error) => ({ error }));
     if (props.error) {
-        return (0, AsyncComponents_1.default)(Alert_1.default, props.error, "playgroundModal_o");
+        return (0, AsyncComponents_1.default)(Alert_1.default, props.error, "modals");
     }
     if (props.props) {
         setProps(props.props);

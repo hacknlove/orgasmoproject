@@ -94,7 +94,7 @@ function EditCookies() {
                                             element[3],
                                         ]
                                         : element)) }), (0, jsx_runtime_1.jsx)("span", { className: "input_o_x", onClick: () => setCookies(cookies.map((e, j) => i === j ? [e[0], null, e[2], ""] : e)), children: "\u2716" })] }), (0, jsx_runtime_1.jsx)("div", { onClick: async () => {
-                                const newOptions = await (0, AsyncComponents_1.default)(EditCookieOptions, { serializedOptions: options }, "playgroundModal_o");
+                                const newOptions = await (0, AsyncComponents_1.default)(EditCookieOptions, { serializedOptions: options }, "modals");
                                 if (!newOptions) {
                                     return;
                                 }

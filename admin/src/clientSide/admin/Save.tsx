@@ -31,14 +31,10 @@ export default function Save() {
       .catch((error) => ({ error }));
 
     if (typeof response.error === "string") {
-      return asyncit(
-        Alert,
-        { title: "Error", text: response.error },
-        "playgroundModal_o"
-      );
+      return asyncit(Alert, { title: "Error", text: response.error }, "modals");
     }
     if (response.error) {
-      return asyncit(Alert, response.error, "playgroundModal_o");
+      return asyncit(Alert, response.error, "modals");
     }
 
     if (response.ok) {
@@ -47,11 +43,7 @@ export default function Save() {
   }, [pageConfig]);
 
   const saveAs = useCallback(async () => {
-    const pageId = await asyncit(
-      SaveAsInput,
-      { label: "pageId" },
-      "playgroundModal_o"
-    );
+    const pageId = await asyncit(SaveAsInput, { label: "pageId" }, "modals");
 
     if (!pageId) {
       return;
@@ -74,14 +66,10 @@ export default function Save() {
       .catch((error) => ({ error }));
 
     if (typeof response.error === "string") {
-      return asyncit(
-        Alert,
-        { title: "Error", text: response.error },
-        "playgroundModal_o"
-      );
+      return asyncit(Alert, { title: "Error", text: response.error }, "modals");
     }
     if (response.error) {
-      return asyncit(Alert, response.error, "playgroundModal_o");
+      return asyncit(Alert, response.error, "modals");
     }
 
     asyncit(
@@ -90,7 +78,7 @@ export default function Save() {
         title: "Saved",
         text: `The pageConfig has been save with the pageId ${pageId}`,
       },
-      "playgroundModal_o"
+      "modals"
     );
   }, [pageConfig]);
 
@@ -113,11 +101,7 @@ export default function Save() {
             await navigator.clipboard.writeText(
               JSON.stringify(pageConfig, null, 2)
             );
-            asyncit(
-              Alert,
-              { title: "Copied to clipboard" },
-              "playgroundModal_o"
-            );
+            asyncit(Alert, { title: "Copied to clipboard" }, "modals");
           }}
         >
           Copy

@@ -19,11 +19,11 @@ function DeleteItem({ filePath }) {
             .then((r) => r.json())
             .catch((error) => ({ error }));
         if (typeof fileDescriptor.error === "string") {
-            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: fileDescriptor.error }, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, { title: "Error", text: fileDescriptor.error }, "modals");
         }
         if (fileDescriptor.error) {
             console.error(fileDescriptor.error);
-            return (0, AsyncComponents_1.default)(Alert_1.default, fileDescriptor.error, "playgroundModal_o");
+            return (0, AsyncComponents_1.default)(Alert_1.default, fileDescriptor.error, "modals");
         }
         (0, updateNavDelete_1.default)({ dynamicState, fileDescriptor });
         const tabs = dynamicState.getValue("var://tabs_o");

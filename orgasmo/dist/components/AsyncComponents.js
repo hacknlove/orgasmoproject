@@ -4,6 +4,7 @@ exports.AsyncComponents = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const children = new Set();
+const overrideKeys = new Map();
 let i = 0;
 function asyncit(Component, props = {}, area) {
     let resolve, reject;
@@ -11,15 +12,24 @@ function asyncit(Component, props = {}, area) {
         resolve = res;
         reject = rej;
     });
+    if (props.uniqueKey && overrideKeys.has(props.uniqueKey)) {
+        return overrideKeys.get(props.uniqueKey);
+    }
     promise.resolve = resolve;
     promise.reject = reject;
     promise.props = props;
     promise.area = area;
     promise.Component = Component;
-    promise.key = i++;
+    promise.key = props.uniqueKey ?? i++;
+    if (props.uniqueKey) {
+        overrideKeys.set(props.uniqueKey, promise);
+    }
     children.add(promise);
     promise.finally(() => {
         children.delete(promise);
+        if (props.uniqueKey) {
+            overrideKeys.delete(props.uniqueKey);
+        }
         AsyncComponents.forceUpdate();
     });
     AsyncComponents.forceUpdate();

@@ -34,7 +34,7 @@ async function updateProps({ filePath, fileContent, pathParams, setProps }) {
     .catch((error) => ({ error }));
 
   if (props.error) {
-    return asyncit(Alert, props.error, "playgroundModal_o");
+    return asyncit(Alert, props.error, "modals");
   }
 
   if (props.props) {
