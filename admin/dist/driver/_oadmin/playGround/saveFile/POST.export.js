@@ -80,16 +80,18 @@ async function saveFileApi(ctx) {
     try {
         await ctx.driver[config.method](ctx, content);
         ctx.res.json(config.getResponse(content));
-        const hookConfig = config.hook(content);
-        const hook = ctx.driver.kvStorage.getValue(ctx, hookConfig.hook);
-        await fetch(hook.value.url, {
-            ...hook.value.options,
-            headers: {
-                "Content-Type": "application/json",
-                ...hook.value.options?.headers,
-            },
-            body: JSON.stringify(hookConfig.body),
-        });
+        if (config.hook) {
+            const hookConfig = config.hook(content);
+            const hook = ctx.driver.kvStorage.getValue(ctx, hookConfig.hook);
+            await fetch(hook.value.url, {
+                ...hook.value.options,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...hook.value.options?.headers,
+                },
+                body: JSON.stringify(hookConfig.body),
+            });
+        }
         return;
     }
     catch (error) {
