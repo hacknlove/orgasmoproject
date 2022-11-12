@@ -1,6 +1,6 @@
 {
   "name": "@orgasmo/orgasmo",
-  "version": "1.13.10",
+  "version": "1.13.11",
   "description": "Orgasmo is a set of components and tools for developers that enhances Nextjs to help you effortless build even more outstanding web apps",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,7 @@
     "dev": "nodemon --exec \"npm run build\""
   },
   "dependencies": {
-    "@orgasmo/dynamicstate": "1.13.10",
+    "@orgasmo/dynamicstate": "1.13.11",
     "ajv": "^8.11.0",
     "cencode": "^1.1.0",
     "chokidar": "^3.5.3",
