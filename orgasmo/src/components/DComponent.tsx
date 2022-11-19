@@ -32,7 +32,7 @@ function expandCreate(content, Components) {
   if (!Array.isArray(content)) {
     return expandCreate([content], Components);
   }
-  return content.map((item, i) => {
+  return content.map((item) => {
     if (item == null) {
       return null;
     }

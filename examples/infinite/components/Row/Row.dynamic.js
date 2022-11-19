@@ -10,7 +10,6 @@ export default function Row({ items, src, title }) {
         Component={Item}
         items={items}
         src={src}
-        cardWidth={220}
         ButtonNext={OouiArrowNextLtr}
         ButtonPrev={OouiArrowPreviousLtr}
       />

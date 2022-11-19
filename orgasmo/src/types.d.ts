@@ -50,7 +50,6 @@ export interface SliderProps extends Record<string, any> {
   Component: Component;
   items: any[];
   src: string;
-  cardWidth: number;
   ButtonNext: Component;
   ButtonPrev: Component;
 }

@@ -11,15 +11,32 @@ function getTranslateX(ref) {
   );
 }
 
+function getActualCardWidth(ref) {
+  if (!ref.current) {
+    return 1;
+  }
+  return ref.current.querySelector(".listItem").getBoundingClientRect().width;
+}
+function getCardsInView(ref) {
+  if (!ref.current) {
+    return 1;
+  }
+  const actualCardWidth = getActualCardWidth(ref);
+  return Math.max(
+    1,
+    Math.floor(0.1 + ref.current.clientWidth / actualCardWidth)
+  );
+}
+
 export default function Slider({
   intro,
   introWidth = 0,
   Component,
   items: itemsProp,
   src: srcProps,
-  cardWidth,
   ButtonNext,
   ButtonPrev,
+  children,
   ...other
 }: SliderProps): JSX.Element {
   const { items, hasMore, getMoreItems } = useItems({
@@ -28,7 +45,6 @@ export default function Slider({
   });
 
   const ref = useRef<HTMLDivElement>();
-  const [cardsInView, setCardsInView] = useState(4);
   const [minI, setMinI] = useState(0);
   const [maxI, setMaxI] = useState(9);
 
@@ -37,13 +53,14 @@ export default function Slider({
 
   useEffect(() => {
     function updateCardsInView() {
-      if (!ref.current?.children?.[0]) return;
+      if (!ref.current) {
+        return;
+      }
+      const newMaxi = updateMaxMin();
 
-      const cardsInView = Math.max(
-        1,
-        Math.floor(ref.current.clientWidth / cardWidth)
-      );
-      setCardsInView(cardsInView);
+      if (newMaxi > maxI) {
+        getMoreItems(newMaxi - maxI);
+      }
     }
 
     updateCardsInView();
@@ -52,15 +69,13 @@ export default function Slider({
     return () => window.removeEventListener("resize", updateCardsInView);
   }, [ref.current]);
 
-  useEffect(() => updateMaxMin, [cardsInView]);
-
   useEffect(() => {
-    if (!ref.current?.children?.[0]) {
+    if (!ref.current) {
       return () => undefined;
     }
 
     if (window.ontouchstart === undefined) {
-      ref.current.style.transition = "transform 1s";
+      ref.current.style.transition = "transform .75s";
       return;
     }
     ref.current.style.transition = "none";
@@ -168,20 +183,24 @@ export default function Slider({
       ref.current.removeEventListener("touchmove", onMouseMove);
       ref.current.removeEventListener("click", onclick);
     };
-  }, [ref.current, items, maxI, minI, cardsInView]);
+  }, [ref.current, items, maxI, minI]);
 
   function updateMaxMin() {
-    if (!ref.current) return;
+    if (!ref.current) return maxI;
+    const cardsInView = getCardsInView(ref);
     const targetTranslateX = getTranslateX(ref) + introWidth;
 
-    const cardsMoved = Math.floor(Math.abs(targetTranslateX) / cardWidth);
+    const actualCardWidth = getActualCardWidth(ref);
+
+    const cardsMoved = Math.floor(Math.abs(targetTranslateX) / actualCardWidth);
 
     const minI = Math.max(0, cardsMoved - cardsInView);
 
-    const maxI = Math.min(items.length, cardsMoved + cardsInView * 2 + 1);
+    const newMaxi = Math.min(items.length, cardsMoved + cardsInView * 2 + 1);
 
     setMinI(minI);
-    setMaxI(maxI);
+    setMaxI(newMaxi);
+    return newMaxi;
   }
 
   async function next() {
@@ -190,13 +209,18 @@ export default function Slider({
     }
     const currentTranslateX = getTranslateX(ref) + introWidth;
 
+    const actualCardWidth = getActualCardWidth(ref);
+
+    const cardsInView = getCardsInView(ref);
+
     const max =
-      -cardWidth * (items.length - cardsInView) +
-      (ref.current.clientWidth % cardWidth) -
+      -actualCardWidth *
+        (items.length - Math.floor(ref.current.clientWidth / actualCardWidth)) +
+      (ref.current.clientWidth % actualCardWidth) -
       introWidth * 2;
 
     const targetTranslateX = Math.max(
-      currentTranslateX - cardWidth * cardsInView - introWidth * 2,
+      currentTranslateX - actualCardWidth * cardsInView - introWidth * 2,
       max
     );
 
@@ -223,11 +247,13 @@ export default function Slider({
     if (!ref.current) {
       return;
     }
+    const cardsInView = getCardsInView(ref);
     const currentTranslateX = getTranslateX(ref);
+    const actualCardWidth = getActualCardWidth(ref);
 
     const targetTranslateX = Math.min(
       0,
-      currentTranslateX + cardWidth * cardsInView
+      currentTranslateX + actualCardWidth * cardsInView
     );
 
     ref.current.style.transform = `translateX(${targetTranslateX}px)`;
@@ -248,6 +274,7 @@ export default function Slider({
 
   return (
     <div className="Slider">
+      {children}
       {showPrev && (
         <ButtonPrev
           className="SliderButton prev"
@@ -273,11 +300,12 @@ export default function Slider({
           role="none"
           style={{
             display: "inline-block",
-            width: minI * cardWidth,
+            width: minI * getActualCardWidth(ref),
           }}
         ></div>
         {items.slice(minI, maxI).map((props) => (
           <div
+            className="listItem"
             role="listitem"
             key={props.key}
             style={{ display: "inline-block" }}

@@ -15,8 +15,8 @@ test("Scrolls", async ({ page }) => {
     await page.locator('[aria-label="next"]').click();
   }
 
-  expect(await page.locator(".Item").count()).toEqual(11);
-  expect(await page.locator("text=[34rowt]").count()).toEqual(1);
+  expect(await page.locator(".Item").count()).toEqual(12);
+  expect(await page.locator("text=[35rowt]").count()).toEqual(1);
   expect(await page.locator("text=[44rowt]").count()).toEqual(1);
 
   for (let i = 0; i < 4; i++) {
@@ -24,6 +24,6 @@ test("Scrolls", async ({ page }) => {
     await page.locator('[aria-label="prev"]').click();
   }
   expect(await page.locator(".Item").count()).toEqual(16);
-  expect(await page.locator("text=[14rowt]").count()).toEqual(1);
+  expect(await page.locator("text=[15rowt]").count()).toEqual(1);
   expect(await page.locator("text=[29rowt]").count()).toEqual(1);
 });
