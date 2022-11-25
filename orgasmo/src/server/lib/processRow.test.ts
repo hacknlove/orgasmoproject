@@ -47,7 +47,7 @@ describe("processRow", () => {
     expect(row).toEqual({
       type: "SomeType",
       props: {
-        className: "classname-test-2",
+        className: "classname-test",
         foo: "foo",
         bar: "bar",
       },

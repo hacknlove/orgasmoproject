@@ -46,9 +46,9 @@ test("scss fileFromImports returns a scss source from imports", () => {
   * more info: https://docs.orgasmo.dev/
   */
 
-@import './some/path.scss';
-@import './some/other/scss/file.scss';
-@import '@orgasmo/orgasmo/Slider.scss';
+@import "./some/path.scss";
+@import "./some/other/scss/file.scss";
+@import "@orgasmo/orgasmo/Slider.scss";
 `;
 
   const actual = fileFromImports(imports);

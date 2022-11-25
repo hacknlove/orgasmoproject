@@ -15,7 +15,9 @@ function getActualCardWidth(ref) {
   if (!ref.current) {
     return 1;
   }
-  return ref.current.querySelector(".listItem").getBoundingClientRect().width;
+  return (
+    ref.current.querySelector(".listItem").getBoundingClientRect().width || 1
+  );
 }
 function getCardsInView(ref) {
   if (!ref.current) {
@@ -52,14 +54,15 @@ export default function Slider({
   const [showNext, setShowNext] = useState(true);
 
   useEffect(() => {
-    function updateCardsInView() {
+    async function updateCardsInView() {
       if (!ref.current) {
         return;
       }
       const newMaxi = updateMaxMin();
 
       if (newMaxi > maxI) {
-        getMoreItems(newMaxi - maxI);
+        await getMoreItems(newMaxi - maxI);
+        updateMaxMin();
       }
     }
 
@@ -67,7 +70,7 @@ export default function Slider({
 
     window.addEventListener("resize", updateCardsInView);
     return () => window.removeEventListener("resize", updateCardsInView);
-  }, [ref.current]);
+  }, [ref.current, maxI]);
 
   useEffect(() => {
     if (!ref.current) {
@@ -196,11 +199,28 @@ export default function Slider({
 
     const minI = Math.max(0, cardsMoved - cardsInView);
 
-    const newMaxi = Math.min(items.length, cardsMoved + cardsInView * 2 + 1);
+    const newMaxi = Math.min(
+      items.length + cardsInView + 1,
+      cardsMoved + cardsInView * 2 + 1
+    );
 
     setMinI(minI);
     setMaxI(newMaxi);
-    return newMaxi;
+    return Math.min(
+      items.length + cardsInView + 1,
+      cardsMoved + cardsInView * 2 + 1
+    );
+  }
+
+  async function nextPreload() {
+    if (!hasMore) {
+      return;
+    }
+
+    const cardsInView = getCardsInView(ref);
+    if (items.length < maxI + cardsInView + 1) {
+      await getMoreItems(cardsInView);
+    }
   }
 
   async function next() {
@@ -212,6 +232,8 @@ export default function Slider({
     const actualCardWidth = getActualCardWidth(ref);
 
     const cardsInView = getCardsInView(ref);
+
+    await nextPreload();
 
     const max =
       -actualCardWidth *
@@ -227,15 +249,14 @@ export default function Slider({
     ref.current.style.transform = `translateX(${
       targetTranslateX + introWidth
     }px)`;
-    updateMaxMin();
     setShowNext(false);
     setShowPrev(false);
 
-    if (hasMore && items.length < maxI + cardsInView + 1) {
-      await getMoreItems(cardsInView);
-    }
+    nextPreload();
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    updateMaxMin();
 
     if (targetTranslateX !== max || hasMore) {
       setShowNext(true);
@@ -268,12 +289,11 @@ export default function Slider({
       if (targetTranslateX !== 0) {
         setShowPrev(true);
       }
-      updateMaxMin();
     }, 1000);
   }
 
   return (
-    <div className="Slider">
+    <div className="Slider" onMouseEnter={nextPreload}>
       {children}
       {showPrev && (
         <ButtonPrev
@@ -328,6 +348,7 @@ export default function Slider({
           role="button"
           aria-label="next"
           onClick={next}
+          onMouseEnter={nextPreload}
         />
       )}
     </div>

@@ -46,6 +46,9 @@ function expandCreate(content, Components) {
 export default function DComponent({ type, props, Components }) {
   if (!type) {
     console.error("Mising type");
+    console.log({
+      props,
+    });
     return null;
   }
   const Component = Components[type];

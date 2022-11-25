@@ -6,12 +6,12 @@ export default async function processRow({ rowConfig, params, ctx }) {
 
   if (ctx.driver[rowConfig.getProps]) {
     row.props = {
-      ...row.props,
       ...(await ctx.driver[rowConfig.getProps]({
         rowConfig,
         params,
         ctx,
       })),
+      ...row.props,
     };
   }
 

@@ -11,7 +11,7 @@ function getActualCardWidth(ref) {
     if (!ref.current) {
         return 1;
     }
-    return ref.current.querySelector(".listItem").getBoundingClientRect().width;
+    return (ref.current.querySelector(".listItem").getBoundingClientRect().width || 1);
 }
 function getCardsInView(ref) {
     if (!ref.current) {
@@ -31,19 +31,20 @@ function Slider({ intro, introWidth = 0, Component, items: itemsProp, src: srcPr
     const [showPrev, setShowPrev] = (0, react_1.useState)(false);
     const [showNext, setShowNext] = (0, react_1.useState)(true);
     (0, react_1.useEffect)(() => {
-        function updateCardsInView() {
+        async function updateCardsInView() {
             if (!ref.current) {
                 return;
             }
             const newMaxi = updateMaxMin();
             if (newMaxi > maxI) {
-                getMoreItems(newMaxi - maxI);
+                await getMoreItems(newMaxi - maxI);
+                updateMaxMin();
             }
         }
         updateCardsInView();
         window.addEventListener("resize", updateCardsInView);
         return () => window.removeEventListener("resize", updateCardsInView);
-    }, [ref.current]);
+    }, [ref.current, maxI]);
     (0, react_1.useEffect)(() => {
         if (!ref.current) {
             return () => undefined;
@@ -152,10 +153,19 @@ function Slider({ intro, introWidth = 0, Component, items: itemsProp, src: srcPr
         const actualCardWidth = getActualCardWidth(ref);
         const cardsMoved = Math.floor(Math.abs(targetTranslateX) / actualCardWidth);
         const minI = Math.max(0, cardsMoved - cardsInView);
-        const newMaxi = Math.min(items.length, cardsMoved + cardsInView * 2 + 1);
+        const newMaxi = Math.min(items.length + cardsInView + 1, cardsMoved + cardsInView * 2 + 1);
         setMinI(minI);
         setMaxI(newMaxi);
-        return newMaxi;
+        return Math.min(items.length + cardsInView + 1, cardsMoved + cardsInView * 2 + 1);
+    }
+    async function nextPreload() {
+        if (!hasMore) {
+            return;
+        }
+        const cardsInView = getCardsInView(ref);
+        if (items.length < maxI + cardsInView + 1) {
+            await getMoreItems(cardsInView);
+        }
     }
     async function next() {
         if (!ref.current) {
@@ -164,19 +174,18 @@ function Slider({ intro, introWidth = 0, Component, items: itemsProp, src: srcPr
         const currentTranslateX = getTranslateX(ref) + introWidth;
         const actualCardWidth = getActualCardWidth(ref);
         const cardsInView = getCardsInView(ref);
+        await nextPreload();
         const max = -actualCardWidth *
             (items.length - Math.floor(ref.current.clientWidth / actualCardWidth)) +
             (ref.current.clientWidth % actualCardWidth) -
             introWidth * 2;
         const targetTranslateX = Math.max(currentTranslateX - actualCardWidth * cardsInView - introWidth * 2, max);
         ref.current.style.transform = `translateX(${targetTranslateX + introWidth}px)`;
-        updateMaxMin();
         setShowNext(false);
         setShowPrev(false);
-        if (hasMore && items.length < maxI + cardsInView + 1) {
-            await getMoreItems(cardsInView);
-        }
+        nextPreload();
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        updateMaxMin();
         if (targetTranslateX !== max || hasMore) {
             setShowNext(true);
         }
@@ -201,13 +210,12 @@ function Slider({ intro, introWidth = 0, Component, items: itemsProp, src: srcPr
             if (targetTranslateX !== 0) {
                 setShowPrev(true);
             }
-            updateMaxMin();
         }, 1000);
     }
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "Slider", children: [children, showPrev && ((0, jsx_runtime_1.jsx)(ButtonPrev, { className: "SliderButton prev", onClick: prev, role: "button", "aria-label": "prev" })), (0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "SliderRow", role: "list", children: [intro && ((0, jsx_runtime_1.jsx)("div", { role: "listitem", style: { display: "inline-block", verticalAlign: "top" }, children: intro })), (0, jsx_runtime_1.jsx)("div", { role: "none", style: {
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "Slider", onMouseEnter: nextPreload, children: [children, showPrev && ((0, jsx_runtime_1.jsx)(ButtonPrev, { className: "SliderButton prev", onClick: prev, role: "button", "aria-label": "prev" })), (0, jsx_runtime_1.jsxs)("div", { ref: ref, className: "SliderRow", role: "list", children: [intro && ((0, jsx_runtime_1.jsx)("div", { role: "listitem", style: { display: "inline-block", verticalAlign: "top" }, children: intro })), (0, jsx_runtime_1.jsx)("div", { role: "none", style: {
                             display: "inline-block",
                             width: minI * getActualCardWidth(ref),
-                        } }), items.slice(minI, maxI).map((props) => ((0, jsx_runtime_1.jsx)("div", { className: "listItem", role: "listitem", style: { display: "inline-block" }, children: (0, jsx_runtime_1.jsx)(Component, { ...props, ...other }) }, props.key))), intro && ((0, jsx_runtime_1.jsx)("div", { role: "listitem", style: { display: "inline-block", verticalAlign: "top" }, children: intro }))] }), showNext && ((0, jsx_runtime_1.jsx)(ButtonNext, { className: "SliderButton next", role: "button", "aria-label": "next", onClick: next }))] }));
+                        } }), items.slice(minI, maxI).map((props) => ((0, jsx_runtime_1.jsx)("div", { className: "listItem", role: "listitem", style: { display: "inline-block" }, children: (0, jsx_runtime_1.jsx)(Component, { ...props, ...other }) }, props.key))), intro && ((0, jsx_runtime_1.jsx)("div", { role: "listitem", style: { display: "inline-block", verticalAlign: "top" }, children: intro }))] }), showNext && ((0, jsx_runtime_1.jsx)(ButtonNext, { className: "SliderButton next", role: "button", "aria-label": "next", onClick: next, onMouseEnter: nextPreload }))] }));
 }
 exports.default = Slider;
 //# sourceMappingURL=Slider.js.map
