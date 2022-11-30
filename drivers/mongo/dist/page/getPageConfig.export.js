@@ -5,7 +5,7 @@ const path_to_regexp_1 = require("path-to-regexp");
 const pageConfigsCollectionName = process.env.ORGASMO_MONGO_PAGES_COLLECTION ?? "pageConfigs";
 async function getPageConfig(ctx) {
     const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
-    await mongoProxy_1.default.connect();
+    await mongoProxy_1.default.waitfor;
     const exactMatch = await mongoProxy_1.default[pageConfigsCollectionName]
         .find({
         exactPath: resolvedPath,

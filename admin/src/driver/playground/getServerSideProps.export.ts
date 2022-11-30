@@ -3,6 +3,15 @@ import getPagesList from "../../driver/playground/getPagesList";
 import getKVStorageList from "./getKVStorageList";
 
 export default async function getServerSideProps(ctx) {
+  if (
+    ctx.driver.admin?.role &&
+    !ctx.req.user.roles.includes(ctx.driver.admin?.role)
+  ) {
+    return {
+      notFound: 404,
+      props: {},
+    };
+  }
   if (ctx.query.empty) {
     return {
       props: {

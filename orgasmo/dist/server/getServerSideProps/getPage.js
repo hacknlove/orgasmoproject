@@ -6,9 +6,6 @@ const getCachedPageVariant_1 = require("./getCachedPageVariant");
 const events_1 = require("../events");
 const sendFullPage_1 = require("./sendFullPage");
 async function getPageConfig(ctx) {
-    if (ctx.noCache) {
-        return (0, getPageFromConfig_1.default)(ctx);
-    }
     const { key, pageConfig } = await (0, getCachedPage_1.default)(ctx);
     if (!pageConfig) {
         return (0, getPageFromConfig_1.default)(ctx);

@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cacheGet_1 = require("../cache/cacheGet");
 const getPageCacheKeys_1 = require("./getPageCacheKeys");
 async function getCachedPage(ctx) {
+    if (ctx.noCache) {
+        return {};
+    }
     const keys = await (0, getPageCacheKeys_1.default)(ctx);
     for await (const key of keys) {
         const pageConfig = await (0, cacheGet_1.default)({ ctx, key });

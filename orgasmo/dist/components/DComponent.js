@@ -41,10 +41,12 @@ function expandCreate(content, Components) {
 }
 function DComponent({ type, props, Components }) {
     if (!type) {
-        console.error("Mising type");
-        console.log({
-            props,
-        });
+        if (props) {
+            console.error("Mising type");
+            console.debug({
+                props,
+            });
+        }
         return null;
     }
     const Component = Components[type];

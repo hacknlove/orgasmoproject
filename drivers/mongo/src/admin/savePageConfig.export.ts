@@ -4,7 +4,7 @@ const pageConfigsCollectionName =
   (process.env.ORGASMO_MONGO_PAGES_COLLECTION as string) ?? "pageConfigs";
 
 export default async function SavePageConfig(ctx, pageConfig) {
-  await mongoProxy.connect();
+  await mongoProxy.waitfor;
 
   delete pageConfig._id;
 

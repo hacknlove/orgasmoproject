@@ -8,8 +8,15 @@ export default function getServerSideProps(ctx: any): Promise<{
         areas: Record<string, any>;
     };
 } | {
+    notFound: number;
+    props: {
+        exposeSharedState?: undefined;
+        areas?: undefined;
+    };
+} | {
     props: {
         exposeSharedState: boolean;
         areas: {};
     };
+    notFound?: undefined;
 }>;

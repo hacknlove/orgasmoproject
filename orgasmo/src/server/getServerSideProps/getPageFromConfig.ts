@@ -53,6 +53,7 @@ export default async function getPageFromConfig(ctx) {
     parsedPath: ctx.parsedPath,
     path: ctx.resolvedUrl.replace(/\?.*$/, ""),
     roles: ctx.req.user.roles,
+    labels: ctx.req.labels,
   };
 
   if (pageConfig.getParams) {
@@ -87,31 +88,26 @@ export default async function getPageFromConfig(ctx) {
 
   const key = cencode(params);
 
-  const response =
-    pageConfig.response || (await expandPage({ ctx, pageConfig, params, key }));
-
-  pageConfig = {
+  const page = {
     timeChunk: pageConfig.timeChunk,
     revalidate: pageConfig.revalidate,
     autoRefresh: pageConfig.autoRefresh,
-    private: pageConfig.private,
-    response,
+    private: pageConfig.private || pageIds.length > 1,
+    response:
+      pageConfig.response ||
+      (await expandPage({ ctx, pageConfig, params, key })),
   };
-
-  if (pageIds.length > 1) {
-    pageConfig.private = true;
-  }
 
   if (!ctx.noCache && pageConfig.timeChunk && !pageConfig.private) {
     await cacheNewItem({
       ctx,
-      key: cencode(params),
-      item: pageConfig,
+      key,
+      item: page,
     });
   }
 
   return sendFullPage({
     ctx,
-    pageConfig,
+    pageConfig: page,
   });
 }

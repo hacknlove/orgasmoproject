@@ -43,6 +43,7 @@ async function getPageFromConfig(ctx) {
         parsedPath: ctx.parsedPath,
         path: ctx.resolvedUrl.replace(/\?.*$/, ""),
         roles: ctx.req.user.roles,
+        labels: ctx.req.labels,
     };
     if (pageConfig.getParams) {
         try {
@@ -74,27 +75,24 @@ async function getPageFromConfig(ctx) {
         params.pageId = pageConfig.pageId;
     }
     const key = (0, cencode_1.cencode)(params);
-    const response = pageConfig.response || (await (0, pageConfig_1.default)({ ctx, pageConfig, params, key }));
-    pageConfig = {
+    const page = {
         timeChunk: pageConfig.timeChunk,
         revalidate: pageConfig.revalidate,
         autoRefresh: pageConfig.autoRefresh,
-        private: pageConfig.private,
-        response,
+        private: pageConfig.private || pageIds.length > 1,
+        response: pageConfig.response ||
+            (await (0, pageConfig_1.default)({ ctx, pageConfig, params, key })),
     };
-    if (pageIds.length > 1) {
-        pageConfig.private = true;
-    }
     if (!ctx.noCache && pageConfig.timeChunk && !pageConfig.private) {
         await (0, cacheNewItem_1.default)({
             ctx,
-            key: (0, cencode_1.cencode)(params),
-            item: pageConfig,
+            key,
+            item: page,
         });
     }
     return (0, sendFullPage_1.default)({
         ctx,
-        pageConfig,
+        pageConfig: page,
     });
 }
 exports.default = getPageFromConfig;

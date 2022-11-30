@@ -1,16 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.mongoConnect = void 0;
 const mongodb_1 = require("mongodb");
 const logger_1 = require("@orgasmo/orgasmo/logger");
-const mongoURL = process.env.ORGASMO_MONGO_URL ??
-    "mongodb://localhost:27017/orgasmo";
+let mongoURL;
 const mongo = {
-    connect: async () => {
+    connect: async (newMongoUrl) => {
         if (mongo.db) {
             return;
         }
-        maxTries = 10;
-        await mongoConnect();
+        if (!mongo.waitfor) {
+            maxTries = 10;
+            mongo.waitfor = mongoConnect(newMongoUrl);
+        }
+        await mongo.waitfor;
+        mongo.connecting = null;
     },
 };
 const mongoHandler = {
@@ -43,8 +47,9 @@ const methodHandler = {
 };
 let maxTries;
 const mongoProxy = new Proxy(mongo, mongoHandler);
-async function mongoConnect() {
+async function mongoConnect(newMongoUrl) {
     let client;
+    mongoURL ?? (mongoURL = newMongoUrl);
     try {
         client = await mongodb_1.MongoClient.connect(mongoURL);
     }
@@ -57,9 +62,12 @@ async function mongoConnect() {
     }
     mongo.client = client;
     mongo.db = client.db();
+    delete mongo.waitfor;
     client.on("connectionClosed", () => {
         delete mongo.db;
+        mongo.connect();
     });
 }
+exports.mongoConnect = mongoConnect;
 exports.default = mongoProxy;
 //# sourceMappingURL=mongoProxy.js.map

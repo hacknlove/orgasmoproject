@@ -1,17 +1,19 @@
 import { MongoClient } from "mongodb";
 import logger from "@orgasmo/orgasmo/logger";
 
-const mongoURL =
-  (process.env.ORGASMO_MONGO_URL as string) ??
-  "mongodb://localhost:27017/orgasmo";
+let mongoURL;
 
 const mongo: Record<string, any> = {
-  connect: async () => {
+  connect: async (newMongoUrl?) => {
     if (mongo.db) {
       return;
     }
-    maxTries = 10;
-    await mongoConnect();
+    if (!mongo.waitfor) {
+      maxTries = 10;
+      mongo.waitfor = mongoConnect(newMongoUrl);
+    }
+    await mongo.waitfor;
+    mongo.connecting = null;
   },
 };
 
@@ -52,8 +54,10 @@ let maxTries;
 
 const mongoProxy = new Proxy(mongo, mongoHandler);
 
-async function mongoConnect() {
+export async function mongoConnect(newMongoUrl?) {
   let client;
+
+  mongoURL ??= newMongoUrl;
 
   try {
     client = await MongoClient.connect(mongoURL);
@@ -67,9 +71,11 @@ async function mongoConnect() {
 
   mongo.client = client;
   mongo.db = client.db();
+  delete mongo.waitfor;
 
   client.on("connectionClosed", () => {
     delete mongo.db;
+    mongo.connect();
   });
 }
 

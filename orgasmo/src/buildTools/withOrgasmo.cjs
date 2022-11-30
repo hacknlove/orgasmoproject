@@ -2,16 +2,27 @@
 const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_SERVER,
+  PHASE_PRODUCTION_BUILD,
 } = require("next/constants");
 
 const processType = require("./processType.cjs");
 
 module.exports =
-  ({ scss = true, driver = true, components = true } = {}) =>
+  ({ scss = true, driver = true, components = true, config = true } = {}) =>
   (cb) =>
   async (phase, ...other) => {
+    global.startDrivers = phase !== PHASE_PRODUCTION_BUILD;
+
     if (phase !== PHASE_PRODUCTION_SERVER) {
       const isDevelopmentServer = phase === PHASE_DEVELOPMENT_SERVER;
+
+      await processType({
+        type: "config",
+        isEnabled: config,
+        externalPackage: typeof config === "string" && config,
+        isDevelopmentServer,
+      });
+
       await Promise.all(
         [
           {

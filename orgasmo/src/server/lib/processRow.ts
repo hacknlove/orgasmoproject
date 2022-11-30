@@ -1,4 +1,9 @@
+import skipThisRow from "./skipThisRow";
+
 export default async function processRow({ rowConfig, params, ctx }) {
+  if (skipThisRow({ rowConfig, ctx })) {
+    return null;
+  }
   const row = {
     type: rowConfig.type,
     props: rowConfig.props ?? {},

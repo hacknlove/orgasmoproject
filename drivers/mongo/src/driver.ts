@@ -1,3 +1,4 @@
+import ーorgasmoーmongoーstart from "./@orgasmo/mongo/start.export";
 import adminーdeleteKVStorage from "./admin/deleteKVStorage.export";
 import adminーdeletePageConfig from "./admin/deletePageConfig.export";
 import adminーdeleteStoryConfig from "./admin/deleteStoryConfig.export";
@@ -13,6 +14,7 @@ import pageーgetPageConfig from "./page/getPageConfig.export";
 import pageーgetPageConfigFromId from "./page/getPageConfigFromId.export";
 
 const driver = {
+  ["@orgasmo.mongo.start"]: ーorgasmoーmongoーstart,
   ["admin.deleteKVStorage"]: adminーdeleteKVStorage,
   ["admin.deletePageConfig"]: adminーdeletePageConfig,
   ["admin.deleteStoryConfig"]: adminーdeleteStoryConfig,
@@ -28,6 +30,9 @@ const driver = {
   ["page.getPageConfigFromId"]: pageーgetPageConfigFromId,
 };
 
+driver["@orgasmo"] = {};
+driver["@orgasmo"]["mongo"] = {};
+driver["@orgasmo"]["mongo"]["start"] = ーorgasmoーmongoーstart;
 driver["admin"] = {};
 driver["admin"]["deleteKVStorage"] = adminーdeleteKVStorage;
 driver["admin"]["deletePageConfig"] = adminーdeletePageConfig;

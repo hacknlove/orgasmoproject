@@ -4,7 +4,7 @@ const storyConfigsCollectionName =
   (process.env.ORGASMO_MONGO_STORIES_COLLECTION as string) ?? "storyConfigs";
 
 export default async function getAllStories() {
-  await mongoProxy.connect();
+  await mongoProxy.waitfor;
 
   const storiesArray = await mongoProxy[storyConfigsCollectionName]
     .find({}, { projection: { _id: 0 } })

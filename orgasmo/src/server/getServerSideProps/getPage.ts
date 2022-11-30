@@ -5,11 +5,10 @@ import events from "../events";
 import sendFullPage from "./sendFullPage";
 
 export default async function getPageConfig(ctx) {
-  if (ctx.noCache) {
-    return getPageFromConfig(ctx);
-  }
+  // get a cached version
   const { key, pageConfig } = await getCachedPage(ctx);
 
+  // if there is no cached page, generate a new page from pageConfig
   if (!pageConfig) {
     return getPageFromConfig(ctx);
   }

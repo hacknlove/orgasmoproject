@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
-process.env.ORGASMO_MONGO_URL = "someTestUrl";
-
 import { MongoClient } from "mongodb";
 import mongoProxy from "./mongoProxy";
 
@@ -21,11 +19,11 @@ jest.mock("mongodb", () => ({
 
 describe("mongoProxy", () => {
   beforeEach(() => {
-    delete mongoProxy.db;
     mongoProxy.db = null;
+    mongoProxy.waitfor = null;
   });
-  it("uses the environmental variable to connect", async () => {
-    await mongoProxy.connect();
+  it("passes the mongoURL parameter to MongoClient", async () => {
+    await mongoProxy.connect("someTestUrl");
     expect(MongoClient.connect).toBeCalledWith("someTestUrl");
   });
   it("does not connect twice", async () => {

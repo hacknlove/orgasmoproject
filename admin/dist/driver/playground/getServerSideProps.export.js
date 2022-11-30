@@ -4,6 +4,13 @@ const getStoriesList_1 = require("./getStoriesList");
 const getPagesList_1 = require("../../driver/playground/getPagesList");
 const getKVStorageList_1 = require("./getKVStorageList");
 async function getServerSideProps(ctx) {
+    if (ctx.driver.admin?.role &&
+        !ctx.req.user.roles.includes(ctx.driver.admin?.role)) {
+        return {
+            notFound: 404,
+            props: {},
+        };
+    }
     if (ctx.query.empty) {
         return {
             props: {

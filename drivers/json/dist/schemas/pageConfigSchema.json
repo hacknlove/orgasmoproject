@@ -95,7 +95,9 @@
                                         },
                                         "getProps": {
                                             "type": "string"
-                                        }
+                                        },
+                                        "roles": { "$ref": "#/$defs/roles" },
+                                        "labels": { "$ref": "#/$defs/labels" }
                                     }
                                 }
                             ]
@@ -135,26 +137,8 @@
                 }
             }
         },
-        "roles": {
-            "description": "Controls the access based on user roles",
-            "type": "object",
-            "properties": {
-                "cannot": {
-                    "description": "Users with any of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "must": {
-                    "description": "Users without all of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
+        "roles": { "$ref": "#/$defs/roles" },
+        "labels": { "$ref": "#/$defs/labels" },
         "flowControl": {
             "description": "Allows redirections and rewrites",
             "type": "object",
@@ -210,5 +194,61 @@
         {
             "required": ["patternPath", "pageId"]
         }
-    ]
+    ],
+    "$defs": {
+        "roles": {
+            "description": "Controls the access based on user roles",
+            "type": "object",
+            "properties": {
+                "cannot": {
+                    "description": "Users with any of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "must": {
+                    "description": "Users without all of these roles cannot get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "any": {
+                    "description": "Users need to have at least one of these roles to get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "labels": {
+            "description": "Controls the access based on request labels",
+            "type": "object",
+            "properties": {
+                "cannot": {
+                    "description": "requests with any of these labels cannot get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "must": {
+                    "description": "requests without all of these labels cannot get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "any": {
+                    "description": "requests needs to have at least one of these labels to get this pageConfig, they might still get another pageConfig for the same path.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
 }

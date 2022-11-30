@@ -4,7 +4,7 @@ const KVStorageCollectionName =
   (process.env.ORGASMO_MONGO_KVSTORAGE_COLLECTION as string) ?? "kvStorage";
 
 export default async function getAllKVStorages() {
-  await mongoProxy.connect();
+  await mongoProxy.waitfor;
 
   const storiesArray = await mongoProxy[KVStorageCollectionName].find(
     {},

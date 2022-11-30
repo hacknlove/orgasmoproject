@@ -18,18 +18,18 @@ describe("withOrgasmo", () => {
         components: "components param",
       })()();
 
-      expect(processType.mock.calls[0][0]).toEqual({
+      expect(processType.mock.calls[1][0]).toEqual({
         type: "scss",
         isEnabled: "scss param",
         isDevelopmentServer: false,
       });
-      expect(processType.mock.calls[1][0]).toEqual({
+      expect(processType.mock.calls[2][0]).toEqual({
         type: "driver",
         isEnabled: "driver param",
         externalPackage: "driver param",
         isDevelopmentServer: false,
       });
-      expect(processType.mock.calls[2][0]).toEqual({
+      expect(processType.mock.calls[3][0]).toEqual({
         type: "components",
         isEnabled: "components param",
         externalPackage: "components param",
@@ -43,18 +43,18 @@ describe("withOrgasmo", () => {
       components: "components param",
     })()(PHASE_DEVELOPMENT_SERVER);
 
-    expect(processType.mock.calls[0][0]).toEqual({
+    expect(processType.mock.calls[1][0]).toEqual({
       type: "scss",
       isEnabled: "scss param",
       isDevelopmentServer: true,
     });
-    expect(processType.mock.calls[1][0]).toEqual({
+    expect(processType.mock.calls[2][0]).toEqual({
       type: "driver",
       isEnabled: "driver param",
       externalPackage: "driver param",
       isDevelopmentServer: true,
     });
-    expect(processType.mock.calls[2][0]).toEqual({
+    expect(processType.mock.calls[3][0]).toEqual({
       type: "components",
       isEnabled: "components param",
       isDevelopmentServer: true,
@@ -65,17 +65,24 @@ describe("withOrgasmo", () => {
     await withOrgasmo()()();
 
     expect(processType.mock.calls[0][0]).toEqual({
+      type: "config",
+      isEnabled: true,
+      isDevelopmentServer: false,
+      externalPackage: false,
+    });
+
+    expect(processType.mock.calls[1][0]).toEqual({
       type: "scss",
       isEnabled: true,
       isDevelopmentServer: false,
     });
-    expect(processType.mock.calls[1][0]).toEqual({
+    expect(processType.mock.calls[2][0]).toEqual({
       type: "driver",
       isEnabled: true,
       isDevelopmentServer: false,
       externalPackage: false,
     });
-    expect(processType.mock.calls[2][0]).toEqual({
+    expect(processType.mock.calls[3][0]).toEqual({
       type: "components",
       isEnabled: true,
       isDevelopmentServer: false,

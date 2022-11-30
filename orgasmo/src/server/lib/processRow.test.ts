@@ -15,7 +15,7 @@ describe("processRow", () => {
     const row = await processRow({
       rowConfig,
       params: {},
-      ctx: { driver: {} },
+      ctx: { driver: {}, req: { user: {} } },
     });
 
     expect(row).toEqual({
@@ -42,7 +42,11 @@ describe("processRow", () => {
         };
       }),
     };
-    const row = await processRow({ rowConfig, params: {}, ctx: { driver } });
+    const row = await processRow({
+      rowConfig,
+      params: {},
+      ctx: { driver, req: { user: {} } },
+    });
 
     expect(row).toEqual({
       type: "SomeType",
@@ -54,7 +58,7 @@ describe("processRow", () => {
     });
 
     expect(driver.getFooBar).toHaveBeenCalledWith({
-      ctx: { driver },
+      ctx: { driver, req: { user: {} } },
       rowConfig,
       params: {},
     });
@@ -67,7 +71,7 @@ describe("processRow", () => {
     const row = await processRow({
       rowConfig,
       params: {},
-      ctx: { driver: {} },
+      ctx: { driver: {}, req: { user: {} } },
     });
 
     expect(row).toEqual({

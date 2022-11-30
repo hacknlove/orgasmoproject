@@ -13,7 +13,11 @@ function getServerSidePropsFactory({ driver, noCache, Components, }) {
         ctx.setCookies = [];
         ctx.rewrites = 0;
         ctx.events = events_1.default;
-        await Promise.all([(0, getUser_1.default)(ctx), noCache || (0, cacheFactory_1.default)(ctx), (0, getLabels_1.default)(ctx)]);
+        await Promise.all([
+            (0, getUser_1.default)(ctx),
+            noCache || (0, cacheFactory_1.default)(ctx),
+            (0, getLabels_1.default)(ctx),
+        ]);
         const methodPath = ctx.resolvedUrl
             .substring(1)
             .replace(/\?.*$/, "")

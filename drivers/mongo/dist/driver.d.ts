@@ -1,3 +1,4 @@
+import ーorgasmoーmongoーstart from "./@orgasmo/mongo/start.export";
 import adminーdeleteKVStorage from "./admin/deleteKVStorage.export";
 import adminーdeletePageConfig from "./admin/deletePageConfig.export";
 import adminーdeleteStoryConfig from "./admin/deleteStoryConfig.export";
@@ -12,6 +13,7 @@ import kvーtorageーsetValue from "./kvStorage/setValue.export";
 import pageーgetPageConfig from "./page/getPageConfig.export";
 import pageーgetPageConfigFromId from "./page/getPageConfigFromId.export";
 declare const driver: {
+    "@orgasmo.mongo.start": typeof ーorgasmoーmongoーstart;
     "admin.deleteKVStorage": typeof adminーdeleteKVStorage;
     "admin.deletePageConfig": typeof adminーdeletePageConfig;
     "admin.deleteStoryConfig": typeof adminーdeleteStoryConfig;

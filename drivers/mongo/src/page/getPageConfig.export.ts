@@ -6,7 +6,8 @@ const pageConfigsCollectionName =
 
 export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
-  await mongoProxy.connect();
+
+  await mongoProxy.waitfor;
 
   const exactMatch = await mongoProxy[pageConfigsCollectionName]
     .find({

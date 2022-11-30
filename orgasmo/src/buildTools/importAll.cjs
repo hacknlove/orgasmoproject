@@ -13,7 +13,7 @@ async function importAll(
 
   const imports = parseFiles(files, regexp, map);
 
-  const string = fileFromImports(imports, externalPackage);
+  const string = await fileFromImports(imports, externalPackage);
 
   await writeFile(filename, string).catch(console.error);
   console.info(filename, "updated");
@@ -33,6 +33,9 @@ function watchAll(config, externalPackage) {
   });
   watcher.on("add", waitandupdate);
   watcher.on("unlink", waitandupdate);
+  if (config.watchChange) {
+    watcher.on("change", waitandupdate);
+  }
 
   if (config.refresh) {
     config.refresh();

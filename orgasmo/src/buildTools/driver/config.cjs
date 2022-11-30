@@ -20,7 +20,9 @@ function sort(imports) {
   );
 
   function sortReplace(match, driver) {
-    return String.fromCharCode(0xffff - driverArray.indexOf(driver));
+    return String.fromCharCode(
+      0xffff - driverArray.length + driverArray.indexOf(driver)
+    );
   }
 
   imports.sort((a, b) => {
@@ -214,7 +216,8 @@ function fileFromImports(imports) {
  * @file This file is created automatically at build time.
  * more info: https://docs.orgasmo.dev/
  */
-${importExternals(driverArray)}\
+
+import config from "./config.json";${importExternals(driverArray)}\
 ${justImports(importsByType.import)}\
 ${importEvents(importsByType.event)}\
 ${importExports(importsByType.export)}
@@ -224,16 +227,22 @@ const drivers = ${JSON.stringify(driverArray)};
 const driver = {${useExternals(driverArray)}${useExportsStrings(
     importsByType.export
   )}
+  config,
 }
 ${useExportsTree(importsByType.export)}
-
 ${useEvents(importsByType.event)}
 export default driver;
 
-for (const driverName of drivers) {
-  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
-  if (driver[startMethodName]) {
-    driver[startMethodName](driver, drivers);
+if (global.startDrivers) {
+  for (const driverName of drivers) {
+    const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+    if (driver[startMethodName]) {
+      driver[startMethodName]({
+        driver,
+        drivers,
+        config,
+      });
+    }
   }
 }
 `;
@@ -262,10 +271,7 @@ function map({ route = "", filename, from, type }) {
     route,
     filename,
     type,
-    importName: `${route.replace(/[/[\].]/g, "ー")}ー${filename.replace(
-      /[^a-z0-9_]/gi,
-      "ー"
-    )}`,
+    importName: `${route}ー${filename}`.replace(/[^a-z0-9_]/gi, "ー"),
     name: getName(route, filename),
   };
 }

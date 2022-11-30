@@ -4,7 +4,7 @@ const storyConfigsCollectionName =
   (process.env.ORGASMO_MONGO_STORIES_COLLECTION as string) ?? "storyConfigs";
 
 export default async function upsertStoryConfig(ctx, storyConfig) {
-  await mongoProxy.connect();
+  await mongoProxy.waitfor;
 
   delete storyConfig._id;
 

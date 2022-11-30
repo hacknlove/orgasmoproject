@@ -80,9 +80,19 @@ async function saveFileApi(ctx) {
     try {
         await ctx.driver[config.method](ctx, content);
         ctx.res.json(config.getResponse(content));
-        if (config.hook) {
+    }
+    catch (error) {
+        logger_1.default.error(error, "Missing method");
+        ctx.res.json({ error });
+        return;
+    }
+    if (config.hook) {
+        try {
             const hookConfig = config.hook(content);
-            const hook = ctx.driver.kvStorage.getValue(ctx, hookConfig.hook);
+            const hook = await ctx.driver.kvStorage.getValue(ctx, hookConfig.hook);
+            if (!hook?.value) {
+                return;
+            }
             await fetch(hook.value.url, {
                 ...hook.value.options,
                 headers: {
@@ -92,12 +102,9 @@ async function saveFileApi(ctx) {
                 body: JSON.stringify(hookConfig.body),
             });
         }
-        return;
-    }
-    catch (error) {
-        logger_1.default.error(error, "Missing method");
-        ctx.res.json({ error });
-        return;
+        catch (error) {
+            logger_1.default.error(error, "Missing method");
+        }
     }
 }
 exports.default = saveFileApi;

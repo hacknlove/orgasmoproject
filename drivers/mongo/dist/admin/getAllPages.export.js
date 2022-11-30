@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoProxy_1 = require("../mongoProxy");
 const pageConfigsCollectionName = process.env.ORGASMO_MONGO_PAGES_COLLECTION ?? "pageConfigs";
 async function getAllPages() {
-    await mongoProxy_1.default.connect();
+    await mongoProxy_1.default.waitfor;
     const pagesArray = await mongoProxy_1.default[pageConfigsCollectionName]
         .find({}, { projection: { _id: 0 } })
         .toArray();

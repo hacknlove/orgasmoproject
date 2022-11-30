@@ -11,6 +11,7 @@
     "dev": "nodemon --exec \"npm run build\""
   },
   "dependencies": {
+    "@fastify/deepmerge": "^1.2.0",
     "@orgasmo/dynamicstate": "1.13.13",
     "ajv": "^8.11.0",
     "cencode": "^1.1.0",
@@ -37,7 +38,8 @@
     "./expandPageConfig": "./dist/server/getServerSideProps/expand/pageConfig.js",
     "./AsyncComponents": "./dist/components/AsyncComponents.js",
     "./logger": "./dist/server/logger.js",
-    "./DComponent": "./dist/components/DComponent.js"
+    "./DComponent": "./dist/components/DComponent.js",
+    "./controllerToPromise": "./dist/server/controllerToPromise.js"
   },
   "files": [
     "dist/",

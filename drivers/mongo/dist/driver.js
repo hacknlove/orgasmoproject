@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const start_export_1 = require("./@orgasmo/mongo/start.export");
 const deleteKVStorage_export_1 = require("./admin/deleteKVStorage.export");
 const deletePageConfig_export_1 = require("./admin/deletePageConfig.export");
 const deleteStoryConfig_export_1 = require("./admin/deleteStoryConfig.export");
@@ -14,6 +15,7 @@ const setValue_export_1 = require("./kvStorage/setValue.export");
 const getPageConfig_export_1 = require("./page/getPageConfig.export");
 const getPageConfigFromId_export_1 = require("./page/getPageConfigFromId.export");
 const driver = {
+    ["@orgasmo.mongo.start"]: start_export_1.default,
     ["admin.deleteKVStorage"]: deleteKVStorage_export_1.default,
     ["admin.deletePageConfig"]: deletePageConfig_export_1.default,
     ["admin.deleteStoryConfig"]: deleteStoryConfig_export_1.default,
@@ -28,6 +30,9 @@ const driver = {
     ["page.getPageConfig"]: getPageConfig_export_1.default,
     ["page.getPageConfigFromId"]: getPageConfigFromId_export_1.default,
 };
+driver["@orgasmo"] = {};
+driver["@orgasmo"]["mongo"] = {};
+driver["@orgasmo"]["mongo"]["start"] = start_export_1.default;
 driver["admin"] = {};
 driver["admin"]["deleteKVStorage"] = deleteKVStorage_export_1.default;
 driver["admin"]["deletePageConfig"] = deletePageConfig_export_1.default;

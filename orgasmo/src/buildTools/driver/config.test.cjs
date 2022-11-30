@@ -107,6 +107,7 @@ describe("driver fileFromImport", () => {
  * more info: https://docs.orgasmo.dev/
  */
 
+import config from "./config.json";
 import "./drivers/@orgasmo/json/something/cos.import.tsx";
 import events from "orgasmo/events";
 import baz from "./drivers/@orgasmo/json/something/bar.event.tsx";
@@ -118,20 +119,26 @@ const drivers = ["@orgasmo/json"];
 const driver = {
   ["something.bar"]: bar,
   ["something.foo"]: foo,
+  config,
 }
 
 driver["something"] = {};
 driver["something"]["bar"] = bar;
 driver["something"]["foo"] = foo;
-
 events.on("baz", baz);
 
 export default driver;
 
-for (const driverName of drivers) {
-  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
-  if (driver[startMethodName]) {
-    driver[startMethodName](driver, drivers);
+if (global.startDrivers) {
+  for (const driverName of drivers) {
+    const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+    if (driver[startMethodName]) {
+      driver[startMethodName]({
+        driver,
+        drivers,
+        config,
+      });
+    }
   }
 }
 `;
@@ -181,6 +188,7 @@ for (const driverName of drivers) {
  * more info: https://docs.orgasmo.dev/
  */
 
+import config from "./config.json";
 import events from "orgasmo/events";
 import route1ーonSomething from "./drivers/@orgasmo/json/something1/onSomething.event.tsx";
 import route2ーonSomething from "./drivers/@orgasmo/json/something2/onSomething.event.tsx";
@@ -192,21 +200,27 @@ const drivers = ["@orgasmo/json"];
 const driver = {
   ["something.bar"]: bar,
   ["something.foo"]: foo,
+  config,
 }
 
 driver["something"] = {};
 driver["something"]["bar"] = bar;
 driver["something"]["foo"] = foo;
-
 events.on("onSomething", route1ーonSomething);
 events.on("onSomething", route2ーonSomething);
 
 export default driver;
 
-for (const driverName of drivers) {
-  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
-  if (driver[startMethodName]) {
-    driver[startMethodName](driver, drivers);
+if (global.startDrivers) {
+  for (const driverName of drivers) {
+    const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+    if (driver[startMethodName]) {
+      driver[startMethodName]({
+        driver,
+        drivers,
+        config,
+      });
+    }
   }
 }
 `;
@@ -256,6 +270,7 @@ for (const driverName of drivers) {
  * more info: https://docs.orgasmo.dev/
  */
 
+import config from "./config.json";
 import ーorgasmoーjson from "@orgasmo/json";
 import events from "orgasmo/events";
 import route1ーonSomething from "./drivers/@orgasmo/json/something1/onSomething.event.tsx";
@@ -269,21 +284,27 @@ const driver = {
   ...ーorgasmoーjson,
   ["something.bar"]: bar,
   ["something.foo"]: foo,
+  config,
 }
 
 driver["something"] = {};
 driver["something"]["bar"] = bar;
 driver["something"]["foo"] = foo;
-
 events.on("onSomething", route1ーonSomething);
 events.on("onSomething", route2ーonSomething);
 
 export default driver;
 
-for (const driverName of drivers) {
-  const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
-  if (driver[startMethodName]) {
-    driver[startMethodName](driver, drivers);
+if (global.startDrivers) {
+  for (const driverName of drivers) {
+    const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+    if (driver[startMethodName]) {
+      driver[startMethodName]({
+        driver,
+        drivers,
+        config,
+      });
+    }
   }
 }
 `;

@@ -4,7 +4,7 @@ const kvStorageCollectionName =
   (process.env.ORGASMO_MONGO_SITE_COLLECTION as string) ?? "kvStorage";
 
 export default async function getConfig(ctx, key, value) {
-  await mongoProxy.connect();
+  await mongoProxy.waitfor;
 
   await mongoProxy[kvStorageCollectionName].updateOne(
     { key },
