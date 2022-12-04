@@ -5,4 +5,4 @@ export default function processRow({ rowConfig, params, ctx }: {
 }): Promise<{
     type: any;
     props: any;
-} | null>;
+}>;

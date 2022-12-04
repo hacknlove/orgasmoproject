@@ -4,6 +4,7 @@ import { serialize } from "../lib/serialization";
 import parseCommand from "./parseCommand";
 import { currentTimeChunk } from "../lib/timechunks";
 import cacheControl from "../lib/cacheControl";
+import skipThisRow from "../lib/skipThisRow";
 
 export default async function getItem(ctx) {
   const { req, res, driver } = ctx;
@@ -38,9 +39,11 @@ export default async function getItem(ctx) {
     return res.json(null);
   }
 
-  const row = await cleanAwaitJson(
-    await processRow({ rowConfig, params: command.params, ctx })
-  );
+  const row =
+    skipThisRow({ rowConfig, ctx }) ||
+    (await cleanAwaitJson(
+      await processRow({ rowConfig, params: command.params, ctx })
+    ));
 
   if (row.props.getMore) {
     row.props.src = `/api/_ogm?c=${serialize({

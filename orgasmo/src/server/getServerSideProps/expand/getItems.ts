@@ -2,6 +2,7 @@ import processRow from "../../lib/processRow";
 import { serialize } from "../../lib/serialization";
 import { maxTimeChunk } from "../../lib/timechunks";
 import type { currentChunkReturn } from "../../lib/timechunks";
+import skipThisRow from "../../lib/skipThisRow";
 
 interface getItemsParameters {
   items: any[];
@@ -46,7 +47,9 @@ export default async function getItems({
       timeChunk,
     });
 
-    const row = await processRow({ rowConfig, params, ctx });
+    const row =
+      skipThisRow({ rowConfig, ctx }) ||
+      (await processRow({ rowConfig, params, ctx }));
     if (row?.props?.getMore) {
       row.props.src = `/api/_ogm?c=${serialize({
         ...row.props.getMore,

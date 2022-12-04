@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import { serialize, parse } from "./serialization";
+import { serialize, parse, encrypt, decrypt } from "./serialization";
 
 process.env.ORGASMO_SECRET = "secret";
 
@@ -41,4 +41,12 @@ it("throws if the signature is wrong", () => {
 
   jest.spyOn(console, "error").mockImplementation(() => undefined);
   expect(parse(badSignature)).toEqual({ error: "Signature is invalid" });
+});
+
+it("encrypts and decrypts", async () => {
+  const original = { Some: "Data" };
+
+  expect(
+    await decrypt(await encrypt(original, "password"), "password")
+  ).toEqual(original);
 });

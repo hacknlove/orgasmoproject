@@ -6,6 +6,7 @@ const serialization_1 = require("../lib/serialization");
 const parseCommand_1 = require("./parseCommand");
 const timechunks_1 = require("../lib/timechunks");
 const cacheControl_1 = require("../lib/cacheControl");
+const skipThisRow_1 = require("../lib/skipThisRow");
 async function getItem(ctx) {
     const { req, res, driver } = ctx;
     const command = await (0, parseCommand_1.default)({ req, res, driver });
@@ -30,7 +31,7 @@ async function getItem(ctx) {
     if (!rowConfig) {
         return res.json(null);
     }
-    const row = await (0, cleanJson_1.cleanAwaitJson)(await (0, processRow_1.default)({ rowConfig, params: command.params, ctx }));
+    const row = (0, skipThisRow_1.default)({ rowConfig, ctx }) || await (0, cleanJson_1.cleanAwaitJson)(await (0, processRow_1.default)({ rowConfig, params: command.params, ctx }));
     if (row.props.getMore) {
         row.props.src = `/api/_ogm?c=${(0, serialization_1.serialize)({
             ...row.props.getMore,

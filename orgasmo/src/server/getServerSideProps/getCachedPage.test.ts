@@ -18,6 +18,10 @@ describe("detCachedPage", () => {
   beforeEach(() => {
     ctx = {};
   });
+  it("returns {} if noCache", async () => {
+    ctx.noCache = true;
+    expect(await getCachedPage(ctx)).toEqual({});
+  });
   it("gets the keys async generator from getPageCacheKeys and try each", async () => {
     const keys = ["one", "two", "three", "four"];
     getPageCacheKeys.mockResolvedValue(keys);

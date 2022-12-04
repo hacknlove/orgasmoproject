@@ -18,6 +18,9 @@ describe("getItems", () => {
         "some.method": jest.fn(),
         echo: jest.fn((params) => params),
       },
+      req: {
+        user: {},
+      },
     };
   });
   it("returns empty array if items is falsy", async () => {
@@ -158,6 +161,7 @@ describe("getItems", () => {
     ];
     const response = await getItems({
       items,
+      ctx,
     });
 
     expect(response).toEqual([

@@ -19,7 +19,6 @@ module.exports =
       await processType({
         type: "config",
         isEnabled: config,
-        externalPackage: typeof config === "string" && config,
         isDevelopmentServer,
       });
 

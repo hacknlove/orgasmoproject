@@ -30,13 +30,14 @@ function parse(data) {
 exports.parse = parse;
 const algorithm = "aes-192-cbc";
 const keyLength = 24;
+const ivLength = 16;
 const scryptP = (0, util_1.promisify)(crypto_1.scrypt);
 const randomBytesP = (0, util_1.promisify)(crypto_1.randomBytes);
 async function encrypt(data, password) {
     const keyP = scryptP(password, secret, keyLength, {
         cost: 2,
     });
-    const ivP = randomBytesP(16);
+    const ivP = randomBytesP(ivLength);
     const encodedData = (0, cencode_1.cencode)(data);
     const iv = await ivP;
     const key = await keyP;
@@ -48,10 +49,14 @@ async function encrypt(data, password) {
     ]).toString("base64url");
 }
 exports.encrypt = encrypt;
-function decrypt(base64url, key) {
+async function decrypt(base64url, password) {
+    const keyP = scryptP(password, secret, keyLength, {
+        cost: 2,
+    });
     const buffer = Buffer.from(base64url, "base64url");
-    const iv = buffer.subarray(0, keyLength);
-    const ciphered = buffer.subarray(keyLength);
+    const iv = buffer.subarray(0, ivLength);
+    const ciphered = buffer.subarray(ivLength);
+    const key = await keyP;
     const decipher = (0, crypto_1.createDecipheriv)(algorithm, key, iv);
     const cencoded = decipher.update(ciphered, "utf8") + decipher.final("utf8");
     return (0, cencode_1.decencode)(cencoded);

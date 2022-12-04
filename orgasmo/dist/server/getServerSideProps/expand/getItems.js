@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const processRow_1 = require("../../lib/processRow");
 const serialization_1 = require("../../lib/serialization");
 const timechunks_1 = require("../../lib/timechunks");
+const skipThisRow_1 = require("../../lib/skipThisRow");
 async function getItems({ items: itemsProp = [], params, ctx, limit = Infinity, timeChunk, getItem, }) {
     const items = [];
     const z = limit === Infinity || limit === -1 || limit === null
@@ -23,7 +24,7 @@ async function getItems({ items: itemsProp = [], params, ctx, limit = Infinity, 
             timeChunkConf: rowConfig.timeChunk,
             timeChunk,
         });
-        const row = await (0, processRow_1.default)({ rowConfig, params, ctx });
+        const row = (0, skipThisRow_1.default)({ rowConfig, ctx }) || await (0, processRow_1.default)({ rowConfig, params, ctx });
         if (row?.props?.getMore) {
             row.props.src = `/api/_ogm?c=${(0, serialization_1.serialize)({
                 ...row.props.getMore,

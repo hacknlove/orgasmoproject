@@ -1,6 +1,9 @@
 import matchCriteria from "./matchCriteria";
 
-export default function skipThisRow({ rowConfig, ctx }) {
+export default function skipThisRow({
+  rowConfig,
+  ctx,
+}): Record<string, any> | undefined {
   if (
     !matchCriteria({
       rules: rowConfig.roles,

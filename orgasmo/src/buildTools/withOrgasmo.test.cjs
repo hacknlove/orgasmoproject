@@ -68,7 +68,6 @@ describe("withOrgasmo", () => {
       type: "config",
       isEnabled: true,
       isDevelopmentServer: false,
-      externalPackage: false,
     });
 
     expect(processType.mock.calls[1][0]).toEqual({

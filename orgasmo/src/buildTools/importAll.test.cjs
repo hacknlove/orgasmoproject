@@ -95,4 +95,10 @@ describe("watchAll", () => {
 
     expect(config.refresh).toBeCalled();
   });
+
+  it("watch changes if the config has watchChange", () => {
+    watchAll({ watchChange: true });
+
+    expect(watcher.on.mock.calls[2][0]).toBe("change");
+  });
 });

@@ -35,6 +35,7 @@ export function parse(data: string): any | ErrorObject {
 
 const algorithm = "aes-192-cbc";
 const keyLength = 24;
+const ivLength = 16;
 
 const scryptP = promisify(scrypt);
 const randomBytesP = promisify(randomBytes);
@@ -44,7 +45,7 @@ export async function encrypt(data: any, password) {
   const keyP = scryptP(password, secret, keyLength, {
     cost: 2,
   }) as Promise<Buffer>;
-  const ivP = randomBytesP(16);
+  const ivP = randomBytesP(ivLength);
 
   const encodedData = cencode(data);
 
@@ -60,11 +61,16 @@ export async function encrypt(data: any, password) {
   ]).toString("base64url");
 }
 
-export function decrypt(base64url: string, key) {
-  const buffer = Buffer.from(base64url, "base64url");
-  const iv = buffer.subarray(0, keyLength);
-  const ciphered = buffer.subarray(keyLength);
+export async function decrypt(base64url: string, password) {
+  // @ts-ignore
+  const keyP = scryptP(password, secret, keyLength, {
+    cost: 2,
+  }) as Promise<Buffer>;
 
+  const buffer = Buffer.from(base64url, "base64url");
+  const iv = buffer.subarray(0, ivLength);
+  const ciphered = buffer.subarray(ivLength);
+  const key = await keyP;
   const decipher = createDecipheriv(algorithm, key, iv);
   // @ts-ignore
   const cencoded = decipher.update(ciphered, "utf8") + decipher.final("utf8");
