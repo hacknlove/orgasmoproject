@@ -20,7 +20,7 @@ Those are the components that can be used dynamically.
 
 In short, if the API gives something like `{ type: "SomeComponent", "props": {"some": "props"} }` orgasmo will render `<SomeComponent some="props" />` assuming there is a `SomeComponent.dynamic.jsx` file exporting a React component.
 
-### Drivers
+### driver
 
 A driver is a set of known methods that deals with the data sources.
 
@@ -28,7 +28,7 @@ The scaffolding app uses the driver `@orgasmo/json`, meant for quick prototyping
 
 This driver's data-source is a folder with JSON files.
 
-In the folder `/drivers` you can see the file `@orgasmo/json/data/pages/index.json` defining the `pageConfig` for the path `/`
+In the folder `/driver` you can see the file `@orgasmo/json/data/pages/index.json` defining the `pageConfig` for the path `/`
 
 ## Catch-all route
 

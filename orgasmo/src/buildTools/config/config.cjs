@@ -53,6 +53,20 @@ async function merge(data, mergePath) {
   configCursor[lastSegment] = deepmerge(configCursor[lastSegment] ?? {}, data);
 }
 
+async function importDrivers() {
+  const driversPath = (process.env.ORGASMO_DRIVER || "@orgasmo/json").split(
+    ","
+  );
+
+  for (const requirePath of driversPath) {
+    await requireAndMerge(`${requirePath}/config`, `driver/${requirePath}`);
+    await requireAndMerge(
+      join(process.cwd(), "driver", `${requirePath}/config`),
+      `driver/${requirePath}`
+    );
+  }
+}
+
 const configString = `default${
   process.env.ORGASMO_CONFIG ? `,${process.env.ORGASMO_CONFIG}` : ""
 }`;
@@ -130,6 +144,8 @@ ${process.env[key]}
 }
 
 async function fileFromImports(imports) {
+  await importDrivers();
+
   await importExternals(configArray);
 
   await importFiles(imports);

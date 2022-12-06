@@ -6,7 +6,7 @@ const pageConfigsCollectionName = process.env.ORGASMO_MONGO_PAGES_COLLECTION ?? 
 async function getPageConfig(ctx) {
     const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
     await mongoProxy_1.default.waitfor;
-    const exactMatch = await mongoProxy_1.default[pageConfigsCollectionName]
+    const exactMatch = await mongoProxy_1.default.pages
         .find({
         exactPath: resolvedPath,
     })
@@ -15,7 +15,7 @@ async function getPageConfig(ctx) {
         ctx.parsedPath = {};
         return exactMatch.length > 1 ? exactMatch : exactMatch[0];
     }
-    const regexps = await mongoProxy_1.default[pageConfigsCollectionName]
+    const regexps = await mongoProxy_1.default.pages
         .find({ patternPath: { $exists: 1 } })
         .toArray();
     regexps.sort((a, b) => {

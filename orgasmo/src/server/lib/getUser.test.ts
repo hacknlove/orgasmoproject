@@ -28,7 +28,7 @@ describe("getUser", () => {
 
     expect(ctx.driver.user.getUser).not.toBeCalled();
   });
-  it("sets the default user is there is the driver has no getUser function. No error emited", async () => {
+  it("sets the default user is there is the driver have no getUser function. No error emited", async () => {
     delete ctx.driver.user;
 
     await getUser(ctx);

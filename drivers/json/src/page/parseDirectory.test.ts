@@ -6,10 +6,12 @@ import parseDirectory, {
   ids,
   staticPaths,
   dynamicPaths,
+  watchPages,
 } from "./parseDirectory";
 import { glob } from "glob";
 import { readJson } from "fs-extra";
 import logger from "@orgasmo/orgasmo/logger";
+import { _watcher } from "chokidar";
 
 jest.mock("glob", () => ({
   __esModule: true,
@@ -27,6 +29,17 @@ jest.mock("fs-extra", () => ({
   __esModule: true,
   readJson: jest.fn(),
 }));
+
+jest.mock("chokidar", () => {
+  const _watcher = {
+    on: jest.fn(),
+  };
+
+  return {
+    _watcher,
+    watch: jest.fn().mockReturnValue(_watcher),
+  };
+});
 
 describe("waitForIt", () => {
   beforeEach(() => {
@@ -243,4 +256,10 @@ describe("dynamicPaths", () => {
       "/:foo/(third)",
     ]);
   });
+});
+
+describe("watchPages", () => {
+  watchPages("someUrl");
+
+  expect(_watcher.on).toBeCalledTimes(3);
 });

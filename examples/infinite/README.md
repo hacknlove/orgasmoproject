@@ -12,14 +12,14 @@ cd orgasmoproject
 npm i
 
 npm run build -w orgasmo
-npm run build -w drivers/json
+npm run build -w driver/json
 
 npm run dev -w examples/[name]
 ```
 
-## How to run iw with other drivers
+## How to run iw with other driver
 
 Check the readme of the driver.
 
-- [mongo](drivers/%40orgasmo/mongo/)
-- [strapi](drivers/%40orgasmo//strapi/)
+- [mongo](driver/%40orgasmo/mongo/)
+- [strapi](driver/%40orgasmo//strapi/)

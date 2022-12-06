@@ -6,11 +6,11 @@ async function getLabels(ctx) {
         return;
     }
     ctx.req.labels = [];
-    if (!ctx.driver.labels?.getLabels) {
+    if (!ctx.drivers.labels?.getLabels) {
         return;
     }
     try {
-        ctx.req.labels = (await ctx.driver.labels.getLabels(ctx)) || [];
+        ctx.req.labels = (await ctx.drivers.labels.getLabels(ctx)) || [];
     }
     catch (error) {
         logger_1.default.error({ error, ctx }, "Error calling labels.getLabels");

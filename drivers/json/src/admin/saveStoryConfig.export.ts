@@ -14,5 +14,5 @@ export default async function SavePageConfig(ctx, storyConfig) {
 
   await outputJson(filePath, storyConfig, { spaces: 2 });
 
-  await parseDirectory();
+  await parseDirectory(ctx.driver["@orgasmo"].json.storiesPath);
 }

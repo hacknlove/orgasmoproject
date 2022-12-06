@@ -3,22 +3,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mongoConnect = void 0;
 const mongodb_1 = require("mongodb");
 const logger_1 = require("@orgasmo/orgasmo/logger");
-let mongoURL;
+const config_1 = require("@orgasmo/orgasmo/config");
+let collections = {};
 const mongo = {
-    connect: async (newMongoUrl) => {
+    connect: async () => {
         if (mongo.db) {
-            return;
+            return mongoProxy;
         }
         if (!mongo.waitfor) {
             maxTries = 10;
-            mongo.waitfor = mongoConnect(newMongoUrl);
+            mongo.waitfor = mongoConnect();
         }
         await mongo.waitfor;
         mongo.connecting = null;
+        return mongoProxy;
     },
 };
 const mongoHandler = {
     get: (target, collectionName) => {
+        const orgasmoCollection = collections[collectionName];
+        if (orgasmoCollection) {
+            return target.db.collection(orgasmoCollection);
+        }
         if (target[collectionName]) {
             return target[collectionName];
         }
@@ -28,28 +34,16 @@ const mongoHandler = {
         if (target.db?.collection) {
             return target.db.collection(collectionName);
         }
-        return new Proxy({ collectionName }, collectionHandler);
-    },
-};
-const collectionHandler = {
-    get: ({ collectionName }, method) => {
-        const target = new Function();
-        target.collectionName = collectionName;
-        target.method = method;
-        return new Proxy(target, methodHandler);
-    },
-};
-const methodHandler = {
-    apply: async ({ collectionName, method }, thisArg, argumentList) => {
-        await mongo.connect();
-        return mongoProxy[collectionName][method](...argumentList);
+        throw new Error('Not connected. use await mongoProxy.waitfor');
     },
 };
 let maxTries;
 const mongoProxy = new Proxy(mongo, mongoHandler);
-async function mongoConnect(newMongoUrl) {
+async function mongoConnect() {
     let client;
-    mongoURL ?? (mongoURL = newMongoUrl);
+    const c = config_1.default['drivers.@orgasmo.mongo'];
+    const mongoURL = c.mongoURL;
+    collections = c.collections;
     try {
         client = await mongodb_1.MongoClient.connect(mongoURL);
     }
@@ -67,6 +61,7 @@ async function mongoConnect(newMongoUrl) {
         delete mongo.db;
         mongo.connect();
     });
+    return mongoProxy;
 }
 exports.mongoConnect = mongoConnect;
 exports.default = mongoProxy;

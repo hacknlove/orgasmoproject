@@ -12,7 +12,7 @@ async function getItems({ items: itemsProp = [], params, ctx, limit = Infinity, 
     for (let i = 0; i < z; i++) {
         const rowConfig = itemsProp[i] ??
             (getItem &&
-                (await ctx.driver[getItem]?.({
+                (await ctx.drivers[getItem]?.({
                     params,
                     number: i,
                     relative: i - itemsProp.length,
@@ -24,7 +24,8 @@ async function getItems({ items: itemsProp = [], params, ctx, limit = Infinity, 
             timeChunkConf: rowConfig.timeChunk,
             timeChunk,
         });
-        const row = (0, skipThisRow_1.default)({ rowConfig, ctx }) || await (0, processRow_1.default)({ rowConfig, params, ctx });
+        const row = (0, skipThisRow_1.default)({ rowConfig, ctx }) ||
+            (await (0, processRow_1.default)({ rowConfig, params, ctx }));
         if (row?.props?.getMore) {
             row.props.src = `/api/_ogm?c=${(0, serialization_1.serialize)({
                 ...row.props.getMore,

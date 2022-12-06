@@ -11,7 +11,7 @@ async function SavePageConfig(ctx, storyConfig) {
     const filePath = parseDirectory_1.storiesPaths[component]?.[story] ??
         (0, path_1.join)(process.cwd(), consts_1.storiesPath, `${component}/${story}.json`);
     await (0, fs_extra_1.outputJson)(filePath, storyConfig, { spaces: 2 });
-    await (0, parseDirectory_1.default)();
+    await (0, parseDirectory_1.default)(ctx.drivers['@orgasmo'].json.storiesPath);
 }
 exports.default = SavePageConfig;
 //# sourceMappingURL=saveStoryConfig.export.js.map

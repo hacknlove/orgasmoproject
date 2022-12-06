@@ -1,10 +1,13 @@
 import { outputJson } from "fs-extra";
-import { kvStoragePath } from "../consts";
 import { join } from "path";
 import parseDirectory, {
   keysToFilePath,
   waitForIt,
 } from "../kvStorage/parseDirectory";
+
+import config from "@orgasmo/orgasmo/config";
+
+const kvStoragePath = config["driver.@orgasmo.json"];
 
 export default async function getConfig(ctx, kvStorage) {
   await waitForIt;
@@ -15,5 +18,5 @@ export default async function getConfig(ctx, kvStorage) {
 
   await outputJson(filePath, kvStorage, { spaces: 2 });
 
-  await parseDirectory();
+  await parseDirectory(ctx.driver["@orgasmo"].json.kvStoragePathPath);
 }

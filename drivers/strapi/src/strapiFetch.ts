@@ -1,15 +1,16 @@
-const STRAPI_API_URL = process.env.STRAPI_API_URL;
-const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+import config from "@orgasmo/orgasmo/config";
+
+const { url, token } = config["driver.@orgasmo.strapi"];
 
 export default async function strapiFetch(
   endpoint: string,
   options?: RequestInit
 ) {
-  const response = await fetch(`${STRAPI_API_URL}${endpoint}`, {
+  const response = await fetch(`${url}${endpoint}`, {
     method: "GET",
     ...options,
     headers: {
-      Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+      Authorization: `Bearer ${token}`,
       ...options?.headers,
     },
   })

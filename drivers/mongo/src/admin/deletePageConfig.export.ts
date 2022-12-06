@@ -6,7 +6,7 @@ const pageConfigsCollectionName =
 export default async function deletePageConfig(ctx, pageId) {
   await mongoProxy.waitfor;
 
-  await mongoProxy[pageConfigsCollectionName].deleteOne({
+  await mongoProxy.pages.deleteOne({
     pageId,
   });
 

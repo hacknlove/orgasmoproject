@@ -9,7 +9,7 @@ async function SavePageConfig(ctx, pageId) {
     const filePath = parseDirectory_1.idsToFilePath.get(pageId) ??
         (0, path_1.join)(process.cwd(), consts_1.pagesPath, `${pageId}.json`);
     await (0, fs_extra_1.remove)(filePath);
-    await (0, parseDirectory_1.default)();
+    await (0, parseDirectory_1.default)(ctx.drivers['@orgasmo'].json.pagesPath);
 }
 exports.default = SavePageConfig;
 //# sourceMappingURL=deletePageConfig.export.js.map

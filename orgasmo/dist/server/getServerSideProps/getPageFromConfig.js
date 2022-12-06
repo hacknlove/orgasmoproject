@@ -11,7 +11,7 @@ const logger_1 = require("../logger");
 async function getPageFromConfig(ctx) {
     let pageConfig;
     try {
-        pageConfig = await ctx.driver.page.getPageConfig(ctx);
+        pageConfig = await ctx.drivers.page.getPageConfig(ctx);
     }
     catch (error) {
         logger_1.default.error({
@@ -47,7 +47,7 @@ async function getPageFromConfig(ctx) {
     };
     if (pageConfig.getParams) {
         try {
-            params = (await ctx.driver[pageConfig.getParams](ctx)) || params;
+            params = (await ctx.drivers[pageConfig.getParams](ctx)) || params;
         }
         catch (error) {
             events_1.default.emit("error", {

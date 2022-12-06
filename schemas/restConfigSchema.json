@@ -180,7 +180,7 @@
       }
     },
     "getFlowControl": {
-      "description": "Driver method that overrides the restConfig.flowControl",
+      "description": "driver method that overrides the restConfig.flowControl",
       "type": "string"
     },
     "cookies": {
@@ -207,7 +207,7 @@
       ]
     },
     "getCookies": {
-      "description": "Driver method that overrides the restConfig.cookies",
+      "description": "driver method that overrides the restConfig.cookies",
       "type": "string"
     }
   },

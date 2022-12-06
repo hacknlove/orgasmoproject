@@ -71,7 +71,7 @@ export default async function saveFileApi(ctx) {
     ctx.res.json({
       error: {
         name: "Missing Method",
-        message: `The driver has no ${config.method} method`,
+        message: `The driver have no ${config.method} method`,
       },
     });
     return;

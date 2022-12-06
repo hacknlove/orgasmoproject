@@ -1,12 +1,13 @@
 import getStoriesList from "./getStoriesList";
 import getPagesList from "../../driver/playground/getPagesList";
 import getKVStorageList from "./getKVStorageList";
+import config from "@orgasmo/orgasmo/config";
 
 export default async function getServerSideProps(ctx) {
-  if (
-    ctx.driver.admin?.role &&
-    !ctx.req.user.roles.includes(ctx.driver.admin?.role)
-  ) {
+  const adminRole = config["driver.@orgasmo.admin.role"];
+  console.log(adminRole);
+  console.log(ctx.req.user.roles);
+  if (adminRole && !ctx.req.user.roles.includes(adminRole)) {
     return {
       notFound: 404,
       props: {},

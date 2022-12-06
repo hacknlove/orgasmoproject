@@ -1,3 +1,3 @@
 declare const mongoProxy: any;
-export declare function mongoConnect(newMongoUrl?: any): any;
+export declare function mongoConnect(): any;
 export default mongoProxy;

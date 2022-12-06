@@ -4,10 +4,9 @@ import { match } from "path-to-regexp";
 import { readJson } from "fs-extra";
 import { join } from "path";
 import * as Ajv from "ajv";
-import { watch } from "chokidar";
-import { pagesPath } from "../consts";
 import * as pageConfigSchema from "../schemas/pageConfigSchema.json";
 import logger from "@orgasmo/orgasmo/logger";
+import { watch } from "chokidar";
 
 const glob = promisify(g);
 
@@ -23,7 +22,7 @@ export const idsToFilePath = new Map();
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
 
-export default async function parseDirectory() {
+export default async function parseDirectoryPages(pagesPath) {
   const tempStaticPaths = new Map();
   const tempDynamicPaths = new Map();
 
@@ -131,13 +130,13 @@ export default async function parseDirectory() {
   resolve();
 }
 
-if (process.env.NODE_ENV === "development") {
+export function watchPages(pagesPath) {
   const watcher = watch(pagesPath, {
     ignoreInitial: true,
     awaitWriteFinish: true,
   });
 
-  watcher.on("add", parseDirectory);
-  watcher.on("unlink", parseDirectory);
-  watcher.on("change", parseDirectory);
+  watcher.on("add", () => parseDirectoryPages(pagesPath));
+  watcher.on("unlink", () => parseDirectoryPages(pagesPath));
+  watcher.on("change", () => parseDirectoryPages(pagesPath));
 }

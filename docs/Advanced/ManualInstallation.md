@@ -68,8 +68,8 @@ import driver from "../../driver";
 export default apiFactory({ driver });
 ```
 
-## Drivers and components
+## driver and components
 
 It won't render any **in-data** page until you tell it how to get and render the pageConfigs.
 
-Take a look at the sections [Drivers](drivers.md) and your [Dynamic components](DynamicComponents.md)
+Take a look at the sections [driver](driver.md) and your [Dynamic components](DynamicComponents.md)

@@ -1,4 +1,4 @@
-# /Drivers
+# /driver
 
 You need a driver to connect your web app with your data-source.
 
@@ -22,7 +22,7 @@ More information in the sections [Writing a driver](#writing-a-driver) and [Over
 
 Orgasmo build tools will compile an entry point for you to import. `~/driver.js`
 
-This file exposes all the drivers methods in two flavors, as a tree, and by the dotted key.
+This file exposes all the driver methods in two flavors, as a tree, and by the dotted key.
 
 ```js
 import driver from "~./driver";
@@ -38,18 +38,18 @@ For your convenience, to make it possible for you to start working with mocked d
 
 Not setting the `ORGASMO_DRIVER` environmental variable is the same as setting it to `@orgasmo/json`
 
-## More ready to use drivers
+## More ready to use driver
 
-You can install and use the following drivers:
+You can install and use the following driver:
 
-    @orgasmo/mongo (README)[../../../drivers/mongo/README.mg]
-    @orgasmo/strapi (README)[../../../drivers/strapi/README.mg]
+    @orgasmo/mongo (README)[../../../driver/mongo/README.mg]
+    @orgasmo/strapi (README)[../../../driver/strapi/README.mg]
 
 Currently, there are no plans to add more, but if you think that it makes sense to add some others like PostgreSQL or contentful, create an issue [here](https://github.com/hacknlove/orgasmoproject/issues/new).
 
 ## Writing a driver
 
-Write your files on the drivers/[driver name] tree
+Write your files on the driver/[driver name] tree
 
 For those files that play a public role, there are a few suffixes you need to use to tell Orgasmo what's the role of the file.
 
@@ -61,9 +61,9 @@ The rest of the files are ignored by Orgasmo. It's up to you to organize your dr
 
 ### driver's methods
 
-The route of the file determines the place of the method on the drivers' tree.
+The route of the file determines the place of the method on the driver' tree.
 
-For instance, the default export of the file `drivers/my-driver/foo/bar/buz.export.ts`  
+For instance, the default export of the file `driver/my-driver/foo/bar/buz.export.ts`  
 defines the method `foo.bar.buz` for the driver `my-driver`
 
 #### Minimum Required methods
@@ -86,7 +86,7 @@ Currently, Orgasmo is emitting a few events, mostly for visibility and security,
 
 To handle an event, add anywhere within your driver's directory tree a file named after the event's name.
 
-For instance, the default export of the file `drivers/my-driver/foo/error.event.ts` will handle the `error`event.
+For instance, the default export of the file `driver/my-driver/foo/error.event.ts` will handle the `error`event.
 
 You can have many files handling the same event.
 
@@ -103,13 +103,13 @@ If you need the server to do some common initialization work, required by severa
 
 This is just a convenience help, to avoid polluting any method or event with a shared behavior or requirement. The goal is to help you better organize your driver.
 
-## Overriding a Driver
+## Overriding a driver
 
 Please read [writing a driver](#writing-a-driver) if you haven't yet.
 
 When you set `ORGASMO_DRIVER` to the name of a package, that package is used as the driver, (for instance `foo-driver`)
 
-But if you need to change something, add more methods, or more event handlers, you can create a directory with the same name (`drivers/foo-driver`) and add there all the files you need, with the same contracts and conventions you would use if you were writing a driver from scratch.
+But if you need to change something, add more methods, or more event handlers, you can create a directory with the same name (`driver/foo-driver`) and add there all the files you need, with the same contracts and conventions you would use if you were writing a driver from scratch.
 
 If you write a method with the same name and path, it will override the driver's one.
 

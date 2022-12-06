@@ -28,7 +28,7 @@ With oragasmo you can make the functional changes _(FI. a new behavior for a com
 
 ## Vision.
 
-- **Code is for: Components, Drivers and CSS rules.**
+- **Code is for: Components, driver and CSS rules.**
 - **Data is for: Content, Structure and CSS variables.**
 
 ## Features.
@@ -51,5 +51,5 @@ But that's not all. Orgasmo also has nice characteristics to improve your develo
 - You still have full freedom to organize your code and your data schema as it suits you better.
 - It provides you with a DDD-ready architecture. Everything is intended to be greatly decoupled because at the end you don't know (or care) how the marketing team is going to use it.
 - You can adopt it incrementally. This is not a take-it-all-or-leave-it-all framework. Just pick the pieces you need now and use it now, within your current Next.js application.
-- The ability to write and use different drivers for different scenarios, for instance a mocked driver to developing new features or to run tests.
+- The ability to write and use different driver for different scenarios, for instance a mocked driver to developing new features or to run tests.
 - A notable reduction of bullshit and boilerplate code.

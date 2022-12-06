@@ -2,9 +2,8 @@ import { promisify } from "util";
 import { glob as g } from "glob";
 import { readJson } from "fs-extra";
 import { join } from "path";
-import { watch } from "chokidar";
-import { kvStoragePath } from "../consts";
 import logger from "@orgasmo/orgasmo/logger";
+import { watch } from "chokidar";
 
 const glob = promisify(g);
 
@@ -14,7 +13,7 @@ export const keysToFilePath = {};
 let resolve;
 export const waitForIt = new Promise((r) => (resolve = r));
 
-export default async function parseDirectory() {
+export default async function parseDirectory(kvStoragePath) {
   for (const key in kvStorage) {
     delete kvStorage[key];
     delete keysToFilePath[key];
@@ -36,13 +35,13 @@ export default async function parseDirectory() {
   resolve();
 }
 
-if (process.env.NODE_ENV === "development") {
+export function watchValues(kvStoragePath) {
   const watcher = watch(kvStoragePath, {
     ignoreInitial: true,
     awaitWriteFinish: true,
   });
 
-  watcher.on("add", parseDirectory);
-  watcher.on("unlink", parseDirectory);
-  watcher.on("change", parseDirectory);
+  watcher.on("add", () => parseDirectory(kvStoragePath));
+  watcher.on("unlink", () => parseDirectory(kvStoragePath));
+  watcher.on("change", () => parseDirectory(kvStoragePath));
 }

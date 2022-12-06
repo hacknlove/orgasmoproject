@@ -6,12 +6,12 @@ async function cacheFactory(ctx) {
     if (ctx.cache) {
         return;
     }
-    if (!ctx.driver.cache?.factory) {
+    if (!ctx.drivers.cache?.factory) {
         ctx.cache = Cache;
         return;
     }
     try {
-        ctx.cache = (await ctx.driver.cache?.factory?.()) ?? Cache;
+        ctx.cache = (await ctx.drivers.cache?.factory?.()) ?? Cache;
         return;
     }
     catch (error) {

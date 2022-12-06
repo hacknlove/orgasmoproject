@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const STRAPI_API_URL = process.env.STRAPI_API_URL;
-const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+const config_1 = require("@orgasmo/orgasmo/config");
+const { url, token } = config_1.default['drivers.@orgasmo.strapi'];
 async function strapiFetch(endpoint, options) {
-    const response = await fetch(`${STRAPI_API_URL}${endpoint}`, {
+    const response = await fetch(`${url}${endpoint}`, {
         method: "GET",
         ...options,
         headers: {
-            Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+            Authorization: `Bearer ${token}`,
             ...options?.headers,
         },
     })

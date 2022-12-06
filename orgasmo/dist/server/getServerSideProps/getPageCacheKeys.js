@@ -4,10 +4,10 @@ const cencode_1 = require("cencode");
 const events_1 = require("../events");
 async function* getPageCacheKeys(ctx) {
     try {
-        const methods = await ctx.driver.page.allParameterMethods?.(ctx);
+        const methods = await ctx.drivers.page.allParameterMethods?.(ctx);
         if (methods) {
             for (const method of methods) {
-                yield (0, cencode_1.cencode)(await ctx.driver[method](ctx));
+                yield (0, cencode_1.cencode)(await ctx.drivers[method](ctx));
             }
         }
     }

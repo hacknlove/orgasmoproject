@@ -39,7 +39,8 @@
     "./AsyncComponents": "./dist/components/AsyncComponents.js",
     "./logger": "./dist/server/logger.js",
     "./DComponent": "./dist/components/DComponent.js",
-    "./controllerToPromise": "./dist/server/controllerToPromise.js"
+    "./controllerToPromise": "./dist/server/controllerToPromise.js",
+    "./config": "./dist/config.js"
   },
   "files": [
     "dist/",

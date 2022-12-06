@@ -38,6 +38,7 @@ next-env.d.ts
 /Components.jsx
 /driver.js
 /style.scss
+/config.json
 /test-results/
 /playwright-report/
 /playwright/.cache/

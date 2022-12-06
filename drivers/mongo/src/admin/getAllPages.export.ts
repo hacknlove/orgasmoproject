@@ -6,7 +6,7 @@ const pageConfigsCollectionName =
 export default async function getAllPages() {
   await mongoProxy.waitfor;
 
-  const pagesArray = await mongoProxy[pageConfigsCollectionName]
+  const pagesArray = await mongoProxy.pages
     .find({}, { projection: { _id: 0 } })
     .toArray();
   const pages = {};

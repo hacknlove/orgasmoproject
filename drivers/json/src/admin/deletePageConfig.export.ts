@@ -15,5 +15,5 @@ export default async function SavePageConfig(ctx, pageId) {
 
   await remove(filePath);
 
-  await parseDirectory();
+  await parseDirectory(ctx.driver["@orgasmo"].json.pagesPath);
 }

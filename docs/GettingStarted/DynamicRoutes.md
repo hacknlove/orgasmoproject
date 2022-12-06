@@ -62,7 +62,7 @@ You will have something like.
 
 ## Data Side
 
-?> If you are using the official drivers and the official admin panel, you don't need to read this documentation.
+?> If you are using the official driver and the official admin panel, you don't need to read this documentation.
 
 With orgasmo you can define your routes in the data source.
 

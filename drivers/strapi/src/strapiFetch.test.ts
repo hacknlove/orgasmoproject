@@ -18,7 +18,9 @@ describe("strapiFetch", () => {
     fetch.mockResolvedValue({
       json: () => Promise.reject({ foo: "bar" }),
     });
-    const response = await strapiFetch("localhost");
+    const response = await strapiFetch("localhost", {
+      options: {},
+    });
 
     expect(response).toEqual({ error: { foo: "bar" } });
   });

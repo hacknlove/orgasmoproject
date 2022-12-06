@@ -11,7 +11,7 @@ async function expandPageConfig({ ctx, pageConfig, key, params = undefined, }) {
         params = params || (0, cencode_1.decencode)(key);
         pageConfig.flowControl = {
             ...pageConfig.flowControl,
-            ...(await ctx.driver[pageConfig.getFlowControl]?.({ ctx, params })),
+            ...(await ctx.drivers[pageConfig.getFlowControl]?.({ ctx, params })),
         };
     }
     if (pageConfig.flowControl?.redirect) {

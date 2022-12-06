@@ -13,5 +13,5 @@ export default async function deleteKVStorage(ctx, key) {
     keysToFilePath[key] ?? join(process.cwd(), kvStoragePath, `${key}.json`);
   await remove(filePath);
 
-  await parseDirectory();
+  await parseDirectory(ctx.driver["@orgasmo"].json.kvStoragePath);
 }

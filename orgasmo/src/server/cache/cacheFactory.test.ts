@@ -33,7 +33,7 @@ describe("cacheFactory", () => {
 
     expect(ctx.cache).toBeInstanceOf(Map);
   });
-  it("sets the default cache to the context, if the driver has no cache factory", async () => {
+  it("sets the default cache to the context, if the driver have no cache factory", async () => {
     ctx.driver = {};
     await cacheFactory(ctx);
 

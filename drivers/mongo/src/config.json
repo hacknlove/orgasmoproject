@@ -1,0 +1,8 @@
+{
+  "mongoURL": "mongodb://localhost:27017/orgasmo",
+  "collections": {
+    "kvstorage": "kvStorage",
+    "pages": "pageConfigs",
+    "stories": "storyConfigs"
+  }
+}

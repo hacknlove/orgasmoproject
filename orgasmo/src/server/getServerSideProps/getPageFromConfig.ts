@@ -19,7 +19,7 @@ export default async function getPageFromConfig(ctx) {
         error,
         ctx,
       },
-      "Driver error at page.getPageConfig"
+      "driver error at page.getPageConfig"
     );
   }
 

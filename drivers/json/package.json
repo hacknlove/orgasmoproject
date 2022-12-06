@@ -29,10 +29,12 @@
     "@orgasmo/orgasmo": "1.13.13"
   },
   "files": [
-    "./dist"
+    "./dist",
+    "./src/config.json"
   ],
   "exports": {
     ".": "./dist/driver.js",
+    "./config": "./src/config.json",
     "./mockRoles": "./dist/mockRoles.js",
     "./mockLabels": "./dist/mockLabels.js"
   }

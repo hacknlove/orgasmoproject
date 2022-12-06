@@ -1,6 +1,6 @@
-# Drivers
+# driver
 
-The drivers are the abstraction and anti-corruption layer that sits between your data sources and orgasmo.
+The driver are the abstraction and anti-corruption layer that sits between your data sources and orgasmo.
 
 ## Set the driver to be used
 
@@ -10,26 +10,26 @@ The driver's name indicates where to find the it.
 
 If the variable is not set, it defaults to `@orgasmo/json`
 
-You can use a comma separated set of drivers' names, to use driver composition, for instance:
+You can use a comma separated set of driver' names, to use driver composition, for instance:
 
 ```sh
 ORGASMO_DRIVER=@orgasmo/admin/driver,@orgasmo/mongo
 ```
 
-## Kind of drivers:
+## Kind of driver:
 
-We can classify the drivers in two, according to where the driver is loaded from:
+We can classify the driver in two, according to where the driver is loaded from:
 
 - External: The driver is loaded from a NPM package.
 - Internal: The driver is loaded from your source code.
 
-Use the environmental variable `ORGASMO_DRIVER` to set the name of the drivers you want to use, being the driver name the string for an import, or a path inside drivers (or both).
+Use the environmental variable `ORGASMO_DRIVER` to set the name of the driver you want to use, being the driver name the string for an import, or a path inside driver (or both).
 
-For instance, `test/e2e` is the name of an internal driver that could live at `/drivers/test/e2e`, and `@orgasmo/json` a driver that is imported from `@orgasmo/json`
+For instance, `test/e2e` is the name of an internal driver that could live at `/driver/test/e2e`, and `@orgasmo/json` a driver that is imported from `@orgasmo/json`
 
-## External Drivers
+## External driver
 
-Currently, Orgasmo includes 4 external drivers:
+Currently, Orgasmo includes 4 external driver:
 
 - [`@orgasmo/json']https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a collection of JSON files.
 - [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a MongoDB database.
@@ -42,7 +42,7 @@ This driver uses JSON files, and is meant to be used in the development environm
 
 It can be used in production, but you would need to redeploy to introduce changes to your app.
 
-Drop your JSON files with the [pageConfig](GettingStarted/pageConfig.md)s into the folder `/drivers/@orgasmo/json/data/pages`
+Drop your JSON files with the [pageConfig](GettingStarted/pageConfig.md)s into the folder `/driver/@orgasmo/json/data/pages`
 
 More info: [`@orgasmo/json`](https://www.npmjs.com/package/@orgasmo/json)
 
@@ -77,9 +77,9 @@ In a nutshell, your driver needs to default-export an object with all the method
 - in a tree, like `driver.method.path`
 - by path, like `driver['method.path]`
 
-## Internal Drivers
+## Internal driver
 
-If you want to create an internal driver, create a folder in the `/drivers` tree, _for instance `/drivers/my-driver`_
+If you want to create an internal driver, create a folder in the `/driver` tree, _for instance `/driver/my-driver`_
 
 Then create a file for each driver's method you intend to define.
 
@@ -87,23 +87,23 @@ The file name must end with `.export.{js,tx}`.
 
 The path of the method on the driver matches the full path+filename of the file on the driver's folder.
 
-_`/drivers/my-driver/page/getPageConfig.export.ts` will define the method `page.getPageConfig` for the driver `my-driver`_
+_`/driver/my-driver/page/getPageConfig.export.ts` will define the method `page.getPageConfig` for the driver `my-driver`_
 
-## Driver composition
+## driver composition
 
-Driver composition is the mechanism by which the actual driver takes methods from many drivers.
+driver composition is the mechanism by which the actual driver takes methods from many driver.
 
 ### Common directory
 
-No matter what driver(s) do you set, all the methods defined inside the `/drivers/common` directory will be loaded into the actual driver.
+No matter what driver(s) do you set, all the methods defined inside the `/driver/common` directory will be loaded into the actual driver.
 
 ### Internal driver named after an External driver
 
-When the same driver name can identify both an external driver and an internal driver, methods from both drivers will be loaded into the actual driver.
+When the same driver name can identify both an external driver and an internal driver, methods from both driver will be loaded into the actual driver.
 
 This is very convenient for override an external driver.
 
-_For instance the file `/drivers/@orgasmo/mongo/page/getPageConfig.export.js` would override the method `page.getPageConfig` of the driver `@orgasmo/mongo`_
+_For instance the file `/driver/@orgasmo/mongo/page/getPageConfig.export.js` would override the method `page.getPageConfig` of the driver `@orgasmo/mongo`_
 
 ### Overriding order
 

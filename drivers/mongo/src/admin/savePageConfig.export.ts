@@ -8,7 +8,7 @@ export default async function SavePageConfig(ctx, pageConfig) {
 
   delete pageConfig._id;
 
-  await mongoProxy[pageConfigsCollectionName].updateOne(
+  await mongoProxy.pages.updateOne(
     {
       pageId: pageConfig.pageId,
     },

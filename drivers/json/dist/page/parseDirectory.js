@@ -1,16 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.waitForIt = exports.idsToFilePath = exports.ids = exports.staticPaths = exports.dynamicPaths = void 0;
+exports.watchPages = exports.waitForIt = exports.idsToFilePath = exports.ids = exports.staticPaths = exports.dynamicPaths = void 0;
 const util_1 = require("util");
 const glob_1 = require("glob");
 const path_to_regexp_1 = require("path-to-regexp");
 const fs_extra_1 = require("fs-extra");
 const path_1 = require("path");
 const Ajv = require("ajv");
-const chokidar_1 = require("chokidar");
-const consts_1 = require("../consts");
 const pageConfigSchema = require("../schemas/pageConfigSchema.json");
 const logger_1 = require("@orgasmo/orgasmo/logger");
+const chokidar_1 = require("chokidar");
 const glob = (0, util_1.promisify)(glob_1.glob);
 const ajv = new Ajv();
 const validate = ajv.compile(pageConfigSchema);
@@ -20,11 +19,11 @@ exports.ids = new Map();
 exports.idsToFilePath = new Map();
 let resolve;
 exports.waitForIt = new Promise((r) => (resolve = r));
-async function parseDirectory() {
+async function parseDirectoryPages(pagesPath) {
     const tempStaticPaths = new Map();
     const tempDynamicPaths = new Map();
     const oldIds = new Set(exports.ids.keys());
-    const files = await glob((0, path_1.join)(process.cwd(), consts_1.pagesPath, "/**/*.json"));
+    const files = await glob((0, path_1.join)(process.cwd(), pagesPath, "/**/*.json"));
     for (const filePath of files) {
         const pageConfig = await (0, fs_extra_1.readJson)(filePath, { throws: false });
         if (!pageConfig) {
@@ -97,14 +96,15 @@ async function parseDirectory() {
     }
     resolve();
 }
-exports.default = parseDirectory;
-if (process.env.NODE_ENV === "development") {
-    const watcher = (0, chokidar_1.watch)(consts_1.pagesPath, {
+exports.default = parseDirectoryPages;
+function watchPages(pagesPath) {
+    const watcher = (0, chokidar_1.watch)(pagesPath, {
         ignoreInitial: true,
         awaitWriteFinish: true,
     });
-    watcher.on("add", parseDirectory);
-    watcher.on("unlink", parseDirectory);
-    watcher.on("change", parseDirectory);
+    watcher.on("add", () => parseDirectoryPages(pagesPath));
+    watcher.on("unlink", () => parseDirectoryPages(pagesPath));
+    watcher.on("change", () => parseDirectoryPages(pagesPath));
 }
+exports.watchPages = watchPages;
 //# sourceMappingURL=parseDirectory.js.map

@@ -8,11 +8,11 @@ async function getUser(ctx) {
     ctx.req.user = {
         roles: [],
     };
-    if (!ctx.driver.user?.getUser) {
+    if (!ctx.drivers.user?.getUser) {
         return;
     }
     try {
-        Object.assign(ctx.req.user, await ctx.driver.user.getUser(ctx));
+        Object.assign(ctx.req.user, await ctx.drivers.user.getUser(ctx));
     }
     catch (error) {
         events_1.default.emit("error", {

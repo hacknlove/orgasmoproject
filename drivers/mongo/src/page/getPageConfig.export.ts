@@ -9,7 +9,7 @@ export default async function getPageConfig(ctx) {
 
   await mongoProxy.waitfor;
 
-  const exactMatch = await mongoProxy[pageConfigsCollectionName]
+  const exactMatch = await mongoProxy.pages
     .find({
       exactPath: resolvedPath,
     })
@@ -20,7 +20,7 @@ export default async function getPageConfig(ctx) {
     return exactMatch.length > 1 ? exactMatch : exactMatch[0];
   }
 
-  const regexps = await mongoProxy[pageConfigsCollectionName]
+  const regexps = await mongoProxy.pages
     .find({ patternPath: { $exists: 1 } })
     .toArray();
 

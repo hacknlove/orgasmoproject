@@ -87,7 +87,7 @@
           "type": "Description",
           "props": {
             "text": "Take a look at",
-            "source": "drivers/json/data/pages/index.json"
+            "source": "driver/json/data/pages/index.json"
           }
         },
         {

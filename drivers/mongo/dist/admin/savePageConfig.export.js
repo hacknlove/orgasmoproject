@@ -5,7 +5,7 @@ const pageConfigsCollectionName = process.env.ORGASMO_MONGO_PAGES_COLLECTION ?? 
 async function SavePageConfig(ctx, pageConfig) {
     await mongoProxy_1.default.waitfor;
     delete pageConfig._id;
-    await mongoProxy_1.default[pageConfigsCollectionName].updateOne({
+    await mongoProxy_1.default.pages.updateOne({
         pageId: pageConfig.pageId,
     }, {
         $set: pageConfig,

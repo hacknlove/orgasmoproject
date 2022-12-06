@@ -59,7 +59,7 @@ describe("cacheRefresh", () => {
     expect(autoRefreshInterval.has(key)).toBeFalsy();
   });
 
-  it("expires if drivers throws", async () => {
+  it("expires if driver throws", async () => {
     ctx.driver.somemethod.mockRejectedValue("Error");
 
     autoRefreshInterval.set(key, 0);

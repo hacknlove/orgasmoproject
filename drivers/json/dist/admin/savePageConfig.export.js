@@ -9,7 +9,7 @@ async function SavePageConfig(ctx, pageConfig) {
     const filePath = parseDirectory_1.idsToFilePath.get(pageConfig.pageId) ??
         (0, path_1.join)(process.cwd(), consts_1.pagesPath, `${pageConfig.pageId}.json`);
     await (0, fs_extra_1.outputJson)(filePath, pageConfig, { spaces: 2 });
-    await (0, parseDirectory_1.default)();
+    await (0, parseDirectory_1.default)(ctx.drivers['@orgasmo'].json.pagesPath);
 }
 exports.default = SavePageConfig;
 //# sourceMappingURL=savePageConfig.export.js.map

@@ -25,7 +25,7 @@ async function expandPageConfigApi(ctx) {
     };
     if (fileContent.getParams) {
         try {
-            params = (await ctx.driver[fileContent.getParams](ctx)) || params;
+            params = (await ctx.drivers[fileContent.getParams](ctx)) || params;
         }
         catch (error) {
             events_1.default.emit("error", {

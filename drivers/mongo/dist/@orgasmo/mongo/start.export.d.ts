@@ -1,3 +1,1 @@
-export default function ({ config }: {
-    config: any;
-}): void;
+export default function (): void;

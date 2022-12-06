@@ -25,7 +25,7 @@ But because its name matches the pattern `.dynamic.{jsx,tsx}`, orgasmo will cons
 **Component**
 
 ```jsx
-<Description text="Take a look at" "source"= "drivers/@orgasmo/json/data/pages/index.json" />
+<Description text="Take a look at" "source"= "driver/@orgasmo/json/data/pages/index.json" />
 ```
 
 **itemConfig**
@@ -35,7 +35,7 @@ But because its name matches the pattern `.dynamic.{jsx,tsx}`, orgasmo will cons
   "type": "Description",
   "props": {
     "text": "Take a look at",
-    "source": "drivers/@orgasmo/json/data/pages/index.json"
+    "source": "driver/@orgasmo/json/data/pages/index.json"
   }
 }
 ```
@@ -86,4 +86,4 @@ export default function Layout() {
 
 This is all you need to know to start creating your dynamic frontend side.
 
-Let's not take a look at the [drivers](GettingStarted/Drivers.md)
+Let's not take a look at the [driver](GettingStarted/driver.md)

@@ -5,12 +5,12 @@ async function expandLayout({ ctx, layoutConfig, params }) {
     if (!layoutConfig) {
         return;
     }
-    const expandedMeta = ctx.driver[layoutConfig.getMeta]?.({
+    const expandedMeta = ctx.drivers[layoutConfig.getMeta]?.({
         ctx,
         params,
         meta: layoutConfig.meta,
     });
-    const expandedCssVars = ctx.driver[layoutConfig.getCssVars]?.({
+    const expandedCssVars = ctx.drivers[layoutConfig.getCssVars]?.({
         ctx,
         params,
     });

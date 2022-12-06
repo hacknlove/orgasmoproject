@@ -26,7 +26,7 @@ Clean all the content from the home, leave only a Header with the Phrase "Hello 
 Also update the home page's title and the description.
 
 <details>
-<summary><code>/drivers/@orgasmo/json/data/pages/index.json</code></summary>
+<summary><code>/driver/@orgasmo/json/data/pages/index.json</code></summary>
 
 ```js
 {
@@ -88,7 +88,7 @@ You can use these planets:
 You should have ended up with something like
 
 <details>
-<summary><code>/drivers/@orgasmo/json/data/pages/index.json</code></summary>
+<summary><code>/driver/@orgasmo/json/data/pages/index.json</code></summary>
 
 ```js
 {
@@ -313,7 +313,7 @@ Edit the home's pageConfig's JSON file to use the new layout.
 <details>
 <summary>
 <code>
-/drivers/@orgasmo/json/data/pages/index.json
+/driver/@orgasmo/json/data/pages/index.json
 </code></summary>
 
 ```json
@@ -347,7 +347,7 @@ For the areas, just use the header area to render only one component with the te
 
 <details>
 <summary><code>
-drivers/@orgasmo/json/data/pages/hello-planet.json
+driver/@orgasmo/json/data/pages/hello-planet.json
 </code></summary>
 
 ```json
@@ -386,7 +386,7 @@ Let's create a method that modifies the item properties.
 
 Create this file:
 
-`drivers/common/planet/sayHello.export.js`
+`driver/common/planet/sayHello.export.js`
 
 ```js
 export default function itemHeader(config) {
@@ -407,7 +407,7 @@ We are going to salute all the planets of the whole galaxy, but there are too ma
 We need a driver method to that gets/generates more items
 
 Create the following file:
-`/drivers/common/planet/getAnotherPlanet.export.js`
+`/driver/common/planet/getAnotherPlanet.export.js`
 
 ```js
 export default function getAnotherPlanet({ number }) {
@@ -427,7 +427,7 @@ And we also need to enable the bubble mode, put use the original layout, set a `
 
 <details>
 <summary><code>
-/drivers/@orgasmo/json/data/pages/index.json
+/driver/@orgasmo/json/data/pages/index.json
 </code></summary>
 
 ```json
