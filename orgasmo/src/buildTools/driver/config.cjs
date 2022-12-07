@@ -9,14 +9,14 @@ const driver = process.env.ORGASMO_DRIVER || "@orgasmo/json";
 const driverArray = driver.split(",");
 
 const regexp = new RegExp(
-  `^(?<from>\\./driver/(${driverArray.join(
+  `^(?<from>\\./drivers/(${driverArray.join(
     "|"
   )}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`
 );
 
 function sort(imports) {
   const sortRegexp = new RegExp(
-    `^\\./driver/(${driverArray.join("|")}|common)/`
+    `^\\./drivers/(${driverArray.join("|")}|common)/`
   );
 
   function sortReplace(match, driver) {
@@ -39,7 +39,7 @@ function sort(imports) {
   });
 }
 
-const globPath = `./driver/{${driver},common}/**/*.{export,event,import}.{js,ts,mjs,cjs}`;
+const globPath = `./drivers/{${driver},common}/**/*.{export,event,import}.{js,ts,mjs,cjs}`;
 
 function byType(imports) {
   const response = {};
@@ -59,7 +59,7 @@ function importExternals(driverArray) {
     if (isAModule(driver)) {
       string = `${string}\nimport ${getExternalName(driver)} from "${driver}";`;
     } else {
-      if (!existsSync(`./driver/${driver}`)) {
+      if (!existsSync(`./drivers/${driver}`)) {
         console.error(`CRITICAL: the driver "${driver}" cannot be found:`);
         process.exit(1);
       }
@@ -224,7 +224,7 @@ ${importExports(importsByType.export)}
 
 global.config = config;
 
-const driver = ${JSON.stringify(driverArray)};
+const drivers = ${JSON.stringify(driverArray)};
 
 const driver = {${useExternals(driverArray)}${useExportsStrings(
     importsByType.export
@@ -236,13 +236,13 @@ ${useEvents(importsByType.event)}
 export default driver;
 
 if (global.startDrivers) {
-  for (const driverName of driver) {
+  for (const driverName of drivers) {
     const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
     const waitForName = \`\${driverName.replace(/\\//g, '.')}.waitFor\`
     if (driver[startMethodName]) {
       driver[waitForName] = driver[startMethodName]({
         driver,
-        driver,
+        drivers,
       });
     }
   }
@@ -281,7 +281,7 @@ function map({ route = "", filename, from, type }) {
 function refresh() {
   let updating;
 
-  const watcher = chokidar.watch("./driver/**/*", {
+  const watcher = chokidar.watch("./drivers/**/*", {
     ignoreInitial: true,
     awaitWriteFinish: true,
   });
@@ -309,7 +309,7 @@ function refresh() {
   watcher.on("unlink", waitandupdate);
   watcher.on("change", waitandupdate);
 
-  console.info('Watching "./driver/**/*" to trigger refresh');
+  console.info('Watching "./drivers/**/*" to trigger refresh');
 }
 
 exports.fileFromImports = fileFromImports;

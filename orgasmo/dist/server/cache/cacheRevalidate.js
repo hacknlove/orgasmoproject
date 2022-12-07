@@ -8,7 +8,7 @@ const cacheExtendExpirationTimeout_1 = require("./cacheExtendExpirationTimeout")
 async function cacheRevalidate({ ctx, key, item }) {
     let newItem;
     try {
-        newItem = await ctx.drivers[item.revalidate](key);
+        newItem = await ctx.driver[item.revalidate](key);
     }
     catch (error) {
         events_1.default.emit("error", {

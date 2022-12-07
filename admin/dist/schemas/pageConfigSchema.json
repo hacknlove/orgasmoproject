@@ -45,7 +45,7 @@
                     ]
                 },
                 "getMeta": {
-                    "description": "Driver method to override the meta",
+                    "description": "driver method to override the meta",
                     "type": "string"
                 },
                 "cssVars": {
@@ -53,7 +53,7 @@
                     "type": "object"
                 },
                 "getCssVars": {
-                    "description": "Driver method to override the cssVars",
+                    "description": "driver method to override the cssVars",
                     "type": "string"
                 }
             },
@@ -152,7 +152,7 @@
             }
         },
         "getFlowControl": {
-            "description": "Driver method that overrides the pageConfig.flowControl",
+            "description": "driver method that overrides the pageConfig.flowControl",
             "type": "string"
         },
         "cookies": {
@@ -179,7 +179,7 @@
             ]
         },
         "getCookies": {
-            "description": "Driver method that overrides the pageConfig.cookies",
+            "description": "driver method that overrides the pageConfig.cookies",
             "type": "string"
         },
         "clientSideOnly": {

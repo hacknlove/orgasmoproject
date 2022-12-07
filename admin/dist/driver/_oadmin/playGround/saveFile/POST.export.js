@@ -68,17 +68,17 @@ async function saveFileApi(ctx) {
             },
         });
     }
-    if (!ctx.drivers[config.method]) {
+    if (!ctx.driver[config.method]) {
         ctx.res.json({
             error: {
                 name: "Missing Method",
-                message: `The driver has no ${config.method} method`,
+                message: `The driver have no ${config.method} method`,
             },
         });
         return;
     }
     try {
-        await ctx.drivers[config.method](ctx, content);
+        await ctx.driver[config.method](ctx, content);
         ctx.res.json(config.getResponse(content));
     }
     catch (error) {
@@ -89,7 +89,7 @@ async function saveFileApi(ctx) {
     if (config.hook) {
         try {
             const hookConfig = config.hook(content);
-            const hook = await ctx.drivers.kvStorage.getValue(ctx, hookConfig.hook);
+            const hook = await ctx.driver.kvStorage.getValue(ctx, hookConfig.hook);
             if (!hook?.value) {
                 return;
             }

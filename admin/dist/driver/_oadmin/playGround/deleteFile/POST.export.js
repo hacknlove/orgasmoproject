@@ -42,17 +42,17 @@ async function deleteFileApi(ctx) {
     }
     const splitedPath = ctx.req.body.filePath.split("/");
     const config = configs[splitedPath[1]];
-    if (!ctx.drivers[config.method]) {
+    if (!ctx.driver[config.method]) {
         ctx.res.json({
             error: {
                 name: "Missing Method",
-                message: `The drivers have no ${config.method} method`,
+                message: `The driver have no ${config.method} method`,
             },
         });
         return;
     }
     try {
-        await ctx.drivers[config.method](ctx, ...config.getParams(splitedPath));
+        await ctx.driver[config.method](ctx, ...config.getParams(splitedPath));
         ctx.res.json(config.getResponse(splitedPath));
         return;
     }

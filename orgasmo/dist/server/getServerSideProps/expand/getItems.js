@@ -12,7 +12,7 @@ async function getItems({ items: itemsProp = [], params, ctx, limit = Infinity, 
     for (let i = 0; i < z; i++) {
         const rowConfig = itemsProp[i] ??
             (getItem &&
-                (await ctx.drivers[getItem]?.({
+                (await ctx.driver[getItem]?.({
                     params,
                     number: i,
                     relative: i - itemsProp.length,

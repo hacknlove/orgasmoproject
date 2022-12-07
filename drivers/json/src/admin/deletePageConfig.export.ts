@@ -1,5 +1,5 @@
 import { join } from "path";
-import { pagesPath } from "../consts";
+import config from "@orgasmo/orgasmo/config";
 import parseDirectory, {
   idsToFilePath,
   waitForIt,
@@ -11,7 +11,11 @@ export default async function SavePageConfig(ctx, pageId) {
 
   const filePath =
     idsToFilePath.get(pageId) ??
-    join(process.cwd(), pagesPath, `${pageId}.json`);
+    join(
+      process.cwd(),
+      config["driver.@orgasmo.json.pagePath"],
+      `${pageId}.json`
+    );
 
   await remove(filePath);
 

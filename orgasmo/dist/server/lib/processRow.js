@@ -5,9 +5,9 @@ async function processRow({ rowConfig, params, ctx }) {
         type: rowConfig.type,
         props: rowConfig.props ?? {},
     };
-    if (ctx.drivers[rowConfig.getProps]) {
+    if (ctx.driver[rowConfig.getProps]) {
         row.props = {
-            ...(await ctx.drivers[rowConfig.getProps]({
+            ...(await ctx.driver[rowConfig.getProps]({
                 rowConfig,
                 params,
                 ctx,

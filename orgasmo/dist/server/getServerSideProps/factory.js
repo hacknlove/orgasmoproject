@@ -8,7 +8,7 @@ const getLabels_1 = require("../lib/getLabels");
 function getServerSidePropsFactory({ driver, noCache, Components, }) {
     return async function GetServerSideProps(ctx) {
         ctx.noCache = noCache;
-        ctx.drivers = driver;
+        ctx.driver = driver;
         ctx.Components = Components;
         ctx.setCookies = [];
         ctx.rewrites = 0;

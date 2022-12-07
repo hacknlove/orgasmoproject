@@ -5,11 +5,8 @@ const getPagesList_1 = require("../../driver/playground/getPagesList");
 const getKVStorageList_1 = require("./getKVStorageList");
 const config_1 = require("@orgasmo/orgasmo/config");
 async function getServerSideProps(ctx) {
-    const adminRole = config_1.default['drivers.@orgasmo.admin.role'];
-    console.log(adminRole);
-    console.log(ctx.req.user.roles);
-    if (adminRole &&
-        !ctx.req.user.roles.includes(adminRole)) {
+    const adminRole = config_1.default["driver.@orgasmo.admin.role"];
+    if (adminRole && !ctx.req.user.roles.includes(adminRole)) {
         return {
             notFound: 404,
             props: {},
@@ -24,7 +21,7 @@ async function getServerSideProps(ctx) {
         };
     }
     const Components = ctx.Components;
-    const driver = ctx.drivers;
+    const driver = ctx.driver;
     const [stories, pages, KVStorages] = await Promise.all([
         (0, getStoriesList_1.default)({ driver, Components }),
         (0, getPagesList_1.default)({ driver }),

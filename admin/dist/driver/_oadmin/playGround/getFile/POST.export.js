@@ -30,15 +30,15 @@ const configs = {
 async function getFile(ctx) {
     const splitedPath = ctx.req.body.filePath.split("/");
     const config = configs[splitedPath[1]];
-    if (!ctx.drivers[config.method]) {
+    if (!ctx.driver[config.method]) {
         return ctx.res.json({
             error: {
                 name: "Missing Method",
-                message: `The driver has no ${config.method} method`,
+                message: `The driver have no ${config.method} method`,
             },
         });
     }
-    const content = (await ctx.drivers[config.method](...config.getParams(ctx, splitedPath))) ??
+    const content = (await ctx.driver[config.method](...config.getParams(ctx, splitedPath))) ??
         config.getDefault?.(splitedPath) ?? {
         error: `${ctx.req.body.filePath} not found`,
     };

@@ -13,7 +13,7 @@ If the variable is not set, it defaults to `@orgasmo/json`
 You can use a comma separated set of driver' names, to use driver composition, for instance:
 
 ```sh
-ORGASMO_DRIVER=@orgasmo/admin/driver,@orgasmo/mongo
+ORGASMO_DRIVER=@orgasmo/admin,@orgasmo/mongo
 ```
 
 ## Kind of driver:
@@ -34,7 +34,7 @@ Currently, Orgasmo includes 4 external driver:
 - [`@orgasmo/json']https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a collection of JSON files.
 - [`@orgasmo/mongo`](https://www.npmjs.com/package/@orgasmo/mongo): gets the pageConfigs from a MongoDB database.
 - [`@orgasmo/strapi`](https://www.npmjs.com/package/@orgasmo/strapi): gets the pageConfigs from a strapi server.
-- [`@orgasmo/admin/driver`](https://www.npmjs.com/package/@orgasmo/admin): adds methods used by orgasmo's playground and orgasmo's admin panel.
+- [`@orgasmo/admin`](https://www.npmjs.com/package/@orgasmo/admin): adds methods used by orgasmo's playground and orgasmo's admin panel.
 
 ### JSON files
 

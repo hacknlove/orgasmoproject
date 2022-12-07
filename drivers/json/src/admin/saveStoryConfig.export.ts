@@ -1,7 +1,7 @@
 import { outputJson } from "fs-extra";
 import { join } from "path";
-import { storiesPath } from "../consts";
 import parseDirectory, { storiesPaths, waitForIt } from "./parseDirectory";
+import config from "@orgasmo/orgasmo/config";
 
 export default async function SavePageConfig(ctx, storyConfig) {
   await waitForIt;
@@ -10,9 +10,13 @@ export default async function SavePageConfig(ctx, storyConfig) {
   const story = storyConfig.story;
   const filePath =
     storiesPaths[component]?.[story] ??
-    join(process.cwd(), storiesPath, `${component}/${story}.json`);
+    join(
+      process.cwd(),
+      config["driver.@orgasmo.json.storiesPath"],
+      `${component}/${story}.json`
+    );
 
   await outputJson(filePath, storyConfig, { spaces: 2 });
 
-  await parseDirectory(ctx.driver["@orgasmo"].json.storiesPath);
+  await parseDirectory(config["driver.@orgasmo.json.storiesPath"]);
 }

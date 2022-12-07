@@ -5,8 +5,6 @@ import config from "@orgasmo/orgasmo/config";
 
 export default async function getServerSideProps(ctx) {
   const adminRole = config["driver.@orgasmo.admin.role"];
-  console.log(adminRole);
-  console.log(ctx.req.user.roles);
   if (adminRole && !ctx.req.user.roles.includes(adminRole)) {
     return {
       notFound: 404,

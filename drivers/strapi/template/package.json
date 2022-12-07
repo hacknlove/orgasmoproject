@@ -12,6 +12,7 @@
     "url": "https://github.com/hacknlove/orgasmoproject.git"
   },
   "scripts": {
+    "build": "",
     "test": ""
   },
   "license": "MIT",

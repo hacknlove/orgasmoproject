@@ -1,5 +1,5 @@
 {
-  "pagesPath": "driver/@orgasmo/json/data/pages",
-  "storiesPath": "driver/@orgasmo/json/data/stories",
-  "kvStoragePath": "driver/@orgasmo/json/data/values"
+  "pagesPath": "drivers/@orgasmo/json/data/pages",
+  "storiesPath": "drivers/@orgasmo/json/data/stories",
+  "kvStoragePath": "drivers/@orgasmo/json/data/values"
 }

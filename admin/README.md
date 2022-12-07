@@ -7,7 +7,7 @@ To enable the orgasmo's Admin panel
 1. add the admin driver
 
 ```
-ORGASMO_DRIVER=@orgasmo/admin/driver,yourOtherDrivers,... npm run dev
+ORGASMO_DRIVER=@orgasmo/admin,yourOtherDrivers,... npm run dev
 ```
 
 2. visit `/playground`

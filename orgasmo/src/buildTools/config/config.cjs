@@ -61,7 +61,7 @@ async function importDrivers() {
   for (const requirePath of driversPath) {
     await requireAndMerge(`${requirePath}/config`, `driver/${requirePath}`);
     await requireAndMerge(
-      join(process.cwd(), "driver", `${requirePath}/config`),
+      join(process.cwd(), "drivers", `${requirePath}/config`),
       `driver/${requirePath}`
     );
   }
@@ -135,7 +135,7 @@ function importEnvironment() {
     } catch (error) {
       console.error(error);
 
-      console.log(`Maybe the value of environmental variable ${key} is not valid JSON?
+      console.info(`Maybe the value of environmental variable ${key} is not valid JSON?
 value:
 ${process.env[key]}
 `);

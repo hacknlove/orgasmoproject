@@ -7,7 +7,7 @@ const maps_1 = require("./maps");
 async function cacheRefresh({ ctx, item, key }) {
     let newItem;
     try {
-        newItem = await ctx.drivers[item.autoRefresh.method](key);
+        newItem = await ctx.driver[item.autoRefresh.method](key);
     }
     catch (error) {
         events_1.default.emit("error", {

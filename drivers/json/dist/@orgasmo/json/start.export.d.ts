@@ -1,3 +1,1 @@
-export default function start({ config }: {
-    config: any;
-}): Promise<[void, void, void]>;
+export default function start(): Promise<[void, void, void]>;

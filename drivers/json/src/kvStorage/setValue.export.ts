@@ -7,9 +7,9 @@ import parseDirectory, {
 
 import config from "@orgasmo/orgasmo/config";
 
-const kvStoragePath = config["driver.@orgasmo.json"];
-
 export default async function getConfig(ctx, kvStorage) {
+  const kvStoragePath = config["driver.@orgasmo.json"];
+
   await waitForIt;
 
   const filePath =

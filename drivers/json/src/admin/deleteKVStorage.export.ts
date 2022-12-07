@@ -1,5 +1,5 @@
 import { join } from "path";
-import { kvStoragePath } from "../consts";
+import config from "@orgasmo/orgasmo/config";
 import { remove } from "fs-extra";
 import parseDirectory, {
   keysToFilePath,
@@ -10,7 +10,12 @@ export default async function deleteKVStorage(ctx, key) {
   await waitForIt;
 
   const filePath =
-    keysToFilePath[key] ?? join(process.cwd(), kvStoragePath, `${key}.json`);
+    keysToFilePath[key] ??
+    join(
+      process.cwd(),
+      config["drivers.@orgasmo.json.kvStoragePath"],
+      `${key}.json`
+    );
   await remove(filePath);
 
   await parseDirectory(ctx.driver["@orgasmo"].json.kvStoragePath);

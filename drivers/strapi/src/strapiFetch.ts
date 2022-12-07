@@ -1,11 +1,11 @@
 import config from "@orgasmo/orgasmo/config";
 
-const { url, token } = config["driver.@orgasmo.strapi"];
-
 export default async function strapiFetch(
   endpoint: string,
   options?: RequestInit
 ) {
+  const { url, token } = config["driver.@orgasmo.strapi"];
+
   const response = await fetch(`${url}${endpoint}`, {
     method: "GET",
     ...options,

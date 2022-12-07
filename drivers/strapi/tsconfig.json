@@ -18,7 +18,7 @@
     "esModuleInterop": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "Node16",
     "skipLibCheck": true,
     "paths": {
       "~/*": ["./src/*"]
@@ -29,7 +29,6 @@
   "exclude": [
     "node_modules",
     "coverage",
-    "template",
     "dist",
     "**/*.test.ts",
     "**/*.test.tsx",

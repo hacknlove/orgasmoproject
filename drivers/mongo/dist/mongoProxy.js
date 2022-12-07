@@ -34,14 +34,14 @@ const mongoHandler = {
         if (target.db?.collection) {
             return target.db.collection(collectionName);
         }
-        throw new Error('Not connected. use await mongoProxy.waitfor');
+        throw new Error("Not connected. use await mongoProxy.waitfor");
     },
 };
 let maxTries;
 const mongoProxy = new Proxy(mongo, mongoHandler);
 async function mongoConnect() {
     let client;
-    const c = config_1.default['drivers.@orgasmo.mongo'];
+    const c = config_1.default["driver.@orgasmo.mongo"];
     const mongoURL = c.mongoURL;
     collections = c.collections;
     try {
