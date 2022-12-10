@@ -18,6 +18,7 @@ export default async function getMore({ req, res, driver }) {
       count: parseInt(req.query.count),
     })
   );
+
   if (response.getMore) {
     response.src = `/api/_ogm?c=${serialize({
       ...response.getMore,

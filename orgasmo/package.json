@@ -40,7 +40,8 @@
     "./logger": "./dist/server/logger.js",
     "./DComponent": "./dist/components/DComponent.js",
     "./controllerToPromise": "./dist/server/controllerToPromise.js",
-    "./config": "./dist/config.js"
+    "./config": "./dist/config.js",
+    "./middlewareFactory": "./dist/server/middlewareFactory.js"
   },
   "files": [
     "dist/",

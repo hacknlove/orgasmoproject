@@ -14,7 +14,7 @@ npm i @orgasmo/json
 
 Set the environmental variable `ORGASMO_DRIVER=@orgasmo/json`
 
-Add your pageConfigs to the folder `/driver/@orgasmo/json/data/pages`
+Add your pageConfigs to the folder `/drivers/@orgasmo/json/data/pages`
 
 ## Orgasmo's Documentation
 

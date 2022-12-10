@@ -9,7 +9,7 @@ async function deleteKVStorage(ctx, key) {
     const filePath = parseDirectory_1.keysToFilePath[key] ??
         (0, path_1.join)(process.cwd(), config_1.default["drivers.@orgasmo.json.kvStoragePath"], `${key}.json`);
     await (0, fs_extra_1.remove)(filePath);
-    await (0, parseDirectory_1.default)(ctx.driver["@orgasmo"].json.kvStoragePath);
+    await (0, parseDirectory_1.default)(config_1.default["drivers.@orgasmo.json.kvStoragePath"]);
 }
 exports.default = deleteKVStorage;
 //# sourceMappingURL=deleteKVStorage.export.js.map

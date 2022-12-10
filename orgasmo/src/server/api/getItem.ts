@@ -5,6 +5,7 @@ import parseCommand from "./parseCommand";
 import { currentTimeChunk } from "../lib/timechunks";
 import cacheControl from "../lib/cacheControl";
 import skipThisRow from "../lib/skipThisRow";
+import extendContextData from "../extendContextData";
 
 export default async function getItem(ctx) {
   const { req, res, driver } = ctx;
@@ -18,6 +19,8 @@ export default async function getItem(ctx) {
   if (!pageConfig) {
     return res.json(null);
   }
+
+  await extendContextData(ctx, command.params, pageConfig);
 
   if (!pageConfig.areas[command.area]) {
     return res.json(null);

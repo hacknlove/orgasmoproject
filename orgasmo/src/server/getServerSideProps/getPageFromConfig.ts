@@ -6,6 +6,7 @@ import cacheNewItem from "../cache/cacheNewItem";
 import sendFullPage from "./sendFullPage";
 import filterCriteria from "../lib/filterCriteria";
 import logger from "../logger";
+import extendContextData from "../extendContextData";
 
 type pageParams = Record<string, any>;
 
@@ -87,6 +88,8 @@ export default async function getPageFromConfig(ctx) {
   }
 
   const key = cencode(params);
+
+  await extendContextData(ctx, params, pageConfig);
 
   const page = {
     timeChunk: pageConfig.timeChunk,

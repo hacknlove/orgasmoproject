@@ -4,7 +4,7 @@ export default async function strapiFetch(
   endpoint: string,
   options?: RequestInit
 ) {
-  const { url, token } = config["driver.@orgasmo.strapi"];
+  const { url, token } = config["drivers.@orgasmo.strapi"];
 
   const response = await fetch(`${url}${endpoint}`, {
     method: "GET",

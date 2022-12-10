@@ -7,14 +7,14 @@ import config from "@orgasmo/orgasmo/config";
 
 export default function start() {
   if (process.env.NODE_ENV === "development") {
-    watchPages(config.driver["@orgasmo"].json.pagesPath);
-    watchStories(config.driver["@orgasmo"].json.storiesPath);
-    watchValues(config.driver["@orgasmo"].json.kvStoragePath);
+    watchPages(config.drivers["@orgasmo"].json.pagesPath);
+    watchStories(config.drivers["@orgasmo"].json.storiesPath);
+    watchValues(config.drivers["@orgasmo"].json.kvStoragePath);
   }
 
   return Promise.all([
-    parseDirectoryComponents(config.driver["@orgasmo"].json.storiesPath),
-    parseDirectoryPages(config.driver["@orgasmo"].json.pagesPath),
-    parseKVSTorage(config.driver["@orgasmo"].json.kvStoragePath),
+    parseDirectoryComponents(config.drivers["@orgasmo"].json.storiesPath),
+    parseDirectoryPages(config.drivers["@orgasmo"].json.pagesPath),
+    parseKVSTorage(config.drivers["@orgasmo"].json.kvStoragePath),
   ]);
 }

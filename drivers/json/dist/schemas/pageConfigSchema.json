@@ -59,6 +59,22 @@
             },
             "additionalProperties": false
         },
+        "contextData": {
+            "type": "object"
+        },
+        "getContextData": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
         "areas": {
             "description": "The content blocks",
             "type": "object",

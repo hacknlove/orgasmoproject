@@ -14,11 +14,11 @@ export default async function SavePageConfig(ctx, pageConfig) {
     idsToFilePath.get(pageConfig.pageId) ??
     join(
       process.cwd(),
-      config["driver.@orgasmo.json.pagesPath"],
+      config["drivers.@orgasmo.json.pagesPath"],
       `${pageConfig.pageId}.json`
     );
 
   await outputJson(filePath, pageConfig, { spaces: 2 });
 
-  await parseDirectory(ctx.driver["@orgasmo"].json.pagesPath);
+  await parseDirectory(config["drivers.@orgasmo.json.pagePath"]);
 }

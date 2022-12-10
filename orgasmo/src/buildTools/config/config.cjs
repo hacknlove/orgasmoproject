@@ -59,11 +59,7 @@ async function importDrivers() {
   );
 
   for (const requirePath of driversPath) {
-    await requireAndMerge(`${requirePath}/config`, `driver/${requirePath}`);
-    await requireAndMerge(
-      join(process.cwd(), "drivers", `${requirePath}/config`),
-      `driver/${requirePath}`
-    );
+    await requireAndMerge(`${requirePath}/config`, `drivers/${requirePath}`);
   }
 }
 
@@ -73,12 +69,12 @@ const configString = `default${
 
 const configArray = configString.split(",");
 
-const confirOrder = {
+const configOrder = {
   "": String.fromCharCode(0xffff),
 };
 
 configArray.forEach((label, i) => {
-  confirOrder[label] = String.fromCharCode(0xffff - i - 1);
+  configOrder[label] = String.fromCharCode(0xffff - i - 1);
 });
 
 const globPath = `./**/config/**/+({${configArray.join(",")}}.){js,json}`;
@@ -155,14 +151,14 @@ async function fileFromImports(imports) {
   return JSON.stringify(config, null, 2);
 }
 
-exports.map = function map({ requirePath, labels, mergePath }) {
+exports.map = function map({ requirePath, labels, preMergePath, mergePath }) {
   return {
     requirePath: join(process.cwd(), requirePath),
-    mergePath, //: mergePath.replace(/\/$/, ''),
+    mergePath: join(preMergePath, mergePath),
     sortKey:
       labels
         .split(".")
-        .map((label) => confirOrder[label])
+        .map((label) => configOrder[label])
         .join("") + requirePath,
   };
 };

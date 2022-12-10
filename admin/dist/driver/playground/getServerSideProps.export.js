@@ -5,7 +5,7 @@ const getPagesList_1 = require("../../driver/playground/getPagesList");
 const getKVStorageList_1 = require("./getKVStorageList");
 const config_1 = require("@orgasmo/orgasmo/config");
 async function getServerSideProps(ctx) {
-    const adminRole = config_1.default["driver.@orgasmo.admin.role"];
+    const adminRole = config_1.default["drivers.@orgasmo.admin.role"];
     if (adminRole && !ctx.req.user.roles.includes(adminRole)) {
         return {
             notFound: 404,

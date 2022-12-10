@@ -45,7 +45,7 @@ const mongoProxy = new Proxy(mongo, mongoHandler);
 
 export async function mongoConnect() {
   let client;
-  const c = config["driver.@orgasmo.mongo"];
+  const c = config["drivers.@orgasmo.mongo"];
 
   const mongoURL = c.mongoURL;
   collections = c.collections;

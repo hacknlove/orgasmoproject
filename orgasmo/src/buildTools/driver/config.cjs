@@ -9,9 +9,9 @@ const driver = process.env.ORGASMO_DRIVER || "@orgasmo/json";
 const driverArray = driver.split(",");
 
 const regexp = new RegExp(
-  `^(?<from>\\./drivers/(${driverArray.join(
+  `^(?<from>\\./drivers/(?<driver>${driverArray.join(
     "|"
-  )}|common)/(?<route>[^.]*)/(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`
+  )}|common)/((?<route>[^.]*)/)?(?<filename>[^/.]+)\\.(?<type>export|event|import)\\.[mc]?[tj]s)$`
 );
 
 function sort(imports) {
@@ -267,13 +267,16 @@ function getName(route, filename) {
     ? route.replace(/^.*\/([^/]*?)$/g, "$1")
     : filename;
 }
-function map({ route = "", filename, from, type }) {
+function map({ driver = "", route = "", filename, from, type }) {
   return {
     from,
     route,
     filename,
     type,
-    importName: `${route}ー${filename}`.replace(/[^a-z0-9_]/gi, "ー"),
+    importName: `${driver}ー${route}ー${filename}`.replace(
+      /[^a-z0-9_]/gi,
+      "ー"
+    ),
     name: getName(route, filename),
   };
 }

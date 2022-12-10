@@ -8,6 +8,7 @@ const cacheNewItem_1 = require("../cache/cacheNewItem");
 const sendFullPage_1 = require("./sendFullPage");
 const filterCriteria_1 = require("../lib/filterCriteria");
 const logger_1 = require("../logger");
+const extendContextData_1 = require("../extendContextData");
 async function getPageFromConfig(ctx) {
     let pageConfig;
     try {
@@ -75,6 +76,7 @@ async function getPageFromConfig(ctx) {
         params.pageId = pageConfig.pageId;
     }
     const key = (0, cencode_1.cencode)(params);
+    await (0, extendContextData_1.default)(ctx, params, pageConfig);
     const page = {
         timeChunk: pageConfig.timeChunk,
         revalidate: pageConfig.revalidate,

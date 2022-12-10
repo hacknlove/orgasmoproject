@@ -41,7 +41,7 @@ let maxTries;
 const mongoProxy = new Proxy(mongo, mongoHandler);
 async function mongoConnect() {
     let client;
-    const c = config_1.default["driver.@orgasmo.mongo"];
+    const c = config_1.default["drivers.@orgasmo.mongo"];
     const mongoURL = c.mongoURL;
     collections = c.collections;
     try {

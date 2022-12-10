@@ -30,6 +30,11 @@ module.exports =
             isDevelopmentServer,
           },
           {
+            type: "middleware",
+            isEnabled: scss,
+            isDevelopmentServer,
+          },
+          {
             type: "driver",
             isEnabled: driver,
             isDevelopmentServer,

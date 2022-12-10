@@ -7,6 +7,7 @@ const parseCommand_1 = require("./parseCommand");
 const timechunks_1 = require("../lib/timechunks");
 const cacheControl_1 = require("../lib/cacheControl");
 const skipThisRow_1 = require("../lib/skipThisRow");
+const extendContextData_1 = require("../extendContextData");
 async function getItem(ctx) {
     const { req, res, driver } = ctx;
     const command = await (0, parseCommand_1.default)({ req, res, driver });
@@ -17,6 +18,7 @@ async function getItem(ctx) {
     if (!pageConfig) {
         return res.json(null);
     }
+    await (0, extendContextData_1.default)(ctx, command.params, pageConfig);
     if (!pageConfig.areas[command.area]) {
         return res.json(null);
     }

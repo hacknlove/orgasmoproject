@@ -4,7 +4,7 @@ import getKVStorageList from "./getKVStorageList";
 import config from "@orgasmo/orgasmo/config";
 
 export default async function getServerSideProps(ctx) {
-  const adminRole = config["driver.@orgasmo.admin.role"];
+  const adminRole = config["drivers.@orgasmo.admin.role"];
   if (adminRole && !ctx.req.user.roles.includes(adminRole)) {
     return {
       notFound: 404,

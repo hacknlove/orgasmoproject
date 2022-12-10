@@ -1,9 +1,6 @@
 import mongoProxy from "../mongoProxy";
 import { match } from "path-to-regexp";
 
-const pageConfigsCollectionName =
-  (process.env.ORGASMO_MONGO_PAGES_COLLECTION as string) ?? "pageConfigs";
-
 export default async function getPageConfig(ctx) {
   const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
 

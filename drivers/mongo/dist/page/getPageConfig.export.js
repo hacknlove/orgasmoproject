@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoProxy_1 = require("../mongoProxy");
 const path_to_regexp_1 = require("path-to-regexp");
-const pageConfigsCollectionName = process.env.ORGASMO_MONGO_PAGES_COLLECTION ?? "pageConfigs";
 async function getPageConfig(ctx) {
     const resolvedPath = ctx.resolvedUrl.replace(/\?.*$/, "");
     await mongoProxy_1.default.waitfor;

@@ -130,7 +130,7 @@ events.on("baz", baz);
 export default driver;
 
 function getMyConfig(driverName) {
-  let configCursor = config.driver;
+  let configCursor = config.drivers;
 
   const driverNameArray = driverName.split('/');
 
@@ -226,7 +226,7 @@ events.on("onSomething", route2ーonSomething);
 export default driver;
 
 function getMyConfig(driverName) {
-  let configCursor = config.driver;
+  let configCursor = config.drivers;
 
   const driverNameArray = driverName.split('/');
 
@@ -324,7 +324,7 @@ events.on("onSomething", route2ーonSomething);
 export default driver;
 
 function getMyConfig(driverName) {
-  let configCursor = config.driver;
+  let configCursor = config.drivers;
 
   const driverNameArray = driverName.split('/');
 

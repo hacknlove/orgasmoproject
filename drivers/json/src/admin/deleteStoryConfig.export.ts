@@ -10,11 +10,11 @@ export default async function SavePageConfig(ctx, { component, story }) {
     storiesPaths[component]?.[story] ??
     join(
       process.cwd(),
-      config["driver.@orgasmo.json.storiesPath"],
+      config["drivers.@orgasmo.json.storiesPath"],
       `${component}/${story}.json`
     );
 
   await remove(filePath);
 
-  await parseDirectory(config["driver.@orgasmo.json.storiesPath"]);
+  await parseDirectory(config["drivers.@orgasmo.json.storiesPath"]);
 }

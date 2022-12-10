@@ -7,9 +7,9 @@ const fs_extra_1 = require("fs-extra");
 async function SavePageConfig(ctx, pageId) {
     await parseDirectory_1.waitForIt;
     const filePath = parseDirectory_1.idsToFilePath.get(pageId) ??
-        (0, path_1.join)(process.cwd(), config_1.default["driver.@orgasmo.json.pagePath"], `${pageId}.json`);
+        (0, path_1.join)(process.cwd(), config_1.default["drivers.@orgasmo.json.pagePath"], `${pageId}.json`);
     await (0, fs_extra_1.remove)(filePath);
-    await (0, parseDirectory_1.default)(ctx.driver["@orgasmo"].json.pagesPath);
+    await (0, parseDirectory_1.default)(config_1.default["drivers.@orgasmo.json.pagePath"]);
 }
 exports.default = SavePageConfig;
 //# sourceMappingURL=deletePageConfig.export.js.map
