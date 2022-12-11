@@ -7,26 +7,8 @@ import cacheControl from "../lib/cacheControl";
 import skipThisRow from "../lib/skipThisRow";
 import extendContextData from "../extendContextData";
 
-export default async function getItem(ctx) {
+export async function getItemByNumber (ctx, { pageConfig, areaConfig, command }) {
   const { req, res, driver } = ctx;
-  const command = await parseCommand({ req, res, driver });
-
-  if (!command) {
-    return res.json(null);
-  }
-
-  const pageConfig = await driver.page.getPageConfigFromId(command.pageId, ctx);
-  if (!pageConfig) {
-    return res.json(null);
-  }
-
-  await extendContextData(ctx, command.params, pageConfig);
-
-  if (!pageConfig.areas[command.area]) {
-    return res.json(null);
-  }
-
-  const areaConfig = pageConfig.areas[command.area];
 
   const number = parseInt(req.query.n);
 
@@ -42,17 +24,23 @@ export default async function getItem(ctx) {
     return res.json(null);
   }
 
-  const row =
-    skipThisRow({ rowConfig, ctx }) ||
-    (await cleanAwaitJson(
-      await processRow({ rowConfig, params: command.params, ctx })
-    ));
+  if (skipThisRow({ rowConfig, ctx })) {
+    req.query.n = `${number + 1}`
+    return getItemByNumber(ctx, { pageConfig, areaConfig, command })
+  }
 
-  if (row.props.getMore) {
+  if (rowConfig.getProps) {
+    await extendContextData(ctx, command.params, pageConfig)
+  }
+
+  const row = await cleanAwaitJson(processRow({ rowConfig, params: command.params, ctx }))
+
+  if (row?.props.getMore) {
     row.props.src = `/api/_ogm?c=${serialize({
       ...row.props.getMore,
       expire: currentTimeChunk(rowConfig.timeChunk).expire,
       roles: req.user.roles,
+      labels: req.labels
     })}`;
     delete row.props.getMore;
   }
@@ -65,6 +53,30 @@ export default async function getItem(ctx) {
       ...command,
       expire: currentTimeChunk(rowConfig.timeChunk).expire,
       roles: req.user.roles,
+      labels: req.labels
     })}`,
   });
+
+}
+
+export default async function getItem(ctx) {
+  const { req, res, driver } = ctx;
+  const command = await parseCommand({ req, res, driver });
+
+  if (!command) {
+    return res.json(null);
+  }
+
+  const pageConfig = await driver.page.getPageConfigFromId(command.pageId, ctx);
+  if (!pageConfig) {
+    return res.json(null);
+  }
+
+  if (!pageConfig.areas[command.area]) {
+    return res.json(null);
+  }
+
+  const areaConfig = pageConfig.areas[command.area];
+
+  return getItemByNumber(ctx, { pageConfig, areaConfig, command })
 }

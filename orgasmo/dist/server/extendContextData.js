@@ -10,9 +10,11 @@ async function extendContextData(ctx, params, pageConfig) {
     if (!pageConfig.getContextData) {
         return;
     }
-    const methods = typeof pageConfig.getContextData === 'string' ? [pageConfig.getContextData] : pageConfig.getContextData;
+    const methods = typeof pageConfig.getContextData === "string"
+        ? [pageConfig.getContextData]
+        : pageConfig.getContextData;
     for (const method of methods) {
-        if (typeof ctx.driver[method] !== 'function')
+        if (typeof ctx.driver[method] !== "function")
             continue;
         try {
             ctx.contextData = deepmerge(ctx.contextData, await ctx.driver[method](ctx, params, pageConfig));

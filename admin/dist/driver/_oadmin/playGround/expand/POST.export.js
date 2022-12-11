@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const expandPageConfig_1 = require("@orgasmo/orgasmo/expandPageConfig");
 const events_1 = require("@orgasmo/orgasmo/events");
+const extendContextData_1 = require("@orgasmo/orgasmo/extendContextData");
 function wrapComponent(fileContent) {
     return {
         areas: {
@@ -39,6 +40,7 @@ async function expandPageConfigApi(ctx) {
             };
         }
     }
+    await (0, extendContextData_1.default)(ctx, params, fileContent);
     return ctx.res.json(await (0, expandPageConfig_1.default)({
         ctx,
         pageConfig: fileContent,

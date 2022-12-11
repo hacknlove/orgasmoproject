@@ -1,12 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import getItem from "./getItem";
+
+import getItem, { getItemByNumber } from "./getItem";
 import parseCommand from "./parseCommand";
+import skipThisRow from "../lib/skipThisRow";
 
 jest.mock("./parseCommand", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
+
+jest.mock('../lib/skipThisRow', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}))
 
 describe("getItem", () => {
   let ctx;
@@ -152,4 +159,30 @@ describe("getItem", () => {
     expect(ctx.res.json.mock.calls[0][0]).toBeNull();
     expect(ctx.driver["somePage.getItem"]).not.toBeCalled();
   });
+
+  it('skips the row', async () => {
+    skipThisRow.mockReturnValueOnce(true)
+
+    await getItemByNumber(ctx, { 
+      areaConfig: { items: Array.from({ length: 20 }, (v,i) => i )},
+      command: {}
+    })
+
+    expect(skipThisRow).toBeCalledTimes(2)
+  })
+
+  it('extends context if rowConfig has getProps', async () => {
+    await getItemByNumber(ctx, { 
+      areaConfig: { items: Array.from({ length: 20 }, (v,i) => i === 4 && {
+        getProps: 'some.function'
+      } )},
+      pageConfig: {
+
+      },
+      command: {
+        
+      }
+    })
+
+  })
 });

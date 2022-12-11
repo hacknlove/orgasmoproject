@@ -19,7 +19,8 @@ function middlewareFactory({ middlewares }) {
             if (typeof middlewareFunction !== "function") {
                 continue;
             }
-            if (middlewareFunction.pathRegExpFilter?.test && !middlewareFunction.pathRegExpFilter.test(req.nextUrl.pathname)) {
+            if (middlewareFunction.pathRegExpFilter?.test &&
+                !middlewareFunction.pathRegExpFilter.test(req.nextUrl.pathname)) {
                 continue;
             }
             const action = await middlewareFunction(ctx);
@@ -32,8 +33,6 @@ function middlewareFactory({ middlewares }) {
 }
 exports.default = middlewareFactory;
 exports.config = {
-    matcher: [
-        '/((?!api|_next/static|favicon.ico).*)',
-    ],
+    matcher: ["/((?!api|_next/static|favicon.ico).*)"],
 };
 //# sourceMappingURL=middlewareFactory.js.map

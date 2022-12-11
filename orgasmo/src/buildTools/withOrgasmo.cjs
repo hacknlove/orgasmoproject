@@ -30,11 +30,6 @@ module.exports =
             isDevelopmentServer,
           },
           {
-            type: "middleware",
-            isEnabled: scss,
-            isDevelopmentServer,
-          },
-          {
             type: "driver",
             isEnabled: driver,
             isDevelopmentServer,
@@ -45,6 +40,11 @@ module.exports =
             isEnabled: components,
             isDevelopmentServer,
             externalPackage: typeof components === "string" && components,
+          },
+          {
+            type: "middleware",
+            isEnabled: scss,
+            isDevelopmentServer,
           },
         ].map(processType)
       );

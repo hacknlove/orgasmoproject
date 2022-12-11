@@ -33,14 +33,15 @@ const {
 
 test("driver regexp gets the full path and the file name from components starting with capital leter and ending in dynamic.{js,...}", () => {
   const files = [
-    "./driver/@orgasmo/json/foo/bar.export.js",
-    "./driver/other/foo/bar.export.js",
-    "./driver/@orgasmo/json/foo/baz.js",
+    "./drivers/@orgasmo/json/foo/bar.export.js",
+    "./drivers/other/foo/bar.export.js",
+    "./drivers/@orgasmo/json/foo/baz.js",
   ];
 
   expect(regexp.exec(files[0]).groups).toEqual({
+    driver: "@orgasmo/json",
     filename: "bar",
-    from: "./driver/@orgasmo/json/foo/bar.export.js",
+    from: "./drivers/@orgasmo/json/foo/bar.export.js",
     route: "foo",
     type: "export",
   });
@@ -49,7 +50,7 @@ test("driver regexp gets the full path and the file name from components startin
 });
 
 test("driver globPath finds files from the driver folder ending with export", (done) => {
-  const expected = ["./driver/@orgasmo/json/foo.export.js"];
+  const expected = ["./drivers/@orgasmo/json/foo.export.js"];
 
   glob(globPath, { cwd: join(__dirname, "/test/globPath") }, (err, files) => {
     if (err) {
@@ -70,7 +71,7 @@ describe("driver fileFromImport", () => {
     const imports = [
       {
         filename: "foo",
-        from: "./driver/@orgasmo/json/something/foo.export.tsx",
+        from: "./drivers/@orgasmo/json/something/foo.export.tsx",
         name: "foo",
         importName: "foo",
         route: "something",
@@ -78,7 +79,7 @@ describe("driver fileFromImport", () => {
       },
       {
         filename: "bar",
-        from: "./driver/@orgasmo/json/something/bar.export.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.export.tsx",
         name: "bar",
         importName: "bar",
         route: "something",
@@ -86,7 +87,7 @@ describe("driver fileFromImport", () => {
       },
       {
         filename: "baz",
-        from: "./driver/@orgasmo/json/something/bar.event.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.event.tsx",
         name: "baz",
         importName: "baz",
         route: "something",
@@ -94,7 +95,7 @@ describe("driver fileFromImport", () => {
       },
       {
         filename: "cos",
-        from: "./driver/@orgasmo/json/something/cos.import.tsx",
+        from: "./drivers/@orgasmo/json/something/cos.import.tsx",
         name: "cos",
         importName: "cos",
         route: "something",
@@ -108,13 +109,15 @@ describe("driver fileFromImport", () => {
  */
 
 import config from "./config.json";
-import "./driver/@orgasmo/json/something/cos.import.tsx";
+import "./drivers/@orgasmo/json/something/cos.import.tsx";
 import events from "orgasmo/events";
-import baz from "./driver/@orgasmo/json/something/bar.event.tsx";
-import bar from "./driver/@orgasmo/json/something/bar.export.tsx";
-import foo from "./driver/@orgasmo/json/something/foo.export.tsx";
+import baz from "./drivers/@orgasmo/json/something/bar.event.tsx";
+import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
+import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
-const driver = ["@orgasmo/json"];
+global.config = config;
+
+const drivers = ["@orgasmo/json"];
 
 const driver = {
   ["something.bar"]: bar,
@@ -129,28 +132,14 @@ events.on("baz", baz);
 
 export default driver;
 
-function getMyConfig(driverName) {
-  let configCursor = config.drivers;
-
-  const driverNameArray = driverName.split('/');
-
-  for (const segment of driverNameArray) {
-    configCursor = configCursor[segment];
-
-    if (!configCursor) {
-      return {};
-    }
-  }
-  return configCursor;
-}
 if (global.startDrivers) {
-  for (const driverName of driver) {
+  for (const driverName of drivers) {
     const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+    const waitForName = \`\${driverName.replace(/\\//g, '.')}.waitFor\`
     if (driver[startMethodName]) {
-      driver[startMethodName]({
+      driver[waitForName] = driver[startMethodName]({
         driver,
-        driver,
-        config: getMyConfig(driverName),
+        drivers,
       });
     }
   }
@@ -165,7 +154,7 @@ if (global.startDrivers) {
     const imports = [
       {
         filename: "foo",
-        from: "./driver/@orgasmo/json/something/foo.export.tsx",
+        from: "./drivers/@orgasmo/json/something/foo.export.tsx",
         name: "foo",
         importName: "foo",
         route: "something",
@@ -173,7 +162,7 @@ if (global.startDrivers) {
       },
       {
         filename: "bar",
-        from: "./driver/@orgasmo/json/something/bar.export.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.export.tsx",
         name: "bar",
         importName: "bar",
         route: "something",
@@ -181,7 +170,7 @@ if (global.startDrivers) {
       },
       {
         filename: "onSomething",
-        from: "./driver/@orgasmo/json/something1/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something1/onSomething.event.tsx",
         name: "onSomething",
         importName: "route1ーonSomething",
         route: "route1",
@@ -189,7 +178,7 @@ if (global.startDrivers) {
       },
       {
         filename: "onSomething",
-        from: "./driver/@orgasmo/json/something2/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something2/onSomething.event.tsx",
         name: "onSomething",
         importName: "route2ーonSomething",
         route: "route2",
@@ -204,12 +193,14 @@ if (global.startDrivers) {
 
 import config from "./config.json";
 import events from "orgasmo/events";
-import route1ーonSomething from "./driver/@orgasmo/json/something1/onSomething.event.tsx";
-import route2ーonSomething from "./driver/@orgasmo/json/something2/onSomething.event.tsx";
-import bar from "./driver/@orgasmo/json/something/bar.export.tsx";
-import foo from "./driver/@orgasmo/json/something/foo.export.tsx";
+import route1ーonSomething from "./drivers/@orgasmo/json/something1/onSomething.event.tsx";
+import route2ーonSomething from "./drivers/@orgasmo/json/something2/onSomething.event.tsx";
+import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
+import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
-const driver = ["@orgasmo/json"];
+global.config = config;
+
+const drivers = ["@orgasmo/json"];
 
 const driver = {
   ["something.bar"]: bar,
@@ -225,28 +216,14 @@ events.on("onSomething", route2ーonSomething);
 
 export default driver;
 
-function getMyConfig(driverName) {
-  let configCursor = config.drivers;
-
-  const driverNameArray = driverName.split('/');
-
-  for (const segment of driverNameArray) {
-    configCursor = configCursor[segment];
-
-    if (!configCursor) {
-      return {};
-    }
-  }
-  return configCursor;
-}
 if (global.startDrivers) {
-  for (const driverName of driver) {
+  for (const driverName of drivers) {
     const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+    const waitForName = \`\${driverName.replace(/\\//g, '.')}.waitFor\`
     if (driver[startMethodName]) {
-      driver[startMethodName]({
+      driver[waitForName] = driver[startMethodName]({
         driver,
-        driver,
-        config: getMyConfig(driverName),
+        drivers,
       });
     }
   }
@@ -261,7 +238,7 @@ if (global.startDrivers) {
     const imports = [
       {
         filename: "foo",
-        from: "./driver/@orgasmo/json/something/foo.export.tsx",
+        from: "./drivers/@orgasmo/json/something/foo.export.tsx",
         name: "foo",
         importName: "foo",
         route: "something",
@@ -269,7 +246,7 @@ if (global.startDrivers) {
       },
       {
         filename: "bar",
-        from: "./driver/@orgasmo/json/something/bar.export.tsx",
+        from: "./drivers/@orgasmo/json/something/bar.export.tsx",
         name: "bar",
         importName: "bar",
         route: "something",
@@ -277,7 +254,7 @@ if (global.startDrivers) {
       },
       {
         filename: "onSomething",
-        from: "./driver/@orgasmo/json/something1/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something1/onSomething.event.tsx",
         name: "onSomething",
         importName: "route1ーonSomething",
         route: "route1",
@@ -285,7 +262,7 @@ if (global.startDrivers) {
       },
       {
         filename: "onSomething",
-        from: "./driver/@orgasmo/json/something2/onSomething.event.tsx",
+        from: "./drivers/@orgasmo/json/something2/onSomething.event.tsx",
         name: "onSomething",
         importName: "route2ーonSomething",
         route: "route2",
@@ -301,12 +278,14 @@ if (global.startDrivers) {
 import config from "./config.json";
 import ーorgasmoーjson from "@orgasmo/json";
 import events from "orgasmo/events";
-import route1ーonSomething from "./driver/@orgasmo/json/something1/onSomething.event.tsx";
-import route2ーonSomething from "./driver/@orgasmo/json/something2/onSomething.event.tsx";
-import bar from "./driver/@orgasmo/json/something/bar.export.tsx";
-import foo from "./driver/@orgasmo/json/something/foo.export.tsx";
+import route1ーonSomething from "./drivers/@orgasmo/json/something1/onSomething.event.tsx";
+import route2ーonSomething from "./drivers/@orgasmo/json/something2/onSomething.event.tsx";
+import bar from "./drivers/@orgasmo/json/something/bar.export.tsx";
+import foo from "./drivers/@orgasmo/json/something/foo.export.tsx";
 
-const driver = ["@orgasmo/json"];
+global.config = config;
+
+const drivers = ["@orgasmo/json"];
 
 const driver = {
   ...ーorgasmoーjson,
@@ -323,28 +302,14 @@ events.on("onSomething", route2ーonSomething);
 
 export default driver;
 
-function getMyConfig(driverName) {
-  let configCursor = config.drivers;
-
-  const driverNameArray = driverName.split('/');
-
-  for (const segment of driverNameArray) {
-    configCursor = configCursor[segment];
-
-    if (!configCursor) {
-      return {};
-    }
-  }
-  return configCursor;
-}
 if (global.startDrivers) {
-  for (const driverName of driver) {
+  for (const driverName of drivers) {
     const startMethodName = \`\${driverName.replace(/\\//g, '.')}.start\`;
+    const waitForName = \`\${driverName.replace(/\\//g, '.')}.waitFor\`
     if (driver[startMethodName]) {
-      driver[startMethodName]({
+      driver[waitForName] = driver[startMethodName]({
         driver,
-        driver,
-        config: getMyConfig(driverName),
+        drivers,
       });
     }
   }
@@ -361,15 +326,15 @@ describe("driver map", () => {
   it("adds the importName and the name fields", () => {
     const groups = {
       filename: "foo",
-      from: "./driver/@orgasmo/json/some/route/foo.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/foo.export.tsx",
       route: "some/route",
     };
 
     const expected = {
       filename: "foo",
-      from: "./driver/@orgasmo/json/some/route/foo.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/foo.export.tsx",
       route: "some/route",
-      importName: "someーrouteーfoo",
+      importName: "ーsomeーrouteーfoo",
       name: "foo",
     };
     const actual = map(groups);
@@ -378,15 +343,15 @@ describe("driver map", () => {
   it("uses the last piece of the route as name if filename is index", () => {
     const groups = {
       filename: "index",
-      from: "./driver/@orgasmo/json/some/route/index.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/index.export.tsx",
       route: "some/route",
     };
 
     const expected = {
       filename: "index",
-      from: "./driver/@orgasmo/json/some/route/index.export.tsx",
+      from: "./drivers/@orgasmo/json/some/route/index.export.tsx",
       route: "some/route",
-      importName: "someーrouteーindex",
+      importName: "ーsomeーrouteーindex",
       name: "route",
     };
     const actual = map(groups);

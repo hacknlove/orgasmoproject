@@ -1,5 +1,6 @@
 import expandPageConfig from "@orgasmo/orgasmo/expandPageConfig";
 import events from "@orgasmo/orgasmo/events";
+import extendContextData from "@orgasmo/orgasmo/extendContextData";
 
 type pageParams = Record<string, any>;
 
@@ -45,6 +46,8 @@ export default async function expandPageConfigApi(ctx) {
       };
     }
   }
+
+  await extendContextData(ctx, params, fileContent);
 
   return ctx.res.json(
     await expandPageConfig({
