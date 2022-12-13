@@ -6,6 +6,18 @@ import strapiFetch from "./strapiFetch";
 global.fetch = jest.fn();
 
 describe("strapiFetch", () => {
+  beforeEach(() => {
+    global.config = {
+      drivers: {
+        '@orgasmo': {
+          strapi: {
+            "url": "url",
+            "token": "token",
+          }
+        }
+      }
+    }
+  })
   it("fetch", async () => {
     fetch.mockResolvedValue({
       json: () => Promise.resolve({ foo: "bar" }),

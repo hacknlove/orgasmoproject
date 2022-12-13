@@ -1,26 +1,22 @@
 import mongoProxy from "../mongoProxy";
 import getPageConfig from "./getPageConfig.export";
 
-jest.mock("../mongoProxy", () => ({
-  __esModule: true,
-  default: {
-    connect: jest.fn(),
-  },
-}));
-
 describe("getPageConfig", () => {
   let ctx;
-  let pageConfigs;
+  let pages;
   let findToArray;
   beforeEach(() => {
     findToArray = jest.fn(() => []);
-    pageConfigs = {
+    pages = {
       find: jest.fn(() => ({
         toArray: () => findToArray(),
       })),
     };
+    mongoProxy.connect = jest.fn()
+    mongoProxy.waitfor = true
 
-    mongoProxy.pageConfigs = pageConfigs;
+
+    mongoProxy.pages = pages;
 
     ctx = {
       resolvedUrl: "/foo/bar",

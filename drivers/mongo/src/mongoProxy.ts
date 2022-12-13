@@ -7,7 +7,7 @@ let collections = {};
 const mongo: Record<string, any> = {
   connect: async () => {
     if (mongo.db) {
-      return mongoProxy;
+      return;
     }
     if (!mongo.waitfor) {
       maxTries = 10;
@@ -15,14 +15,14 @@ const mongo: Record<string, any> = {
     }
     await mongo.waitfor;
     mongo.connecting = null;
-    return mongoProxy;
+    return;
   },
 };
 
 const mongoHandler = {
   get: (target, collectionName) => {
     const orgasmoCollection = collections[collectionName];
-    if (orgasmoCollection) {
+    if (orgasmoCollection && target.db?.collection) {
       return target.db.collection(orgasmoCollection);
     }
     if (target[collectionName]) {
@@ -69,7 +69,7 @@ export async function mongoConnect() {
     mongo.connect();
   });
 
-  return mongoProxy;
+  return true;
 }
 
 export default mongoProxy;
