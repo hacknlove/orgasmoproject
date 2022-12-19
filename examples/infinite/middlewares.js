@@ -7,9 +7,6 @@ import config from "./config.json";
 
 global.config = config;
 
-const middlewares = {
-  
-  
-};
+const middlewares = {};
 
 export default middlewares;

@@ -10,10 +10,10 @@ jest.mock("./parseCommand", () => ({
   default: jest.fn(),
 }));
 
-jest.mock('../lib/skipThisRow', () => ({
+jest.mock("../lib/skipThisRow", () => ({
   __esModule: true,
   default: jest.fn(),
-}))
+}));
 
 describe("getItem", () => {
   let ctx;
@@ -160,29 +160,30 @@ describe("getItem", () => {
     expect(ctx.driver["somePage.getItem"]).not.toBeCalled();
   });
 
-  it('skips the row', async () => {
-    skipThisRow.mockReturnValueOnce(true)
+  it("skips the row", async () => {
+    skipThisRow.mockReturnValueOnce(true);
 
-    await getItemByNumber(ctx, { 
-      areaConfig: { items: Array.from({ length: 20 }, (v,i) => i )},
-      command: {}
-    })
+    await getItemByNumber(ctx, {
+      areaConfig: { items: Array.from({ length: 20 }, (v, i) => i) },
+      command: {},
+    });
 
-    expect(skipThisRow).toBeCalledTimes(2)
-  })
+    expect(skipThisRow).toBeCalledTimes(2);
+  });
 
-  it('extends context if rowConfig has getProps', async () => {
-    await getItemByNumber(ctx, { 
-      areaConfig: { items: Array.from({ length: 20 }, (v,i) => i === 4 && {
-        getProps: 'some.function'
-      } )},
-      pageConfig: {
-
+  it("extends context if rowConfig has getProps", async () => {
+    await getItemByNumber(ctx, {
+      areaConfig: {
+        items: Array.from(
+          { length: 20 },
+          (v, i) =>
+            i === 4 && {
+              getProps: "some.function",
+            }
+        ),
       },
-      command: {
-        
-      }
-    })
-
-  })
+      pageConfig: {},
+      command: {},
+    });
+  });
 });

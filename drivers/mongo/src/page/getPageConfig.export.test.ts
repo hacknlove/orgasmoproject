@@ -12,9 +12,8 @@ describe("getPageConfig", () => {
         toArray: () => findToArray(),
       })),
     };
-    mongoProxy.connect = jest.fn()
-    mongoProxy.waitfor = true
-
+    mongoProxy.connect = jest.fn();
+    mongoProxy.waitfor = true;
 
     mongoProxy.pages = pages;
 

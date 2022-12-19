@@ -1,4 +1,3 @@
-
 import ーorgasmoーmongoーstart from "./@orgasmo/mongo/start.export";
 import adminーdeleteKVStorage from "./admin/deleteKVStorage.export";
 import adminーdeletePageConfig from "./admin/deletePageConfig.export";
@@ -13,8 +12,6 @@ import kvーtorageーgetValue from "./kvStorage/getValue.export";
 import kvーtorageーsetValue from "./kvStorage/setValue.export";
 import pageーgetPageConfig from "./page/getPageConfig.export";
 import pageーgetPageConfigFromId from "./page/getPageConfigFromId.export";
-
-
 
 const driver = {
   ["@orgasmo.mongo.start"]: ーorgasmoーmongoーstart,
@@ -31,7 +28,7 @@ const driver = {
   ["kvStorage.setValue"]: kvーtorageーsetValue,
   ["page.getPageConfig"]: pageーgetPageConfig,
   ["page.getPageConfigFromId"]: pageーgetPageConfigFromId,
-}
+};
 
 driver["@orgasmo"] = {};
 driver["@orgasmo"]["mongo"] = {};

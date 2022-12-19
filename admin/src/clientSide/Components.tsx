@@ -21,14 +21,20 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  EditJSSnippets: dynamic(() => import("./admin/page/EditJSSnippets.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  EditLayoutName: dynamic(() => import("./admin/page/EditLayoutName.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
+  EditJSSnippets: dynamic(
+    () => import("./admin/page/EditJSSnippets.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
+  EditLayoutName: dynamic(
+    () => import("./admin/page/EditLayoutName.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
   EditMetaTags: dynamic(() => import("./admin/page/EditMetaTags.dynamic.js"), {
     suspense: true,
     loading: undefined,
@@ -37,20 +43,32 @@ export default {
     suspense: true,
     loading: undefined,
   }),
-  PlayGroundMainLayout_o: dynamic(() => import("./playground/MainLayout/PlayGroundMainLayout_o.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  KVStorageList_o: dynamic(() => import("./playground/nav/KVStorageList_o.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  PagesList_o: dynamic(() => import("./playground/nav/PagesList_o.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-  Storieslist_o: dynamic(() => import("./playground/nav/Storieslist_o.dynamic.js"), {
-    suspense: true,
-    loading: undefined,
-  }),
-}
+  PlayGroundMainLayout_o: dynamic(
+    () => import("./playground/MainLayout/PlayGroundMainLayout_o.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
+  KVStorageList_o: dynamic(
+    () => import("./playground/nav/KVStorageList_o.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
+  PagesList_o: dynamic(
+    () => import("./playground/nav/PagesList_o.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
+  Storieslist_o: dynamic(
+    () => import("./playground/nav/Storieslist_o.dynamic.js"),
+    {
+      suspense: true,
+      loading: undefined,
+    }
+  ),
+};

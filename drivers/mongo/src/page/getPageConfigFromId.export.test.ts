@@ -9,7 +9,7 @@ describe("getPageConfigFromId", () => {
       findOne: jest.fn(),
     };
 
-    mongoProxy.connect = jest.fn()
+    mongoProxy.connect = jest.fn();
 
     mongoProxy.pages = pages;
   });

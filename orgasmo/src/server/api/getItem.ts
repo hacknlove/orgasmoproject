@@ -7,7 +7,10 @@ import cacheControl from "../lib/cacheControl";
 import skipThisRow from "../lib/skipThisRow";
 import extendContextData from "../extendContextData";
 
-export async function getItemByNumber (ctx, { pageConfig, areaConfig, command }) {
+export async function getItemByNumber(
+  ctx,
+  { pageConfig, areaConfig, command }
+) {
   const { req, res, driver } = ctx;
 
   const number = parseInt(req.query.n);
@@ -25,22 +28,24 @@ export async function getItemByNumber (ctx, { pageConfig, areaConfig, command })
   }
 
   if (skipThisRow({ rowConfig, ctx })) {
-    req.query.n = `${number + 1}`
-    return getItemByNumber(ctx, { pageConfig, areaConfig, command })
+    req.query.n = `${number + 1}`;
+    return getItemByNumber(ctx, { pageConfig, areaConfig, command });
   }
 
   if (rowConfig.getProps) {
-    await extendContextData(ctx, command.params, pageConfig)
+    await extendContextData(ctx, command.params, pageConfig);
   }
 
-  const row = await cleanAwaitJson(processRow({ rowConfig, params: command.params, ctx }))
+  const row = await cleanAwaitJson(
+    processRow({ rowConfig, params: command.params, ctx })
+  );
 
   if (row?.props.getMore) {
     row.props.src = `/api/_ogm?c=${serialize({
       ...row.props.getMore,
       expire: currentTimeChunk(rowConfig.timeChunk).expire,
       roles: req.user.roles,
-      labels: req.labels
+      labels: req.labels,
     })}`;
     delete row.props.getMore;
   }
@@ -53,10 +58,9 @@ export async function getItemByNumber (ctx, { pageConfig, areaConfig, command })
       ...command,
       expire: currentTimeChunk(rowConfig.timeChunk).expire,
       roles: req.user.roles,
-      labels: req.labels
+      labels: req.labels,
     })}`,
   });
-
 }
 
 export default async function getItem(ctx) {
@@ -78,5 +82,5 @@ export default async function getItem(ctx) {
 
   const areaConfig = pageConfig.areas[command.area];
 
-  return getItemByNumber(ctx, { pageConfig, areaConfig, command })
+  return getItemByNumber(ctx, { pageConfig, areaConfig, command });
 }

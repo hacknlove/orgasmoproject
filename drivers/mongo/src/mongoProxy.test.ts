@@ -21,26 +21,28 @@ describe("mongoProxy", () => {
   beforeEach(() => {
     global.config = {
       drivers: {
-        '@orgasmo': {
+        "@orgasmo": {
           mongo: {
-            "mongoURL": "mongodb://localhost:27017/orgasmo",
-            "collections": {
-              "kvstorage": "kvStorage",
-              "pages": "pageConfigs",
-              "stories": "storyConfigs"
-            }
-          }
-        }
-      }
-    }
+            mongoURL: "mongodb://localhost:27017/orgasmo",
+            collections: {
+              kvstorage: "kvStorage",
+              pages: "pageConfigs",
+              stories: "storyConfigs",
+            },
+          },
+        },
+      },
+    };
 
     mongoProxy.db = null;
     mongoProxy.waitfor = null;
   });
   it("passes the mongoURL configuration to MongoClient", async () => {
     await mongoProxy.connect();
-    console.log(11)
-    expect(MongoClient.connect).toBeCalledWith("mongodb://localhost:27017/orgasmo");
+    console.log(11);
+    expect(MongoClient.connect).toBeCalledWith(
+      "mongodb://localhost:27017/orgasmo"
+    );
   });
   it("does not connect twice", async () => {
     await mongoProxy.connect();
@@ -86,17 +88,17 @@ describe("mongoProxy", () => {
     expect(MongoClient.connect).toBeCalledTimes(11);
   });
   it("uses the collection alias", () => {
-    console.log(1)
+    console.log(1);
     mongoProxy.db = {
-      collection: jest.fn()
-    }
+      collection: jest.fn(),
+    };
     mongoProxy.db.collection = jest.fn();
-    console.log(2)
-    mongoProxy.pages
-    console.log(3)
-    expect(mongoProxy.db.collection).toBeCalledWith('pageConfigs')
+    console.log(2);
+    mongoProxy.pages;
+    console.log(3);
+    expect(mongoProxy.db.collection).toBeCalledWith("pageConfigs");
   });
   it("throws if used before connecting", () => {
-    expect(() => mongoProxy.something).toThrow()
-  })
+    expect(() => mongoProxy.something).toThrow();
+  });
 });
