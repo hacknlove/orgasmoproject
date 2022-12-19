@@ -10,7 +10,7 @@
     "test": "echo you should do testing!"
   },
   "dependencies": {
-    "next": "^13.0.0",
+    "next": "13.0.6",
     "@orgasmo/orgasmo": "1.13.14",
     "@orgasmo/json": "1.13.14",
     "react": "18.2.0",
