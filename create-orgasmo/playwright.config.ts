@@ -50,20 +50,18 @@ if (process.env.CI) {
   config.workers = 1;
   config.webServer.timeout = 5 * 60 * 1000;
 
-  config.projects?.push(
+  !process.env.CI_LOCAL && config.projects?.push(
     {
       name: "firefox",
       use: {
         ...devices["Desktop Firefox"],
       },
-      testIgnore: /vertical/, // in firefox this needs to be tested manually because too much sloopines with the mouse whell and the scroll event
     },
     {
       name: "webkit",
       use: {
         ...devices["Desktop Safari"],
       },
-      testIgnore: /vertical/, // in firefox this needs to be tested manually because too much sloopines with the mouse whell and the scroll event
     }
   );
 }

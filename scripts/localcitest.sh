@@ -7,7 +7,7 @@ git clone $REPODIR orgasmoproject-ci
 cd orgasmoproject-ci
 npm ci
 npm run lint.ci
-CI=true npm test
+CI=true CI_LOCAL=true npm test
 
 cd /tmp
 rm -rf orgasmoproject-ci

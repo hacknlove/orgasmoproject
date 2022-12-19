@@ -50,7 +50,7 @@ if (process.env.CI) {
   config.workers = 1;
   config.webServer.timeout = 5 * 60 * 1000;
 
-  config.projects?.push(
+  !process.env.CI_LOCAL && config.projects?.push(
     {
       name: "firefox",
       use: {
