@@ -1,3 +1,11 @@
+# WARNING
+
+Many people have recommended changing the name of this library to make it look more professional and reliable.
+
+I am starting the migration.
+
+This repository will be renamed soon, and the npm package will be deprecated and replaced
+
 # Orgasmo
 
 A Next.js plugin that gives you the best UX, the best DX and the best MX (marketeer experience).

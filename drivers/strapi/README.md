@@ -1,3 +1,11 @@
+# WARNING
+
+Many people have recommended changing the name of this library to make it look more professional and reliable.
+
+I am starting the migration.
+
+This repository will be renamed soon, and the npm package will be deprecated and replaced
+
 # orgasmo strapi driver
 
 This driver connects your orgasmo webapp with strapi, using the schema of `@orgasmo/strapi-template`

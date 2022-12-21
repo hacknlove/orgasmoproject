@@ -1,3 +1,11 @@
+# WARNING
+
+Many people have recommended changing the name of this library to make it look more professional and reliable.
+
+I am starting the migration.
+
+When the refactor is finished, This documentation will redirect to the new documentation.
+
 # Orgasmo
 
 > The Next.js plugin for the best user experience and the highest productivity.
